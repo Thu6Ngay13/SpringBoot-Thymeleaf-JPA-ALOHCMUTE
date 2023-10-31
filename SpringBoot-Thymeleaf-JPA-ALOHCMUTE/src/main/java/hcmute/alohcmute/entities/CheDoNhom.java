@@ -1,5 +1,7 @@
 package hcmute.alohcmute.entities;
 
+import java.util.List;
+
 import javax.persistence.*;
 
 import lombok.AllArgsConstructor;
@@ -20,4 +22,10 @@ public class CheDoNhom {
 	
 	@Column
 	private String TenCheDo;
+	
+	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.EAGER)
+	private List<Nhom> nhoms;
+	
+	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.EAGER)
+	private List<BaiViet> baiViets;
 }
