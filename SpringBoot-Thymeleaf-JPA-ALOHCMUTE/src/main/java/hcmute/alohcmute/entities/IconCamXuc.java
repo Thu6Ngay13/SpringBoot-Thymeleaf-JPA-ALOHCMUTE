@@ -7,17 +7,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+
 
 @Data 
 @NoArgsConstructor 
@@ -25,28 +20,14 @@ import lombok.AllArgsConstructor;
 
 @Entity
 @Table
-public class ThongTinNguoiDung implements Serializable {
+@NamedQuery(name="IconCamXuc.findAll", query="SELECT cx FROM IconCamXuc cx")
+public class IconCamXuc implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaNguoiDung;
+	private int MaCamXuc;
 	
 	@Column
-	private String HoTen; 
-
-	@Column
-	private String NickName;
-	
-	@Column
-	private String Email;
-	
-	@Column
-	private String GioiTinh;
-	
-	@Column
-	private String SDT;
-	
-	@Column
-	private String AvatarURl;
+	private String HinhAnh;	
 }
