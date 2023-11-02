@@ -1,31 +1,27 @@
 package hcmute.alohcmute.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.*;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data 
-@NoArgsConstructor 
-@AllArgsConstructor
+import jakarta.persistence.*;
 
 @Entity
 @Table
-public class CheDoNhom {
+public class CheDoNhom implements Serializable{
+
+	private static final long serialVersionUID = -1383740467103010145L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "MaCheDo")
 	private int MaCheDo;
 	
-	@Column
+	@Column(name = "TenCheDo")
 	private String TenCheDo;
 	
-	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.EAGER)
-	private List<Nhom> nhoms;
+	@OneToMany(mappedBy = "CheDoNhom", fetch = FetchType.EAGER)
+	private List<Nhom> Nhoms;
 	
-	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.EAGER)
-	private List<BaiViet> baiViets;
+	@OneToMany(mappedBy = "CheDONhom", fetch = FetchType.EAGER)
+	private List<BaiViet> BaiViets;
 }
