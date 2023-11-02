@@ -30,23 +30,28 @@ public class ThongTinNguoiDung implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "MaNguoiDung")
 	private int MaNguoiDung;
 	
-	@Column
+	@Column(name = "HoTen")
 	private String HoTen; 
 
-	@Column
+	@Column(name = "NickName")
 	private String NickName;
 	
-	@Column
+	@Column(name = "Email")
 	private String Email;
 	
-	@Column
+	@Column(name = "GioiTinh")
 	private String GioiTinh;
 	
-	@Column
+	@Column(name = "SDT")
 	private String SDT;
 	
-	@Column
+	@Column(name = "AvatarURL")
 	private String AvatarURl;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "TaiKhoan")
+    private TaiKhoan TaiKhoan;
 }
