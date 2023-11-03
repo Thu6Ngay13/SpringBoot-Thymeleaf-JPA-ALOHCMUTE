@@ -1,6 +1,7 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -42,7 +43,7 @@ public class Nhom  implements Serializable{
 	@JoinColumn(name="MaCheDo")
 	private CheDoNhom CheDoNhom;
 	
-	@ManyToMany
-	Set<TaiKhoan> TaiKhoan;
+	@ManyToMany(mappedBy = "Nhom")
+	private Set<TaiKhoan> TaiKhoan = new HashSet<TaiKhoan>();
 	
 }

@@ -39,7 +39,7 @@ public class BaiViet implements Serializable {
 	private String NoiDungHinhAnh;
 	
 	@ManyToOne
-	@JoinColumn(name = "MaBaxiViet")
+	@JoinColumn(name = "MaBaiViet")
 	private ThaCamXuc ThaCamXuc;
 	
 	@OneToMany(mappedBy = "BaiViet", fetch = FetchType.EAGER)

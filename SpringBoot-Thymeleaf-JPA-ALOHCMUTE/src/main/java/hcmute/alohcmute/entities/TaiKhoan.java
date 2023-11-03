@@ -1,7 +1,9 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 
@@ -27,4 +29,21 @@ public class TaiKhoan implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "MaLoai")
 	private LoaiTaiKhoan LoaiTaiKhoan;
+	
+	@ManyToMany
+	@JoinTable(name = "CuocHoiThoai_TaiKhoan",
+			joinColumns = {@JoinColumn(name = "TaiKhoan")},
+			inverseJoinColumns = {@JoinColumn(name = "MaCuocHoiThoai")})
+		private Set<CuocHoiThoai> CuocHoiThoai = new HashSet<CuocHoiThoai>();
+
+	
+	
+	@ManyToMany
+	@JoinTable(name = "Nhom_TaiKhoan",
+			joinColumns = {@JoinColumn(name = "TaiKhoan")},
+			inverseJoinColumns = {@JoinColumn(name = "MaNhom")})
+		private Set<Nhom> Nhom = new HashSet<Nhom>();
+
+
+
 }

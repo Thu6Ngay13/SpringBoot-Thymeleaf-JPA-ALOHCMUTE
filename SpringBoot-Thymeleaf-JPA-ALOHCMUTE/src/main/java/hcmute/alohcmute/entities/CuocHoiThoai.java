@@ -1,6 +1,7 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,10 +36,12 @@ public class CuocHoiThoai implements Serializable{
 	@OneToMany(mappedBy="CuocHoiThoai", fetch=FetchType.EAGER)
 	private List<TinNhan> TinNhans;
 	
-	@ManyToMany
-	Set<TaiKhoan> TaiKhoan;
 	
 	
+	@ManyToMany(mappedBy = "CuocHoiThoai")
+	private Set<TaiKhoan> TaiKhoan = new HashSet<TaiKhoan>();
+
+
 	
 
 }
