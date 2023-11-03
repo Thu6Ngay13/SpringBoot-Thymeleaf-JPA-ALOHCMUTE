@@ -2,9 +2,18 @@ package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data 
+@NoArgsConstructor 
+@AllArgsConstructor
+
+@Entity
+@Table
 public class LoaiTaiKhoan implements Serializable{
 
 	private static final long serialVersionUID = 3808802474750908577L;

@@ -21,19 +21,20 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name="TinNhan")
-public class TinNhan implements Serializable{
+	public class TinNhan implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaTinNhan;
+	private int maTinNhan;
 	@Column(columnDefinition = "nvarchar(5000)")
-	private String NoiDungChu;
+	private String noiDungChu;
 	@Column
-	private String NoiDungHinhAnh;
+	private String noiDungHinhAnh;
 	@Column
-	private Date ThoiGianGuiTinNhan;
+	private Date thoiGianGuiTinNhan;
 	
 	@ManyToOne
-	@JoinColumn(name="MaCuocHoiThoai")
-	private CuocHoiThoai CuocHoiThoai;
+	@JoinColumn(name="maCuocHoiThoai")
+	private CuocHoiThoai cuocHoiThoai;
+
 }

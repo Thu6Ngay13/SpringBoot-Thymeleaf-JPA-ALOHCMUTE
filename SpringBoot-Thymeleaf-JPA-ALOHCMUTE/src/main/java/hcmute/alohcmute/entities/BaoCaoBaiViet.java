@@ -24,14 +24,14 @@ public class BaoCaoBaiViet  implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaBaoCao;
+	private int maBaoCao;
 	@Column (columnDefinition = "nvarchar(5000)")
-	private String NoiDungBaoCao;
+	private String noiDungBaoCao;
+	
+	
 	@ManyToOne
-	@JoinColumn(name="MaBaiViet")
-	private BaiViet BaiViet;
-	
-	
+	@JoinColumn(name="maBaiViet")
+	private BaiViet baiViet;
 	
 	
 }
