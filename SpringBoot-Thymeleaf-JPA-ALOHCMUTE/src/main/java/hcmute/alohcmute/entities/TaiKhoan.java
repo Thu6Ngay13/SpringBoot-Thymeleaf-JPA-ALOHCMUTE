@@ -23,9 +23,6 @@ public class TaiKhoan implements Serializable{
 	@OneToOne(mappedBy = "taiKhoan")
     private ThongTinNguoiDung thongTinNguoiDung;
 	
-	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
-	private List<BaiViet> baiViets;
-	
 	@ManyToOne
 	@JoinColumn(name = "MaLoai")
 	private LoaiTaiKhoan loaiTaiKhoan;
