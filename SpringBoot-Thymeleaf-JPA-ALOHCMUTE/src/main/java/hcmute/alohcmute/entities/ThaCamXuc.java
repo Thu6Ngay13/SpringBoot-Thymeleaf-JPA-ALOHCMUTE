@@ -1,8 +1,10 @@
 package hcmute.alohcmute.entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,12 +17,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table
 public class ThaCamXuc {
-	@Column
-	private BaiViet BaiViet;
+	@OneToOne
+	@JoinColumn(name = "thaCamXuc")
+	private IconCamXuc iconCamXuc;
 	
 	@Id
-	private IconCamXuc IconCamXuc;
+	@ManyToOne
+	@JoinColumn(name = "MaBaiViet")
+	private BaiViet baiViet;
 	
 	@Id
-	private TaiKhoan TaiKhoan;	
+	@ManyToOne
+	@JoinColumn(name = "taiKhoan")
+	private TaiKhoan taiKhoan;	
 }

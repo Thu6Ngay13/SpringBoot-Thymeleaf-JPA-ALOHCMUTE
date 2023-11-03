@@ -30,27 +30,25 @@ public class BinhLuan implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaBinhLuan;
+	@Column(name = "MaBinhLuan")
+	private int maBinhLuan;
 	
-	@Column
-	private String NoiDungChu;
+	@Column(name = "NoiDungChu")
+	private String noiDungChu;
 	
-	@Column
-	private String NoiDungHinhAnh;
-	
-	@ManyToOne
-	@JoinColumn(name = "MaBinhLuan")
-	private ThaCamXuc ThaCamXuc;
+	@Column(name = "NoiDungHinhAnh")
+	private String noiDungHinhAnh;
 	
 	@ManyToOne
 	@JoinColumn(name = "MaBaiViet")
-	private BaiViet BaiViet;
+	private BaiViet baiViet;
 	
 	@ManyToOne
 	@JoinColumn(name = "MaBinhLuan")
-	private BinhLuan BinhLuanCha;
+	private BinhLuan binhLuanCha;
 	
-	@OneToMany(mappedBy = "BinhLuanCha", fetch = FetchType.EAGER)
-	private List<BinhLuan> BinhLuanCons;
+	@OneToMany(mappedBy = "binhLuanCha", fetch = FetchType.EAGER)
+	private List<BinhLuan> binhLuanCons;
+	
 	
 }
