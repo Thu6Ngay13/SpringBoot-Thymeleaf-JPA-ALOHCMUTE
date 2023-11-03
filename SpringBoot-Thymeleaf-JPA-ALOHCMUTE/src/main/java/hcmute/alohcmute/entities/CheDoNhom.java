@@ -4,24 +4,30 @@ import java.io.Serializable;
 import java.util.List;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data 
+@NoArgsConstructor 
+@AllArgsConstructor
 
 @Entity
-@Table
+@Table(name="CheDoNhom")
 public class CheDoNhom implements Serializable{
 
-	private static final long serialVersionUID = -1383740467103010145L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MaCheDo")
-	private int MaCheDo;
+	private int maCheDo;
 	
-	@Column(name = "TenCheDo")
+	@Column
 	private String TenCheDo;
 	
-	@OneToMany(mappedBy = "CheDoNhom", fetch = FetchType.EAGER)
-	private List<Nhom> Nhoms;
+	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.EAGER)
+	private List<Nhom> nhoms;
 	
-	@OneToMany(mappedBy = "CheDONhom", fetch = FetchType.EAGER)
-	private List<BaiViet> BaiViets;
+	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.EAGER)
+	private List<BaiViet> baiViets;
 }

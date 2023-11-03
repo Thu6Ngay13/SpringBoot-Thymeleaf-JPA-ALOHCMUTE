@@ -31,19 +31,19 @@ public class Nhom  implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaNhom;
+	private int maNhom;
 
 	@Column(columnDefinition = "nvarchar(200)")
-	private String TenNhom;
+	private String tenNhom;
 
 	@Column(columnDefinition = "nvarchar(200)")
-	private String NgayThanhLap;
+	private String ngayThanhLap;
 	
 	@ManyToOne
-	@JoinColumn(name="MaCheDo")
-	private CheDoNhom CheDoNhom;
+	@JoinColumn(name="maCheDo")
+	private CheDoNhom cheDoNhom;
 	
-	@ManyToMany(mappedBy = "Nhom")
-	private Set<TaiKhoan> TaiKhoan = new HashSet<TaiKhoan>();
+	@ManyToMany(mappedBy = "nhom")
+	private Set<TaiKhoan> taiKhoans = new HashSet<TaiKhoan>();
 	
 }

@@ -29,19 +29,18 @@ public class CuocHoiThoai implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaCuocHoiThoai;
+	private int maCuocHoiThoai;
 	@Column
-	private String TenCuocHoiThoai;
-	
-	@OneToMany(mappedBy="CuocHoiThoai", fetch=FetchType.EAGER)
-	private List<TinNhan> TinNhans;
+	private String tenCuocHoiThoai;
 	
 	
+	  @OneToMany(mappedBy="cuocHoiThoai", fetch=FetchType.EAGER) 
+	  private List<TinNhan> tinNhans;
+	 
 	
-	@ManyToMany(mappedBy = "CuocHoiThoai")
-	private Set<TaiKhoan> TaiKhoan = new HashSet<TaiKhoan>();
-
-
+	  @ManyToMany(mappedBy = "cuocHoiThoai") 
+	  private Set<TaiKhoan> taiKhoans = new HashSet<TaiKhoan>();
+	 
 	
 
 }
