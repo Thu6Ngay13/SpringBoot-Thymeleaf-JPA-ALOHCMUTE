@@ -20,12 +20,15 @@ public class TaiKhoan implements Serializable{
 	@Column(name = "MatKhau")
 	private int matKhau;
 	
-	@OneToOne(mappedBy = "TaiKhoan")
-    private ThongTinNguoiDung ThongTinNguoiDung;
+	@OneToOne(mappedBy = "taiKhoan")
+    private ThongTinNguoiDung thongTinNguoiDung;
+	
+	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
+	private List<BaiViet> baiViets;
 	
 	@ManyToOne
 	@JoinColumn(name = "MaLoai")
-	private LoaiTaiKhoan LoaiTaiKhoan;
+	private LoaiTaiKhoan loaiTaiKhoan;
 	
 	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
 	private List<BaiViet> baiViets;
