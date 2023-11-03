@@ -40,7 +40,7 @@ public class Nhom  implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="MaCheDo")
-	private CheDoNhom CheDoNhom;
+	private CheDoNhom cheDoNhom;
 	
 	@ManyToMany
 	Set<TaiKhoan> TaiKhoan;

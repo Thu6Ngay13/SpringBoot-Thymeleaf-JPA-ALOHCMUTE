@@ -13,18 +13,18 @@ public class TaiKhoan implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "TaiKhoan")
-	private int TaiKhoan;
+	private int taiKhoan;
 	
 	@Column(name = "MatKhau")
-	private int MatKhau;
+	private int matKhau;
 	
-	@OneToOne(mappedBy = "TaiKhoan")
-    private ThongTinNguoiDung ThongTinNguoiDung;
+	@OneToOne(mappedBy = "taiKhoan")
+    private ThongTinNguoiDung thongTinNguoiDung;
 	
-	@OneToMany(mappedBy = "TaiKhoan", fetch = FetchType.EAGER)
-	private List<BaiViet> BaiViets;
+	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
+	private List<BaiViet> baiViets;
 	
 	@ManyToOne
 	@JoinColumn(name = "MaLoai")
-	private LoaiTaiKhoan LoaiTaiKhoan;
+	private LoaiTaiKhoan loaiTaiKhoan;
 }
