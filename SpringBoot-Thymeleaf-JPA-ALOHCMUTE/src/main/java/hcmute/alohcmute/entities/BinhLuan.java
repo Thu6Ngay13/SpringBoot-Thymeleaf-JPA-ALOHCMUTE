@@ -24,10 +24,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table
-@NamedQuery(name="BinhLuan.findAll", query="SELECT bl FROM BinhLuan bl")
 public class BinhLuan implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -1396701384501394019L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MaBinhLuan")
@@ -44,11 +43,9 @@ public class BinhLuan implements Serializable {
 	private BaiViet baiViet;
 	
 	@ManyToOne
-	@JoinColumn(name = "MaBinhLuan")
+	@JoinColumn(name = "MaBinhLuanCha")
 	private BinhLuan binhLuanCha;
 	
 	@OneToMany(mappedBy = "binhLuanCha", fetch = FetchType.EAGER)
 	private List<BinhLuan> binhLuanCons;
-	
-	
 }

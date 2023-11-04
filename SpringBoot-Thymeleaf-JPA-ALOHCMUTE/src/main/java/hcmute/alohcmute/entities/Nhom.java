@@ -1,6 +1,7 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,27 +24,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 @Entity
-@Table(name="Nhom")
-
+@Table
 public class Nhom  implements Serializable{
+	private static final long serialVersionUID = 322144712404628458L;
 
-	private static final long serialVersionUID = 1L;
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "MaNhom")
 	private int maNhom;
 
-	@Column(columnDefinition = "nvarchar(200)")
+	@Column(name = "TenNhom")
 	private String tenNhom;
 
-	@Column(columnDefinition = "nvarchar(200)")
-	private String ngayThanhLap;
+	@Column(name = "NgayThanhLap")
+	private LocalDateTime ngayThanhLap;
 	
 	@ManyToOne
 	@JoinColumn(name="MaCheDo")
-	private CheDoNhom cheDoNhom;
+	private CheDo cheDoNhom;
 	
 	@ManyToMany(mappedBy = "nhom")
 	private Set<TaiKhoan> taiKhoans = new HashSet<TaiKhoan>();
-	
 }

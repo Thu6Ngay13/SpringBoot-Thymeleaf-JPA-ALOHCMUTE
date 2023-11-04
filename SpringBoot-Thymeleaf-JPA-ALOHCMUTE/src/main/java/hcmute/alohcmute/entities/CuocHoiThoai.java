@@ -18,29 +18,27 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data 
-@NoArgsConstructor 
+@Data
+@NoArgsConstructor
 @AllArgsConstructor
 
 @Entity
-@Table(name="CuocHoiThoai")
-public class CuocHoiThoai implements Serializable{
-	
-	private static final long serialVersionUID = 1L;
+@Table
+public class CuocHoiThoai implements Serializable {
+	private static final long serialVersionUID = -269845602203068297L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "MaCuocHoiThoai")
 	private int maCuocHoiThoai;
-	@Column
+
+	@Column(name = "TenCuocHoiThoai")
 	private String tenCuocHoiThoai;
-	
-	
-	  @OneToMany(mappedBy="cuocHoiThoai", fetch=FetchType.EAGER) 
-	  private List<TinNhan> tinNhans;
-	 
-	
-	  @ManyToMany(mappedBy = "cuocHoiThoai") 
-	  private Set<TaiKhoan> taiKhoans = new HashSet<TaiKhoan>();
-	 
-	
+
+	@OneToMany(mappedBy = "cuocHoiThoai", fetch = FetchType.EAGER)
+	private List<TinNhan> tinNhans;
+
+	@ManyToMany(mappedBy = "cuocHoiThoai")
+	private Set<TaiKhoan> taiKhoans = new HashSet<TaiKhoan>();
 
 }

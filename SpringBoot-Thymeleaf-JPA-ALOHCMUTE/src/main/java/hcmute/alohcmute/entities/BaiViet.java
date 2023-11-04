@@ -11,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -24,10 +23,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table
-@NamedQuery(name="BaiViet.findAll",query="select bv from BaiViet bv")
 public class BaiViet implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 3982734050186550748L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MaBaiViet")
@@ -39,9 +37,17 @@ public class BaiViet implements Serializable {
 	@Column(name = "NoiDungHinhAnh")
 	private String noiDungHinhAnh;
 	
+	@ManyToOne
+	@JoinColumn(name = "MaCheDo")
+	private CheDo cheDoNhom;
+	
 	@OneToMany(mappedBy = "baiViet", fetch = FetchType.EAGER)
 	private List<BinhLuan> binhLuans;
 	
-	@OneToMany(mappedBy = "baiViet", fetch = FetchType.EAGER)
-	private List<ThaCamXuc> thaCamXucs;
+	@ManyToOne
+	@JoinColumn(name = "TaiKhoan")
+	private TaiKhoan taiKhoan;
+	
+	@OneToMany(mappedBy = "baiViet")
+	private List<BaoCaoBaiViet> baoCaoBaiViets;
 }

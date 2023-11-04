@@ -15,15 +15,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table
 public class LoaiTaiKhoan implements Serializable{
-
 	private static final long serialVersionUID = 3808802474750908577L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MaLoai")
-	private int MaLoai;
+	private int maLoai;
 	
 	@Column(name = "TenLoai")
-	private int TenLoai;
+	private int tenLoai;
 	
 	@OneToMany(mappedBy = "loaiTaiKhoan", fetch = FetchType.EAGER)
 	private List<TaiKhoan> taiKhoans;

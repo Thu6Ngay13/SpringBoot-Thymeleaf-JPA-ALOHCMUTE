@@ -30,6 +30,21 @@ public class TaiKhoan implements Serializable{
 	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
 	private List<BaiViet> baiViets;
 	
-	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
-	private List<ThaCamXuc> thaCamXucs;
+	@ManyToMany
+	@JoinTable(name = "TaiKhoan_CuocHoiThoai",
+		joinColumns = {@JoinColumn(name = "TaiKhoan") },
+		inverseJoinColumns = {@JoinColumn(name = "MaCuocHoiThoai")})
+	private Set<CuocHoiThoai> cuocHoiThoai = new HashSet<CuocHoiThoai>();
+	
+	@ManyToMany
+	@JoinTable(name = "TaiKhoan_Nhom",
+		joinColumns = {@JoinColumn(name = "TaiKhoan") },
+		inverseJoinColumns = {@JoinColumn(name = "MaNhom")})
+	private Set<Nhom> nhom = new HashSet<Nhom>();
+	
+	@ManyToMany
+	@JoinTable(name = "TaiKhoan_BaiViet",
+		joinColumns = {@JoinColumn(name = "TaiKhoan") },
+		inverseJoinColumns = {@JoinColumn(name = "MaBaiViet")})
+	private Set<BaiViet> baiVietTuongTacs = new HashSet<BaiViet>();
 }
