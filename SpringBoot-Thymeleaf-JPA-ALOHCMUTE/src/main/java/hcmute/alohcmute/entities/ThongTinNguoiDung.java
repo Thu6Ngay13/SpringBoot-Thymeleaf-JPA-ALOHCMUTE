@@ -1,16 +1,19 @@
 package hcmute.alohcmute.entities;
 
+import java.io.Serializable;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 
 @Data 
 @NoArgsConstructor 
@@ -18,27 +21,33 @@ import lombok.AllArgsConstructor;
 
 @Entity
 @Table
-public class ThongTinNguoiDung {
-	
+public class ThongTinNguoiDung implements Serializable {
+	private static final long serialVersionUID = 6957281178392839308L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaNguoiDung;
+	@Column(name = "MaNguoiDung")
+	private int maNguoiDung;
 	
-	@Column
-	private String HoTen; 
+	@Column(name = "HoTen")
+	private String hoTen; 
 
-	@Column
-	private String NickName;
+	@Column(name = "NickName")
+	private String nickName;
 	
-	@Column
-	private String Email;
+	@Column(name = "Email")
+	private String email;
 	
-	@Column
-	private String GioiTinh;
+	@Column(name = "GioiTinh")
+	private String gioiTinh;
 	
-	@Column
-	private String SDT;
+	@Column(name = "SDT")
+	private String sDT;
 	
-	@Column
-	private String AvatarURl;
+	@Column(name = "AvatarURL")
+	private String avatarURl;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "TaiKhoan")
+    private TaiKhoan taiKhoan;
 }
