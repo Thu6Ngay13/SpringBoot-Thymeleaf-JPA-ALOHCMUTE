@@ -11,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -24,25 +23,31 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table
-@NamedQuery(name="BaiViet.findAll",query="select bv from BaiViet bv")
 public class BaiViet implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 3982734050186550748L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaBaiViet;
+	@Column(name = "MaBaiViet")
+	private int maBaiViet;
 	
-	@Column
-	private String NoiDungChu;
+	@Column(name = "NoiDungChu")
+	private String noiDungChu;
 	
-	@Column
-	private String NoiDungHinhAnh;
+	@Column(name = "NoiDungHinhAnh")
+	private String noiDungHinhAnh;
 	
 	@ManyToOne
-	@JoinColumn(name = "MaBaxiViet")
-	private ThaCamXuc ThaCamXuc;
+	@JoinColumn(name = "MaCheDo")
+	private CheDo cheDoNhom;
 	
-	@OneToMany(mappedBy = "BaiViet", fetch = FetchType.EAGER)
-	private List<BinhLuan> BinhLuans;
+	@OneToMany(mappedBy = "baiViet", fetch = FetchType.EAGER)
+	private List<BinhLuan> binhLuans;
 	
+	@ManyToOne
+	@JoinColumn(name = "TaiKhoan")
+	private TaiKhoan taiKhoan;
+	
+	@OneToMany(mappedBy = "baiViet")
+	private List<BaoCaoBaiViet> baoCaoBaiViets;
 }

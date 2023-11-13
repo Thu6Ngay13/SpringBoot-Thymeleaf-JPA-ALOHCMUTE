@@ -2,19 +2,28 @@ package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.*;
-public class LoaiTaiKhoan implements Serializable{
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data 
+@NoArgsConstructor 
+@AllArgsConstructor
+
+@Entity
+@Table
+public class LoaiTaiKhoan implements Serializable{
 	private static final long serialVersionUID = 3808802474750908577L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "MaLoai")
-	private int MaLoai;
+	private int maLoai;
 	
 	@Column(name = "TenLoai")
-	private int TenLoai;
+	private int tenLoai;
 	
 	@OneToMany(mappedBy = "loaiTaiKhoan", fetch = FetchType.EAGER)
 	private List<TaiKhoan> taiKhoans;

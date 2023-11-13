@@ -1,7 +1,7 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,24 +16,30 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data 
-@NoArgsConstructor 
+@NoArgsConstructor
 @AllArgsConstructor
 
 @Entity
-@Table(name="TinNhan")
+@Table
 public class TinNhan implements Serializable{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7595339127598956518L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaTinNhan;
-	@Column(columnDefinition = "nvarchar(5000)")
-	private String NoiDungChu;
-	@Column
-	private String NoiDungHinhAnh;
-	@Column
-	private Date ThoiGianGuiTinNhan;
+	@Column(name = "MaTinNhan")
+	private int maTinNhan;
+	
+	@Column(name = "NoiDungChu")
+	private String noiDungChu;
+	
+	@Column(name = "NoiDungHinhAnh")
+	private String noiDungHinhAnh;
+	
+	@Column(name = "ThoiGianGuiTinNhan")
+	private LocalDateTime thoiGianGuiTinNhan;
 	
 	@ManyToOne
 	@JoinColumn(name="MaCuocHoiThoai")
-	private CuocHoiThoai CuocHoiThoai;
+	private CuocHoiThoai cuocHoiThoai;
+
 }

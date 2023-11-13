@@ -2,6 +2,7 @@ package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ import jakarta.persistence.*;
 @Entity
 @Table
 public class ThongTinNguoiDung implements Serializable {
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6957281178392839308L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
