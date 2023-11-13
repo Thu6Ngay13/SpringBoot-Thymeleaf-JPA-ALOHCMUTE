@@ -1,7 +1,6 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;

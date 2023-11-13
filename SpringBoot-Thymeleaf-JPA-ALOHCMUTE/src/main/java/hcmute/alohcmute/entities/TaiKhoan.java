@@ -22,6 +22,7 @@ public class TaiKhoan implements Serializable{
 	
 	@OneToOne(mappedBy = "taiKhoan")
     private ThongTinNguoiDung thongTinNguoiDung;
+
 	
 	@ManyToOne
 	@JoinColumn(name = "MaLoai")
@@ -47,4 +48,17 @@ public class TaiKhoan implements Serializable{
 		joinColumns = {@JoinColumn(name = "TaiKhoan") },
 		inverseJoinColumns = {@JoinColumn(name = "MaBaiViet")})
 	private Set<BaiViet> baiVietTuongTacs = new HashSet<BaiViet>();
+	
+	@ManyToMany
+	@JoinTable(name = "TaiKhoan_TheoDoi_TaiKhoan",
+		joinColumns = {@JoinColumn(name = "TaiKhoanTheoDoi") },
+		inverseJoinColumns = {@JoinColumn(name = "TaiKhoanBiTheoDoi")})
+	private Set<TaiKhoan> taiKhoanTheoDois = new HashSet<TaiKhoan>();
+	
+	@ManyToMany
+	@JoinTable(name = "TaiKhoan_Chan_TaiKhoan",
+		joinColumns = {@JoinColumn(name = "TaiKhoanChan") },
+		inverseJoinColumns = {@JoinColumn(name = "TaiKhoanBiChan")})
+	private Set<TaiKhoan> taiKhoanChans = new HashSet<TaiKhoan>();
+	
 }
