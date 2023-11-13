@@ -11,7 +11,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -24,33 +23,28 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table
-@NamedQuery(name="BinhLuan.findAll", query="SELECT bl FROM BinhLuan bl")
 public class BinhLuan implements Serializable {
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = -1396701384501394019L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaBinhLuan;
+	@Column(name = "MaBinhLuan")
+	private int maBinhLuan;
 	
-	@Column
-	private String NoiDungChu;
+	@Column(name = "NoiDungChu")
+	private String noiDungChu;
 	
-	@Column
-	private String NoiDungHinhAnh;
-	
-	@ManyToOne
-	@JoinColumn(name = "MaBinhLuan")
-	private ThaCamXuc ThaCamXuc;
+	@Column(name = "NoiDungHinhAnh")
+	private String noiDungHinhAnh;
 	
 	@ManyToOne
 	@JoinColumn(name = "MaBaiViet")
-	private BaiViet BaiViet;
+	private BaiViet baiViet;
 	
 	@ManyToOne
-	@JoinColumn(name = "MaBinhLuan")
-	private BinhLuan BinhLuanCha;
+	@JoinColumn(name = "MaBinhLuanCha")
+	private BinhLuan binhLuanCha;
 	
-	@OneToMany(mappedBy = "BinhLuanCha", fetch = FetchType.EAGER)
-	private List<BinhLuan> BinhLuanCons;
-	
+	@OneToMany(mappedBy = "binhLuanCha", fetch = FetchType.EAGER)
+	private List<BinhLuan> binhLuanCons;
 }

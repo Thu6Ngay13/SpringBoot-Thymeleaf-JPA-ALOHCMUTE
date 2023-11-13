@@ -19,19 +19,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 @Entity
-@Table(name="BaoCaoBaiViet")
+@Table
 public class BaoCaoBaiViet  implements Serializable{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -894093677681477663L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaBaoCao;
-	@Column (columnDefinition = "nvarchar(5000)")
-	private String NoiDungBaoCao;
+	@Column(name = "MaBaoCao")
+	private int maBaoCao;
+	
+	@Column(name = "NoiDungBaoCao")
+	private String noiDungBaoCao;
+	
 	@ManyToOne
 	@JoinColumn(name="MaBaiViet")
-	private BaiViet BaiViet;
-	
-	
-	
-	
+	private BaiViet baiViet;
 }

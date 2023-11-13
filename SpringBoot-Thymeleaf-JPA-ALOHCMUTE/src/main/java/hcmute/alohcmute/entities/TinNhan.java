@@ -1,7 +1,7 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,94 +16,30 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data 
-@NoArgsConstructor 
+@NoArgsConstructor
 @AllArgsConstructor
 
 @Entity
-@Table(name="TinNhan")
+@Table
 public class TinNhan implements Serializable{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -7595339127598956518L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaTinNhan;
-	@Column(columnDefinition = "nvarchar(5000)")
-	private String NoiDungChu;
-	@Column
-	private String NoiDungHinhAnh;
-	@Column
-	private Date ThoiGianGuiTinNhan;
+	@Column(name = "MaTinNhan")
+	private int maTinNhan;
+	
+	@Column(name = "NoiDungChu")
+	private String noiDungChu;
+	
+	@Column(name = "NoiDungHinhAnh")
+	private String noiDungHinhAnh;
+	
+	@Column(name = "ThoiGianGuiTinNhan")
+	private LocalDateTime thoiGianGuiTinNhan;
 	
 	@ManyToOne
 	@JoinColumn(name="MaCuocHoiThoai")
-	private CuocHoiThoai CuocHoiThoai;
-
-	
-	
-	
-	public TinNhan() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public String toString() {
-		return "TinNhan [MaTinNhan=" + MaTinNhan + ", NoiDungChu=" + NoiDungChu + ", NoiDungHinhAnh=" + NoiDungHinhAnh
-				+ ", ThoiGianGuiTinNhan=" + ThoiGianGuiTinNhan + ", CuocHoiThoai=" + CuocHoiThoai + "]";
-	}
-
-	public TinNhan(int maTinNhan, String noiDungChu, String noiDungHinhAnh, Date thoiGianGuiTinNhan,
-			hcmute.alohcmute.entities.CuocHoiThoai cuocHoiThoai) {
-		super();
-		MaTinNhan = maTinNhan;
-		NoiDungChu = noiDungChu;
-		NoiDungHinhAnh = noiDungHinhAnh;
-		ThoiGianGuiTinNhan = thoiGianGuiTinNhan;
-		CuocHoiThoai = cuocHoiThoai;
-	}
-
-	public int getMaTinNhan() {
-		return MaTinNhan;
-	}
-
-	public void setMaTinNhan(int maTinNhan) {
-		MaTinNhan = maTinNhan;
-	}
-
-	public String getNoiDungChu() {
-		return NoiDungChu;
-	}
-
-	public void setNoiDungChu(String noiDungChu) {
-		NoiDungChu = noiDungChu;
-	}
-
-	public String getNoiDungHinhAnh() {
-		return NoiDungHinhAnh;
-	}
-
-	public void setNoiDungHinhAnh(String noiDungHinhAnh) {
-		NoiDungHinhAnh = noiDungHinhAnh;
-	}
-
-	public Date getThoiGianGuiTinNhan() {
-		return ThoiGianGuiTinNhan;
-	}
-
-	public void setThoiGianGuiTinNhan(Date thoiGianGuiTinNhan) {
-		ThoiGianGuiTinNhan = thoiGianGuiTinNhan;
-	}
-
-	public CuocHoiThoai getCuocHoiThoai() {
-		return CuocHoiThoai;
-	}
-
-	public void setCuocHoiThoai(CuocHoiThoai cuocHoiThoai) {
-		CuocHoiThoai = cuocHoiThoai;
-	}
-
-	
-	
-	
-
+	private CuocHoiThoai cuocHoiThoai;
 
 }
