@@ -13,17 +13,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 @Entity
-@Table(name="CheDoNhom")
-public class CheDoNhom implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+@Table
+public class CheDo implements Serializable{
+	private static final long serialVersionUID = -3486983368785225071L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "MaCheDo")
 	private int maCheDo;
 	
-	@Column
-	private String TenCheDo;
+	@Column(name = "TenCheDo")
+	private String tenCheDo;
 	
 	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.EAGER)
 	private List<Nhom> nhoms;
