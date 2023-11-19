@@ -1,0 +1,48 @@
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>ALOHCMUTE</title>
+	<link rel="stylesheet" th:href="@{css/style_newfeed.css}" />
+	<link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css}" rel="stylesheet"
+		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />
+</head>
+
+<body>
+	<div th:fragment="header">
+		<!-- header starts -->
+		<div class="header">
+			<div class="header__left">
+				<img src="https://drive.google.com/uc?export=download&id=1bSB1yh1Fhx2ydklR6wQRG5EyB-iPLoI0" alt="" />
+				<div class="header__input">
+					<span class="material-icons"> search </span>
+					<input type="text" placeholder="Search Facebook" size="50" />
+				</div>
+			</div>
+
+			<div class="header__middle">
+				<img src="https://drive.google.com/uc?export=download&id=12Sx1OCgE9CoVjN7GbwAur3mUPWsXImAW" alt=""
+					width="200" />
+			</div>
+
+			<div class="header__right">
+				<div class="header__info">
+					<img class="user__avatar"
+						src="https://drive.google.com/uc?export=download&id=1iron5MdYdBe9ND8RTdzYN906Nubt7UOD" alt="" />
+					<h4>Trần Văn Hưng</h4>
+				</div>
+				<span class="material-icons"> forum </span>
+				<span class="material-icons"> notifications_active </span>
+				<span class="material-icons">manage_accounts</span>
+
+			</div>
+		</div>
+		<!-- header ends -->
+	</div>
+
+</body>
+
+</html>
