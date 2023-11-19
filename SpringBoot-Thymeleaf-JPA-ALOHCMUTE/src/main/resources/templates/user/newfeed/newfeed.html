@@ -1,0 +1,106 @@
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{user/layout-user.html}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>ALOHCMUTE</title>
+	<link rel="stylesheet" th:href="@{css/style_newfeed.css}" />
+	<link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css}" rel="stylesheet"
+		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<!-- main body starts -->
+		<div class="main__body">
+			<!-- feed starts -->
+			<div class="feed">
+
+				<!-- message sender starts -->
+				<div class="messageSender">
+					<div class="messageSender__top">
+						<img class="user__avatar"
+							src="https://drive.google.com/uc?export=download&id=1iron5MdYdBe9ND8RTdzYN906Nubt7UOD"
+							alt="" />
+						<form>
+							<input class="messageSender__input" placeholder="Bạn đang nghĩ gì?" type="text" />
+						</form>
+					</div>
+
+					<div class="messageSender__bottom">
+						<div class="messageSender__option">
+							<span style="color: red" class="material-icons"> videocam </span>
+							<h3>Đăng Video</h3>
+						</div>
+
+						<div class="messageSender__option">
+							<span style="color: green" class="material-icons"> photo_library </span>
+							<h3>Đăng Ảnh</h3>
+						</div>
+
+						<div class="messageSender__option">
+							<span style="color: orange" class="material-icons"> insert_emoticon </span>
+							<h3>Cảm Xúc</h3>
+						</div>
+					</div>
+				</div>
+				<!-- message sender ends -->
+
+				<!-- post starts -->
+				<div class="post">
+					<div class="post__top">
+						<img class="user__avatar post__avatar"
+							src="https://drive.google.com/uc?export=download&id=1iron5MdYdBe9ND8RTdzYN906Nubt7UOD"
+							alt="" />
+						<div class="post__topInfo">
+							<h3 style="margin: 0;">Trần Văn Hưng</h3>
+							<p style="margin: 0; display: inline-block; vertical-align: middle;">25 April at 20:30</p>
+							<span class="material-icons icon-public">public</span>
+						</div>
+						<div class="report-icon">
+							<button class="report-button" id="reportButton">
+								<span class="material-icons">report</span>Report
+							</button>
+						</div>
+					</div>
+
+					<div class="post__bottom">
+						<p>CÚTTTTTTTTTTTTT</p>
+					</div>
+
+					<div class="post__image">
+						<img src="https://wallpapercave.com/wp/wp7357832.jpg" alt="" />
+					</div>
+
+					<div class="post__options">
+						<div class="post__option">
+							<span class="material-icons"> thumb_up </span>
+							<p>Like</p>
+						</div>
+
+						<div class="post__option">
+							<span class="material-icons"> chat_bubble_outline </span>
+							<p>Comment</p>
+						</div>
+
+						<div class="post__option">
+							<span class="material-icons"> near_me </span>
+							<p>Share</p>
+						</div>
+					</div>
+				</div>
+				<!-- post ends -->
+			</div>
+			<!-- feed ends -->
+
+
+		</div>
+		<!-- main body ends -->
+
+	</section>
+</body>
+
+</html>
