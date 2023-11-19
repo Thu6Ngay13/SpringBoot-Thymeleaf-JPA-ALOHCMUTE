@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{user/layout-user.html}">
 <html lang="en">
 
 <head>
@@ -17,48 +18,8 @@
 </head>
 
 <body>
-	<!-- <div
-class="
-  rounded-circle
-  p-1
-  bg-gray
-  d-flex
-  align-items-center
-  justify-content-center
-  mx-2
-"
-style="width: 38px; height: 38px"
-type="button"
-id="notMenu"
-data-bs-toggle="dropdown"
-aria-expanded="false"
-data-bs-auto-close="outside"
->
-<i class="fas fa-bell"></i>
-</div> -->
-	<!-- notifications dd -->
-	<!-- <ul
-class="dropdown-menu border-0 shadow p-3"
-aria-labelledby="notMenu"
-style="width: 23em; max-height: 600px; overflow-y: auto"
-> -->
-	<!-- header -->
-	<!-- <li class="p-1">
-  <div class="d-flex justify-content-between">
-    <h2>Notifications</h2> -->
-	<!-- <div>
-      <i
-        class="
-          fas
-          fa-ellipsis-h
-          pointer
-          p-2
-          rounded-circle
-          bg-gray
-        "
-        type="button"
-        data-bs-toggle="dropdown"
-      ></i> -->
+		<section layout:fragment="content">
+
 	<ul class="dropdown-menu">
 		<li class="dropdown-item d-flex align-items-left" type="button">
 			<i class="fas fa-check me-3 text-muted"></i>
@@ -201,4 +162,5 @@ style="width: 23em; max-height: 600px; overflow-y: auto"
 	</a>
 	</li>
 	</ul>
+		</section>
 </body>
