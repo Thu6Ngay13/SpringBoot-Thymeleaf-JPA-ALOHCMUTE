@@ -13,48 +13,6 @@
 <body>
     <div class="contains container-fluid">
         <div class="row flex-nowrap">
-            <div class="contains-left col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-                <div id="leftbar" class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                    <a th:href="@{/}"
-                        class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                        <span class="fs-5 d-none d-sm-inline"><img id="logo" th:src="@{images/image_logo.png}" alt=""></span>
-                    </a>
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                        <li>
-                            <a th:href="@{#}" class="nav-link align-middle px-0">
-                                <i class="fs-4 bi-house"></i> <i class="fa-solid fa-house"></i> <span class="ms-1 d-none d-sm-inline">Home</i></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{#}" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-table"></i> <i class="fas fa-flag"></i> <span class="ms-1 d-none d-sm-inline">Report</span></a>
-                        </li>
-                        <li>
-                            <a th:href="@{#}" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-people"></i> <i class="fas fa-user-tag"></i> <span class="ms-1 d-none d-sm-inline">Role </span>
-                            </a>
-                        </li>
-                    </ul>
-                    <hr>
-                    <div class="dropdown pb-4">
-                        <a th:href="@{#}" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img th:src="@{images/image_2.jfif}" alt="hugenerd" width="30" height="30"
-                                class="rounded-circle">
-                            <span class="d-none d-sm-inline mx-1">Hai con mèo</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" th:href="@{#}">New project...</a></li>
-                            <li><a class="dropdown-item" th:href="@{#}">Settings</a></li>
-                            <li><a class="dropdown-item" th:href="@{#}">Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" th:href="@{#}">Sign out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
             <div class="col py-3">
                 <div class ="table_report">
                     <table class="table">
@@ -90,16 +48,6 @@
             
         </div>
         
-    </div>
-    <div class="footer">
-      <footer class="bg-light text-center text-lg-start">
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-          © 2023 Copyright:
-          <a class="text-dark" th:href="@{#}">ALOHCMUTE.COM</a>
-        </div>
-        <!-- Copyright -->
-      </footer>
     </div>
     <script src="https://kit.fontawesome.com/adf0f449ea.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
