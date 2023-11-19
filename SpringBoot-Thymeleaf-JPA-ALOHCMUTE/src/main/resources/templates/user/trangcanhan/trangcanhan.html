@@ -1,157 +1,109 @@
 <!doctype html>
-<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{user/layout-user.html}">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{style_trangcanhan.css}">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bootstrap demo</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<link rel="stylesheet" th:href="@{style_trangcanhan.css}">
 </head>
 
 <body>
-    <div class="contains container-fluid">
-        <div class="row flex-nowrap">
-            <div class="contains-left col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-                <div id="leftbar" class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                    <a th:href="@{/}"
-                        class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                        <span class="fs-5 d-none d-sm-inline"><img id="logo" th:src="@{/images/logo.png}" alt=""></span>
-                    </a>
-                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-                        id="menu">
-                        <li>
-                            <a th:href="@{#}" class="nav-link align-middle px-0">
-                                <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home <i class="fa-solid fa-house"></i></span>
-                            </a>
-                        </li>
-                        <li>
-                            <a th:href="@{#}" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Chat <i class="fa-solid fa-paper-plane"></i></span></a>
-                        </li>
-                        <li>
-                            <a th:href="@{#}" class="nav-link px-0 align-middle">
-                                <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Group <i class="fa-solid fa-users-line"></i></span>
-                            </a>
-                        </li>
-                    </ul>
-                    <hr>
-                    <div class="dropdown pb-4">
-                        <a th:href="@{#}" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-                            id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img th:src="@{/images/img2.jfif}" alt="hugenerd" width="30" height="30"
-                                class="rounded-circle">
-                            <span class="d-none d-sm-inline mx-1">Hai con mèo</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" th:href="@{#}">New project...</a></li>
-                            <li><a class="dropdown-item" th:href="@{#}">Settings</a></li>
-                            <li><a class="dropdown-item" th:href="@{#}">Profile</a></li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li><a class="dropdown-item" th:href="@{#}">Sign out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col py-3">
-                <div class="head">
-                  <div class="myavt">
-                    <img th:src="@{/images/img2.jfif}" alt="myavt"> 
-                    <div class="info">
-                      <h2>Hai con mèo màu xanh lá cây</h2>
-                      <div class="bot-info">
-                        <h3>1 bài viết</h3>
-                        <h3>3 người theo dõi</h3>
-                        <h3>10 vong theo dõi</h3>
-                        <h3>Đang theo dõi 100 người</h3>
-                      </div>
-                    </div>
-                    
-                  </div>
-                </div>
-                <div class="row d-inline-flex">
-                    <!-- Gallery Item 1 -->
-                    <div class="col-12 col-sm-6 col-md-4 p-2">
-                        <div class="d-flex flex-column text-center border height100 image">
-                            <div>
-                                <img th:src="@{/images/img1.jfif}" />
-                            </div>
-                            <h2>Sheep</h2>
-                            <p>Info..</p>
-                        </div>
-                    </div>
-                    <!-- Gallery Item 2 -->
-                    <div class="col-12 col-sm-6 col-md-4 p-2">
-                        <div class="d-flex flex-column text-center border height100 image">
-                            <div>
-                                <img th:src="@{/images/img2.jfif}" />
-                            </div>
-                            <h2>Horse</h2>
-                        </div>
-                    </div>
-                    <!-- Gallery Item 3 -->
-                    <div class="col-12 col-sm-6 col-md-4 p-2">
-                        <div class="d-flex flex-column text-center border height100 image">
-                            <div>
-                                <img th:src="@{/images/img4.jfif}" />
-                            </div>
-                            <h2>Duck</h2>
-                        </div>
-                    </div>
-                    <!-- Gallery Item 4 -->
-                    <div class="col-12 col-sm-6 col-md-4 p-2">
-                        <div class="d-flex flex-column text-center border height100 image">
-                            <div>
-                                <img th:src="@{/images/img1.jfif}" />
-                            </div>
-                            <h2>Goat</h2>
-                        </div>
-                    </div>
-                    <!-- Gallery Item 5 -->
-                    <div class="col-12 col-sm-6 col-md-4 p-2">
-                        <div class="d-flex flex-column text-center border height100 image">
-                            <div>
-                                <img th:src="@{/images/img1.jfif}" />
-                            </div>
-                            <h2>Chicken</h2>
-                        </div>
-                    </div>
-                    <!-- Gallery Item 6 -->
-                    <div class="col-12 col-sm-6 col-md-4 p-2">
-                        <div class="d-flex flex-column text-center border height100 image">
-                            <div>
-                                <img th:src="@{/images/img1.jfif}" />
-                            </div>
-                            <h2>Cow</h2>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-            
-        </div>
-        
-    </div>
-    <div class="footer">
-      <footer class="bg-light text-center text-lg-start">
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-          © 2023 Copyright:
-          <a class="text-dark" th:href="@{#}">ALOHCMUTE.COM</a>
-        </div>
-        <!-- Copyright -->
-      </footer>
-    </div>
-    <script src="https://kit.fontawesome.com/adf0f449ea.js" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-        crossorigin="anonymous"></script>
+	<section class="row" layout:fragment="content">
+		<div class="contains container-fluid">
+			<div class="row flex-nowrap">
+				<div class="col py-3">
+					<div class="head">
+						<div class="myavt">
+							<img th:src="@{/images/img2.jfif}" alt="myavt">
+							<div class="info">
+								<h2>Hai con mèo màu xanh lá cây</h2>
+								<div class="bot-info">
+									<h3>1 bài viết</h3>
+									<h3>3 người theo dõi</h3>
+									<h3>10 vong theo dõi</h3>
+									<h3>Đang theo dõi 100 người</h3>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<div class="row d-inline-flex">
+						<!-- Gallery Item 1 -->
+						<div class="col-12 col-sm-6 col-md-4 p-2">
+							<div class="d-flex flex-column text-center border height100 image">
+								<div>
+									<img th:src="@{/images/img1.jfif}" />
+								</div>
+								<h2>Sheep</h2>
+								<p>Info..</p>
+							</div>
+						</div>
+						<!-- Gallery Item 2 -->
+						<div class="col-12 col-sm-6 col-md-4 p-2">
+							<div class="d-flex flex-column text-center border height100 image">
+								<div>
+									<img th:src="@{/images/img2.jfif}" />
+								</div>
+								<h2>Horse</h2>
+							</div>
+						</div>
+						<!-- Gallery Item 3 -->
+						<div class="col-12 col-sm-6 col-md-4 p-2">
+							<div class="d-flex flex-column text-center border height100 image">
+								<div>
+									<img th:src="@{/images/img4.jfif}" />
+								</div>
+								<h2>Duck</h2>
+							</div>
+						</div>
+						<!-- Gallery Item 4 -->
+						<div class="col-12 col-sm-6 col-md-4 p-2">
+							<div class="d-flex flex-column text-center border height100 image">
+								<div>
+									<img th:src="@{/images/img1.jfif}" />
+								</div>
+								<h2>Goat</h2>
+							</div>
+						</div>
+						<!-- Gallery Item 5 -->
+						<div class="col-12 col-sm-6 col-md-4 p-2">
+							<div class="d-flex flex-column text-center border height100 image">
+								<div>
+									<img th:src="@{/images/img1.jfif}" />
+								</div>
+								<h2>Chicken</h2>
+							</div>
+						</div>
+						<!-- Gallery Item 6 -->
+						<div class="col-12 col-sm-6 col-md-4 p-2">
+							<div class="d-flex flex-column text-center border height100 image">
+								<div>
+									<img th:src="@{/images/img1.jfif}" />
+								</div>
+								<h2>Cow</h2>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+
+
+	<script src="https://kit.fontawesome.com/adf0f449ea.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
 </body>
 
 </html>
