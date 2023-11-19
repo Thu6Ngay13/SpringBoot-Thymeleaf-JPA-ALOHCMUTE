@@ -8,6 +8,6 @@ public class UserController {
 	
 	@GetMapping("/")
 	public String home() {
-		return "login/dangNhap.html";
+		return "web/dangnhap/dangnhap.html";
 	}
 }
