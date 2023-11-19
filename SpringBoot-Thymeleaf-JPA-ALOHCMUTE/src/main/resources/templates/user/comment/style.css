@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background: #ececec;
+}
+
+/*------------ Login container ------------*/
+
+.box-area{
+    width: 1500px;
+}
+
+/*------------ Right box ------------*/
+.choice{
+    margin-left: 320px;
+}
+.right-box{
+    padding: 0px 30px 40px 40px;
+}
+.right-box .skfjkk .lkt40 img {
+    width: 40px;
+    border-radius: 50%;
+    height: 40px;
+  }
+
+
+.myavt h6{
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+.post__options {
+    /* padding-top: 5px;
+    padding-bottom: 5px; */
+    justify-content: space-evenly;
+    font-size: medium;
+    color: gray;
+    cursor: pointer;
+    height: 30px;
+    margin-bottom: 15px;
+  }
+  
+  .post__option {
+    justify-content: center;
+    padding: 4px;
+    flex: 1;
+  }
+  
+  .post__option p {
+    margin-left: 10px;
+  }
+  
+  .post__option:hover {
+    background-color: #eff2f5;
+    border-radius: 10px;
+  }
+
+.listcmt {
+    height: 400px; 
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.addcmt{
+    width: 30;
+  
+}
+
+.name{
+    margin-left: 10px;
+    margin-bottom: 5px;
+}
+
+/*------------ Custom Placeholder ------------*/
+
+::placeholder{
+    font-size: 16px;
+}
+
+.rounded-4{
+    border-radius: 20px;
+}
+.rounded-5{
+    border-radius: 30px;
+}
+
+
+/*------------ For small screens------------*/
+
+@media only screen and (max-width: 768px){
+
+     .box-area{
+        margin: 0 10px;
+
+     }
+     .left-box{
+        height: 100px;
+        overflow: hidden;
+     }
+     .right-box{
+        padding: 20px;
+     }
+
+}
