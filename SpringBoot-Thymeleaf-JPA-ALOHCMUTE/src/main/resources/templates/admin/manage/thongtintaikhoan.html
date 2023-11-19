@@ -9,7 +9,7 @@
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{css//style_thongtintaikhoan.css}">
+    <link rel="stylesheet" th:href="@{css/style_thongtintaikhoan.css}">
 </head>
 
 <body>
@@ -17,42 +17,42 @@
         <div class="row flex-nowrap">
             <div class="contains-left col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
                 <div id="leftbar" class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                    <a href="/"
+                    <a th:href="@{/}"
                         class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                        <span class="fs-5 d-none d-sm-inline"><img id="logo" th:src="@{images//image_logo.png" alt=""></span>
+                        <span class="fs-5 d-none d-sm-inline"><img id="logo" th:src="@{images/image_logo.png" alt=""></span>
                     </a>
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                         <li>
-                            <a href="#" class="nav-link align-middle px-0">
+                            <a th:href="@{#}" class="nav-link align-middle px-0">
                                 <i class="fs-4 bi-house"></i> <i class="fa-solid fa-house"></i> <span class="ms-1 d-none d-sm-inline">Home</i></span>
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-0 align-middle">
+                            <a th:href="@{#}" class="nav-link px-0 align-middle">
                                 <i class="fs-4 bi-table"></i> <i class="fas fa-flag"></i> <span class="ms-1 d-none d-sm-inline">Report</span></a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link px-0 align-middle">
+                            <a th:href="@{#}" class="nav-link px-0 align-middle">
                                 <i class="fs-4 bi-people"></i> <i class="fas fa-user-tag"></i> <span class="ms-1 d-none d-sm-inline">Role </span>
                             </a>
                         </li>
                     </ul>
                     <hr>
                     <div class="dropdown pb-4">
-                        <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        <a th:href="@{#}" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img th:src="@{images//image_2.jfif}" alt="hugenerd" width="30" height="30"
+                            <img th:src="@{images/image_2.jfif}" alt="hugenerd" width="30" height="30"
                                 class="rounded-circle">
                             <span class="d-none d-sm-inline mx-1">Admin</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                            <li><a class="dropdown-item" href="#">New project...</a></li>
-                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" th:href="@{#}">New project...</a></li>
+                            <li><a class="dropdown-item" th:href="@{#}">Settings</a></li>
+                            <li><a class="dropdown-item" th:href="@{#}">Profile</a></li>
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#">Sign out</a></li>
+                            <li><a class="dropdown-item" th:href="@{#}">Sign out</a></li>
                         </ul>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                                 <div class="card-header">Hình đại diện</div>
                                 <div class="card-body text-center">
                                     <!-- Profile picture image-->
-                                    <img class="img-account-profile rounded-circle mb-2" src="http://bootdey.com/img/Content/avatar/avatar1.png" alt="">
+                                    <img class="img-account-profile rounded-circle mb-2" th:src="@{http://bootdey.com/img/Content/avatar/avatar1.png}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -140,7 +140,7 @@
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
           © 2023 Copyright:
-          <a class="text-dark" href="#">ALOHCMUTE.COM</a>
+          <a class="text-dark" th:href="@{#}">ALOHCMUTE.COM</a>
         </div>
         <!-- Copyright -->
       </footer>
