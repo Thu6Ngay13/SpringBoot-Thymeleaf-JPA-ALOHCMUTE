@@ -1,4 +1,6 @@
 <!doctype html>
+<html xmlns:th "http://www.thymeleaf.org" 
+	xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout">
 <html lang="en">
 
 <head>
@@ -7,7 +9,7 @@
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="style_userManage.css">
+    <link rel="stylesheet" th:href="@{css//style_userManage.css}">
 </head>
 
 <body>
@@ -17,7 +19,7 @@
                 <div id="leftbar" class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                     <a href="/"
                         class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                        <span class="fs-5 d-none d-sm-inline"><img id="logo" src="images/logo.png" alt=""></span>
+                        <span class="fs-5 d-none d-sm-inline"><img id="logo" th:src="@{images//logo.png}" alt=""></span>
                     </a>
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
                         <li>
@@ -39,7 +41,7 @@
                     <div class="dropdown pb-4">
                         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
                             id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <img src="images/img2.jfif" alt="hugenerd" width="30" height="30"
+                            <img th:src="@{images//img2.jfif}" alt="hugenerd" width="30" height="30"
                                 class="rounded-circle">
                             <span class="d-none d-sm-inline mx-1">Hai con mèo</span>
                         </a>
