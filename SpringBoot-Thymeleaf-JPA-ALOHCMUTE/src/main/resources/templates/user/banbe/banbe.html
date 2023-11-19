@@ -1,4 +1,5 @@
-<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{user/layout-user.html}">
 
 <head>
 	<meta charset="utf-8">
@@ -15,6 +16,7 @@
 </head>
 
 <body>
+	<section layout:fragment="content">
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="bootstrap" viewBox="0 0 118 94">
 			<title>Bạn bè</title>
@@ -184,29 +186,6 @@
 								</symbol>
 							</svg>
 							<main>
-								<table>
-									<tr>
-										<td style="background-color:#f2ffff">
-											<div class="sidebar">
-
-												<div class="sidebarRow">
-													<span class="material-icons"> people </span>
-													<h4>Bạn bè</h4>
-												</div>
-
-												<div class="sidebarRow">
-													<span class="material-icons"> person_add </span>
-													<h4>Lời mời kết bạn</h4>
-												</div>
-
-												<div class="sidebarRow">
-													<span class="material-icons"> person_add_alt </span>
-													<h4>Gợi ý kết bạn</h4>
-												</div>
-
-											</div>
-										</td>
-										<td class="expand">
 											<h1 class="visually-hidden">Features examples</h1>
 
 											<div class="container px-4 py-5" id="featured-3">
@@ -282,13 +261,11 @@
 													</div>
 												</div>
 											</div>
-										<td>
 					</div>
 					</div>
-			</tr>
-		</table>
 	</main>
 	<script th:src="@{../assets/dist/js/bootstrap.bundle.min.js}"></script>
+	</section>
 </body>
 
 </html>
