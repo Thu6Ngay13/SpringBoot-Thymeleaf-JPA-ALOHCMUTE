@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import hcmute.alohcmute.entities.ThongTinNguoiDung;
-import repositories.ThongTinNguoiDungRepository;
+import hcmute.alohcmute.repositories.ThongTinNguoiDungRepository;
 
 @Service
 public class ThongTinNguoiDungServiceImpl implements IThongTinNguoiDungService{
