@@ -18,7 +18,7 @@ public class TaiKhoan implements Serializable{
 	private int taiKhoan;
 	
 	@Column(name = "MatKhau")
-	private int matKhau;
+	private String matKhau;
 	
 	@OneToOne(mappedBy = "taiKhoan")
     private ThongTinNguoiDung thongTinNguoiDung;
