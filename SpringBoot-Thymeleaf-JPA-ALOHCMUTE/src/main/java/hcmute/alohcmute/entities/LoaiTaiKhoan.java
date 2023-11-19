@@ -23,7 +23,7 @@ public class LoaiTaiKhoan implements Serializable{
 	private int maLoai;
 	
 	@Column(name = "TenLoai")
-	private int tenLoai;
+	private String tenLoai;
 	
 	@OneToMany(mappedBy = "loaiTaiKhoan", fetch = FetchType.EAGER)
 	private List<TaiKhoan> taiKhoans;
