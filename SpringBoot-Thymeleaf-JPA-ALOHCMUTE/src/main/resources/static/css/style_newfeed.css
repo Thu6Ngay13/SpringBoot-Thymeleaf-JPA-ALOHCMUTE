@@ -100,7 +100,40 @@ border-top: 1px solid #dddddd;
     margin-left: 10px;
     border-radius: 999px;
   }
+  .icon-public {
+    font-size: 14px; /* Điều chỉnh kích thước ở đây */
+    vertical-align: middle;
+    transform: scale(0.8); /* Điều chỉnh kích thước bằng transform */
+    margin-right: 5px; /* Điều chỉnh khoảng cách với ngày nếu cần */
+  }
+  .report-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+  }
   
+  .report-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .report-button .material-icons {
+    margin-right: 4px;
+  }
+  
+  /* Tùy chỉnh CSS khác cho nút báo cáo */
+  
+  
+  /* Tùy chỉnh CSS khác cho nút báo cáo */
+  
+    
+  h5 {
+    margin-left: 9px; /* Thêm margin-left cho thẻ h5 */
+  }
   .header__input input {
     border: none;
     background-color: transparent;
