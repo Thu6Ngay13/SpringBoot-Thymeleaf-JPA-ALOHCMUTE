@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{user/layout-user.html}">
 
 <head>
 	<meta charset="UTF-8" />
@@ -13,7 +14,8 @@
 </head>
 
 <body>
-	<!-- main body starts -->
+	<section class="row" layout:fragment="content">
+<!-- main body starts -->
 	<div class="main__body">
 		<!-- sidebar starts -->
 		<div class="sidebar sidebar">
@@ -218,17 +220,20 @@
 			</div>
 			<!-- message sender starts -->
 
+<div style="flex: 0.33" class="widgets">
+	<div class="fb-page" th:data-href="@{https://www.facebook.com/facebook}" data-tabs="timeline" data-width="500"
+		data-height="1000" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false"
+		data-show-facepile="true">
+		<blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore">
+		</blockquote>
+	</div>
+</div>
+</div>
+</div>
+<!-- main body ends -->
 
-			<div style="flex: 0.33" class="widgets">
-				<div class="fb-page" th:data-href="@{https://www.facebook.com/facebook}" data-tabs="timeline"
-					data-width="500" data-height="1000" data-small-header="false" data-adapt-container-width="true"
-					data-hide-cover="false" data-show-facepile="true">
-					<blockquote cite="https://www.facebook.com/facebook" class="fb-xfbml-parse-ignore">
-					</blockquote>
-				</div>
-			</div>
-		</div>
-		<!-- main body ends -->
+	</section>
+	
 </body>
 
 </html>

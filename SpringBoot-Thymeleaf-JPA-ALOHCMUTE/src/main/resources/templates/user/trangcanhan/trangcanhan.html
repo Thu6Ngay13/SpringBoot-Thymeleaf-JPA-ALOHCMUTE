@@ -1,5 +1,6 @@
 <!doctype html>
-<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{user/layout-user.html}">
 
 <head>
 	<meta charset="utf-8">
@@ -11,88 +12,91 @@
 </head>
 
 <body>
-	<div class="contains container-fluid">
-		<div class="row flex-nowrap">
-			<div class="col py-3">
-				<div class="head">
-					<div class="myavt">
-						<img th:src="@{/images/img2.jfif}" alt="myavt">
-						<div class="info">
-							<h2>Hai con mèo màu xanh lá cây</h2>
-							<div class="bot-info">
-								<h3>1 bài viết</h3>
-								<h3>3 người theo dõi</h3>
-								<h3>10 vong theo dõi</h3>
-								<h3>Đang theo dõi 100 người</h3>
+	<section class="row" layout:fragment="content">
+		<div class="contains container-fluid">
+			<div class="row flex-nowrap">
+				<div class="col py-3">
+					<div class="head">
+						<div class="myavt">
+							<img th:src="@{/images/img2.jfif}" alt="myavt">
+							<div class="info">
+								<h2>Hai con mèo màu xanh lá cây</h2>
+								<div class="bot-info">
+									<h3>1 bài viết</h3>
+									<h3>3 người theo dõi</h3>
+									<h3>10 vong theo dõi</h3>
+									<h3>Đang theo dõi 100 người</h3>
+								</div>
 							</div>
-						</div>
 
-					</div>
-				</div>
-				<div class="row d-inline-flex">
-					<!-- Gallery Item 1 -->
-					<div class="col-12 col-sm-6 col-md-4 p-2">
-						<div class="d-flex flex-column text-center border height100 image">
-							<div>
-								<img th:src="@{/images/img1.jfif}" />
-							</div>
-							<h2>Sheep</h2>
-							<p>Info..</p>
 						</div>
 					</div>
-					<!-- Gallery Item 2 -->
-					<div class="col-12 col-sm-6 col-md-4 p-2">
-						<div class="d-flex flex-column text-center border height100 image">
-							<div>
-								<img th:src="@{/images/img2.jfif}" />
+					<div class="row d-inline-flex">
+						<!-- Gallery Item 1 -->
+						<div class="col-12 col-sm-6 col-md-4 p-2">
+							<div class="d-flex flex-column text-center border height100 image">
+								<div>
+									<img th:src="@{/images/img1.jfif}" />
+								</div>
+								<h2>Sheep</h2>
+								<p>Info..</p>
 							</div>
-							<h2>Horse</h2>
+						</div>
+						<!-- Gallery Item 2 -->
+						<div class="col-12 col-sm-6 col-md-4 p-2">
+							<div class="d-flex flex-column text-center border height100 image">
+								<div>
+									<img th:src="@{/images/img2.jfif}" />
+								</div>
+								<h2>Horse</h2>
+							</div>
+						</div>
+						<!-- Gallery Item 3 -->
+						<div class="col-12 col-sm-6 col-md-4 p-2">
+							<div class="d-flex flex-column text-center border height100 image">
+								<div>
+									<img th:src="@{/images/img4.jfif}" />
+								</div>
+								<h2>Duck</h2>
+							</div>
+						</div>
+						<!-- Gallery Item 4 -->
+						<div class="col-12 col-sm-6 col-md-4 p-2">
+							<div class="d-flex flex-column text-center border height100 image">
+								<div>
+									<img th:src="@{/images/img1.jfif}" />
+								</div>
+								<h2>Goat</h2>
+							</div>
+						</div>
+						<!-- Gallery Item 5 -->
+						<div class="col-12 col-sm-6 col-md-4 p-2">
+							<div class="d-flex flex-column text-center border height100 image">
+								<div>
+									<img th:src="@{/images/img1.jfif}" />
+								</div>
+								<h2>Chicken</h2>
+							</div>
+						</div>
+						<!-- Gallery Item 6 -->
+						<div class="col-12 col-sm-6 col-md-4 p-2">
+							<div class="d-flex flex-column text-center border height100 image">
+								<div>
+									<img th:src="@{/images/img1.jfif}" />
+								</div>
+								<h2>Cow</h2>
+							</div>
 						</div>
 					</div>
-					<!-- Gallery Item 3 -->
-					<div class="col-12 col-sm-6 col-md-4 p-2">
-						<div class="d-flex flex-column text-center border height100 image">
-							<div>
-								<img th:src="@{/images/img4.jfif}" />
-							</div>
-							<h2>Duck</h2>
-						</div>
-					</div>
-					<!-- Gallery Item 4 -->
-					<div class="col-12 col-sm-6 col-md-4 p-2">
-						<div class="d-flex flex-column text-center border height100 image">
-							<div>
-								<img th:src="@{/images/img1.jfif}" />
-							</div>
-							<h2>Goat</h2>
-						</div>
-					</div>
-					<!-- Gallery Item 5 -->
-					<div class="col-12 col-sm-6 col-md-4 p-2">
-						<div class="d-flex flex-column text-center border height100 image">
-							<div>
-								<img th:src="@{/images/img1.jfif}" />
-							</div>
-							<h2>Chicken</h2>
-						</div>
-					</div>
-					<!-- Gallery Item 6 -->
-					<div class="col-12 col-sm-6 col-md-4 p-2">
-						<div class="d-flex flex-column text-center border height100 image">
-							<div>
-								<img th:src="@{/images/img1.jfif}" />
-							</div>
-							<h2>Cow</h2>
-						</div>
-					</div>
+
 				</div>
 
 			</div>
 
 		</div>
+	</section>
 
-	</div>
-	
+
 	<script src="https://kit.fontawesome.com/adf0f449ea.js" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
