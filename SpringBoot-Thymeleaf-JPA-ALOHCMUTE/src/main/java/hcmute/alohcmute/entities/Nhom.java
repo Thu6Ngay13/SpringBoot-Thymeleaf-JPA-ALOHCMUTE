@@ -33,7 +33,7 @@ public class Nhom  implements Serializable{
 	@Column(name = "MaNhom")
 	private int maNhom;
 
-	@Column(name = "TenNhom")
+	@Column(name = "TenNhom", columnDefinition = "nvarchar(2000)")
 	private String tenNhom;
 
 	@Column(name = "NgayThanhLap")

@@ -22,7 +22,7 @@ public class CheDo implements Serializable{
 	@Column(name = "MaCheDo")
 	private int maCheDo;
 	
-	@Column(name = "TenCheDo")
+	@Column(name = "TenCheDo", columnDefinition = "nvarchar(2000)")
 	private String tenCheDo;
 	
 	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.EAGER)
