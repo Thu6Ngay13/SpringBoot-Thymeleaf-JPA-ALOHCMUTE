@@ -37,29 +37,21 @@
 	</header>
 
 	<main>
-		<table>
-			<td>
-				<section class="row">
-					<div class="col">
-						<div th:replace="user/fragments/leftbar::leftbar"></div>
-					</div>
-				</section>
-			</td>
-			<td>
-				<section class="row">
-					<div class="col">
-						<div layout:fragment="content"></div>
-					</div>
-				</section>
-			</td>
-		</table>
+		<section class="row">
+			<div class="col-md-3">
+				<div th:replace="user/fragments/leftbar::leftbar"></div>
+			</div>
+			<div class="col-md-9 content-column">
+				<div layout:fragment="content"></div>
+			</div>
+		</section>
 	</main>
 
-	<!--<footer class="row">
+	<footer class="row">
 		<div class="col">
 			<div th:replace="user/fragments/footer::footer"></div>
 		</div>
-	</footer>-->
+	</footer>
 </body>
 
 </html>
