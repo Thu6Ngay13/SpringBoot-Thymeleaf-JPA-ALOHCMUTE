@@ -7,6 +7,6 @@ import hcmute.alohcmute.entities.LoaiTaiKhoan;
 
 @Repository
 public interface LoaiTaiKhoanRepository extends JpaRepository<LoaiTaiKhoan, Integer>{
-	
+
 	
 }

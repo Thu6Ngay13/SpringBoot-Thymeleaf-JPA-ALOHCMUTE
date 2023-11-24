@@ -1,5 +1,9 @@
 package hcmute.alohcmute.models;
 
-public class DangNhapDto {
+import lombok.Data;
 
+@Data
+public class DangNhapDto {
+	public String username;
+	public String password;
 }
