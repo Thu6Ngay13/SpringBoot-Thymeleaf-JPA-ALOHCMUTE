@@ -7,10 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WebController {
 	@GetMapping("/")
 	public String home() {
-<<<<<<< Updated upstream
-		return "user/trangcanhan/trangcanhan.html";
-=======
 		return "user/comment/comment.html";
->>>>>>> Stashed changes
 	}
 }
