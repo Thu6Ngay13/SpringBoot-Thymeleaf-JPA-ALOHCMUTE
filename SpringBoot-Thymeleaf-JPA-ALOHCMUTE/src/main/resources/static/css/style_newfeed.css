@@ -78,7 +78,7 @@ border-top: 1px solid #dddddd;
 .open-popup{
 	visibility:visible;
 	top:200%;
-	transform: translate(8%,-50%) scale(1);
+	transform: translate(-2%,-50%) scale(1);
 }
 .popup button{
 	width: 100%;
