@@ -1,20 +1,8 @@
-<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout">
-
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Trang bạn bè</title>
-	<link rel="canonical" th:href="@{https://getbootstrap.com/docs/5.0/examples/features/}">
-	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />
-	<!-- Bootstrap core CSS -->
-	<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
-	<!-- Bootstrap core CSS -->
-	<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
-	<!-- Custom styles for this template -->
-	<link th:href="@{css/style_banbe.css}" rel="stylesheet">
-</head>
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{user/layout-user.html}">
 
 <body>
+	<section layout:fragment="content">
 	<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 		<symbol id="bootstrap" viewBox="0 0 118 94">
 			<title>Bạn bè</title>
@@ -184,29 +172,6 @@
 								</symbol>
 							</svg>
 							<main>
-								<table>
-									<tr>
-										<td style="background-color:#f2ffff">
-											<div class="sidebar">
-
-												<div class="sidebarRow">
-													<span class="material-icons"> people </span>
-													<h4>Bạn bè</h4>
-												</div>
-
-												<div class="sidebarRow">
-													<span class="material-icons"> person_add </span>
-													<h4>Lời mời kết bạn</h4>
-												</div>
-
-												<div class="sidebarRow">
-													<span class="material-icons"> person_add_alt </span>
-													<h4>Gợi ý kết bạn</h4>
-												</div>
-
-											</div>
-										</td>
-										<td class="expand">
 											<h1 class="visually-hidden">Features examples</h1>
 
 											<div class="container px-4 py-5" id="featured-3">
@@ -282,13 +247,11 @@
 													</div>
 												</div>
 											</div>
-										<td>
 					</div>
 					</div>
-			</tr>
-		</table>
 	</main>
 	<script th:src="@{../assets/dist/js/bootstrap.bundle.min.js}"></script>
+	</section>
 </body>
 
 </html>
