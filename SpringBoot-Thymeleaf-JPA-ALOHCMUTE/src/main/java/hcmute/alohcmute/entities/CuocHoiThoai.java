@@ -32,7 +32,7 @@ public class CuocHoiThoai implements Serializable {
 	@Column(name = "MaCuocHoiThoai")
 	private int maCuocHoiThoai;
 
-	@Column(name = "TenCuocHoiThoai")
+	@Column(name = "TenCuocHoiThoai", columnDefinition = "nvarchar(2000)")
 	private String tenCuocHoiThoai;
 
 	@OneToMany(mappedBy = "cuocHoiThoai", fetch = FetchType.EAGER)

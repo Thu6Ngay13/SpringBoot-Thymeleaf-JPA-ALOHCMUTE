@@ -28,7 +28,7 @@ public class BaoCaoBaiViet  implements Serializable{
 	@Column(name = "MaBaoCao")
 	private int maBaoCao;
 	
-	@Column(name = "NoiDungBaoCao")
+	@Column(name = "NoiDungBaoCao", columnDefinition = "nvarchar(2000)")
 	private String noiDungBaoCao;
 	
 	@ManyToOne
