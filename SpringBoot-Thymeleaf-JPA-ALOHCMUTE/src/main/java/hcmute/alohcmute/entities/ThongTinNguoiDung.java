@@ -44,7 +44,7 @@ public class ThongTinNguoiDung implements Serializable {
 	@Column(name = "SDT")
 	private String sDT;
 	
-	@Column(name = "AvatarURL")
+	@Column(name = "AvatarURL", columnDefinition = "nvarchar(2000)")
 	private String avatarURl;
 	
 	@OneToOne(cascade = CascadeType.ALL)

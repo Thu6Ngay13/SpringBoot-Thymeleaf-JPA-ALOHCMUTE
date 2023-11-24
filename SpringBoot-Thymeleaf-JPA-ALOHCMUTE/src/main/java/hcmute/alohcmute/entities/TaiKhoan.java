@@ -17,7 +17,7 @@ public class TaiKhoan implements Serializable{
 	@Column(name = "TaiKhoan")
 	private int taiKhoan;
 	
-	@Column(name = "MatKhau")
+	@Column(name = "MatKhau", columnDefinition = "nvarchar(2000)")
 	private String matKhau;
 	
 	@Column(name = "Code")

@@ -31,10 +31,10 @@ public class BaiViet implements Serializable {
 	@Column(name = "MaBaiViet")
 	private int maBaiViet;
 	
-	@Column(name = "NoiDungChu")
+	@Column(name = "NoiDungChu", columnDefinition = "nvarchar(2000)")
 	private String noiDungChu;
 	
-	@Column(name = "NoiDungHinhAnh")
+	@Column(name = "NoiDungHinhAnh", columnDefinition = "nvarchar(2000)")
 	private String noiDungHinhAnh;
 	
 	@Column(name = "ThoiGian", columnDefinition = "Time")
