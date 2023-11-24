@@ -25,12 +25,51 @@
 	<link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
 	<!-- Custom styles for this template -->
 	<link th:href="@{css/style_banbe.css}" rel="stylesheet">
+	<!-- Custom styles for this template -->
+	<link th:href="@{css/style_main.css}" rel="stylesheet">
+	<style>
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Header Section (15%) */
+        .header {
+            width: 100%;
+            background-color: lightgray;
+            height: 15%; /* Adjust as needed */
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        
+         .leftbar {
+            width: 20%;
+            margin-top: 7%;
+            background-color: lightblue;
+            height: 100vh; /* Adjust as needed */
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Ensure the sidebar is above the header */
+        }
+
+        /* Clearfix to prevent layout issues due to floating elements */
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+    </style>
+
 	
 	
 </head>
 
 <body>
-	<header class="row">
+	<header class="header">
 		<div class="col">
 			<div th:replace="user/fragments/header::header"></div>
 		</div>
@@ -39,7 +78,7 @@
 	<main>
 		<table>
 			<td>
-				<section class="row">
+				<section class="leftbar">
 					<div class="col">
 						<div th:replace="user/fragments/leftbar::leftbar"></div>
 					</div>
