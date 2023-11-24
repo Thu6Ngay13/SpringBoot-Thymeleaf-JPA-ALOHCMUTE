@@ -21,25 +21,25 @@
 						<table class="table">
 							<thead class="thead-dark">
 								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Số lượt thích</th>
-									<th scope="col">Số bình luận</th>
-									<th scope="col">Số lượng report</th>
+									<th scope="col">Mã báo cáo</th>
+									<th scope="col">Nội dung báo cáo</th>
+									<th scope="col">Thời gian</th>
 									<th scope="col">Ngày</th>
+									<th scope="col">Mã bài viết</th>
 									<th scope="col">Hành động</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<th scope="row">1</th>
-									<td>100</td>
-									<td>20</td>
-									<td>30</td>
-									<td>19/11/2023</td>
+								<tr th:each="i:${baocaobaiviet}">
+									<td th:text="${i.MaBaoCao}" />
+									<td th:text="${i.NoiDungBaoCao}" />
+									<td th:text="${i.ThoiGian}" />
+									<td th:text="${i.Ngay}" />
+									<td th:text="${i.baiViet.getMaBaiViet()}" />
 									<td>
 										<div class="hanhdong">
-											<button type="button" class="btn btn-success">Cho phép</button>
-											<button type="button" class="btn btn-danger">Xóa bài viết</button>
+											<button type="button" class="btn btn-success"><a th:href="@{xem/{mabaocao}(mabaocao=${i.MaBaoCao})}">Xem</a></button>
+											<button type="button" class="btn btn-danger"><a th:href="@{chophep/{mabaocao}(mabaocao=${i.MaBaoCao})}" >Cho phép</a></button>
 										</div>
 									</td>
 								</tr>
