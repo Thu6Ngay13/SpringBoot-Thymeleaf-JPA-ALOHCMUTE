@@ -31,20 +31,14 @@ public class BinhLuan implements Serializable {
 	@Column(name = "MaBinhLuan")
 	private int maBinhLuan;
 	
-	@Column(name = "NoiDungChu")
+	@Column(name = "NoiDungChu", columnDefinition = "nvarchar(2000)")
 	private String noiDungChu;
 	
-	@Column(name = "NoiDungHinhAnh")
+	@Column(name = "NoiDungHinhAnh", columnDefinition = "nvarchar(2000)")
 	private String noiDungHinhAnh;
 	
 	@ManyToOne
 	@JoinColumn(name = "MaBaiViet")
 	private BaiViet baiViet;
 	
-	@ManyToOne
-	@JoinColumn(name = "MaBinhLuanCha")
-	private BinhLuan binhLuanCha;
-	
-	@OneToMany(mappedBy = "binhLuanCha", fetch = FetchType.EAGER)
-	private List<BinhLuan> binhLuanCons;
 }
