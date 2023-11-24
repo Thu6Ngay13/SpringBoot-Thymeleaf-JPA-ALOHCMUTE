@@ -40,11 +40,4 @@ public class BinhLuan implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "MaBaiViet")
 	private BaiViet baiViet;
-	
-	@ManyToOne
-	@JoinColumn(name = "MaBinhLuanCha")
-	private BinhLuan binhLuanCha;
-	
-	@OneToMany(mappedBy = "binhLuanCha", fetch = FetchType.EAGER)
-	private List<BinhLuan> binhLuanCons;
 }
