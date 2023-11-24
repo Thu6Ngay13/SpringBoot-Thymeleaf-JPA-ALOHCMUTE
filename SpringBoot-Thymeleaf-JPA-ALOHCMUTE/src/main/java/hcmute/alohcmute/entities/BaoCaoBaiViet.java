@@ -1,6 +1,8 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,6 +32,12 @@ public class BaoCaoBaiViet  implements Serializable{
 	
 	@Column(name = "NoiDungBaoCao")
 	private String noiDungBaoCao;
+	
+	@Column(name = "ThoiGian", columnDefinition = "Time")
+	private LocalTime ThoiGian;
+	
+	@Column(name = "Ngay", columnDefinition = "Date")
+	private LocalDate Ngay;
 	
 	@ManyToOne
 	@JoinColumn(name="MaBaiViet")

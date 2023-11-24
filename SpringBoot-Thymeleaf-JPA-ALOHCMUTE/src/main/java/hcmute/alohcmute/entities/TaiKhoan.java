@@ -20,9 +20,14 @@ public class TaiKhoan implements Serializable{
 	@Column(name = "MatKhau")
 	private String matKhau;
 	
+	@Column(name = "Code")
+	private int code;
+	
+	@Column(name = "Status", columnDefinition = "bit")
+	private boolean status;
+	
 	@OneToOne(mappedBy = "taiKhoan")
     private ThongTinNguoiDung thongTinNguoiDung;
-
 	
 	@ManyToOne
 	@JoinColumn(name = "MaLoai")
@@ -60,5 +65,8 @@ public class TaiKhoan implements Serializable{
 		joinColumns = {@JoinColumn(name = "TaiKhoanChan") },
 		inverseJoinColumns = {@JoinColumn(name = "TaiKhoanBiChan")})
 	private Set<TaiKhoan> taiKhoanChans = new HashSet<TaiKhoan>();
+	
+	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
+	private Set<ThongBao> thongBaos;
 	
 }
