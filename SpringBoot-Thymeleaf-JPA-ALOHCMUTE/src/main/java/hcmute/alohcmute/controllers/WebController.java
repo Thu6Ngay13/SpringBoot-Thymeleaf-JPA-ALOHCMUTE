@@ -9,4 +9,5 @@ public class WebController {
 	public String home() {
 		return "user/banbe/banbe.html";
 	}
+	
 }
