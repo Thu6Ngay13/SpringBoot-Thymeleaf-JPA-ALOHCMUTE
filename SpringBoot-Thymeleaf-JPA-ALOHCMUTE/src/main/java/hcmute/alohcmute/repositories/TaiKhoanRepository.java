@@ -1,5 +1,9 @@
 package hcmute.alohcmute.repositories;
 
-public class TaiKhoanRepository {
+import org.springframework.stereotype.Repository;
 
+@Repository
+
+public class TaiKhoanRepository {
+	
 }
