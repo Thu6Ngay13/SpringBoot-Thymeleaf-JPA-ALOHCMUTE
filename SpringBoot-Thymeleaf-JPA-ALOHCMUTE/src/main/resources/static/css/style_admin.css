@@ -92,3 +92,55 @@
 	margin: 0 auto;
 	/* Để căn giữa nội dung */
 }
+
+
+.hanhdong {
+    display: flex;
+    align-items: center;
+}
+
+/*CSS cho phần dropdown*/
+.dropdown{
+    width: 150px;
+}
+.dropdown_select{
+	border-radius: 5px;
+    width: 150px;
+    height: 37px;
+    background-color: rgb(0, 0, 0);
+    font-weight: bold;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    cursor: pointer;
+}
+.dropdown_selected{
+	margin-left: 30%;
+}
+.dropdown_list{
+    margin-top: 5px;
+    position: absolute;
+    margin-left: -100%;
+    display: none;
+}
+.dropdown:hover .dropdown_list{
+    display: block;
+}
+.detail{
+    width: 450px;
+    height: 30px;
+    background-color: rgb(0, 0, 0);
+    font-weight: bold;
+    color: white;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    cursor: pointer;
+}
+
+.chophep{
+	margin-left:20px;
+	width: 150px;
+	cursor: pointer;
+}
