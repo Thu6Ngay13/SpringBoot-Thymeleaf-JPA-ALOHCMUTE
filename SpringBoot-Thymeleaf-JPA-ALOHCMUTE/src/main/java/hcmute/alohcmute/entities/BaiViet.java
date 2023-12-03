@@ -20,6 +20,7 @@ import lombok.*;
 @Data 
 @NoArgsConstructor 
 @AllArgsConstructor
+@EqualsAndHashCode(exclude="taiKhoan")
 
 @Entity
 @Table

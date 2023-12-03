@@ -78,7 +78,7 @@ border-top: 1px solid #dddddd;
 .open-popup{
 	visibility:visible;
 	top:200%;
-	transform: translate(8%,-50%) scale(1);
+	transform: translate(-2%,-50%) scale(1);
 }
 .popup button{
 	width: 100%;
@@ -326,11 +326,11 @@ border-top: 1px solid #dddddd;
   }
   
   .messageSender__option {
+	margin-right: 80px;
+	margin-left: 80px;
     padding: 8px;
     display: flex;
-    align-items: center;
     color: gray;
-    margin: 5px;
   }
   
   .messageSender__option h3 {
@@ -397,7 +397,6 @@ border-top: 1px solid #dddddd;
   
   .post__option {
     display: flex;
-    align-items: center;
     justify-content: center;
     padding: 5px;
     flex: 1;
