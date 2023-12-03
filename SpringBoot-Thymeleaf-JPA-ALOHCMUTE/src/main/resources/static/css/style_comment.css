@@ -8,12 +8,16 @@ body{
 /*------------ Login container ------------*/
 
 .box-area{
-    width: 1500px;
+    margin-top: 105px;
+    margin-left: 300px;
 }
-
+.container{
+    margin-left: auto;
+    margin-right: 0;
+}
 /*------------ Right box ------------*/
 .choice{
-    margin-left: 320px;
+    margin-left: 270px;
 }
 .right-box{
     padding: 0px 30px 40px 40px;
@@ -31,15 +35,21 @@ body{
 }
 
 .post__options {
-    /* padding-top: 5px;
-    padding-bottom: 5px; */
+    
     justify-content: space-evenly;
     font-size: medium;
     color: gray;
-    cursor: pointer;
-    height: 30px;
-    margin-bottom: 15px;
+    cursor: pointer; 
+    height: 60px;
   }
+  .post__option p {
+    margin-top: 20px;
+  }
+
+  .post__option span {
+    margin-top: 5px;
+  }
+
   
   .post__option {
     justify-content: center;
@@ -87,8 +97,8 @@ body{
 
 /*------------ For small screens------------*/
 
-@media only screen and (max-width: 768px){
-
+@media only screen and (max-width: 500px){
+    
      .box-area{
         margin: 0 10px;
 
