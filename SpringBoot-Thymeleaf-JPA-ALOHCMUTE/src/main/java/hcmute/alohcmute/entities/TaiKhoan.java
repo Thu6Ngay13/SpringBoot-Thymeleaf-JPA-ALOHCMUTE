@@ -5,7 +5,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 
 @Entity
 @Table
@@ -13,16 +30,35 @@ public class TaiKhoan implements Serializable{
 	private static final long serialVersionUID = -8430672957164998050L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "TaiKhoan")
-	private int taiKhoan;
+	@Column(name = "TaiKhoan", columnDefinition = "nvarchar(2000)")
+	private String taiKhoan;
 	
-	@Column(name = "MatKhau")
+	@Column(name = "MatKhau", columnDefinition = "varchar(2000)")
 	private String matKhau;
 	
-	@OneToOne(mappedBy = "taiKhoan")
-    private ThongTinNguoiDung thongTinNguoiDung;
+	@Column(name = "Code")
+	private int code;
+	
+	@Column(name = "Status", columnDefinition = "bit")
+	private boolean status;
+	
+	@Column(name = "HoTen", columnDefinition = "nvarchar(2000)")
+	private String hoTen; 
 
+	@Column(name = "NickName", columnDefinition = "nvarchar(2000)")
+	private String nickName;
+	
+	@Column(name = "Email")
+	private String email;
+	
+	@Column(name = "GioiTinh")
+	private String gioiTinh;
+	
+	@Column(name = "SDT")
+	private String sDT;
+	
+	@Column(name = "AvatarURL", columnDefinition = "nvarchar(2000)")
+	private String avatarURl;
 	
 	@ManyToOne
 	@JoinColumn(name = "MaLoai")
@@ -44,12 +80,6 @@ public class TaiKhoan implements Serializable{
 	private Set<Nhom> nhom = new HashSet<Nhom>();
 	
 	@ManyToMany
-	@JoinTable(name = "TaiKhoan_BaiViet",
-		joinColumns = {@JoinColumn(name = "TaiKhoan") },
-		inverseJoinColumns = {@JoinColumn(name = "MaBaiViet")})
-	private Set<BaiViet> baiVietTuongTacs = new HashSet<BaiViet>();
-	
-	@ManyToMany
 	@JoinTable(name = "TaiKhoan_TheoDoi_TaiKhoan",
 		joinColumns = {@JoinColumn(name = "TaiKhoanTheoDoi") },
 		inverseJoinColumns = {@JoinColumn(name = "TaiKhoanBiTheoDoi")})
@@ -60,5 +90,11 @@ public class TaiKhoan implements Serializable{
 		joinColumns = {@JoinColumn(name = "TaiKhoanChan") },
 		inverseJoinColumns = {@JoinColumn(name = "TaiKhoanBiChan")})
 	private Set<TaiKhoan> taiKhoanChans = new HashSet<TaiKhoan>();
+	
+	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
+	private Set<ThongBao> thongBaos;
+	
+	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
+	private Set<BinhLuan> binhLuans;
 	
 }
