@@ -27,6 +27,7 @@ import lombok.ToString;
 @ToString (exclude = {"binhLuans", "thongBaos", "baiViets"})
 @Entity
 @Table
+
 public class TaiKhoan implements Serializable{
 	private static final long serialVersionUID = -8430672957164998050L;
 	
