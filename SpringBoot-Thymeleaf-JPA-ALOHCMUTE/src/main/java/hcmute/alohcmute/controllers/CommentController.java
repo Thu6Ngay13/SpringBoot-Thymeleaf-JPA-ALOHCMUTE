@@ -15,7 +15,7 @@ import hcmute.alohcmute.services.CommentSerrviceImpl;
 import hcmute.alohcmute.services.ICommentService;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class CommentController {
 	@Autowired
 	ICommentService commentService = new CommentSerrviceImpl();
