@@ -2,8 +2,10 @@ package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,6 +23,8 @@ import lombok.*;
 @NoArgsConstructor 
 @AllArgsConstructor
 @EqualsAndHashCode(exclude="taiKhoan")
+@ToString (exclude = {"binhLuans", "baoCaoBaiViets"})
+
 
 @Entity
 @Table
@@ -39,12 +43,13 @@ public class BaiViet implements Serializable {
 	private String noiDungHinhAnh;
 	
 	@Column(name = "ThoiGian", columnDefinition = "Time")
-	private LocalTime ThoiGian;
+	private LocalDateTime  ThoiGian;
 	
 	@Column(name = "Ngay", columnDefinition = "Date")
 	private LocalDate Ngay;
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "MaCheDo")
 	private CheDo cheDoNhom;
 	
@@ -52,7 +57,7 @@ public class BaiViet implements Serializable {
 	private List<BinhLuan> binhLuans;
 	
 	@ManyToOne
-	@JoinColumn(name = "TaiKhoan")
+	@JoinColumn(name = "taiKhoan")
 	private TaiKhoan taiKhoan;
 	
 	@OneToMany(mappedBy = "baiViet")
