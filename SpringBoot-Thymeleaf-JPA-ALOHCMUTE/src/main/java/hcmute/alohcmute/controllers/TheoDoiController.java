@@ -32,16 +32,30 @@ public class TheoDoiController {
 		return "user/banbe/banbe.html";
 	}
 	
-	@GetMapping("/unfollow")
+	@GetMapping("unfollow")
 	public ModelAndView delet(ModelMap model, @RequestParam("username") String userNameUnfollow) {
 
 		String username="lolo928";
 		TaiKhoan user1=tkSer.findBytaiKhoan(username);
 		TaiKhoan user2=tkSer.findBytaiKhoan(userNameUnfollow);
 		tkSer.unfollow(user1,user2);
+		//tkSer.follow(user1, user2);
 
 
-		return new ModelAndView("redirect:/user", model);
+		return new ModelAndView("redirect:/user/follow", model);
+
+	}
+	
+	@GetMapping("addfollow")
+	public ModelAndView follow(ModelMap model, @RequestParam("username") String userNameFollow) {
+
+		String username="lolo928";
+		TaiKhoan user1=tkSer.findBytaiKhoan(username);
+		TaiKhoan user2=tkSer.findBytaiKhoan(userNameFollow);
+		tkSer.follow(user1,user2);
+
+
+		return new ModelAndView("redirect:/user/follow", model);
 
 	}
 }
