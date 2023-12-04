@@ -2,85 +2,98 @@
 	layout:decorate="~{user/layout-user.html}">
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Facebook Post Box Clone | CodingNepal</title>
-    <link rel="stylesheet" th:href="@{css/style_dangbai.css}">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- FontAweome CDN Link for Icons -->
-    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}"/>
-  </head>
-  <body>
-	  <section layout:fragment="content">
-    <div class="container">
-      <div class="wrapper">
-        <section class="post">
-          <header>Create Post</header>
-          <form action="#">
-            <div class="content">
-              <img src="images/logo.png" alt="logo">
-              <div class="details">
-                <p>CodingNepal</p>
-<select name="privacy" id="privacy" class="combobox">
-  <option value="CongKhai">Công khai</option>
-  <option value="NguoiTheoDoi">Người theo dõi</option>
-  <option value="RiengTu">Riêng tư</option>
-</select>
-              </div>
-            </div>
-            <textarea placeholder="Bạn đang nghĩ gì?" spellcheck="false" required></textarea>
-            <div class="theme-emoji">
-              <img src="images/theme.svg" alt="theme">
-              <img src="images/smile.svg" alt="smile">
-            </div>
-            <div class="options">
-              <p>Add to Your Post</p>
-              <ul class="list">
-                <li><img src="images/gallery.svg" alt="gallery"></li>
-                <li><img src="images/tag.svg" alt="gallery"></li>
-                <li><img src="images/emoji.svg" alt="gallery"></li>
-                <li><img src="images/mic.svg" alt="gallery"></li>
-                <li><img src="images/more.svg" alt="gallery"></li>
-              </ul>
-            </div>
-            <button>Post</button>
-          </form>
-        </section>
-        <section class="audience">
-          <header>
-            <div class="arrow-back"><i class="fas fa-arrow-left"></i></div>
-            <p>Select Audience</p>
-          </header>
-          <div class="content">
-            <p>Who can see your post?</p>
-            <span>Your post will show up in News Feed, on your profile and in search results.</span>
-          </div>
-          
 
-        </section> 
-      </div>
-    </div>
+<head>
+	<meta charset="utf-8">
+	<title>Đăng bài</title>
+	<link rel="stylesheet" th:href="@{css/style_dangbai.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- FontAweome CDN Link for Icons -->
+	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css}" />
+	<style>
+		body {
+			margin-left: 23%;
+			margin-top: 3.5%;
+			padding: 0;
+			box-sizing: border-box;
+			background-color: aliceblue;
+		}
+	</style>
 
-    <script language="javascript">
-      const container = document.querySelector(".container"),
-      privacy = container.querySelector(".post .privacy"),
-      arrowBack = container.querySelector(".audience .arrow-back");
-      privacy.addEventListener("click", () => {
-        container.classList.add("active");
-      });
-      arrowBack.addEventListener("click", () => {
-        container.classList.remove("active");
-      });
-      document.getElementById("btn1").onclick = function ()
-            {
-                var checkbox = document.getElementsByName("contact");
-                for (var i = 0; i < checkbox.length; i++){
-                    if (checkbox[i].checked === true){
-                        alert(checkbox[i].value);
-                    }
-                }
-            };
-    </script>
-	  </section>
-  </body>
+</head>
+
+<body>
+	<section layout:fragment="content">
+		<div class="container">
+			<div class="wrapper">
+				<section class="post">
+					<header>Đăng bài</header>
+					<form action="#">
+						<div class="content">
+							<img src="images/logo.png" alt="logo">
+							<div class="details">
+								<b style="margin-left: 5px; margin-bottom: 5px; font-family: 'Consolas', Times, serif; font-size: 20px;">Tên người dùng</b>
+								</br>
+								<select name="privacy" id="privacy" class="combobox">
+									<option value="CongKhai">Công khai</option>
+									<option value="NguoiTheoDoi">Người theo dõi</option>
+									<option value="RiengTu">Riêng tư</option>
+								</select>
+							</div>
+						</div>
+						<textarea placeholder="Bạn đang nghĩ gì?" spellcheck="false" required></textarea>
+						<div class="theme-emoji">
+							<img src="images/theme.svg" alt="theme">
+							<img src="images/smile.svg" alt="smile">
+						</div>
+						<div class="options">
+							<p>Thêm vào bài đăng</p>
+							<ul class="list">
+								<li><img src="images/gallery.svg" alt="gallery"></li>
+								<li><img src="images/tag.svg" alt="gallery"></li>
+								<li><img src="images/emoji.svg" alt="gallery"></li>
+								<li><img src="images/mic.svg" alt="gallery"></li>
+								<li><img src="images/more.svg" alt="gallery"></li>
+							</ul>
+						</div>
+						<button>Đăng</button>
+					</form>
+				</section>
+				<section class="audience">
+					<header>
+						<div class="arrow-back"><i class="fas fa-arrow-left"></i></div>
+						<p>Select Audience</p>
+					</header>
+					<div class="content">
+						<p>Who can see your post?</p>
+						<span>Your post will show up in News Feed, on your profile and in search results.</span>
+					</div>
+
+
+				</section>
+			</div>
+		</div>
+
+		<script language="javascript">
+			const container = document.querySelector(".container"),
+				privacy = container.querySelector(".post .privacy"),
+				arrowBack = container.querySelector(".audience .arrow-back");
+			privacy.addEventListener("click", () => {
+				container.classList.add("active");
+			});
+			arrowBack.addEventListener("click", () => {
+				container.classList.remove("active");
+			});
+			document.getElementById("btn1").onclick = function () {
+				var checkbox = document.getElementsByName("contact");
+				for (var i = 0; i < checkbox.length; i++) {
+					if (checkbox[i].checked === true) {
+						alert(checkbox[i].value);
+					}
+				}
+			};
+		</script>
+	</section>
+</body>
+
 </html>
