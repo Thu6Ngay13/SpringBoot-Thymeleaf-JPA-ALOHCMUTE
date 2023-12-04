@@ -13,8 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import hcmute.alohcmute.entities.BinhLuan;
+import hcmute.alohcmute.entities.TaiKhoan;
+import hcmute.alohcmute.services.BaiDangServiceImpl;
 import hcmute.alohcmute.services.CommentSerrviceImpl;
+import hcmute.alohcmute.services.IBaiDangService;
 import hcmute.alohcmute.services.ICommentService;
+import hcmute.alohcmute.services.ITaiKhoanService;
+import hcmute.alohcmute.services.TaiKhoanServiceImpl;
 import jakarta.validation.Valid;
 
 @Controller
@@ -22,6 +27,10 @@ import jakarta.validation.Valid;
 public class CommentController {
 	@Autowired
 	ICommentService commentService = new CommentSerrviceImpl();
+	@Autowired
+    IBaiDangService baiDangService = new BaiDangServiceImpl();
+	@Autowired
+    ITaiKhoanService taiKhoanService = new TaiKhoanServiceImpl();
 
 	@GetMapping("/comment/{baiVietId}")
 	public String reviewComment(ModelMap model, @PathVariable(value = "baiVietId") int id) {
@@ -33,14 +42,18 @@ public class CommentController {
 
 	@PostMapping("/comment/{baiVietId}")
 	public String addComment(@Valid BinhLuan binhLuan, BindingResult result, ModelMap model, @PathVariable(value = "baiVietId") int id) {
-//		if (result.hasErrors()) {
-//			return "user/comment/comment";
-//		}
-//
-//		commentService.save(binhLuan);
-//		return "user/comment/comment";
+		if (result.hasErrors()) {
+			return "user/comment/comment";
+		}
 		List<BinhLuan> comments = commentService.findCommentByMaBaiViet(id);
 		model.addAttribute("comments", comments);
-		return "user/comment/comment";
+		if (binhLuan.getNoiDungChu() != "" && binhLuan.getNoiDungChu() != null) {
+			binhLuan.setNgay(java.time.LocalDate.now());
+			binhLuan.setThoiGian(java.time.LocalTime.now());
+			binhLuan.setBaiViet(baiDangService.getById(id));
+			binhLuan.setTaiKhoan(taiKhoanService.findBytaiKhoan("thuycao816"));
+			commentService.save(binhLuan);
+		}
+		return "redirect:{baiVietId}";
 	}
 }
