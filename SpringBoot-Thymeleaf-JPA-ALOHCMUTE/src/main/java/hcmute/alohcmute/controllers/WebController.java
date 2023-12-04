@@ -7,11 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class WebController {
 	@GetMapping("/")
 	public String home() {
-<<<<<<< HEAD
-		return "user/dangbai/dangbai.html";
-=======
 		return "user/banbe/banbe.html";
->>>>>>> Thuy
 	}
 	
 }
