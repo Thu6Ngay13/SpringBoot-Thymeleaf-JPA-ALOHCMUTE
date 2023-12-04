@@ -18,7 +18,7 @@ import hcmute.alohcmute.services.ICommentService;
 import jakarta.validation.Valid;
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class CommentController {
 	@Autowired
 	ICommentService commentService = new CommentSerrviceImpl();
