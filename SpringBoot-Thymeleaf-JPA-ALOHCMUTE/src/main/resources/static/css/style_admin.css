@@ -144,3 +144,26 @@
 	width: 150px;
 	cursor: pointer;
 }
+.dropdown_leftbar{
+	margin-bottom: 30px;
+}
+.dropdown_menu_leftbar{
+	margin-top: 10px;
+	width: 150px;
+	display:none;
+}
+
+.dropdown_leftbar:hover .dropdown_menu_leftbar{
+	display:block;
+}
+.dropdown_item_leftbar{
+	margin-left: -10px;
+	border-radius: 4px;
+	
+}
+.dropdown_item_leftbar *{
+	margin-left: 10px;
+}
+.dropdown_item_leftbar:hover {
+	background-color: rgb(0, 0, 0);
+}
