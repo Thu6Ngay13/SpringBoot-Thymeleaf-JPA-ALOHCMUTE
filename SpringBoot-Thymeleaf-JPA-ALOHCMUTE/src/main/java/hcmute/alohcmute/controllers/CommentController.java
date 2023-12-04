@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import hcmute.alohcmute.entities.BinhLuan;
-import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.services.BaiDangServiceImpl;
 import hcmute.alohcmute.services.CommentSerrviceImpl;
 import hcmute.alohcmute.services.IBaiDangService;
@@ -37,9 +36,11 @@ public class CommentController {
 		List<BinhLuan> comments = commentService.findCommentByMaBaiViet(id);
 		model.addAttribute("comments", comments);
 		model.addAttribute("baiVietId", id);
+		BinhLuan binhLuan = new BinhLuan(); 
+		model.addAttribute("binhLuan", binhLuan);
 		return "user/comment/comment";
 	}
-
+	
 	@PostMapping("/comment/{baiVietId}")
 	public String addComment(@Valid BinhLuan binhLuan, BindingResult result, ModelMap model, @PathVariable(value = "baiVietId") int id) {
 		if (result.hasErrors()) {
