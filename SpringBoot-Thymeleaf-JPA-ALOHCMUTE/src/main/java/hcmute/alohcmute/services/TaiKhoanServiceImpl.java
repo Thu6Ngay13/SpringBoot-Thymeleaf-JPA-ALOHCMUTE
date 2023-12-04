@@ -16,11 +16,6 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 @Autowired
 TaiKhoanRepository tkRepo;
 
-public TaiKhoanServiceImpl(TaiKhoanRepository tkRepo) {
-	super();
-	this.tkRepo = tkRepo;
-}
-
 @Override
 public <S extends TaiKhoan> S save(S entity) {
 	return tkRepo.save(entity);

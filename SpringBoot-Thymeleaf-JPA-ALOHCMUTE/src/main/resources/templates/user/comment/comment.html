@@ -132,8 +132,7 @@
 						</th:block>
 					</div>
 
-				<form action="#" th:action="@{addComment/{baiVietId}}" th:object="${binhLuan}" method="post">
-					<div class="d-flex  mt-3" >
+					<form class="d-flex  mt-3" th:action="@{{baiVietId}(baiVietId=${baiVietId})}" th:object="${binhLuan}" method="post">
 						<div class="input-group">
 							<input type="text"
 								class="addcmt form-control form-control-lg bg-light fs-6"
