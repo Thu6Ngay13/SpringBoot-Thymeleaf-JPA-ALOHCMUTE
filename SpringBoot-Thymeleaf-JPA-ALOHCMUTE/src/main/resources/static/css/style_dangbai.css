@@ -11,15 +11,16 @@ body{
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: linear-gradient(#00C6FF, #0078FF);
+  background: rgb(128, 128, 255);
+  overflow: hidden;
 }
 ::selection{
   color: #fff;
-  background: #1a81ff;
+  background: rgb(128, 226, 255);
 }
 .container{
-  width: 500px;
-  height: 480px;
+  width: 800px;
+  height: 495px;
   overflow: hidden;
   background: #fff;
   border-radius: 10px;
@@ -50,6 +51,7 @@ body{
   font-size: 22px;
   font-weight: 600;
   padding: 17px 0;
+  margin-left:50%;
   text-align: center;
   border-bottom: 1px solid #bfbfbf;
 }
@@ -63,7 +65,7 @@ body{
 }
 .post form .content img{
   cursor: default;
-  max-width: 52px;
+  max-width: 75px;
 }
 .post form .content .details{
   margin: -3px 0 0 12px;
@@ -104,6 +106,7 @@ form textarea{
   font-size: 18px;
   margin-top: 30px;
   min-height: 100px;
+  width: 700px;
 }
 form textarea::placeholder{
   color: #858585;
@@ -115,6 +118,8 @@ form :where(.theme-emoji, .options){
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 700px;
+
 }
 .theme-emoji img:last-child{
   max-width: 24px;
@@ -157,6 +162,8 @@ form .options .list{
 }
 form button{
   height: 53px;
+  width: 700px;
+  
   color: #fff;
   font-size: 18px;
   font-weight: 500;
@@ -279,7 +286,7 @@ form textarea:valid ~ button:hover{
   background-color: #7eb2ff;
   border: none;
   color: white;
-  padding: 2.5px 3px;
+  
   text-align: center;
   text-decoration: none;
   display: inline-block;
