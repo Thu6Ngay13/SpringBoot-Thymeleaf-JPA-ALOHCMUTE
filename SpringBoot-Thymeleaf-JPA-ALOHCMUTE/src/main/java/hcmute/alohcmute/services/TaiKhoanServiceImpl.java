@@ -116,4 +116,7 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 	}
 
 
+@Override
+public <S extends TaiKhoan> S save(S entity) {
+	return tkRepo.save(entity);
 }

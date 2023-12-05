@@ -5,9 +5,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class WebController {
-	@GetMapping("/")
-	public String home() {
-		return "user/banbe/banbe.html";
-	}
+//	@GetMapping("/")
+//	public String home() {
+//		return "user/newfeed/newfeed.html";
+//	}
 	
 }
