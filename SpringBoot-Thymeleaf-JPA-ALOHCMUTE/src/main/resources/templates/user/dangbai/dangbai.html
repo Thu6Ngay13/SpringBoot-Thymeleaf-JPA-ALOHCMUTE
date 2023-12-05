@@ -28,35 +28,35 @@
 			<div class="wrapper">
 				<section class="post">
 					<header>Đăng bài</header>
-					<form action="#">
+					<form action="#" th:action="@{dangbai/add}" method="POST">
 						<div class="content">
-							<img src="images/logo.png" alt="logo">
+							<img th:src="${taikhoan.avatarURl}" alt="logo" class="imgavatar">
 							<div class="details">
-								<b style="margin-left: 5px; margin-bottom: 5px; font-family: 'Consolas', Times, serif; font-size: 20px;">Tên người dùng</b>
+								<b th:text="${taikhoan.hoTen}" style="margin-left: 5px; margin-bottom: 5px; font-family: 'Consolas', Times, serif; font-size: 20px;"></b>
 								</br>
 								<select name="privacy" id="privacy" class="combobox">
-									<option value="CongKhai">Công khai</option>
-									<option value="NguoiTheoDoi">Người theo dõi</option>
-									<option value="RiengTu">Riêng tư</option>
+									<option value="Public">Công Khai</option>
+									<option value="Follower">Người Theo Dõi</option>
+									<option value="Private">Riêng Tư</option>
 								</select>
 							</div>
 						</div>
-						<textarea placeholder="Bạn đang nghĩ gì?" spellcheck="false" required></textarea>
+						<textarea name="noidungchu" placeholder="Bạn đang nghĩ gì?" spellcheck="false" required></textarea>
 						<div class="theme-emoji">
-							<img src="images/theme.svg" alt="theme">
-							<img src="images/smile.svg" alt="smile">
+							<img src="/images/theme.svg" alt="theme">
+							<img src="/images/smile.svg" alt="smile">
 						</div>
 						<div class="options">
 							<p>Thêm vào bài đăng</p>
 							<ul class="list">
-								<li><img src="images/gallery.svg" alt="gallery"></li>
-								<li><img src="images/tag.svg" alt="gallery"></li>
-								<li><img src="images/emoji.svg" alt="gallery"></li>
-								<li><img src="images/mic.svg" alt="gallery"></li>
-								<li><img src="images/more.svg" alt="gallery"></li>
+								<li><img src="/images/gallery.svg" alt="gallery"></li>
+								<li><img src="/images/tag.svg" alt="gallery"></li>
+								<li><img src="/images/emoji.svg" alt="gallery"></li>
+								<li><img src="/images/mic.svg" alt="gallery"></li>
+								<li><img src="/images/more.svg" alt="gallery"></li>
 							</ul>
 						</div>
-						<button>Đăng</button>
+						<button type="submit">Đăng</button>
 					</form>
 				</section>
 				<section class="audience">

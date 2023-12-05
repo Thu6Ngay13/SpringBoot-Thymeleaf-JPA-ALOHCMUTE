@@ -295,3 +295,17 @@ form textarea:valid ~ button:hover{
   width: 150px;
   height: 40px;
 }
+.imgavatar{
+    	display: block;
+		/* Ensures the image is block-level, which can help with sizing */
+		width: 60px;
+		/* Adjust to the desired size, ensuring it's a square for a perfect circle */
+		height: 60px;
+		/* Adjust to the desired size, ensuring it's a square for a perfect circle */
+		border-radius: 50%;
+		/* Creates the circle */
+		object-fit: cover;
+		/* Covers the area without stretching; make sure the image is centered if it's not square */
+		border: 3px solid #ffffff;
+		/* Optional: adds a white border around the avatar */
+}
