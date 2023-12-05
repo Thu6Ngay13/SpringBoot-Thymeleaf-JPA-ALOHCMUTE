@@ -118,5 +118,9 @@ public class TaiKhoan implements Serializable{
 		return Objects.hash(taiKhoan);
 	}
 	
-	
+	@ManyToMany
+	@JoinTable(name = "TaiKhoan_BaiViet",
+		joinColumns = {@JoinColumn(name = "TaiKhoan") },
+		inverseJoinColumns = {@JoinColumn(name = "MaBaiViet")})
+	private Set<BaiViet> baiVietTuongTacs = new HashSet<BaiViet>();
 }
