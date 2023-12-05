@@ -38,41 +38,7 @@
                                         <td th:text="${i.baiViet.getMaBaiViet()}" />
                                         <td>
                                             <div class="hanhdong">
-												
-												<div class = "dropdown">
-													<div class = "dropdown_select">
-														<span class = "dropdown_selected"> Chi tiết </span>
-													</div>
-                                                    <ul class="dropdown_list">
-                                                        <li class="detail">
-															<h5>Mã bài viết: </h5>
-                                                            <h5 th:text="${i.baiViet.getMaBaiViet()}"/>
-                                                        </li>
-                                                        <li class="detail">
-															<h5>Nội dung chữ: </h5>
-                                                            <h5 th:text="${i.baiViet.getNoiDungChu()}"/>
-                                                        </li>
-                                                        <li class="detail">
-															<h5>Nội dung hình ảnh: </h5>
-															<!--<img class="imagebaiviet" th:src="${taikhoan.avatarURl}" alt="">-->
-                                                            <h5 th:text="${i.baiViet.getNoiDungHinhAnh()}"/>
-                                                        </li>
-                                                        <li class="detail">
-															<h5>Thời gian: </h5>
-                                                            <h5 th:text="${i.baiViet.getThoiGian()}"/>
-                                                        </li>
-                                                        <li class="detail">
-															<h5>Ngày: </h5>
-                                                            <h5 th:text="${i.baiViet.getNgay()}"/>
-                                                        </li>
-                                                        <li class="detail">
-															<h5>Tài khoản: </h5>
-                                                            <h5 th:text="${i.baiViet.getTaiKhoan().getHoTen()}"/>
-                                                        </li>
-                                                        
-                                                    </ul>
-												</div>
-												<a th:href="@{chophep/{mabaocao}(mabaocao=${i.MaBaoCao})}"> <button type="button" class="chophep btn btn-success">Cho phép</button> </a>
+												<a th:href="@{chitiet/{mabaocao}(mabaocao=${i.MaBaoCao})}"> <button type="button" class="chophep btn btn-success">Chi tiết</button> </a>
                                                 <!--<button type="button" class="chophep btn btn-success"><a th:href="@{chophep/{mabaocao}(mabaocao=${i.MaBaoCao})}" ></a>Cho phép</button>-->
                                             </div>
                                         </td>

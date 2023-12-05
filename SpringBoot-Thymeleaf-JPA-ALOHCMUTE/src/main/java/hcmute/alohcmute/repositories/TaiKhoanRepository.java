@@ -1,9 +1,11 @@
 package hcmute.alohcmute.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
+import hcmute.alohcmute.entities.TaiKhoan;
 
-public class TaiKhoanRepository {
-	
+@Repository
+public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, String> {
+
 }

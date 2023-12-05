@@ -1,6 +1,7 @@
 package hcmute.alohcmute.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,13 +26,23 @@ public class BaiVietController {
 		return "admin/manage/quanlybaiviet";
 	}
 
-	@GetMapping("/admin/chophep/{mabaocao}")
+	@GetMapping(value = {"/admin/chophep/{mabaocao}", "/admin/chitiet/chophep/{mabaocao}"})
 	public String chophepBaiViet(@PathVariable(value = "mabaocao") int mabaocao, Model model) {
 		baoCaoBaiVietService.deleteById(mabaocao);
 		
 		List<BaoCaoBaiViet> list = baoCaoBaiVietService.findAll();
 		model.addAttribute("baocaobaiviet", list);
 		
-		return "admin/manage/quanlybaiviet";
+		return "redirect:/admin/dsbaocaobaiviet";
+	}
+	
+	
+	@GetMapping("/admin/chitiet/{mabaocao}")
+	public String chitietbaiviet(@PathVariable(value = "mabaocao") int mabaocao, Model model) {
+		Optional<BaoCaoBaiViet> optBaocaobaiviet = baoCaoBaiVietService.findById(mabaocao);
+		BaoCaoBaiViet baocaobaiviet = optBaocaobaiviet.get();
+
+		model.addAttribute("baocaobaiviet", baocaobaiviet);
+		return "admin/manage/chitietbaiviet";
 	}
 }
