@@ -65,6 +65,80 @@ public class BaiViet implements Serializable {
 	
 	@OneToMany(mappedBy = "baiViet")
 	private List<BaoCaoBaiViet> baoCaoBaiViets;
+
+	public int getMaBaiViet() {
+		return maBaiViet;
+	}
+
+	public void setMaBaiViet(int maBaiViet) {
+		this.maBaiViet = maBaiViet;
+	}
+
+	public String getNoiDungChu() {
+		return noiDungChu;
+	}
+
+	public void setNoiDungChu(String noiDungChu) {
+		this.noiDungChu = noiDungChu;
+	}
+
+	public String getNoiDungHinhAnh() {
+		return noiDungHinhAnh;
+	}
+
+	public void setNoiDungHinhAnh(String noiDungHinhAnh) {
+		this.noiDungHinhAnh = noiDungHinhAnh;
+	}
+
+	public LocalDateTime getThoiGian() {
+		return ThoiGian;
+	}
+
+	public void setThoiGian(LocalDateTime thoiGian) {
+		ThoiGian = thoiGian;
+	}
+
+	public LocalDate getNgay() {
+		return Ngay;
+	}
+
+	public void setNgay(LocalDate ngay) {
+		Ngay = ngay;
+	}
+
+	public CheDo getCheDoNhom() {
+		return cheDoNhom;
+	}
+
+	public void setCheDoNhom(CheDo cheDoNhom) {
+		this.cheDoNhom = cheDoNhom;
+	}
+
+	public List<BinhLuan> getBinhLuans() {
+		return binhLuans;
+	}
+
+	public void setBinhLuans(List<BinhLuan> binhLuans) {
+		this.binhLuans = binhLuans;
+	}
+
+	public TaiKhoan getTaiKhoan() {
+		return taiKhoan;
+	}
+
+	public void setTaiKhoan(TaiKhoan taiKhoan) {
+		this.taiKhoan = taiKhoan;
+	}
+
+	public List<BaoCaoBaiViet> getBaoCaoBaiViets() {
+		return baoCaoBaiViets;
+	}
+
+	public void setBaoCaoBaiViets(List<BaoCaoBaiViet> baoCaoBaiViets) {
+		this.baoCaoBaiViets = baoCaoBaiViets;
+	}
+	
+	
 	
 	@ManyToMany(mappedBy = "baiVietTuongTacs")
 	private Set<TaiKhoan> taiKhoans = new HashSet<TaiKhoan>();

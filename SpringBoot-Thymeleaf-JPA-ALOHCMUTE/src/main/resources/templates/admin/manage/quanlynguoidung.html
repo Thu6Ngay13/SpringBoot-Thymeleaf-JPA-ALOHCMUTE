@@ -17,6 +17,7 @@
 			<div class="row flex-nowrap">
 				<div class="col py-3">
 					<div class="table_report">
+						<p th:if="${message != null}" th:text="${message}"></p>
 						<table class="table">
 							<thead class="thead-dark">
 								<tr>
@@ -26,7 +27,14 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<tr th:each="prod : ${listTaiKhoan}">
+									<td th:text="${prod.nickName}"></td>
+									<td th:text="${prod.loaiTaiKhoan.tenLoai}"></td>
+									<!--<td th:if="${prod.status = 1}">Người quản trị</td>-->
+									<!--<td th:if="${prod.maLoai > 1}">Người dùng</td>-->
+									<td><a th:href="@{/admin/manage/thongtintaikhoan/{taikhoan}(taikhoan=${prod.taiKhoan})}">Chi tiết</a></td> 
+								</tr>
+								<!--<tr>
 									<th scope="row">Ba con cho</th>
 									<th>Người quản trị</th>
 									<td>
@@ -43,7 +51,7 @@
 											<button type="button" class="btn btn-success">Chi tiết</button>
 										</div>
 									</td>
-								</tr>
+								</tr>-->
 							</tbody>
 						</table>
 					</div>
