@@ -1,16 +1,18 @@
 package hcmute.alohcmute.controllers;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import hcmute.alohcmute.entities.BinhLuan;
 import hcmute.alohcmute.services.BaiDangServiceImpl;
@@ -50,11 +52,18 @@ public class CommentController {
 		model.addAttribute("comments", comments);
 		if (binhLuan.getNoiDungChu() != "" && binhLuan.getNoiDungChu() != null) {
 			binhLuan.setNgay(java.time.LocalDate.now());
-			binhLuan.setThoiGian(java.time.LocalTime.now());
+			binhLuan.setThoiGian(java.time.LocalTime.now().truncatedTo(ChronoUnit.MINUTES));
 			binhLuan.setBaiViet(baiDangService.getById(id));
 			binhLuan.setTaiKhoan(taiKhoanService.findBytaiKhoan("thuycao816"));
 			commentService.save(binhLuan);
 		}
 		return "redirect:{baiVietId}";
 	}
+	
+	@GetMapping("/comment/{baiVietId}/delete/{commentId}")
+	public String deleteComment(@PathVariable("commentId") int commentId, @PathVariable("baiVietId") int baiVietId, Model model) {
+		commentService.deleteById(commentId);
+        return "redirect:/user/comment/{baiVietId}";
+    }
+	
 }
