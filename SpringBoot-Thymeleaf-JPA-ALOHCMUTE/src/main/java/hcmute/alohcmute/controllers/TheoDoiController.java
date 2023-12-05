@@ -1,14 +1,14 @@
 package hcmute.alohcmute.controllers;
 
 import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,8 +27,13 @@ public class TheoDoiController {
 		String username = "lolo928";
 		List<TaiKhoan> tkTheoDoi = new ArrayList<>(tkSer.findTaiKhoanTheoDoisByUsername(username));
 		model.addAttribute("Listtaikhoan",tkTheoDoi);
+		
 		List<TaiKhoan> tkDuocTheoDoi = new ArrayList<>(tkSer.findTaiKhoanFollowersByUsername(username));
 		model.addAttribute("ListTKDuocTheoDoi",tkDuocTheoDoi);
+		
+		Map<TaiKhoan, Integer> BanChung = tkSer.NguoiTheoDoiChung(username);
+		model.addAttribute("BanChung",BanChung);
+		
 		return "user/banbe/banbe.html";
 	}
 	
