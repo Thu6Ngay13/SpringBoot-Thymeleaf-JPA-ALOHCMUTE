@@ -3,6 +3,7 @@ package hcmute.alohcmute.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -46,7 +47,7 @@ public class BaiViet implements Serializable {
 	private String noiDungHinhAnh;
 	
 	@Column(name = "ThoiGian", columnDefinition = "Time")
-	private LocalDateTime  ThoiGian;
+	private LocalTime  ThoiGian;
 	
 	@Column(name = "Ngay", columnDefinition = "Date")
 	private LocalDate Ngay;
@@ -90,11 +91,11 @@ public class BaiViet implements Serializable {
 		this.noiDungHinhAnh = noiDungHinhAnh;
 	}
 
-	public LocalDateTime getThoiGian() {
+	public LocalTime getThoiGian() {
 		return ThoiGian;
 	}
 
-	public void setThoiGian(LocalDateTime thoiGian) {
+	public void setThoiGian(LocalTime thoiGian) {
 		ThoiGian = thoiGian;
 	}
 
