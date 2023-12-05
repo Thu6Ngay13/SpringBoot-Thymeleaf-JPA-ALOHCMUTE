@@ -2,13 +2,11 @@ package hcmute.alohcmute.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,16 +30,30 @@ public class TheoDoiController {
 		return "user/banbe/banbe.html";
 	}
 	
-	@GetMapping("/unfollow")
+	@GetMapping("unfollow")
 	public ModelAndView delet(ModelMap model, @RequestParam("username") String userNameUnfollow) {
 
 		String username="lolo928";
 		TaiKhoan user1=tkSer.findBytaiKhoan(username);
 		TaiKhoan user2=tkSer.findBytaiKhoan(userNameUnfollow);
 		tkSer.unfollow(user1,user2);
+		//tkSer.follow(user1, user2);
 
 
-		return new ModelAndView("redirect:/user", model);
+		return new ModelAndView("redirect:/user/follow", model);
+
+	}
+	
+	@GetMapping("addfollow")
+	public ModelAndView follow(ModelMap model, @RequestParam("username") String userNameFollow) {
+
+		String username="lolo928";
+		TaiKhoan user1=tkSer.findBytaiKhoan(username);
+		TaiKhoan user2=tkSer.findBytaiKhoan(userNameFollow);
+		tkSer.follow(user1,user2);
+
+
+		return new ModelAndView("redirect:/user/follow", model);
 
 	}
 }

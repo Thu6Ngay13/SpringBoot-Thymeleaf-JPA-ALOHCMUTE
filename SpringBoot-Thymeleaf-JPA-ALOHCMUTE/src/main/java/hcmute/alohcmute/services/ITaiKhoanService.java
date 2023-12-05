@@ -1,29 +1,39 @@
 package hcmute.alohcmute.services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import org.springframework.data.domain.Example;
 
 import hcmute.alohcmute.entities.TaiKhoan;
 
-public interface ITaiKhoanService{
+public interface ITaiKhoanService {
 
-	void deleteById(Long id);
+	Map<TaiKhoan, Integer> NguoiTheoDoiChung(String username);
+
+	TaiKhoan findBytaiKhoan(String username);
+
+	<S extends TaiKhoan> Optional<S> findOne(Example<S> example);
+
+	void follow(TaiKhoan taiKhoan, TaiKhoan taiKhoanTheoDoi);
+
+	void unfollow(TaiKhoan taiKhoanTheoDoi, TaiKhoan taiKhoanBiTheoDoi);
+
+	List<TaiKhoan> findTaiKhoanFollowersByUsername(String taiKhoanUsername);
+
+	List<TaiKhoan> findTaiKhoanTheoDoisByUsername(String taiKhoanUsername);
+
+	void deleteById(String id);
 
 	long count();
 
-	boolean existsById(Long id);
+	boolean existsById(String id);
 
-	Optional<TaiKhoan> findById(Long id);
+	Optional<TaiKhoan> findById(String id);
 
 	List<TaiKhoan> findAll();
 
 	<S extends TaiKhoan> S save(S entity);
 
-	List<TaiKhoan> findTaiKhoanTheoDoisByUsername(String taiKhoanUsername);
-	
-	List<TaiKhoan> findTaiKhoanFollowersByUsername(String taiKhoanUsername);
-
-	void unfollow(TaiKhoan taiKhoan, TaiKhoan taiKhoanTheoDoi);
-	
-	TaiKhoan findBytaiKhoan (String username);
 }

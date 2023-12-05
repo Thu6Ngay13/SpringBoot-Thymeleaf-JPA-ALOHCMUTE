@@ -6,15 +6,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import hcmute.alohcmute.services.BaiDangServiceImpl;
-import hcmute.alohcmute.services.IBaiDangService;
+import hcmute.alohcmute.services.BaiVietServiceImpl;
+import hcmute.alohcmute.services.IBaiVietService;
 
 @Controller
 @RequestMapping("newfeed")
 public class TrangChuController {
    
     @Autowired
-    IBaiDangService baiDangService = new BaiDangServiceImpl();
+    IBaiVietService baiDangService = new BaiVietServiceImpl();
 
     @GetMapping("")
     public String hienThiNewFeed(ModelMap model) {
