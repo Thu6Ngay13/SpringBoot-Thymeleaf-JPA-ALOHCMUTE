@@ -68,4 +68,8 @@ public class BaiViet implements Serializable {
 	
 	@ManyToMany(mappedBy = "baiVietTuongTacs")
 	private Set<TaiKhoan> taiKhoans = new HashSet<TaiKhoan>();
+	
+	@ManyToOne
+	@JoinColumn(name = "MaNhom")
+	private Nhom nhom;
 }
