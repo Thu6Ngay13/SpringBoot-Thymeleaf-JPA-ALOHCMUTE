@@ -23,7 +23,9 @@ public class BaiVietServiceImpl implements IBaiVietService{
 	public Optional<BaiViet> findById(Integer id) {
 		return baiVietRepository.findById(id);
 	}
-	
-	
-	
+
+	@Override
+	public BaiViet getById(Integer id) {
+		return baiVietRepository.getById(id);
+	}
 }

@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import hcmute.alohcmute.entities.BinhLuan;
-import hcmute.alohcmute.services.BaiDangServiceImpl;
+import hcmute.alohcmute.services.BaiVietServiceImpl;
 import hcmute.alohcmute.services.CommentSerrviceImpl;
-import hcmute.alohcmute.services.IBaiDangService;
+import hcmute.alohcmute.services.IBaiVietService;
 import hcmute.alohcmute.services.ICommentService;
 import hcmute.alohcmute.services.ITaiKhoanService;
 import hcmute.alohcmute.services.TaiKhoanServiceImpl;
@@ -29,7 +28,7 @@ public class CommentController {
 	@Autowired
 	ICommentService commentService = new CommentSerrviceImpl();
 	@Autowired
-    IBaiDangService baiDangService = new BaiDangServiceImpl();
+    IBaiVietService baiDangService = new BaiVietServiceImpl();
 	@Autowired
     ITaiKhoanService taiKhoanService = new TaiKhoanServiceImpl();
 
