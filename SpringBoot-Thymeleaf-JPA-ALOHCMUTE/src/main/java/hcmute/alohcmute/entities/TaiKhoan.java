@@ -3,8 +3,10 @@ package hcmute.alohcmute.entities;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -98,5 +100,23 @@ public class TaiKhoan implements Serializable{
 	
 	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
 	private Set<BinhLuan> binhLuans;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TaiKhoan other = (TaiKhoan) obj;
+		return this.taiKhoan==other.getTaiKhoan();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(taiKhoan);
+	}
+	
 	
 }
