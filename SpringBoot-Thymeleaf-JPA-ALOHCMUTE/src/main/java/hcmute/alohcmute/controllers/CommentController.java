@@ -1,8 +1,8 @@
 package hcmute.alohcmute.controllers;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -50,7 +50,7 @@ public class CommentController {
 		model.addAttribute("comments", comments);
 		if (binhLuan.getNoiDungChu() != "" && binhLuan.getNoiDungChu() != null) {
 			binhLuan.setNgay(java.time.LocalDate.now());
-			binhLuan.setThoiGian(java.time.LocalTime.now());
+			binhLuan.setThoiGian(java.time.LocalTime.now().truncatedTo(ChronoUnit.MINUTES));
 			binhLuan.setBaiViet(baiDangService.getById(id));
 			binhLuan.setTaiKhoan(taiKhoanService.findBytaiKhoan("thuycao816"));
 			commentService.save(binhLuan);
