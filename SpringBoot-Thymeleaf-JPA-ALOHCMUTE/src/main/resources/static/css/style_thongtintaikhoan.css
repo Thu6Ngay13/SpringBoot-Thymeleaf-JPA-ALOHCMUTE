@@ -197,3 +197,8 @@ body {
 	margin: 0 auto;
 	/* Để căn giữa nội dung */
 }
+
+.img-profile-standard {
+    width: 315px;
+    height: 315px;
+}
