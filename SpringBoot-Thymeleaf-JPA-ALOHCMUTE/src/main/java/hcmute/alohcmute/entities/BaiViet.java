@@ -87,11 +87,11 @@ public class BaiViet implements Serializable {
 		this.noiDungHinhAnh = noiDungHinhAnh;
 	}
 
-	public LocalTime getThoiGian() {
+	public LocalDateTime getThoiGian() {
 		return ThoiGian;
 	}
 
-	public void setThoiGian(LocalTime thoiGian) {
+	public void setThoiGian(LocalDateTime thoiGian) {
 		ThoiGian = thoiGian;
 	}
 
