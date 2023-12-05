@@ -106,7 +106,7 @@ public class CommentSerrviceImpl implements ICommentService{
 		List<BinhLuan> listAll = findAll();
 		List<BinhLuan> list = new ArrayList<>();
 		for (BinhLuan binhLuan : listAll) {
-			if (binhLuan.getBaiViet().getMaBaiViet() == maBV)
+			if (binhLuan.getBaiViet() != null && binhLuan.getBaiViet().getMaBaiViet() == maBV)
 				list.add(binhLuan);
 		}
 		return list;
