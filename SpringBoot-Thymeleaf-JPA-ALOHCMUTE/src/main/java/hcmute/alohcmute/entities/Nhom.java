@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +25,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor 
 @AllArgsConstructor
 
+
 @Entity
 @Table
 public class Nhom  implements Serializable{
@@ -40,6 +43,7 @@ public class Nhom  implements Serializable{
 	private LocalDateTime ngayThanhLap;
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name="MaCheDo")
 	private CheDo cheDoNhom;
 	
