@@ -23,6 +23,15 @@ TaiKhoanRepository tkRepo;
 public TaiKhoanServiceImpl(TaiKhoanRepository tkRepo) {
 	super();
 	this.tkRepo = tkRepo;
+	@Override
+	public <S extends TaiKhoan> S save(S entity) {
+		return taiKhoanRepository.save(entity);
+	}
+
+	@Override
+	public Optional<TaiKhoan> findById(String id) {
+		return taiKhoanRepository.findById(id);
+	}
 }
 
 @Override
