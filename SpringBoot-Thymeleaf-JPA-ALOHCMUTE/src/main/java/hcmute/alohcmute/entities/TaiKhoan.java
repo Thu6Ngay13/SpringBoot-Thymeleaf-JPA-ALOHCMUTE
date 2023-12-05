@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -99,6 +98,12 @@ public class TaiKhoan implements Serializable{
 	
 	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
 	private Set<BinhLuan> binhLuans;
+	
+	@ManyToMany
+	@JoinTable(name = "TuongTac",
+		joinColumns = {@JoinColumn(name = "TaiKhoan") },
+		inverseJoinColumns = {@JoinColumn(name = "MaBaiViet")})
+	private Set<BaiViet> baiVietTuongTacs = new HashSet<BaiViet>();
 
 	@Override
 	public boolean equals(Object obj) {
@@ -260,6 +265,5 @@ public class TaiKhoan implements Serializable{
 	public void setBinhLuans(Set<BinhLuan> binhLuans) {
 		this.binhLuans = binhLuans;
 	}
-	
 	
 }

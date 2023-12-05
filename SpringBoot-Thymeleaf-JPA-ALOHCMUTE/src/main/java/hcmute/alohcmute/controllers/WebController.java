@@ -9,5 +9,4 @@ public class WebController {
 	public String home() {
 		return "admin/manage/quanlybaiviet.html";
 	}
-	
 }

@@ -15,7 +15,12 @@ public class BaiDangServiceImpl implements IBaiDangService {
     @Autowired
     BaiDangRepository baiDangRepository;
 
-    @Override
+	@Override
+	public BaiViet getById(Integer id) {
+		return baiDangRepository.getById(id);
+	}
+
+	@Override
     public List<BaiViet> findAll() {
         return baiDangRepository.findAll();
     }
