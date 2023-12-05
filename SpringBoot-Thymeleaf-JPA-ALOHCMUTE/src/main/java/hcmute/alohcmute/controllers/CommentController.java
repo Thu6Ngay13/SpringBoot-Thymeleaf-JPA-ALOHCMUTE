@@ -66,4 +66,15 @@ public class CommentController {
         return "redirect:/user/comment/{baiVietId}";
     }
 	
+	@PostMapping("/comment/{baiVietId}/update")
+	public String updateComment(@Valid BinhLuan binhLuan, BindingResult result, ModelMap model,  @PathVariable("baiVietId") int baiVietId) {
+		BinhLuan binhLuanOld = commentService.getById(binhLuan.getMaBinhLuan());
+		if (binhLuan.getNoiDungChu() != binhLuanOld.getNoiDungChu()) {
+			binhLuanOld.setNoiDungChu(binhLuan.getNoiDungChu());
+			binhLuanOld.setNgay(java.time.LocalDate.now());
+			binhLuanOld.setThoiGian(java.time.LocalTime.now().truncatedTo(ChronoUnit.MINUTES));
+			commentService.save(binhLuanOld);
+		}
+        return "redirect:/user/comment/{baiVietId}";
+    }
 }
