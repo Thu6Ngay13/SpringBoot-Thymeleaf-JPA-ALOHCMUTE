@@ -54,4 +54,5 @@ public class AdminController {
 		model.addAttribute("message", "Xoa thanh cong!");
 		return new ModelAndView("forward:/admin/manage/quanlynguoidung", model);
 	}
+	
 }
