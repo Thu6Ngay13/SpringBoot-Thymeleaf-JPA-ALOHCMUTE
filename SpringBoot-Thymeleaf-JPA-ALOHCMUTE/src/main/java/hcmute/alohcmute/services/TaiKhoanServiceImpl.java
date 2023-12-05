@@ -1,5 +1,8 @@
 package hcmute.alohcmute.services;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -7,6 +10,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.repositories.TaiKhoanRepository;
@@ -57,9 +61,17 @@ public List<TaiKhoan> findTaiKhoanFollowersByUsername(String taiKhoanUsername) {
 }
 
 @Override
-public void unfollow(TaiKhoan taiKhoan, TaiKhoan taiKhoanTheoDoi) {
-    Set<TaiKhoan> taiKhoanTheoDois = taiKhoan.getTaiKhoanTheoDois();
-    taiKhoanTheoDois.remove(taiKhoanTheoDoi);
+@Transactional
+public void unfollow(TaiKhoan taiKhoanTheoDoi, TaiKhoan taiKhoanBiTheoDoi) {
+
+        taiKhoanTheoDoi.getTaiKhoanTheoDois().remove(taiKhoanBiTheoDoi);
+   	 	tkRepo.save(taiKhoanTheoDoi);
+    
+}
+@Override
+public void follow(TaiKhoan taiKhoan, TaiKhoan taiKhoanTheoDoi) {
+
+    taiKhoan.getTaiKhoanTheoDois().add(taiKhoanTheoDoi);
     tkRepo.save(taiKhoan);
 }
 
