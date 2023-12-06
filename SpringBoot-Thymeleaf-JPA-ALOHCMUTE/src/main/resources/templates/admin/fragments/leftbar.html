@@ -4,9 +4,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+	<link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css}" rel="stylesheet"
 		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-	<link rel="stylesheet" th:href="@{css/style_admin.css}">
+	<link rel="stylesheet" th:href="@{/css/style_admin.css}">
 </head>
 
 <body>
@@ -15,7 +15,7 @@
 		<div id="leftbar"
 			class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
 			<a th:href="@{/}" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-				<span class="fs-5 d-none d-sm-inline"><img id="logo" th:src="@{images/image_logo.png}" alt=""></span>
+				<span class="fs-5 d-none d-sm-inline"><img id="logo" th:src="@{/images/image_logo.png}" alt=""></span>
 			</a>
 			<ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
 				<li>
@@ -40,7 +40,7 @@
 			<div class="dropdown pb-4">
 				<a th:href="@{#}" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
 					id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-					<img th:src="@{images/image_2.jfif}" alt="hugenerd" width="30" height="30" class="rounded-circle">
+					<img th:src="@{/images/image_2.jfif}" alt="hugenerd" width="30" height="30" class="rounded-circle">
 					<span class="d-none d-sm-inline mx-1">Hai con mèo</span>
 				</a>
 				<ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">

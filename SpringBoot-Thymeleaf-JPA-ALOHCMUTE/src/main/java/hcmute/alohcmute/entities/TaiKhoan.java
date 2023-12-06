@@ -1,10 +1,10 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,12 +12,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
@@ -36,11 +34,11 @@ public class TaiKhoan implements Serializable{
 	@Column(name = "MatKhau", columnDefinition = "varchar(2000)")
 	private String matKhau;
 	
-	@Column(name = "Code")
-	private int code;
+	@Column(name = "Token")
+	private String token;
 	
-	@Column(name = "Status", columnDefinition = "bit")
-	private boolean status;
+	@Column(name = "Enable", columnDefinition = "bit")
+	private boolean enable = false;
 	
 	@Column(name = "HoTen", columnDefinition = "nvarchar(2000)")
 	private String hoTen; 
@@ -60,36 +58,39 @@ public class TaiKhoan implements Serializable{
 	@Column(name = "AvatarURL", columnDefinition = "nvarchar(2000)")
 	private String avatarURl;
 	
-	@ManyToOne
-	@JoinColumn(name = "MaLoai")
-	private LoaiTaiKhoan loaiTaiKhoan;
-	
 	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
 	private List<BaiViet> baiViets;
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "TaiKhoan_LoaiTaiKhoan",
+			joinColumns = {@JoinColumn(name = "taiKhoan")},
+			inverseJoinColumns = {@JoinColumn(name = "maLoai")})
+	private Set<LoaiTaiKhoan> loaiTaiKhoans;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_CuocHoiThoai",
 		joinColumns = {@JoinColumn(name = "TaiKhoan") },
 		inverseJoinColumns = {@JoinColumn(name = "MaCuocHoiThoai")})
-	private Set<CuocHoiThoai> cuocHoiThoai = new HashSet<CuocHoiThoai>();
+	private Set<CuocHoiThoai> cuocHoiThoai;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_Nhom",
 		joinColumns = {@JoinColumn(name = "TaiKhoan") },
 		inverseJoinColumns = {@JoinColumn(name = "MaNhom")})
-	private Set<Nhom> nhom = new HashSet<Nhom>();
+	private Set<Nhom> nhom;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_TheoDoi_TaiKhoan",
 		joinColumns = {@JoinColumn(name = "TaiKhoanTheoDoi") },
 		inverseJoinColumns = {@JoinColumn(name = "TaiKhoanBiTheoDoi")})
-	private Set<TaiKhoan> taiKhoanTheoDois = new HashSet<TaiKhoan>();
+	private Set<TaiKhoan> taiKhoanTheoDois;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_Chan_TaiKhoan",
 		joinColumns = {@JoinColumn(name = "TaiKhoanChan") },
 		inverseJoinColumns = {@JoinColumn(name = "TaiKhoanBiChan")})
-	private Set<TaiKhoan> taiKhoanChans = new HashSet<TaiKhoan>();
+	private Set<TaiKhoan> taiKhoanChans;
 	
 	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
 	private Set<ThongBao> thongBaos;

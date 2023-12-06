@@ -1,0 +1,64 @@
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+	<meta charset="utf-8">
+	<title> Trang Đăng Ký</title>
+	<link rel="stylesheet" th:href="@{css/style_dangky.css}">
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="title">
+			Tạo tài khoản mới
+			<p>Nhanh chóng và đơn giản</p>
+		</div>
+		<form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
+			<div class="field">
+				<input type="text" required th:field="*{username}">
+				<label for="">Username</label>
+			</div>
+			
+			<div class="field">
+				<input type="text" required th:field="*{firstName}">
+				<label for="">Họ và tên đệm</label>
+			</div>
+
+			<div class="field">
+				<input type="text" required th:field="*{lastName}">
+				<label for="">Tên</label>
+			</div>
+			
+			<div class="field">
+				<input type="text" required th:field="*{sex}">
+				<label for="">Giới tính</label>
+			</div>
+
+			<div class="field">
+				<input type="text" required th:field="*{email}">
+				<label for="">Email</label>
+			</div>
+			
+			<div class="field">
+				<input type="number" required th:field="*{phone}">
+				<label for="">SDT</label>
+			</div>
+
+			<div class="field">
+				<input type="password" required th:field="*{password}">
+				<label for="">Mật khẩu</label>
+			</div>
+
+			<div class="field">
+				<input type="submit" value="Tạo tại khoản">
+			</div>
+
+			<div class="signup-link">
+				Bạn đã có tài khoản? <a th:href="@{/dangnhap}"> Đăng nhập ngay</a>
+			</div>
+		</form>
+		
+	</div>
+	
+</body>
+
+</html>

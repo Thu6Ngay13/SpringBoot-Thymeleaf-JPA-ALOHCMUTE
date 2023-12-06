@@ -2,7 +2,6 @@ package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -36,9 +35,9 @@ public class CuocHoiThoai implements Serializable {
 	private String tenCuocHoiThoai;
 
 	@OneToMany(mappedBy = "cuocHoiThoai", fetch = FetchType.EAGER)
-	private List<TinNhan> tinNhans;
+	private Set<TinNhan> tinNhans;
 
-	@ManyToMany(mappedBy = "cuocHoiThoai")
-	private Set<TaiKhoan> taiKhoans = new HashSet<TaiKhoan>();
+	@ManyToMany(mappedBy = "cuocHoiThoai", fetch = FetchType.EAGER)
+	private Set<TaiKhoan> taiKhoans;
 
 }
