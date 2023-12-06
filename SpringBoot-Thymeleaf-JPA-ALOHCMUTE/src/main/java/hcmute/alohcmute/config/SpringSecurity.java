@@ -21,7 +21,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import hcmute.alohcmute.security.CustomUserDetailsService;
 import hcmute.alohcmute.security.UserDetailsServiceImpl;
 
 @Configuration
@@ -30,7 +29,7 @@ import hcmute.alohcmute.security.UserDetailsServiceImpl;
 public class SpringSecurity {
     
 	@Autowired
-	private CustomUserDetailsService userDetailsService;
+	private UserDetailsServiceImpl userDetailsService;
 	
 	@Bean
 	public UserDetailsService userDetailsService() {
