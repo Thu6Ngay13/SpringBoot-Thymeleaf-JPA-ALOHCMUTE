@@ -2,7 +2,6 @@ package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.Column;

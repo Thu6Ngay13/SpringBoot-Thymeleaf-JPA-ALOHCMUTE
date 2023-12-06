@@ -11,9 +11,7 @@ import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.services.IEmailSendService;
 import hcmute.alohcmute.services.IUserService;
 import jakarta.mail.MessagingException;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Component
 public class RegistrationCompleteEventListener implements ApplicationListener<RegistrationCompleteEvent> {
 	
@@ -34,7 +32,6 @@ public class RegistrationCompleteEventListener implements ApplicationListener<Re
         } catch (MessagingException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
-		log.info("Click the link to verify your registration : {}", url);
 	}
 	
 	public void sendVerificationEmail(String url) throws MessagingException, UnsupportedEncodingException {
