@@ -138,7 +138,7 @@ form .field input[type="submit"]{
 }
 
 form .field input[type="submit"]:active{
-    transform: scale(0.95);
+    transform: scale(0.95);}
  
 
 form .signup-link{

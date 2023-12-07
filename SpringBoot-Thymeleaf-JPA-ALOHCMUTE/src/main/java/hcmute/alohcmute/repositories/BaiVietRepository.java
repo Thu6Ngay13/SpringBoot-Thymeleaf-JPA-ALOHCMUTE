@@ -6,6 +6,11 @@ import org.springframework.stereotype.Repository;
 import hcmute.alohcmute.entities.BaiViet;
 
 @Repository
-public interface BaiVietRepository extends JpaRepository<BaiViet, Long> {
+public interface BaiVietRepository extends JpaRepository<BaiViet, Integer> {
 
+	
+
+	
+	
 }
+

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Danh Sách Bài Viết</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Danh Sách Bài Viết</h2>
+    <table border="1">
+        <tr>
+            <th>Mã Bài Viết</th>
+            <th>Nội Dung Chữ</th>
+            <th>Nội Dung Hình Ảnh</th>
+            <th>Thời Gian</th>
+            <th>Ngày</th>
+            <th>Chế độ</th>
+            <th>Avarta</th>
+        </tr>
+        <tr th:each="baiViet : ${baiViets}">
+            <td th:text="${baiViet.taiKhoan.hoTen}"></td>
+            <td th:text="${baiViet.noiDungChu}"></td>
+            <td th:text="${baiViet.noiDungHinhAnh}"></td>
+            <td th:text="${#dates.format(new java.util.Date(baiViet.thoiGian), 'hh:mm:ss')}"></td>
+            <td th:text="${baiViet.Ngay}"></td>
+            <td th:text="${baiViet.cheDoNhom.tenCheDo}"></td>
+            <img th:src="${baiViet.taiKhoan.avatarURl}" alt="" width="100" height="100" />
+        </tr>
+    </table>
+</body>
+</html>
+

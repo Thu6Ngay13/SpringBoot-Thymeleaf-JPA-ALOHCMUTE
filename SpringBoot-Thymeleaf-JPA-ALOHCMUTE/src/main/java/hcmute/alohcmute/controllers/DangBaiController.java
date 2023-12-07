@@ -50,7 +50,12 @@ public class DangBaiController{
 	{
 		TaiKhoan taikhoan=taikhoanSer.findBytaiKhoan("lolo928");
 		model.addAttribute("taikhoan",taikhoan);
-
+		List<TaiKhoan> aa = taikhoanSer.findTaiKhoanFollowersByUsername("lolo928");
+		List<String> kq = new ArrayList<>();
+		for (TaiKhoan ds : aa) {
+			kq.add(ds.getTaiKhoan());
+		}
+		model.addAttribute("listbanbe",kq);
 		return "user/dangbai/dangbai.html";
 	}
 	@PostMapping("add")

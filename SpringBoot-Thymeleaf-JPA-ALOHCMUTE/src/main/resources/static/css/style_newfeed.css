@@ -1,464 +1,851 @@
-/* #nav{list-style:none;margin: 0px;padding: 0px;}
-#nav li {
-float: left;
-margin-right: 20px;
-font-size: 14px;
-font-weight:bold;
-}
-#nav li a{color:#333333;text-decoration:none}
-#nav li a:hover{color:#006699;text-decoration:none}
-#notification_li
-{
-position:relative
-}
-#notificationContainer
-{
-background-color: #fff;
-border: 1px solid rgba(100, 100, 100, .4);
--webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
-overflow: visible;
-position: absolute;
-top: 30px;
-margin-left: -170px;
-width: 400px;
-z-index: -1;
-display: none; 
-}
-#notificationContainer:before {
-content: ”;
-display: block;
-position: absolute;
-width: 0;
-height: 0;
-color: transparent;
-border: 10px solid black;
-border-color: transparent transparent white;
-margin-top: -20px;
-margin-left: 188px;
-}
-#notificationTitle
-{
-font-weight: bold;
-padding: 8px;
-font-size: 13px;
-background-color: #ffffff;
-position: fixed;
-z-index: 1000;
-width: 384px;
-border-bottom: 1px solid #dddddd;
-}
-#notificationsBody
-{
-padding: 33px 0px 0px 0px !important;
-min-height:300px;
-}
-#notificationFooter
-{
-background-color: #e9eaed;
-text-align: center;
-font-weight: bold;
-padding: 8px;
-font-size: 12px;
-border-top: 1px solid #dddddd;
-} */
-.popup
-{
+.popup {
 	width: 400px;
-	background:#fff;
-	border-radius:6px ;
+	background: #fff;
+	border-radius: 6px;
 	position: absolute;
-	top:50%;
-	transform: translate(-50%,-50%) scale(0.1);
+	top: 50%;
+	transform: translate(-50%, -50%) scale(0.1);
 	text-align: center;
 	padding: 0 30px 30px;
 	color: #333;
 	visibility: hidden;
-	transition: transform 0.4s,top 0.4s;
+	transition: transform 0.4s, top 0.4s;
 }
-.open-popup{
-	visibility:visible;
-	top:200%;
-	transform: translate(-2%,-50%) scale(1);
+
+.open-popup {
+	visibility: visible;
+	top: 200%;
+	transform: translate(-2%, -50%) scale(1);
 }
-.popup button{
+
+.popup button {
 	width: 100%;
 	margin-top: 50px;
 	padding: 10px 0;
-	background:#6fd649 ;
+	background: #6fd649;
 	color: #fff;
 	border: 0;
 	outline: none;
 	font-size: 18px;
-	border-radius:4px ;
+	border-radius: 4px;
 	cursor: pointer;
-	box-shadow: 0 5px 5px rgba(0,0,0,0.2);
-	
+	box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+
 }
 
 * {
-    margin: 0;
-    box-sizing: border-box;
-  }
-  
-  .header__left img {
-    height: 40px;
-  }
-  
-  .user__avatar {
-    border-radius: 50%;
-    width: 45px;
-  }
-  
-  .header {
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    position: sticky;
-    background-color: white;
-    z-index: 100;
-    top: 0;
-    box-shadow: 0 5px 8px -9px rgba(0, 0, 0, 0.75);
-  }
-  
-  .header__left {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-  }
-  
-  .header__input {
-    display: flex;
-    align-items: center;
-    background-color: #eff2f5;
-    padding: 10px;
-    margin-left: 10px;
-    border-radius: 999px;
-  }
-  .icon-public {
-    font-size: 14px; /* Điều chỉnh kích thước ở đây */
-    vertical-align: middle;
-    transform: scale(0.8); /* Điều chỉnh kích thước bằng transform */
-    margin-right: 5px; /* Điều chỉnh khoảng cách với ngày nếu cần */
-  }
-  .report-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-  }
-  
-  .report-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-  }
-  
-  .report-button .material-icons {
-    margin-right: 4px;
-  }
-  
-  /* Tùy chỉnh CSS khác cho nút báo cáo */
-  
-  
-  /* Tùy chỉnh CSS khác cho nút báo cáo */
-  
-    
-  h5 {
-    margin-left: 9px; /* Thêm margin-left cho thẻ h5 */
-  }
-  .header__input input {
-    border: none;
-    background-color: transparent;
-    outline-width: 0;
-  }
-  
-  .header__middle {
-    display: flex;
-    flex: 1;
-    justify-content: center;
-  }
-  
-  .header__option .material-icons {
-    font-size: xx-large;
-    color: gray;
-  }
-  
-  .header__option:hover .material-icons {
-    color: #2e81f4;
-  }
-  
-  .header__option {
-    display: flex;
-    align-items: center;
-    padding: 0 30px;
-    cursor: pointer;
-  }
-  
-  .header__option.active .material-icons {
-    color: #2e81f4;
-  }
-  
-  .header__option.active {
-    border-bottom: 4px solid #2e81f4;
-  }
-  
-  .header__option:hover {
-    background-color: #eff2f5;
-    border-radius: 10px;
-    align-items: center;
-    padding: 0 30px;
-    border-bottom: none;
-  }
-  
-  .header__info {
-    display: flex;
-    align-items: center;
-  }
-  
-  .header__info h4 {
-    margin-left: 10px;
-  }
-  
-  .header__right {
-    display: flex;
-    align-items: center;
-  }
-  
-  .header__right .material-icons {
-    color: gray;
-    margin: 0 10px;
-  }
-  
-  .header__right .material-icons:hover {
-    cursor: pointer;
-  }
-  
-  /* sidebar  */
-  
-  .sidebarRow {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    cursor: pointer;
-  }
-  .rounded-pill bg-green p-2
-  {
-	  background-color: #2e81f4;
-  }
-  
-  .sidebarRow:hover {
-    background-color: lightgray;
-    border-radius: 10px;
-  }
-  
-  .sidebarRow h4 {
-    margin-left: 20px;
-    font-weight: 600;
-  }
-  
-  .sidebarRow .material-icons {
-    font-size: xx-large;
-    color: #2e81f4;
-  }
-  
-  
-  .main__body {
-    display: flex;
-  }
-  
-  body {
-    background-color: #f1f2f5;
-  }
-  
-  .feed {
-    flex: 1;
-    padding: 30px 100px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .sidebar {
-    padding: 25px 10px;
-    flex: 0.33;
-  }
-  
-  /* message sender */
-  
-  .messageSender {
-    display: flex;
-    margin-top: 30px;
-    flex-direction: column;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
-    width: 100%;
-  }
-  
-  .messageSender__top {
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #eff2f5;
-    padding: 15px;
-  }
-  
-  .messageSender__top form {
-    flex: 1;
-    display: flex;
-  }
-  
-  .messageSender__top form input {
-    flex: 1;
-    outline-width: 0;
-    border: none;
-    padding: 15px 20px;
-    margin: 0 10px;
-    border-radius: 999px;
-    background-color: #eff2f5;
-  }
-  
-  .messageSender__bottom {
-    display: flex;
-    justify-content: space-evenly;
-  }
-  
-  .messageSender__option {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+.header__left img {
+	height: 40px;
+}
+
+.user__avatar {
+	border-radius: 50%;
+	width: 45px;
+}
+
+.header {
+	padding: 15px 20px;
+	display: flex;
+	justify-content: space-between;
+	position: sticky;
+	background-color: white;
+	z-index: 100;
+	top: 0;
+	box-shadow: 0 5px 8px -9px rgba(0, 0, 0, 0.75);
+}
+
+.header__left {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.header__input {
+	display: flex;
+	align-items: center;
+	background-color: #eff2f5;
+	padding: 10px;
+	margin-left: 10px;
+	border-radius: 999px;
+}
+
+.icon-public {
+	font-size: 14px;
+	/* Điều chỉnh kích thước ở đây */
+	vertical-align: middle;
+	transform: scale(0.8);
+	/* Điều chỉnh kích thước bằng transform */
+	margin-right: 5px;
+	/* Điều chỉnh khoảng cách với ngày nếu cần */
+}
+
+.report-icon {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+}
+
+.report-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+}
+
+.report-button .material-icons {
+	margin-right: 4px;
+}
+
+/* Tùy chỉnh CSS khác cho nút báo cáo */
+
+
+/* Tùy chỉnh CSS khác cho nút báo cáo */
+
+
+h5 {
+	margin-left: 9px;
+	/* Thêm margin-left cho thẻ h5 */
+}
+
+.header__input input {
+	border: none;
+	background-color: transparent;
+	outline-width: 0;
+}
+
+.header__middle {
+	display: flex;
+	flex: 1;
+	justify-content: center;
+}
+
+.header__option .material-icons {
+	font-size: xx-large;
+	color: gray;
+}
+
+.header__option:hover .material-icons {
+	color: #2e81f4;
+}
+
+.header__option {
+	display: flex;
+	align-items: center;
+	padding: 0 30px;
+	cursor: pointer;
+}
+
+.header__option.active .material-icons {
+	color: #2e81f4;
+}
+
+.header__option.active {
+	border-bottom: 4px solid #2e81f4;
+}
+
+.header__option:hover {
+	background-color: #eff2f5;
+	border-radius: 10px;
+	align-items: center;
+	padding: 0 30px;
+	border-bottom: none;
+}
+
+.header__info {
+	display: flex;
+	align-items: center;
+}
+
+.header__info h4 {
+	margin-left: 10px;
+}
+
+.header__right {
+	display: flex;
+	align-items: center;
+}
+
+.header__right .material-icons {
+	color: gray;
+	margin: 0 10px;
+}
+
+.header__right .material-icons:hover {
+	cursor: pointer;
+}
+
+/* sidebar  */
+
+.sidebarRow {
+	display: flex;
+	align-items: center;
+	padding: 10px;
+	cursor: pointer;
+}
+
+.rounded-pill bg-green p-2 {
+	background-color: #2e81f4;
+}
+
+.sidebarRow:hover {
+	background-color: lightgray;
+	border-radius: 10px;
+}
+
+.sidebarRow h4 {
+	margin-left: 20px;
+	font-weight: 600;
+}
+
+.sidebarRow .material-icons {
+	font-size: xx-large;
+	color: #2e81f4;
+}
+
+
+.main__body {
+	display: flex;
+}
+
+body {
+	background-color: #f1f2f5;
+}
+
+.feed {
+	flex: 1;
+	padding: 30px 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.sidebar {
+	padding: 25px 10px;
+	flex: 0.33;
+}
+
+/* message sender */
+
+.messageSender {
+	display: flex;
+	margin-top: 30px;
+	flex-direction: column;
+	background-color: white;
+	border-radius: 15px;
+	box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+	width: 100%;
+}
+
+.messageSender__top {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #eff2f5;
+	padding: 15px;
+}
+
+.messageSender__top form {
+	flex: 1;
+	display: flex;
+}
+
+.messageSender__top form input {
+	flex: 1;
+	outline-width: 0;
+	border: none;
+	padding: 15px 20px;
+	margin: 0 10px;
+	border-radius: 999px;
+	background-color: #eff2f5;
+}
+
+.messageSender__bottom {
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.messageSender__option {
 	margin-right: 80px;
 	margin-left: 80px;
-    padding: 8px;
-    display: flex;
-    color: gray;
-  }
-  
-  .messageSender__option h3 {
-    font-size: medium;
-    margin-left: 10px;
-  }
-  
-  .messageSender__option:hover {
-    cursor: pointer;
-    background-color: #eff2f5;
-    border-radius: 20px;
-  }
-  
-  /* post */
-  
-  .post {
-    width: 100%;
-    margin-top: 15px;
-    border-radius: 15px;
-    background-color: white;
-    box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
-  }
-  
-  .post__image img {
-    width: 100%;
-  }
-  
-  .post__top {
-    display: flex;
-    position: relative;
-    align-items: center;
-    padding: 15px;
-  }
-  
-  .post__avatar {
-    margin-right: 10px;
-  }
-  
-  .post__topInfo h3 {
-    font-size: medium;
-  }
-  
-  .post__topInfo p {
-    font-size: small;
-    color: gray;
-  }
-  
-  .post__bottom {
-    margin-top: 0px;
-    margin-bottom: 10px;
-    padding: 0px 14px;
-  }
-  
-  .post__options {
-    padding-top: 10px;
-    border-top: 1px solid lightgray;
-    display: flex;
-    justify-content: space-evenly;
-    font-size: medium;
-    color: gray;
-    cursor: pointer;
-    padding: 15px;
-  }
-  
-  .post__option {
-    display: flex;
-    justify-content: center;
-    padding: 5px;
-    flex: 1;
-  }
-  
-  .post__option p {
-    margin-left: 10px;
-  }
-  
-  .post__option:hover {
-    background-color: #eff2f5;
-    border-radius: 10px;
-  }
-  
-  @media (max-width: 768px) {
-    .sidebar {
-      display: none;
-    }
-  
-    .header__input input {
-      display: none;
-    }
-  
-    .header__middle {
-      display: none;
-    }
-  
-    .header__info {
-      display: none;
-    }
-  
-    .widgets {
-      display: none;
-    }
-  
-    .feed {
-      margin-top: 20px;
-      width: 100%;
-      padding: 0;
-    }
-  
-    .story h4 {
-      font-size: 10px;
-    }
-  
-    .story img {
-      width: 40px;
-    }
-  }
-  
-  @media (min-width: 320px) {
-    .storyReel {
-      width: 100%;
-      overflow-x: scroll;
-    }
-  }
-  
-  @media (min-width: 769px) and (max-width: 1440px) {
-    /* CSS To Target 767 px width of screen */
-  
-    .feed {
-      width: 50%;
-      padding: 10px 50px;
-    }
-  }
+	padding: 8px;
+	display: flex;
+	color: gray;
+}
+
+.messageSender__option h3 {
+	font-size: medium;
+	margin-left: 10px;
+}
+
+.messageSender__option:hover {
+	cursor: pointer;
+	background-color: #eff2f5;
+	border-radius: 20px;
+}
+
+/* post */
+
+.post {
+	width: 100%;
+	margin-top: 15px;
+	border-radius: 15px;
+	background-color: white;
+	box-shadow: 0px 5px 7px -7px rgba(0, 0, 0, 0.75);
+}
+
+.post__image img {
+	width: 100%;
+}
+
+.post__top {
+	display: flex;
+	position: relative;
+	align-items: center;
+	padding: 15px;
+}
+
+.post__avatar {
+	margin-right: 10px;
+}
+
+.post__topInfo h3 {
+	font-size: medium;
+}
+
+.post__topInfo p {
+	font-size: small;
+	color: gray;
+}
+
+.post__bottom {
+	margin-top: 0px;
+	margin-bottom: 10px;
+	padding: 0px 14px;
+}
+
+.post__options {
+	padding-top: 10px;
+	border-top: 1px solid lightgray;
+	display: flex;
+	justify-content: space-evenly;
+	font-size: medium;
+	color: gray;
+	cursor: pointer;
+	padding: 15px;
+}
+
+.post__option {
+	display: flex;
+	justify-content: center;
+	padding: 5px;
+	flex: 1;
+}
+
+.post__option p {
+	margin-left: 10px;
+}
+
+.post__option:hover {
+	background-color: #eff2f5;
+	border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+	.sidebar {
+		display: none;
+	}
+
+	.header__input input {
+		display: none;
+	}
+
+	.header__middle {
+		display: none;
+	}
+
+	.header__info {
+		display: none;
+	}
+
+	.widgets {
+		display: none;
+	}
+
+	.feed {
+		margin-top: 20px;
+		width: 100%;
+		padding: 0;
+	}
+
+	.story h4 {
+		font-size: 10px;
+	}
+
+	.story img {
+		width: 40px;
+	}
+}
+
+@media (min-width: 320px) {
+	.storyReel {
+		width: 100%;
+		overflow-x: scroll;
+	}
+}
+
+@media (min-width: 769px) and (max-width: 1440px) {
+	/* CSS To Target 767 px width of screen */
+
+	.feed {
+		width: 50%;
+		padding: 10px 50px;
+	}
+
+	.user__avatar.post__avatar {
+		display: block;
+		/* Ensures the image is block-level, which can help with sizing */
+		width: 50px;
+		/* Adjust to the desired size, ensuring it's a square for a perfect circle */
+		height: 50px;
+		/* Adjust to the desired size, ensuring it's a square for a perfect circle */
+		border-radius: 50%;
+		/* Creates the circle */
+		object-fit: cover;
+		/* Covers the area without stretching; make sure the image is centered if it's not square */
+		border: 3px solid #ffffff;
+		/* Optional: adds a white border around the avatar */
+	}
+
+}
+
+/*---------------------------------*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 100vh;
+	background: rgb(128, 128, 255);
+}
+
+::selection {
+	color: #fff;
+	background: rgb(128, 226, 255);
+}
+
+.container {
+	width: 800px;
+	height: 495px;
+	overflow: hidden;
+	background: #fff;
+	border-radius: 10px;
+	transition: height 0.2s ease;
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.container.active {
+	height: 590px;
+}
+
+.container .wrapper {
+	width: 1000px;
+	display: flex;
+}
+
+.container .wrapper section {
+	width: 500px;
+	background: #fff;
+}
+
+.container img {
+	cursor: pointer;
+}
+
+.container .post {
+	transition: margin-left 0.18s ease;
+}
+
+.container.active .post {
+	margin-left: -500px;
+}
+
+.post header {
+	font-size: 22px;
+	font-weight: 600;
+	padding: 17px 0;
+	margin-left: 50%;
+	text-align: center;
+	border-bottom: 1px solid #bfbfbf;
+}
+
+.post form {
+	margin: 20px 25px;
+}
+
+.post form .content,
+.audience .list li .column {
+	display: flex;
+	align-items: center;
+}
+
+.post form .content img {
+	cursor: default;
+	max-width: 75px;
+}
+
+.post form .content .details {
+	margin: -3px 0 0 12px;
+}
+
+form .content .details p {
+	font-size: 17px;
+	font-weight: 500;
+}
+
+.content .details .privacy {
+	display: flex;
+	height: 25px;
+	cursor: pointer;
+	padding: 0 10px;
+	font-size: 11px;
+	margin-top: 3px;
+	border-radius: 5px;
+	align-items: center;
+	max-width: 98px;
+	background: #E4E6EB;
+	justify-content: space-between;
+}
+
+.details .privacy span {
+	font-size: 13px;
+	margin-top: 1px;
+	font-weight: 500;
+}
+
+.details .privacy i:last-child {
+	font-size: 13px;
+	margin-left: 1px;
+}
+
+form :where(textarea, button) {
+	width: 100%;
+	outline: none;
+	border: none;
+}
+
+form textarea {
+	resize: none;
+	font-size: 18px;
+	margin-top: 30px;
+	min-height: 100px;
+	width: 700px;
+}
+
+form textarea::placeholder {
+	color: #858585;
+}
+
+form textarea:focus::placeholder {
+	color: #b3b3b3;
+}
+
+form :where(.theme-emoji, .options) {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 700px;
+
+}
+
+.theme-emoji img:last-child {
+	max-width: 24px;
+}
+
+form .options {
+	height: 57px;
+	margin: 15px 0;
+	padding: 0 15px;
+	border-radius: 7px;
+	border: 1px solid #B9B9B9;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+form .options :where(.list, li),
+.audience :where(.arrow-back, .icon, li .radio) {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+form .options p {
+	color: #595959;
+	font-size: 15px;
+	font-weight: 500;
+	cursor: default;
+}
+
+form .options .list {
+	list-style: none;
+}
+
+.options .list li {
+	height: 42px;
+	width: 42px;
+	margin: 0 -1px;
+	cursor: pointer;
+	border-radius: 50%;
+}
+
+.options .list li:hover {
+	background: #f0f1f4;
+}
+
+.options .list li img {
+	width: 23px;
+}
+
+form .buttondangbai {
+	height: 53px;
+	width: 700px;
+
+	color: #fff;
+	font-size: 18px;
+	font-weight: 500;
+	cursor: pointer;
+	color: #BCC0C4;
+	cursor: no-drop;
+	border-radius: 7px;
+	background: #e2e5e9;
+	transition: all 0.3s ease;
+}
+
+form textarea:valid~button {
+	color: #fff;
+	cursor: pointer;
+	background: #4599FF;
+}
+
+form textarea:valid~button:hover {
+	background: #1a81ff;
+}
+
+.container .audience {
+	opacity: 0;
+	transition: opacity 0.12s ease;
+}
+
+.container.active .audience {
+	opacity: 1;
+}
+
+.audience header {
+	padding: 17px 0;
+	text-align: center;
+	position: relative;
+	border-bottom: 1px solid #bfbfbf;
+}
+
+.audience header .arrow-back {
+	position: absolute;
+	left: 25px;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+	font-size: 15px;
+	color: #747474;
+	border-radius: 50%;
+	background: #E4E6EB;
+}
+
+.audience header p {
+	font-size: 22px;
+	font-weight: 600;
+}
+
+.audience .content {
+	margin: 20px 25px 0;
+}
+
+.audience .content p {
+	font-size: 17px;
+	font-weight: 500;
+}
+
+.audience .content span {
+	font-size: 14px;
+	color: #65676B;
+}
+
+.audience .list {
+	margin: 15px 16px 20px;
+	list-style: none;
+}
+
+.audience .list li {
+	display: flex;
+	cursor: pointer;
+	margin-bottom: 5px;
+	padding: 12px 10px;
+	border-radius: 7px;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.list li.active,
+.audience .list li.active:hover {
+	background: #E5F1FF;
+}
+
+.audience .list li:hover {
+	background: #f0f1f4;
+}
+
+.audience .list li .column .icon {
+	height: 50px;
+	width: 50px;
+	color: #333;
+	font-size: 23px;
+	border-radius: 50%;
+	background: #E4E6EB;
+}
+
+.audience .list li.active .column .icon {
+	background: #cce4ff;
+}
+
+.audience .list li .column .details {
+	margin-left: 15px;
+}
+
+.list li .column .details p {
+	font-weight: 500;
+}
+
+.list li .column .details span {
+	font-size: 14px;
+	color: #65676B;
+}
+
+.list li .radio {
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	position: relative;
+	border: 1px solid #707070;
+}
+
+.list li.active .radio {
+	border: 2px solid #4599FF;
+}
+
+.list li .radio::before {
+	content: "";
+	width: 12px;
+	height: 12px;
+	border-radius: inherit;
+}
+
+.list li.active .radio::before {
+	background: #4599FF;
+}
+
+.combobox {
+	border-radius: 10px;
+	background-color: #7eb2ff;
+	border: none;
+	color: white;
+
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	width: 150px;
+	height: 40px;
+}
+
+.imgavatar {
+	display: block;
+	/* Ensures the image is block-level, which can help with sizing */
+	width: 60px;
+	/* Adjust to the desired size, ensuring it's a square for a perfect circle */
+	height: 60px;
+	/* Adjust to the desired size, ensuring it's a square for a perfect circle */
+	border-radius: 50%;
+	/* Creates the circle */
+	object-fit: cover;
+	/* Covers the area without stretching; make sure the image is centered if it's not square */
+	border: 3px solid #ffffff;
+	/* Optional: adds a white border around the avatar */
+}
+
+.report-form {
+	display: none;
+	position: absolute;
+	right: 0;
+	top: 100%;
+	background-color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 4px;
+	padding: 10px;
+	z-index: 10;
+}
+
+.report-form select,
+.report-form button {
+	margin-top: 10px;
+	padding: 8px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	width: 200px;
+	box-sizing: border-box;
+}
+
+.report-form button {
+	background-color: #007bff;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.report-form button:hover {
+	background-color: #0056b3;
+}
+
+/*----------------------------------------------*/
+
+
+.suggestions-container {
+	position: absolute;
+	background: white;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	display: none;
+	z-index: 10;
+	overflow-y: scroll;
+	max-height: 150px;
+	margin-bottom: -120px;
+	margin-left: 180px;
+}
+
+.suggestion-item {
+	padding: 5px 10px;
+	border-bottom: 1px solid #eee;
+	cursor: pointer;
+}
+
+.suggestion-item:last-child {
+	border-bottom: none;
+}
+
+.suggestion-item:hover {
+	background-color: #f0f0f0;
+}
+

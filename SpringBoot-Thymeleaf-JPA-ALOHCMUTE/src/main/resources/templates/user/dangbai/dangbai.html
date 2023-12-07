@@ -32,7 +32,8 @@
 						<div class="content">
 							<img th:src="${taikhoan.avatarURl}" alt="logo" class="imgavatar">
 							<div class="details">
-								<b th:text="${taikhoan.hoTen}" style="margin-left: 5px; margin-bottom: 5px; font-family: 'Consolas', Times, serif; font-size: 20px;"></b>
+								<b th:text="${taikhoan.hoTen}"
+									style="margin-left: 5px; margin-bottom: 5px; font-family: 'Consolas', Times, serif; font-size: 20px;"></b>
 								</br>
 								<select name="privacy" id="privacy" class="combobox">
 									<option value="Public">Công Khai</option>
@@ -41,7 +42,9 @@
 								</select>
 							</div>
 						</div>
-						<textarea name="noidungchu" placeholder="Bạn đang nghĩ gì?" spellcheck="false" required></textarea>
+						<textarea id="postContent" name="noidungchu" placeholder="Bạn đang nghĩ gì?" spellcheck="false"
+							required onkeyup="suggestNames(event)"></textarea>
+						<div id="suggestions" class="suggestions-container"></div>
 						<div class="theme-emoji">
 							<img src="/images/theme.svg" alt="theme">
 							<img src="/images/smile.svg" alt="smile">
@@ -56,7 +59,7 @@
 								<li><img src="/images/more.svg" alt="gallery"></li>
 							</ul>
 						</div>
-						<button type="submit">Đăng</button>
+						<button class="buttondangbai" type="submit">Đăng</button>
 					</form>
 				</section>
 				<section class="audience">
@@ -93,6 +96,52 @@
 				}
 			};
 		</script>
+
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var listbanbe = /*[[${listbanbe}]]*/[];
+  /*]]>*/
+		</script>
+		
+		<script language="javascript">
+			function suggestNames(event) {
+				var input = event.target.value;
+				var suggestions = document.getElementById("suggestions");
+
+				// Use 'listbanbe' directly in your JavaScript
+				var atIndex = input.lastIndexOf("@");
+				if (atIndex >= 0) {
+					var searchQuery = input.substring(atIndex + 1);
+					if (searchQuery.length > 0) {
+						var matchingFriends = listbanbe.filter(name => name.toLowerCase().startsWith(searchQuery.toLowerCase()));
+						suggestions.innerHTML = matchingFriends.map(name => `<div class="suggestion-item">${name}</div>`).join('');
+						suggestions.style.display = 'block';
+
+						// Add click event to suggestion items
+						document.querySelectorAll('.suggestion-item').forEach(item => {
+							item.addEventListener('click', function () {
+								var name = this.innerText;
+								var newText = input.substring(0, atIndex) + "@" + name + " ";
+								document.getElementById("postContent").value = newText;
+								suggestions.style.display = 'none';
+							});
+						});
+					} else {
+						suggestions.style.display = 'none';
+					}
+				} else {
+					suggestions.style.display = 'none';
+				}
+			}
+			
+			
+
+		</script>
+
+
+
+
+
 	</section>
 </body>
 

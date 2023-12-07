@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,12 +17,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data 
 @NoArgsConstructor 
 @AllArgsConstructor
 @EqualsAndHashCode(exclude="taiKhoan")
+@ToString (exclude = {"binhLuans", "baoCaoBaiViets"})
+
 
 @Entity
 @Table
@@ -39,12 +47,13 @@ public class BaiViet implements Serializable {
 	private String noiDungHinhAnh;
 	
 	@Column(name = "ThoiGian", columnDefinition = "Time")
-	private LocalTime ThoiGian;
+	private LocalTime  ThoiGian;
 	
 	@Column(name = "Ngay", columnDefinition = "Date")
 	private LocalDate Ngay;
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "MaCheDo")
 	private CheDo cheDoNhom;
 	
@@ -52,7 +61,7 @@ public class BaiViet implements Serializable {
 	private List<BinhLuan> binhLuans;
 	
 	@ManyToOne
-	@JoinColumn(name = "TaiKhoan")
+	@JoinColumn(name = "taiKhoan")
 	private TaiKhoan taiKhoan;
 	
 	@OneToMany(mappedBy = "baiViet")

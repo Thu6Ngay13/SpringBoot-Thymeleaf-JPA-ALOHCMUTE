@@ -22,87 +22,26 @@
 
 		<main>
 
-			<div class="tab">
-				<button class="tablinks" onclick="openTab(event, 'TheoDoi')" id="td">Theo dõi</button>
-				<button class="tablinks" onclick="openTab(event, 'DuocTheoDoi')">Được theo dõi</button>
-			</div>
-			<div class="tabcontent" id="TheoDoi">
+				
 				<div class="container px-4 py-5" id="featured-3">
 					<h2 class="pb-2 border-bottom">Những người bạn đã theo dõi</h2>
 					<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
 						<div class="feature col" th:each="taikhoan : ${Listtaikhoan}">
-							<img th:src="${taikhoan.avatarURl}" alt="" width="100" height="100" />
+							<img src="${taikhoan.avatarURl}" alt="" width="100" height="100" />
 							<br>
 							<br>
 							<h2 th:text="${taikhoan.hoTen}" style="word-wrap: break-word;"></h2>
 							<p th:text="'Nickname: ' + ${taikhoan.nickName}"></p>
-							<div class="button-container">
-							<button type="button" class="buttonTheoDoi"> ✔Đã theo dõi</button>
-							
-							<form action="#" th:action="@{user/unfollow}" method="get">
-							<input type="hidden" name="username" th:value="${taikhoan.taiKhoan}" />
-							<button type="submit" class="buttonXoa">Hủy theo dõi</button>
-							</form>
-							</div>
+							<button type="button" class="buttonTheoDoi">Theo dõi</button>
+							<button type="button" class="buttonXoa">Xóa</button>
 						</div>
+						
 					</div>
 
 
-					<div th:if="${#lists.isEmpty(Listtaikhoan)}">
-						<h3 style="margin-left: 20px;"><i>Bạn chưa theo dõi ai cả. Hãy theo dõi những người bạn quan tâm
-								nhé!</i></h3>
-					</div>
-					<hr style="width:100%;text-align:left;margin-left: 25px;">
-					</hr>
-				</div>
-			</div>
-			<div class="tabcontent" id="DuocTheoDoi">
-				<div class="container px-4 py-5" id="featured-3">
-					<h2 class="pb-2 border-bottom">Những người đã theo dõi bạn</h2>
-					<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
-						<div class="feature col" th:each="taikhoan : ${ListTKDuocTheoDoi}">
-							<img th:src="${taikhoan.avatarURl}" alt="" width="100" height="100" />
-							<br>
-							<br>
-							<h2 th:text="${taikhoan.hoTen}" style="word-wrap: break-word;"></h2>
-							<p th:text="'Nickname: ' + ${taikhoan.nickName}"></p>
-							<button type="button" class="buttonTheoDoi"> ✔Đã theo dõi</button>
-							<button type="button" class="buttonXoa">Hủy theo dõi</button>
-
-						</div>
-					</div>
-
-
-					<div th:if="${#lists.isEmpty(ListTKDuocTheoDoi)}">
-						<h3 style="margin-left: 20px;"><i>Rất tiếc, không có ai theo dõi bạn :(</i></h3>
-					</div>
-					<hr style="width:100%;text-align:left;margin-left: 25px;">
-					</hr>
-				</div>
-			</div>
-		</main>
-		<script th:src="@{../assets/dist/js/bootstrap.bundle.min.js}"></script>
-		<script>
-			function openTab(evt, TenNut) {
-				var i, tabcontent, tablinks;
-				tabcontent = document.getElementsByClassName("tabcontent");
-				for (i = 0; i < tabcontent.length; i++) {
-					tabcontent[i].style.display = "none";
-				}
-				tablinks = document.getElementsByClassName("tablinks");
-				for (i = 0; i < tablinks.length; i++) {
-					tablinks[i].className = tablinks[i].className.replace(" active", "");
-				}
-				document.getElementById(TenNut).style.display = "block";
-				evt.currentTarget.className += " active";
-			}
-		</script>
-		<script>
-			document.addEventListener("DOMContentLoaded", function () {
-				// Simulate a click on the "TheoDoi" button
-				document.getElementById("td").click();
-			});
-		</script>
+				
+			</main>
+			<script th:src="@{../assets/dist/js/bootstrap.bundle.min.js}"></script>
 	</section>
 </body>
 
