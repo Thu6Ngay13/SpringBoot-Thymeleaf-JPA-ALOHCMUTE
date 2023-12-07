@@ -27,10 +27,7 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 		this.tkRepo = tkRepo;
 	}
 	
-	@Override
-	public <S extends TaiKhoan> S save(S entity) {
-		return tkRepo.save(entity);
-	}
+
 	
 	@Override
 	public List<TaiKhoan> findAll() {
@@ -119,4 +116,5 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 @Override
 public <S extends TaiKhoan> S save(S entity) {
 	return tkRepo.save(entity);
+}
 }

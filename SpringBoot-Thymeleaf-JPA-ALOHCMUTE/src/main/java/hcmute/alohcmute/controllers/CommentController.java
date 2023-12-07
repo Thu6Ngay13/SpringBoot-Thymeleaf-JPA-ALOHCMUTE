@@ -31,7 +31,7 @@ public class CommentController {
 	@Autowired
     IBaiDangService baiDangService = new BaiDangServiceImpl();
 	@Autowired
-    ITaiKhoanService taiKhoanService = new TaiKhoanServiceImpl();
+    ITaiKhoanService taiKhoanService ;
 
 	@GetMapping("/comment/{baiVietId}")
 	public String reviewComment(ModelMap model, @PathVariable(value = "baiVietId") int id) {
