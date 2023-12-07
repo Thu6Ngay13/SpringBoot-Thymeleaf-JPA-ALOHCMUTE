@@ -2,9 +2,7 @@ package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
+import java.time.LocalTime;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,7 +24,7 @@ import lombok.*;
 @NoArgsConstructor 
 @AllArgsConstructor
 @EqualsAndHashCode(exclude="taiKhoan")
-@ToString (exclude = {"binhLuans", "baoCaoBaiViets"})
+@ToString (exclude = {"binhLuans", "baoCaoBaiViets", "taiKhoans"})
 
 
 @Entity
@@ -46,7 +44,7 @@ public class BaiViet implements Serializable {
 	private String noiDungHinhAnh;
 	
 	@Column(name = "ThoiGian", columnDefinition = "Time")
-	private LocalDateTime  ThoiGian;
+	private LocalTime  ThoiGian;
 	
 	@Column(name = "Ngay", columnDefinition = "Date")
 	private LocalDate Ngay;
@@ -57,17 +55,17 @@ public class BaiViet implements Serializable {
 	private CheDo cheDoNhom;
 	
 	@OneToMany(mappedBy = "baiViet", fetch = FetchType.EAGER)
-	private List<BinhLuan> binhLuans;
+	private Set<BinhLuan> binhLuans;
 	
 	@ManyToOne
 	@JoinColumn(name = "taiKhoan")
 	private TaiKhoan taiKhoan;
 	
 	@OneToMany(mappedBy = "baiViet")
-	private List<BaoCaoBaiViet> baoCaoBaiViets;
-	
+	private Set<BaoCaoBaiViet> baoCaoBaiViets;
+
 	@ManyToMany(mappedBy = "baiVietTuongTacs")
-	private Set<TaiKhoan> taiKhoans = new HashSet<TaiKhoan>();
+	private Set<TaiKhoan> taiKhoans;
 	
 	@ManyToOne
 	@JoinColumn(name = "MaNhom")

@@ -3,15 +3,13 @@ package hcmute.alohcmute.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import hcmute.alohcmute.entities.TaiKhoan;
-import jakarta.transaction.Transactional;
 
-
-public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, Long>{
+@Repository
+public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, String> {
 	@Query("SELECT t.taiKhoanTheoDois FROM TaiKhoan t WHERE t.taiKhoan = :taiKhoanUsername")
     List<TaiKhoan> findTaiKhoanTheoDoisByUsername(String taiKhoanUsername);
 	
@@ -19,8 +17,4 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, Long>{
 	List<TaiKhoan> findTaiKhoanFollowersByUsername(String taiKhoanUsername);
 	
 	TaiKhoan findOneBytaiKhoan(String username);
-	
-
-
-
 }

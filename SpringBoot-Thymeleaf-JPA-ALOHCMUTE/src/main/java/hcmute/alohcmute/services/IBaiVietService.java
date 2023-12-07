@@ -1,11 +1,16 @@
 package hcmute.alohcmute.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import hcmute.alohcmute.entities.BaiViet;
 
-public interface IBaiDangService {
-    List<BaiViet> findAll();
+public interface IBaiVietService {
+
+	Optional<BaiViet> findById(Integer id);
+
+	List<BaiViet> findAll();
 
 	BaiViet getById(Integer id);
+
 }
