@@ -37,11 +37,11 @@ public class TaiKhoan implements Serializable{
 	@Column(name = "MatKhau", columnDefinition = "varchar(2000)")
 	private String matKhau;
 	
-	@Column(name = "Code")
-	private int code;
+	@Column(name = "Token")
+	private String token;
 	
-	@Column(name = "Status", columnDefinition = "bit")
-	private boolean status;
+	@Column(name = "Enable", columnDefinition = "bit")
+	private boolean enable;
 	
 	@Column(name = "HoTen", columnDefinition = "nvarchar(2000)")
 	private String hoTen; 
