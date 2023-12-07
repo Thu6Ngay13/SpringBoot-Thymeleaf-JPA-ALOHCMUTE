@@ -55,4 +55,8 @@ public class Nhom  implements Serializable{
 	
 	@OneToMany(mappedBy = "nhom")
 	private Set<BaiViet> baiViets = new HashSet<BaiViet>();
+	
+	@ManyToOne
+	@JoinColumn(name="taiKhoanTruongNhom")
+	private TaiKhoan taiKhoanTruongNhom;
 }
