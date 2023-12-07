@@ -62,13 +62,41 @@
 
 					<hr>
 					<p class="text-muted">Hom nay ban co on khong?</p>
-
+					<div class="d-flex">
+			            <p class="count-like" id="likeText">
+			              1000 likes
+			            </p>
+			            <p class="count-comment" >
+			              35 comments
+			            </p>
+			         </div>
 
 					<div class="post__options d-flex icon">
+						
 						<div class="post__option d-flex">
-							<span class="material-icons fs-5"> thumb_up </span>
+							<span class="material-icons fs-5 like" onclick ="toggleLike(this)"> thumb_up </span>
 							<p class="icon">Like</p>
 						</div>
+						
+						
+						<script>
+				              let isLiked = false;
+				              let likeCount = 0;
+				          
+				              function toggleLike(element) {
+				                  isLiked = !isLiked;
+				                  likeCount += isLiked ? 1 : -1;
+				          
+				                  // Thay đổi màu sắc và số lượng like
+				                  if (isLiked) {
+				                      element.classList.add('liked');
+				                  } else {
+				                      element.classList.remove('liked');
+				                  }
+				          
+				                  document.getElementById('likeText').innerText = likeCount === 1 ? '0 Like' : likeCount + ' Likes';
+				              }
+				          </script>
 
 						<div class=" post__option d-flex icon">
 							<span class="material-icons fs-5"> chat_bubble_outline </span>

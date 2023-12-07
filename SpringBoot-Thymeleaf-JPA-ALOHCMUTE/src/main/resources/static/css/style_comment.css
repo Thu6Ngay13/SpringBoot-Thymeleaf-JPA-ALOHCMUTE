@@ -16,7 +16,19 @@ body{
     margin-right: 0;
 }
 /*------------ Right box ------------*/
-
+.like{
+    cursor: pointer;
+}
+.liked{
+    color:royalblue;
+}
+.count-like {
+    font-size: smaller;
+}
+.count-comment {
+    font-size: smaller;
+    margin-left: 100px;
+}
 .right-box{
     padding: 0px 30px 40px 40px;
 }
