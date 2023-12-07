@@ -1,7 +1,6 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -24,7 +23,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString (exclude = {"binhLuans", "thongBaos", "baiViets"})
+@ToString (exclude = {"binhLuans", "thongBaos", "baiViets", "nhoms"})
 @Entity
 @Table
 
@@ -73,25 +72,25 @@ public class TaiKhoan implements Serializable{
 	@JoinTable(name = "TaiKhoan_CuocHoiThoai",
 		joinColumns = {@JoinColumn(name = "TaiKhoan") },
 		inverseJoinColumns = {@JoinColumn(name = "MaCuocHoiThoai")})
-	private Set<CuocHoiThoai> cuocHoiThoai = new HashSet<CuocHoiThoai>();
+	private Set<CuocHoiThoai> cuocHoiThoai;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_Nhom",
 		joinColumns = {@JoinColumn(name = "TaiKhoan") },
 		inverseJoinColumns = {@JoinColumn(name = "MaNhom")})
-	private Set<Nhom> nhom = new HashSet<Nhom>();
+	private Set<Nhom> nhom;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_TheoDoi_TaiKhoan",
 		joinColumns = {@JoinColumn(name = "TaiKhoanTheoDoi") },
 		inverseJoinColumns = {@JoinColumn(name = "TaiKhoanBiTheoDoi")})
-	private Set<TaiKhoan> taiKhoanTheoDois = new HashSet<TaiKhoan>();
+	private Set<TaiKhoan> taiKhoanTheoDois;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_Chan_TaiKhoan",
 		joinColumns = {@JoinColumn(name = "TaiKhoanChan") },
 		inverseJoinColumns = {@JoinColumn(name = "TaiKhoanBiChan")})
-	private Set<TaiKhoan> taiKhoanChans = new HashSet<TaiKhoan>();
+	private Set<TaiKhoan> taiKhoanChans;
 	
 	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
 	private Set<ThongBao> thongBaos;
@@ -103,7 +102,7 @@ public class TaiKhoan implements Serializable{
 	@JoinTable(name = "TuongTac",
 		joinColumns = {@JoinColumn(name = "TaiKhoan") },
 		inverseJoinColumns = {@JoinColumn(name = "MaBaiViet")})
-	private Set<BaiViet> baiVietTuongTacs = new HashSet<BaiViet>();
+	private Set<BaiViet> baiVietTuongTacs;
 	
 	@OneToMany(mappedBy = "taiKhoanTruongNhom", fetch = FetchType.EAGER)
 	private Set<Nhom> nhoms;
