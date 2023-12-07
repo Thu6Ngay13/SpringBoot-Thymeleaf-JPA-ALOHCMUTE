@@ -12,5 +12,7 @@ public interface IBaiVietService {
 	List<BaiViet> findAll();
 
 	BaiViet getById(Integer id);
+	
+	long demSoTuongTac(int maBaiViet);
 
 }

@@ -64,11 +64,9 @@
 					<p class="text-muted">Hom nay ban co on khong?</p>
 					<div class="d-flex">
 			            <p class="count-like" id="likeText">
-			              1000 likes
+			              <span th:text="${soLike}" + "likes" ></span>
 			            </p>
-			            <p class="count-comment" >
-			              35 comments
-			            </p>
+			            <p class="count-comment" ><span th:text="${soLuongBinhLuan}" ></span>&nbsp;comments</p>
 			         </div>
 
 					<div class="post__options d-flex icon">
@@ -208,8 +206,11 @@
 								class="addcmt form-control form-control-lg bg-light fs-6"
 								placeholder="Add a comment..." th:field="*{noiDungChu}"><br>
 						</div>
-						<input class="btn btn-light btn-sm" type="submit" value="Đăng">
+						<input class="btn btn-light btn-sm" type="submit" value="Đăng" >
 					</form>
+					
+
+
 				</div>
 			</div>
 
