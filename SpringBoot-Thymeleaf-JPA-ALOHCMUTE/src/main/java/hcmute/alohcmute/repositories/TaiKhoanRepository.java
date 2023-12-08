@@ -14,7 +14,7 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, String>{
 	@Query("SELECT t "
 			+ "FROM TaiKhoan t "
 			+ "WHERE t.taiKhoan = :taiKhoan")
-	Optional<TaiKhoan> findBytaiKhoan(@Param("taiKhoan") String taiKhoan);
+	Optional<TaiKhoan> findBytaiKhoan(String taiKhoan);
 	
 	@Query("SELECT t "
 			+ "FROM TaiKhoan t "

@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import hcmute.alohcmute.dtos.TaiKhoanDto;
 import hcmute.alohcmute.entities.TaiKhoan;
-import hcmute.alohcmute.events.RegistrationCompleteEvent;
+import hcmute.alohcmute.events.SendEmailEvent;
 import hcmute.alohcmute.services.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -30,8 +30,8 @@ public class WebController {
 
 	// handler method to handle login request
 	@GetMapping("/login")
-	public String login() {
-		return "web/dangnhap";
+	public String showLoginForm() {
+		return "web/dangnhap/dangnhap";
 	}
 
 	// handler method to handle user registration form request
@@ -40,7 +40,7 @@ public class WebController {
 		// create model object to store form data
 		TaiKhoanDto taiKhoanDto = new TaiKhoanDto();
 		model.addAttribute("user", taiKhoanDto);
-		return "web/dangky";
+		return "web/dangky/dangky";
 	}
 	
 	// handler method to handle user registration form submit request
@@ -48,37 +48,63 @@ public class WebController {
     public String registration(
     		@Valid @ModelAttribute("user") TaiKhoanDto taiKhoanDto,
     		BindingResult result,
-    		ModelMap model,
+    		Model model,
     		HttpServletRequest request) {
 
         if (result.hasErrors()) {
             model.addAttribute("user", taiKhoanDto);
-            return "/register";
+            return "redirect:/register";
         }
 
         TaiKhoan user = userService.saveTaiKhoan(taiKhoanDto);
-        publisher.publishEvent(new RegistrationCompleteEvent(user, applicationUrl(request)));
+        publisher.publishEvent(new SendEmailEvent(user, applicationUrl(request)));
         
-        return "redirect:/register?success";
-//        return "web/dangkythanhcong";
+        return "web/dangky/dangkythanhcong";
     }
     
     @GetMapping("/register/verify")
-    public String verify(@RequestParam("token") String token) {
+    public String verifyRegistration(@RequestParam("token") String token) {
     	Optional<TaiKhoan> user = userService.findByToken(token);
     	if(user.isPresent()) {
     		userService.saveEnable(user.get());
-    		return "web/dangnhap";
+    		return "web/dangky/xacthuc";
     	}
-    	else {
-    		return "web/403";
-    	}
+
+    	return "redirect:/403";
+    }
+    
+    @GetMapping("/forgotpassword")
+    public String showForgotPasswordForm(Model model) {
+    	String email = "";
+    	model.addAttribute("email", email);
+    	return "web/quenmatkhau/quenmatkhau";
+    }
+    
+    @PostMapping("/forgotpassword/find")
+    public String forgotPassword(
+    		@RequestParam("email") String email, 
+    		Model model,
+    		HttpServletRequest request) {
+    	Optional<TaiKhoan> user = userService.findByTaiKhoanOrEmail(email, email);
+        if (user.isPresent()) {
+        	publisher.publishEvent(new SendEmailEvent(user.get(), applicationUrl(request)));
+        	model.addAttribute("mess", "Vui lòng kiểm tra email để thay đổi mật khẩu");
+		}
+        else {
+			model.addAttribute("mess", "Email không tồn tại"); 
+		}
+    	return "web/quenmatkhau/quenmatkhau";
     }
     
 	// handler method to handle login request
 	@GetMapping("/403")
-	public String error() {
-		return "web/403";
+	public String error403() {
+		return "web/error/403";
+	}
+	
+	@GetMapping("/404")
+	public String error404() {
+		return "web/error/404";
 	}
 	
 	public String applicationUrl(HttpServletRequest request) {
@@ -86,3 +112,4 @@ public class WebController {
     }
 
 }
+;

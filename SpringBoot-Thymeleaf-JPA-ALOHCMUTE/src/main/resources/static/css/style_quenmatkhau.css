@@ -1,32 +1,33 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
-*{
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-html, body{
+html, body {
     display: grid;
     height: 100%;
     width: 100%;
-    place-items:center;
+    place-items: center;
     background: #f2f2f2;
 }
 
-::selection{
+::selection {
     background: #4158d0;
-    color:#fff;
+    color: #fff;
 }
 
-.wrapper{
+.wrapper {
     width: 500px;
     background: #fff;
     border-radius: 15px;
-    box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+    box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
 }
 
-.wrapper .title{
+.wrapper .title {
     font-size: 35px;
     font-weight: 600;
     text-align: left;
@@ -37,24 +38,22 @@ html, body{
     padding: 32px;
 }
 
-.title p{
+.title p {
     font-size: 18px;
 }
 
-.wrapper form{
+.wrapper form {
     padding: 10px 30px 50px 30px;
 }
 
-.wrapper form .field{
-    height: 50px;
+.wrapper form .field {
+    height: 60px;
     width: 100%;
     margin-top: 20px;
     position: relative;
-  	display: flex;
-    align-items: center;
 }
 
-.wrapper form .field input{
+.wrapper form .field input {
     height: 100%;
     width: 100%;
     outline: none;
@@ -65,11 +64,11 @@ html, body{
 }
 
 .wrapper form .field input:focus,
-form .field input:valid{
+form .field input:valid {
     border-color: #4158d0;
 }
 
-.wrapper form .field label{
+.wrapper form .field label {
     position: absolute;
     top: 50%;
     left: 20px;
@@ -79,23 +78,19 @@ form .field input:valid{
     pointer-events: none;
     transform: translateY(-50%);
     transition: all 0.3s ease;
-  	margin-right: 10px;
-    
 }
 
 form .field input:focus ~ label,
-form .field input:valid ~ label{
+form .field input:valid ~ label {
     border-radius: 30px;
     top: 0%;
     font-size: 16px;
     color: #4158d0;
     background: #fff;
     transform: translateY(-50%);
-  
-    
 }
 
-form .content{
+form .content {
     display: flex;
     width: 100%;
     height: 50px;
@@ -104,30 +99,29 @@ form .content{
     justify-content: space-around;
 }
 
-form .content .checkbox{
+form .content .checkbox {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-form .content input{
+form .content input {
     width: 15px;
     height: 15px;
 }
 
-form .content label{
+form .content label {
     color: #262626;
     user-select: none;
     padding-left: 5px;
     border-radius: 30px;
 }
 
-form .content .pass-link{
+form .content .pass-link {
     color: "";
-    
 }
 
-form .field input[type="submit"]{
+form .field input[type="submit"] {
     border-radius: 30px;
     color: #fff;
     border: none;
@@ -140,84 +134,15 @@ form .field input[type="submit"]{
     transition: all 0.3s ease;
 }
 
-form .field input[type="submit"]:active{
+form .field input[type="submit"]:active {
     transform: scale(0.95);
-
 }
 
-form .signup-link{
+form .signup-link {
     color: #262626;
     margin-top: 20px;
     text-align: center;
-}
-
-
-.wrapper form .field_gener {
-    height: 50px;
-    width: 100%;
-    margin-top: 20px;
-    position: relative;
-  	display: flex;
-    align-items: center;
-    border: 1px solid lightgray;
-    transition: all 0.3s ease;
-  
-}
-
-.wrapper form .field_gener label{ 
-    top: 50%;
-    left: 20px; 
-    right: 20px;
-}
-
-.wrapper form .radio-group {
-    
-    display: flex;
-    justify-content: space-between;
-align-items: center;
-    width: 70%;
-    margin-left: 60px;
-  	
-}
-
-.wrapper form .radio-group input[type="radio"] {
-    display: none;
-    
-  
-}
-
-.wrapper form .radio-group label{
     display: flex;
     align-items: center;
-    margin-right: 10px;
-    margin-left: 30px;
-    cursor: pointer;
-    padding-left: 20px;
-}
-
-.wrapper form .radio-group label::before {
-    content: "";
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    margin-right: 10px;
-    margin-left: 10px;
-}
-
-.wrapper form .radio-group input[type="radio"]:checked + label::before {
-    background-color: #ccc;
-}
-.field-label {
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    color: #999999;
-    font-weight: 400;
-    font-size: 17px;
-    pointer-events: none;
-    transform: translateY(-50%);
-    transition: all 0.3s ease;
-  	margin-right: 10px;
+    justify-content: center;
 }

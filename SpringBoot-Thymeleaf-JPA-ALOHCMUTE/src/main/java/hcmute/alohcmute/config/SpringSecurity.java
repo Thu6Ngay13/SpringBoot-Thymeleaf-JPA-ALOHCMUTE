@@ -77,6 +77,8 @@ public class SpringSecurity {
         return http
     	        .csrf(csrf -> csrf.disable())
     	        .authorizeHttpRequests((authorize) -> authorize
+    	        				.requestMatchers("/**").permitAll()
+    	        				.requestMatchers("/forgotpassword/**").permitAll()
     	        				.requestMatchers("/register/**").permitAll()
     	        				.requestMatchers("/user/**").hasAnyAuthority("ADMIN", "USER")
     	        				.requestMatchers("/admin/**").hasAuthority("ADMIN")
