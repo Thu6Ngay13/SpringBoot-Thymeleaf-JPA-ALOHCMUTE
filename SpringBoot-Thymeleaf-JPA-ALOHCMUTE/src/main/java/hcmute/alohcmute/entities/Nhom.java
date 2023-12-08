@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,6 +27,8 @@ import lombok.ToString;
 @Data 
 @NoArgsConstructor 
 @AllArgsConstructor
+@ToString (exclude = {"taiKhoans", "baiViets"})
+
 
 
 @Entity
@@ -51,4 +54,7 @@ public class Nhom  implements Serializable{
 	
 	@ManyToMany(mappedBy = "nhom")
 	private Set<TaiKhoan> taiKhoans = new HashSet<TaiKhoan>();
+	
+	@OneToMany(mappedBy = "nhom")
+	private Set<BaiViet> baiViets = new HashSet<BaiViet>();
 }
