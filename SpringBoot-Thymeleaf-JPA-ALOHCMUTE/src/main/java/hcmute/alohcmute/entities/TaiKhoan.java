@@ -36,7 +36,7 @@ public class TaiKhoan implements Serializable{
 	private String matKhau;
 	
 	@Column(name = "Token")
-	private String token;
+	private String token = "no";
 	
 	@Column(name = "Enable", columnDefinition = "bit")
 	private boolean enable = false;

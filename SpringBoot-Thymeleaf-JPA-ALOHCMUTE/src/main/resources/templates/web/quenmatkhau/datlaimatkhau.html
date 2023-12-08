@@ -11,6 +11,7 @@
 		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<link rel="stylesheet" th:href="@{https://pro.fontawesome.com/releases/v5.10.0/css/all.css}">
 	<link rel="stylesheet" th:href="@{/css/style_datlaimatkhau.css}">
+	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css}">
 </head>
 
 <body>
@@ -19,14 +20,19 @@
             Đặt lại mật khẩu
             <p>Nhập lại mật khẩu mới của bạn</p>
         </div>
-        <form>
+        <form method="post" th:action="@{/forgotpassword/reset}" th:method="post">
+			<div class="field" style="display: none;">
+				<input type="text" required th:value="${token}" name="token">
+				<input type="email" required th:value="${email}" name="email">
+			</div>
+			
 			<div class="field">
 				<input type="password" required>
 				<label for="">Mật khẩu</label>
 			</div>
 	
 			<div class="field">
-				<input type="password" required>
+				<input type="password" required th:value="${password}" name="password">
 				<label for="">Xác nhận mật khẩu</label>
 			</div>
 	
@@ -41,4 +47,23 @@
 	</div>
 </body>
 <script th:src="@{https://code.jquery.com/jquery-3.6.0.js}"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js}"></script>
+<script th:if="${not #strings.isEmpty(mess)}">
+	$(document).ready(function () {
+		toastr.options = {
+			"closeButton": true,
+			"progressBar": true,
+			"positionClass": "toast-top-right",
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+		toastr["[[${typenotify}]]"]("[[${mess}]]");
+	});
+</script>
 </html>

@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<title> Trang Đăng Ký</title>
 	<link rel="stylesheet" th:href="@{/css/style_dangky.css}">
+	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css}">
 </head>
 
 <body>
@@ -31,11 +32,11 @@
 			<div class="field_gener">
 				<label class="field-label"> Giới tính </label>
 				<div class="radio-group">
-					<input type="radio" id="Nam" th:value="${Nam}" th:field="*{sex}">
+					<input type="radio" id="Nam" th:value="Nam" th:field="*{sex}">
 					<label for="Nam">Nam</label>
-					<input type="radio" id="Nu" th:value="${Nu}" th:field="*{sex}">
+					<input type="radio" id="Nư" th:value="Nữ" th:field="*{sex}">
 					<label for="Nu">Nữ</label>
-					<input type="radio" id="Khac" th:value="${Khac}" th:field="*{sex}">
+					<input type="radio" id="Khac" th:value="Khác" th:field="*{sex}">
 					<label for="Khac">Khác</label>
 				</div>
 			</div>
@@ -66,8 +67,25 @@
 
 	</div>
 </body>
-<script>
-	document.getElementById("Nam").setAttribute("checked", "checked")
+<script>document.getElementById("Nam").setAttribute("checked", "checked")</script>
+<script th:src="@{https://code.jquery.com/jquery-3.6.0.js}"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js}"></script>
+<script th:if="${not #strings.isEmpty(mess)}">
+	$(document).ready(function () {
+		toastr.options = {
+			"closeButton": true,
+			"progressBar": true,
+			"positionClass": "toast-top-right",
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+		toastr["[[${typenotify}]]"]("[[${mess}]]");
+	});
 </script>
-
 </html>

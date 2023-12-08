@@ -9,8 +9,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ForgotPasswordSendEmailEvent extends ApplicationEvent{
-	private static final long serialVersionUID = -1946845590746761039L;
-
+	private static final long serialVersionUID = 4753917531241269295L;
+	
 	private TaiKhoan taiKhoan;
 	private String applicationUrl;
 	

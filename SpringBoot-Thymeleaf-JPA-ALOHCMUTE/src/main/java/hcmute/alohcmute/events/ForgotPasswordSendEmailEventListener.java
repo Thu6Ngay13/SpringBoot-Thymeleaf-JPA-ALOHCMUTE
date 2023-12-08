@@ -13,7 +13,7 @@ import hcmute.alohcmute.services.IUserService;
 import jakarta.mail.MessagingException;
 
 @Component
-public class ForgotPasswordSendEmailEventListener implements ApplicationListener<RegisterVerifySendEmailEvent> {
+public class ForgotPasswordSendEmailEventListener implements ApplicationListener<ForgotPasswordSendEmailEvent> {
 	
 	@Autowired
 	private IUserService userService;
@@ -22,10 +22,10 @@ public class ForgotPasswordSendEmailEventListener implements ApplicationListener
 	private TaiKhoan user;
 	
 	@Override
-	public void onApplicationEvent(RegisterVerifySendEmailEvent event) {
+	public void onApplicationEvent(ForgotPasswordSendEmailEvent event) {
 		user = event.getTaiKhoan();
 		String resetPasswordToken = UUID.randomUUID().toString();
-		userService.saveTaiKhoanVerificationToken(user, resetPasswordToken);
+		userService.saveToken(user, resetPasswordToken);
 		String url = event.getApplicationUrl() + "/forgotpassword/reset?token=" + resetPasswordToken;
 		try {
 			sendForgotPasswordEmail(url);

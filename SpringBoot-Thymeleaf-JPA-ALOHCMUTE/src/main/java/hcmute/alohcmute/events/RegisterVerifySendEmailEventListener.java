@@ -25,7 +25,7 @@ public class RegisterVerifySendEmailEventListener implements ApplicationListener
 	public void onApplicationEvent(RegisterVerifySendEmailEvent event) {
 		user = event.getTaiKhoan();
 		String verificationToken = UUID.randomUUID().toString();
-		userService.saveTaiKhoanVerificationToken(user, verificationToken);
+		userService.saveToken(user, verificationToken);
 		String url = event.getApplicationUrl() + "/register/verify?token=" + verificationToken;
 		try {
             sendVerificationEmail(url);
