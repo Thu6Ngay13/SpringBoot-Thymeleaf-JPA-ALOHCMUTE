@@ -13,7 +13,7 @@ import hcmute.alohcmute.services.IUserService;
 import jakarta.mail.MessagingException;
 
 @Component
-public class SendEmailEventListener implements ApplicationListener<SendEmailEvent> {
+public class ForgotPasswordSendEmailEventListener implements ApplicationListener<RegisterVerifySendEmailEvent> {
 	
 	@Autowired
 	private IUserService userService;
@@ -22,33 +22,17 @@ public class SendEmailEventListener implements ApplicationListener<SendEmailEven
 	private TaiKhoan user;
 	
 	@Override
-	public void onApplicationEvent(SendEmailEvent event) {
+	public void onApplicationEvent(RegisterVerifySendEmailEvent event) {
 		user = event.getTaiKhoan();
-		String verificationToken = UUID.randomUUID().toString();
-		userService.saveTaiKhoanVerificationToken(user, verificationToken);
-		String url = event.getApplicationUrl() + "/register/verify?token=" + verificationToken;
+		String resetPasswordToken = UUID.randomUUID().toString();
+		userService.saveTaiKhoanVerificationToken(user, resetPasswordToken);
+		String url = event.getApplicationUrl() + "/forgotpassword/reset?token=" + resetPasswordToken;
 		try {
-            sendVerificationEmail(url);
+			sendForgotPasswordEmail(url);
         } catch (MessagingException | UnsupportedEncodingException e) {
             throw new RuntimeException(e);
         }
 	}
-	
-	public void sendVerificationEmail(String url) throws MessagingException, UnsupportedEncodingException {
-        String subject = "Email Verification";
-        String mailContent = 
-        		"<p> "
-        			+ "Xin chào, "+ user.getHoTen() + "! </p>" 
-        		+ "<p> "
-	                + "Cảm ơn bạn đã đăng ký sử dụng mạng xã hội ALOHCMUTE <br>" 
-	                + "Vui lòng nhấp vào liên kết bên dưới để hoàn thành việc đăng ký tài khoản. "
-                + "</p>" 
-                	+ "<a href=\"" + url + "\"> Xác nhận tài khoản của bạn </a>"
-                + "<p> "
-                + "Trân trọng! <br>";
-        
-        emailSendService.sendEmail(user.getEmail(), subject, mailContent);
-    }
 	
 	public void sendForgotPasswordEmail(String url) throws MessagingException, UnsupportedEncodingException {
         String subject = "Email Forgot Password";

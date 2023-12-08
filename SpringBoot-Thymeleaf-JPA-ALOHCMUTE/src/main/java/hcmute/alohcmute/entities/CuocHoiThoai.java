@@ -1,6 +1,7 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -34,9 +35,9 @@ public class CuocHoiThoai implements Serializable {
 	private String tenCuocHoiThoai;
 
 	@OneToMany(mappedBy = "cuocHoiThoai", fetch = FetchType.EAGER)
-	private Set<TinNhan> tinNhans;
+	private List<TinNhan> tinNhans;
 
-	@ManyToMany(mappedBy = "cuocHoiThoai", fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "cuocHoiThoai")
 	private Set<TaiKhoan> taiKhoans;
 
 }

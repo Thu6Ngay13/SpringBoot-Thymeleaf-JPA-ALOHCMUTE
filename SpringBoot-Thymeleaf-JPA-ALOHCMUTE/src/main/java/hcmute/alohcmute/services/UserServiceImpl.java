@@ -75,6 +75,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void saveEnable(TaiKhoan user) {
 		user.setEnable(true);
+		user.setToken("X");
 		taiKhoanRepository.save(user);
 	}
 }

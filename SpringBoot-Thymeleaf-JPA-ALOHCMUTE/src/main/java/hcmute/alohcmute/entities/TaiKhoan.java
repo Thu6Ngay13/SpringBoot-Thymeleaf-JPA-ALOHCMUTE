@@ -2,6 +2,7 @@ package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -98,4 +99,30 @@ public class TaiKhoan implements Serializable{
 	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
 	private Set<BinhLuan> binhLuans;
 	
+	@ManyToMany
+	@JoinTable(name = "TuongTac",
+		joinColumns = {@JoinColumn(name = "TaiKhoan") },
+		inverseJoinColumns = {@JoinColumn(name = "MaBaiViet")})
+	private Set<BaiViet> baiVietTuongTacs;
+	
+	@OneToMany(mappedBy = "taiKhoanTruongNhom", fetch = FetchType.EAGER)
+	private Set<Nhom> nhoms;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		if (this == obj)
+			return true;
+		
+		TaiKhoan other = (TaiKhoan) obj;
+		return this.taiKhoan==other.getTaiKhoan();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(taiKhoan);
+	}
 }
