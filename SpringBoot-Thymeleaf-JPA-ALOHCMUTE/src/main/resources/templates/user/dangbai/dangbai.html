@@ -28,7 +28,7 @@
 			<div class="wrapper">
 				<section class="post">
 					<header>Đăng bài</header>
-					<form action="#" th:action="@{dangbai/add}" method="POST">
+					<form action="#" th:action="@{dangbai/add}" method="POST" enctype="multipart/form-data">
 						<div class="content">
 							<img th:src="${taikhoan.avatarURl}" alt="logo" class="imgavatar">
 							<div class="details">
@@ -42,8 +42,9 @@
 								</select>
 							</div>
 						</div>
-						<textarea id="postContent" name="noidungchu" placeholder="Bạn đang nghĩ gì?" spellcheck="false"
-							required onkeyup="suggestNames(event)"></textarea>
+						<textarea id="postContent" name="noidungchu" placeholder="Bạn đang nghĩ gì?"
+							 onkeyup="suggestNames(event)"></textarea>
+							<div id="uploaded-image-container" ></div>
 						<div id="suggestions" class="suggestions-container"></div>
 						<div class="theme-emoji">
 							<img src="/images/theme.svg" alt="theme">
@@ -52,7 +53,16 @@
 						<div class="options">
 							<p>Thêm vào bài đăng</p>
 							<ul class="list">
-								<li><img src="/images/gallery.svg" alt="gallery"></li>
+								<li>
+									<div class="image-upload">
+										<label for="file-input">
+											<img src="/images/gallery.svg" />
+										</label>
+
+										<input id="file-input" type="file" name="file"
+											onchange="handleFileUpload(this)" />
+									</div>
+								</li>
 								<li><img src="/images/tag.svg" alt="gallery"></li>
 								<li><img src="/images/emoji.svg" alt="gallery"></li>
 								<li><img src="/images/mic.svg" alt="gallery"></li>
@@ -62,18 +72,7 @@
 						<button class="buttondangbai" type="submit">Đăng</button>
 					</form>
 				</section>
-				<section class="audience">
-					<header>
-						<div class="arrow-back"><i class="fas fa-arrow-left"></i></div>
-						<p>Select Audience</p>
-					</header>
-					<div class="content">
-						<p>Who can see your post?</p>
-						<span>Your post will show up in News Feed, on your profile and in search results.</span>
-					</div>
-
-
-				</section>
+				
 			</div>
 		</div>
 
@@ -102,7 +101,7 @@
 			var listbanbe = /*[[${listbanbe}]]*/[];
   /*]]>*/
 		</script>
-		
+
 		<script language="javascript">
 			function suggestNames(event) {
 				var input = event.target.value;
@@ -133,12 +132,33 @@
 					suggestions.style.display = 'none';
 				}
 			}
-			
-			
+
+
 
 		</script>
 
+		<script>
+			function handleFileUpload(input) {
+				const file = input.files[0];
+				if (file) {
+					const fileName = file.name;
 
+					// Hiển thị tên file
+					const fileNameContainer = document.getElementById('uploaded-image-container');
+
+					const reader = new FileReader();
+					reader.onload = function (e) {
+						const imageUrl = e.target.result;
+
+						// Hiển thị hình ảnh trong một phần tử khác
+						const imageContainer = document.getElementById('uploaded-image-container');
+						imageContainer.innerHTML += `<img src="${imageUrl}" width="500" height="300" alt="Uploaded Image">`;
+					};
+
+					reader.readAsDataURL(file);
+				}
+			}
+		</script>
 
 
 

@@ -1,6 +1,7 @@
 package hcmute.alohcmute.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,23 +33,43 @@ public class NewFeedServiceImpl implements INewFeedService {
 	// Other existing methods...
 	@Override
 	public List<BaiViet> findPublicOrFollowedPosts(String currentUsername) {
-		// Define how public posts are denoted in your application
+	    // Get the list of TaiKhoan entities that the current user follows
+	    List<TaiKhoan> followedUsers = taiKhoanService.findTaiKhoanTheoDoisByUsername(currentUsername);
+	    System.out.println(followedUsers.size());
+	    List<BaiViet> allPosts = baiVietRepository.findAll();
+	    List<BaiViet> eligiblePosts = new ArrayList<>();
 
-		// Get the list of TaiKhoan entities that the current user follows
-		List<TaiKhoan> followedUsers = taiKhoanService.findTaiKhoanTheoDoisByUsername(currentUsername);
-		System.out.println(followedUsers.size());
-		List<BaiViet> bv = baiVietRepository.findAll();
-		List<BaiViet> kq = new ArrayList<>();
-		for (BaiViet baiViet : bv) {
-			if (baiViet.getCheDoNhom().getTenCheDo().equals("Công khai")) {
-				kq.add(baiViet);
-			} else if (baiViet.getCheDoNhom().getTenCheDo().equals("Người theo dõi")) {
-				if (followedUsers.contains(baiViet.getTaiKhoan()))
-					kq.add(baiViet);
-			} else if (baiViet.getTaiKhoan().getTaiKhoan().equals(currentUsername))
-				kq.add(baiViet);
-		}
+	    for (BaiViet baiViet : allPosts) {
+	        if (baiViet.getCheDoNhom().getTenCheDo().equals("Công khai") || 
+	            (baiViet.getCheDoNhom().getTenCheDo().equals("Người theo dõi") && followedUsers.contains(baiViet.getTaiKhoan())) || 
+	            baiViet.getTaiKhoan().getTaiKhoan().equals(currentUsername)) {
+	            eligiblePosts.add(baiViet);
+	        }
+	    }
 
-		return kq;
+	    // Sort eligible posts by date and time in descending order
+	    List<BaiViet> sortedPosts = eligiblePosts.stream()
+	           .sorted((bv1, bv2) -> {
+	               int dateCompare = bv2.getNgay().compareTo(bv1.getNgay());
+	               if (dateCompare == 0) {
+	                   return bv2.getThoiGian().compareTo(bv1.getThoiGian());
+	               }
+	               return dateCompare;
+	           })
+	           .collect(Collectors.toList());
+
+	    // Extract and shuffle the top 20 recent posts
+	    List<BaiViet> top20Posts = new ArrayList<>(sortedPosts.stream().limit(20).collect(Collectors.toList()));
+	    Collections.shuffle(top20Posts);
+
+	    // Remove the original top 20 posts from the sorted list
+	    sortedPosts.subList(0, Math.min(20, sortedPosts.size())).clear();
+
+	    // Add the shuffled top 20 posts back to the sorted list
+	    sortedPosts.addAll(0, top20Posts);
+
+	    return sortedPosts;
+	
 	}
+
 }

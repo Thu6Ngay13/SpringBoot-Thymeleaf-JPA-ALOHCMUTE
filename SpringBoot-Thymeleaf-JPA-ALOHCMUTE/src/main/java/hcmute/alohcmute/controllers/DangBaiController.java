@@ -5,11 +5,12 @@ package hcmute.alohcmute.controllers;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.ProcessBuilder.Redirect;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Date;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,74 +62,80 @@ public class DangBaiController{
 	@PostMapping("add")
 	public String add(ModelMap model,@RequestParam("noidungchu") String noidungchu,@RequestParam("privacy") String cdo,@RequestParam("file") MultipartFile noidunghinhanh)
 	{
-		String filename="";
-		String uploadRootPath=app.getRealPath("upload");
-		File uploadRootDir=new File(uploadRootPath);
-		if(!uploadRootDir.exists())
-		{
-			uploadRootDir.mkdirs();
-		}
-		try {
-			int extensionSTT=noidunghinhanh.getOriginalFilename().indexOf(".");
-			String extension=noidunghinhanh.getOriginalFilename().substring(extensionSTT);
-	        // Generate random integers in range 0 to 999
-	        String stt = Integer.toString(LocalDateTime.now().getYear()) +Integer.toString(LocalDateTime.now().getDayOfYear())+Integer.toString(LocalDateTime.now().getHour())+Integer.toString(LocalDateTime.now().getMinute())+Integer.toString(LocalDateTime.now().getSecond());
-			filename = stt+extension;
-			
-			File serverFile = new File(uploadRootDir.getAbsoluteFile() + File.separator + filename);
-			BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
-			stream.write(noidunghinhanh.getBytes());
-			stream.close();
-
-		} catch (Exception e) {	
-		}
+		
 		BaiViet baiviet=new BaiViet();
-		String tenchedo="";
-		TaiKhoan taikhoan=taikhoanSer.findBytaiKhoan("lolo928");
-		baiviet.setNoiDungChu(noidungchu);
-		String linkanh= "/upload/"+filename;
-		baiviet.setNoiDungHinhAnh(linkanh);
-		baiviet.setTaiKhoan(taikhoan);
-		System.out.println(taikhoan.getHoTen());
-		System.out.println(cdo);
-		if(cdo.equals("Public"))
-		{
-			tenchedo="Công Khai";
+		if (noidungchu.equals("")&&noidunghinhanh.isEmpty()) {
+			return "redirect:/user/dangbai";
 		}
-		else if(cdo.equals("Follower"))
+		else
 		{
-			tenchedo="Người Theo Dõi";
+			String filename="";
+			String uploadRootPath=app.getRealPath("upload");
+			File uploadRootDir=new File(uploadRootPath);
+			if(!uploadRootDir.exists())
+			{
+				uploadRootDir.mkdirs();
+			}
+			try {
+				int extensionSTT=noidunghinhanh.getOriginalFilename().indexOf(".");
+				String extension=noidunghinhanh.getOriginalFilename().substring(extensionSTT);
+		        // Generate random integers in range 0 to 999
+		        String stt = Integer.toString(LocalDateTime.now().getYear()) +Integer.toString(LocalDateTime.now().getDayOfYear())+Integer.toString(LocalDateTime.now().getHour())+Integer.toString(LocalDateTime.now().getMinute())+Integer.toString(LocalDateTime.now().getSecond());
+				filename = stt+extension;
+				
+				File serverFile = new File(uploadRootDir.getAbsoluteFile() + File.separator + filename);
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+				stream.write(noidunghinhanh.getBytes());
+				stream.close();
+
+			} catch (Exception e) {	
+			}
+			
+			String tenchedo="";
+			TaiKhoan taikhoan=taikhoanSer.findBytaiKhoan("lolo928");
+			baiviet.setNoiDungChu(noidungchu);
+			String linkanh= "/upload/"+filename;
+			baiviet.setNoiDungHinhAnh(linkanh);
+			baiviet.setTaiKhoan(taikhoan);
+			System.out.println(taikhoan.getHoTen());
+			System.out.println(cdo);
+			if(cdo.equals("Public"))
+			{
+				tenchedo="Công Khai";
+			}
+			else if(cdo.equals("Follower"))
+			{
+				tenchedo="Người Theo Dõi";
+			}
+			else if(cdo.equals("Private"))
+			{
+				tenchedo="Riêng Tư";
+			}
+			Pattern pattern = Pattern.compile("@\\w+");
+
+	        // Create a matcher for the input string
+	        Matcher matcher = pattern.matcher(noidungchu);
+
+	        // Find and print all occurrences
+	        while (matcher.find()) {
+	            String match = matcher.group();
+	            ThongBao tb = new ThongBao();
+	            tb.setNgay(java.time.LocalDate.now());
+	            String NoiDung = taikhoan.getHoTen()+" đã nhắc đến bạn trong một bài viết";
+	            tb.setNoiDung(NoiDung);
+	            String user=match.substring(1);
+	            tb.setTaiKhoan(taikhoanSer.findBytaiKhoan(user));
+	            tb.setThoiGian(java.time.LocalTime.now());
+	            tbSer.save(tb);
+	        }
+			System.out.println(tenchedo);
+			CheDo chedo=chedoSer.findByCheDo(tenchedo);
+			baiviet.setCheDoNhom(chedo);
+			baiviet.setNgay(LocalDate.now());
+			baiviet.setThoiGian(LocalTime.now());
+			baivietSer.save(baiviet);
 		}
-		else if(cdo.equals("Private"))
-		{
-			tenchedo="Riêng Tư";
-		}
-		Pattern pattern = Pattern.compile("@\\w+");
-
-        // Create a matcher for the input string
-        Matcher matcher = pattern.matcher(noidungchu);
-
-        // Find and print all occurrences
-        while (matcher.find()) {
-            String match = matcher.group();
-            ThongBao tb = new ThongBao();
-            tb.setNgay(java.time.LocalDate.now());
-            String NoiDung = taikhoan.getHoTen()+" đã nhắc đến bạn trong một bài viết";
-            tb.setNoiDung(NoiDung);
-            String user=match.substring(1);
-            tb.setTaiKhoan(taikhoanSer.findBytaiKhoan(user));
-            tb.setThoiGian(java.time.LocalTime.now());
-            tbSer.save(tb);
-        }
-		System.out.println(tenchedo);
-		CheDo chedo=chedoSer.findByCheDo(tenchedo);
-		baiviet.setCheDoNhom(chedo);
-		baiviet.setNgay(LocalDate.now());
-		baiviet.setThoiGian(LocalTime.now());
-		baivietSer.save(baiviet);
-
-
-		return "user/newfeed/newfeed.html";
+		return "redirect:/user/newfeed";
 	}
 	
 }
