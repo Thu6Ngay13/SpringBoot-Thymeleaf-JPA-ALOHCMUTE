@@ -19,11 +19,11 @@ public class UserController {
 	public String banUser(@PathVariable(value = "taikhoan") String taikhoan, @PathVariable(value = "mabaocao") int mabaocao) {
 		Optional<TaiKhoan> Opttaikhoan = taiKhoanService.findById(taikhoan); 
 		TaiKhoan userban = Opttaikhoan.get();
-		if (userban.isStatus()== true) {
-			userban.setStatus(false);
+		if (userban.isEnable()== true) {
+			userban.setEnable(false);
 		}
 		else {
-			userban.setStatus(true);
+			userban.setEnable(true);
 		}
 		taiKhoanService.save(userban);
 		
