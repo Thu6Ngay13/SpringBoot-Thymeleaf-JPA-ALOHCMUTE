@@ -79,7 +79,11 @@ public class WebController {
     	model.addAttribute("email", email);
     	return "web/quenmatkhau/quenmatkhau";
     }
-    
+    @GetMapping("/updatepassword")
+	public String updatepassword(Model model) {
+		return "web/quenmatkhau/datlaimatkhau";
+	}
+
     @PostMapping("/forgotpassword/find")
     public String forgotPassword(
     		@RequestParam("email") String email, 
