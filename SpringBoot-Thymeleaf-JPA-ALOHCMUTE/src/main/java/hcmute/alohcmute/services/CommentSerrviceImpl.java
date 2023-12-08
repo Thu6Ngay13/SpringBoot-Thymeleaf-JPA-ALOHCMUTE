@@ -111,5 +111,11 @@ public class CommentSerrviceImpl implements ICommentService{
 		}
 		return list;
 	}
+
+	@Override
+	public long countBinhLuanByMaBaiViet(int maBaiViet) {
+		return commentRepository.countByBaiViet_MaBaiViet(maBaiViet);
+	}
+	
 	
 }

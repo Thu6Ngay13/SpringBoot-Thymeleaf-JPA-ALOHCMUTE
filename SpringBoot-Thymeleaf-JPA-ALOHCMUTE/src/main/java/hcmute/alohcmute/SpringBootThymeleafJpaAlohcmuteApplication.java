@@ -9,5 +9,4 @@ public class SpringBootThymeleafJpaAlohcmuteApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SpringBootThymeleafJpaAlohcmuteApplication.class, args);
 	}
-
 }

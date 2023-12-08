@@ -33,8 +33,6 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 		return taiKhoanRepository.findById(id);
 	}
 	
-
-	
 	@Override
 	public boolean existsById(String id) {
 		return taiKhoanRepository.existsById(id);
@@ -44,8 +42,6 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 	public long count() {
 		return taiKhoanRepository.count();
 	}
-	
-
 	
 	@Override
 	public void deleteById(String id) {
@@ -110,4 +106,20 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 		
 		return result;
 	}
+
+	@Override
+	public List<TaiKhoan> findTop5TaiKhoanFollowersByUsername(String taiKhoanUsername) {
+		return taiKhoanRepository.findTop5TaiKhoanFollowersByUsername(taiKhoanUsername);
+	}
+
+	@Override
+	public int countTaiKhoanFollowersByUsername(String taiKhoanUsername) {
+		return taiKhoanRepository.countTaiKhoanFollowersByUsername(taiKhoanUsername);
+	}
+
+	@Override
+	public List<TaiKhoan> findTop5TaiKhoanTheoDoisByUsername(String taiKhoanUsername) {
+		return taiKhoanRepository.findTop5TaiKhoanTheoDoisByUsername(taiKhoanUsername);
+	}
+
 }

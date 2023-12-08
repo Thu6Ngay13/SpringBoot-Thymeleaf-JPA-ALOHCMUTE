@@ -13,4 +13,9 @@ public interface IBaiVietService {
 
 	BaiViet getById(Integer id);
 
+	List<BaiViet> findAllBaiVietByUsername(String taiKhoanUsername);
+
+	void deleteById(Integer id);
+	
+	long demSoTuongTac(int maBaiViet);
 }

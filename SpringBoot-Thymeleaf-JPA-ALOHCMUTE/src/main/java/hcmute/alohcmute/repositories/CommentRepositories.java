@@ -7,5 +7,5 @@ import hcmute.alohcmute.entities.BinhLuan;
 
 @Repository
 public interface CommentRepositories extends JpaRepositoryImplementation<BinhLuan, Integer>{
-
+	long countByBaiViet_MaBaiViet(int maBaiViet);
 }

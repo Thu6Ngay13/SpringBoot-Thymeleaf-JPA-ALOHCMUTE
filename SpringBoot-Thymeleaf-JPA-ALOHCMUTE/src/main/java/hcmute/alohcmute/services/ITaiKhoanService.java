@@ -36,4 +36,10 @@ public interface ITaiKhoanService {
 
 	<S extends TaiKhoan> S save(S entity);
 
+	List<TaiKhoan> findTop5TaiKhoanFollowersByUsername(String taiKhoanUsername);
+
+	int countTaiKhoanFollowersByUsername(String taiKhoanUsername);
+
+	List<TaiKhoan> findTop5TaiKhoanTheoDoisByUsername(String taiKhoanUsername);
+
 }

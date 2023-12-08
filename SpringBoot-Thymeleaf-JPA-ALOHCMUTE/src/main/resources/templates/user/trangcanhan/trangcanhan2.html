@@ -48,31 +48,19 @@
 											<div class="card-block social-follower">
 												<h4 th:text="${taikhoan.hoTen}">Ho ten</h4>
 												<h5 th:text="${taikhoan.taiKhoan}">Ten nguoi dung</h5>
-												<div class="row follower-counter">
-													<div class="col-4">
-														<button class="btn btn-primary btn-icon" data-toggle="tooltip"
-															data-placement="top" title="" data-original-title="485">
-															<i class="fa fa-user"></i>
-														</button>
-													</div>
-													<div class="col-4">
-														<button class="btn btn-danger btn-icon" data-toggle="tooltip"
-															data-placement="top" title="" data-original-title="2k">
-															<i class="fa fa-thumbs-o-up"></i>
-														</button>
-													</div>
-													<div class="col-4">
-														<button class="btn btn-success btn-icon" data-toggle="tooltip"
-															data-placement="top" title="" data-original-title="90">
-															<i class="fa fa-eye"></i>
-														</button>
-													</div>
-												</div>
+
 												<div class="">
-													<button type="button"
-														class="btn btn-outline-primary waves-effect btn-block"><i
-															class="icofont icofont-ui-user m-r-10"></i> Add as
-														Friend</button>
+													<div th:if="${follows}">
+														<a th:href="@{'/trangcanhan/deleteTaiKhoanTheoDoi/' + ${taikhoan.taiKhoan} + '/user1'}"
+															class="btn btn-outline-primary waves-effect btn-block"><i
+																class="icofont icofont-ui-user m-r-10"></i>Unfollows</a>
+													</div>
+													<div th:unless="${follows}"> 
+														<a th:href="@{'/trangcanhan/theoDoiTaiKhoan/' + ${taikhoan.taiKhoan} + '/user1'}"
+															class="btn btn-outline-primary waves-effect btn-block"><i
+																class="icofont icofont-ui-user m-r-10"></i>Follows</a>
+													</div>
+
 												</div>
 											</div>
 										</div>
@@ -117,82 +105,6 @@
 															</a>
 															<div class="text-muted social-designation"
 																th:text="${ac.taiKhoan}">Tai khoan
-															</div>
-														</div>
-													</div>
-												</div>
-
-
-												<div class="col-md-12 text-md-right mt-3">
-													<button type="button"
-														class="btn btn-outline-primary waves-effect btn-block"
-														onclick="openModal()"><i
-															class="icofont icofont-ui-user m-r-10"></i>Xem thêm</button>
-												</div>
-												<!-- Modal -->
-												<div id="myModal" class="modal">
-													<div class="modal-content">
-														<!-- Phần tiêu đề cố định -->
-														<div class="modal-title">
-															<span class="close" onclick="closeModal()">&times;</span>
-															<h5>Đang theo dõi</h5>
-														</div>
-														<!-- Phần nội dung bên dưới tiêu đề -->
-														<div class="modal-body">
-															<div class="row">
-																<div class="col-lg-12 col-xl-6"
-																	th:each="ac : ${taikhoandangtheodoi}">
-																	<div class="card">
-																		<div class="card-block post-timelines">
-																			<div class="media bg-white d-flex">
-																				<div class="media-left media-middle">
-																					<a
-																						th:href="@{'/trangcanhan/thongtintaikhoan/' + ${ac.taiKhoan}}">
-																						<img class="media-object"
-																							width="120"
-																							th:src="${ac.avatarURl}"
-																							alt="">
-																					</a>
-																				</div>
-																				<div class="media-body friend-elipsis">
-																					<div class="dropdown">
-																						<span
-																							class="text-muted f-right service-btn dropdown-toggle"
-																							data-toggle="dropdown"
-																							aria-haspopup="true"
-																							aria-expanded="false"
-																							role="tooltip">
-																						</span>
-																						<div class="dropdown-menu dropdown-menu-right b-none services-list"
-																							aria-labelledby="dropdownMenu">
-																							<a class="dropdown-item"
-																								th:href="@{'/trangcanhan/deleteTaiKhoanDangTheoDoi/' + ${ac.taiKhoan} + '/user1'}">Remove
-																								tag</a>
-																							<a class="dropdown-item"
-																								href="#">Report
-																								Photo</a>
-																							<a class="dropdown-item"
-																								href="#">Hide From
-																								Timeline</a>
-																							<a class="dropdown-item"
-																								href="#">Blog
-																								User</a>
-																						</div>
-																					</div>
-																					<a
-																						th:href="@{'/trangcanhan/thongtintaikhoan/' + ${ac.taiKhoan}}">
-																						<div class="f-15 f-bold m-b-5"
-																							th:text="${ac.hoTen}">Ho ten
-																						</div>
-																					</a>
-																					<div class="text-muted social-designation"
-																						th:text="${ac.nickName}">
-																						nick name</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
 															</div>
 														</div>
 													</div>
@@ -255,29 +167,6 @@
 																			<div class="media bg-white d-flex">
 
 																				<div class="media-body friend-elipsis">
-																					<div class="dropdown">
-																						<span
-																							class="text-muted f-right service-btn dropdown-toggle"
-																							data-toggle="dropdown"
-																							aria-haspopup="true"
-																							aria-expanded="false"
-																							role="tooltip">
-																						</span>
-																						<div class="dropdown-menu dropdown-menu-right b-none services-list"
-																							aria-labelledby="dropdownMenu">
-																							<a class="dropdown-item"
-																								th:href="@{'/trangcanhan/deletebaiviet/' + ${taikhoan.taiKhoan} + '/' + ${bv.maBaiViet}}">Remove
-																								tag</a>
-																							<a class="dropdown-item"
-																								href="#">Report
-																								Photo</a>
-																							<a class="dropdown-item"
-																								href="#">Hide From
-																								Timeline</a>
-																							<a class="dropdown-item"
-																								href="#">Blog User</a>
-																						</div>
-																					</div>
 																					<div class="f-15 f-bold m-b-5"
 																						th:text="${taikhoan.hoTen}">Ho
 																						ten
@@ -293,10 +182,9 @@
 																			class="img-fluid width-100" alt="">
 																		<div class="card-block">
 																			<div class="timeline-details">
-																				<div class="p-b-30"> <span class="f-14">
-																					<a th:href="@{/user/comment/{baiVietId}(baiVietId=${bv.maBaiViet})}"><span th:text="${taikhoan.hoTen}"></span> đã đăng lên dòng trạng thái</a></span>
-																				</div>
-																				
+																				<div class="chat-header"><span
+																						th:text="${taikhoan.hoTen}"></span>
+																					đã đăng lên dòng trạng thái </div>
 																				<p class="text-muted"
 																					th:text="${bv.noiDungChu}">
 																				</p>
@@ -306,7 +194,7 @@
 																			class="card-block b-b-theme b-t-theme social-msg">
 																			<a href="#"> <i
 																					class="icofont icofont-heart-alt text-muted"></i><span
-																					class="b-r-muted">Like<span
+																					class="b-r-muted">Like <span
 																						th:text="${bv.soTuongTac}"></span>
 																			</a>
 																			<a href="#"> <i
@@ -420,11 +308,6 @@
 														<div class="card-header">
 															<h5 class="card-header-text" style="display: inline-block;">
 																Thông tin cá nhân</h5>
-															<button id="edit-btn" type="button"
-																class="btn btn-primary waves-effect waves-light"
-																style="float: right;">
-																<i class="icofont icofont-edit"></i>Edit
-															</button>
 														</div>
 
 														<div class="card-block">
@@ -510,13 +393,7 @@
 																				name="email" placeholder="Địa chỉ email"
 																				th:value="${taikhoan.email}">
 																		</div>
-																		<div class="text-center m-t-20">
-																			<button type="submit" id="edit-save"
-																				class="btn btn-primary waves-effect waves-light m-r-20">Save</button>
-																			<a href="#" onclick="cancelEdit()"
-																				class="btn btn-default waves-effect waves-light">Cancel</a>
 
-																		</div>
 																	</form>
 
 																</div>
@@ -563,25 +440,7 @@
 																	</a>
 																</div>
 																<div class="media-body friend-elipsis">
-																	<div class="dropdown">
-																		<span
-																			class="text-muted f-right service-btn dropdown-toggle"
-																			data-toggle="dropdown" aria-haspopup="true"
-																			aria-expanded="false" role="tooltip">
-																		</span>
-																		<div class="dropdown-menu dropdown-menu-right b-none services-list"
-																			aria-labelledby="dropdownMenu">
-																			<a class="dropdown-item"
-																				th:href="@{'/trangcanhan/deleteTaiKhoanTheoDoi/' + ${taikhoan.taiKhoan} + '/' + ${ac.taiKhoan}}">Remove
-																				tag</a>
-																			<a class="dropdown-item" href="#">Report
-																				Photo</a>
-																			<a class="dropdown-item" href="#">Hide From
-																				Timeline</a>
-																			<a class="dropdown-item" href="#">Blog
-																				User</a>
-																		</div>
-																	</div>
+
 																	<a
 																		th:href="@{'/trangcanhan/thongtintaikhoan/' + ${ac.taiKhoan}}">
 																		<div class="f-15 f-bold m-b-5"
@@ -683,16 +542,6 @@
 		}
 	</script>
 
-	<script>
-		// JavaScript để điều khiển hiển thị modal
-		function openModal() {
-			document.getElementById("myModal").style.display = "block";
-		}
-
-		function closeModal() {
-			document.getElementById("myModal").style.display = "none";
-		}
-	</script>
 	<!--<script th:src="@{js/script_trangcanhan.js}"></script>-->
 </body>
 
