@@ -12,7 +12,6 @@
 		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
 	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />
 
-	<link rel="stylesheet" th:href="@{css/style_newfeed.css}" />
 	<link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css}" rel="stylesheet"
 		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
 	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />
@@ -63,7 +62,6 @@
             display: table;
         }
     </style>
-
 	
 	
 </head>
@@ -71,7 +69,7 @@
 <body>
 	<header class="header">
 		<div class="col">
-			<div th:replace="user/fragments/header::header"></div>
+			<div th:replace="~{user/fragments/header::header}	"></div>
 		</div>
 	</header>
 
@@ -80,7 +78,7 @@
 			<td>
 				<section class="leftbar">
 					<div class="col">
-						<div th:replace="user/fragments/leftbar::leftbar"></div>
+						<div th:replace="~{user/fragments/leftbar::leftbar}"></div>
 					</div>
 				</section>
 			</td>
@@ -94,11 +92,8 @@
 		</table>
 	</main>
 
-	<footer class="row">
-		<div class="col">
-			<div th:replace="user/fragments/footer::footer"></div>
-		</div>
-	</footer>
+
+
 </body>
 
 </html>

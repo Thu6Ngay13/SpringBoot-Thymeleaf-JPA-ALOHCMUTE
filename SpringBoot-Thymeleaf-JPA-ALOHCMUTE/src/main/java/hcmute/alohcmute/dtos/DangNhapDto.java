@@ -1,4 +1,4 @@
-package hcmute.alohcmute.models;
+package hcmute.alohcmute.dtos;
 
 import lombok.Data;
 
