@@ -16,6 +16,8 @@ import hcmute.alohcmute.dtos.TaiKhoanDto;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.events.ForgotPasswordSendEmailEvent;
 import hcmute.alohcmute.events.RegisterVerifySendEmailEvent;
+import hcmute.alohcmute.security.SecurityUtil;
+import hcmute.alohcmute.security.UserDetailsImpl;
 import hcmute.alohcmute.services.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -173,4 +175,17 @@ public class WebController {
 		return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 	}
 
+	@GetMapping("/test")
+	public String test() {
+		TaiKhoan user = SecurityUtil.getMyUser();
+
+		System.out.println(user.getTaiKhoan());
+		System.out.println(user.getMatKhau());
+		System.out.println(user.getHoTen());
+		System.out.println(user.getSDT());
+		System.out.println(user.getGioiTinh());
+		System.out.println(user.getToken());
+		
+		return "web/error/error403";
+	}
 };

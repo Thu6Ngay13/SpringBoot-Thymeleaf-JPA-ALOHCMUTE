@@ -30,6 +30,10 @@ public class UserDetailsImpl implements UserDetails {
 		return authorities;
 	}
 	
+	public TaiKhoan getUser() {
+		return user;
+	}
+	
 	@Override
 	public String getUsername() {
 		return user.getTaiKhoan();
@@ -39,22 +43,19 @@ public class UserDetailsImpl implements UserDetails {
 	public String getPassword() {
 		return user.getMatKhau();
 	}
-	
+
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -62,5 +63,4 @@ public class UserDetailsImpl implements UserDetails {
 	public boolean isEnabled() {
 		return user.isEnable();
 	}
-
 }
