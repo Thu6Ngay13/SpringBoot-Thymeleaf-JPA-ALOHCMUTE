@@ -20,4 +20,5 @@ public class TaiKhoanModel {
 	private String gioiTinh;
 	private String sDT;
 	private String avatarURl;
+	private boolean enable;
 }
