@@ -35,9 +35,9 @@ public class CommentController {
 	@GetMapping("/comment/{baiVietId}")
 	public String reviewComment(ModelMap model, @PathVariable(value = "baiVietId") int id) {
 		List<BinhLuan> comments = commentService.findCommentByMaBaiViet(id);
-		
 		long soLuongBinhLuan = commentService.countBinhLuanByMaBaiViet(id);
 		long demSoTuongTac = baiVietService.demSoTuongTac(id);
+		model.addAttribute("isLiked", baiVietService.checkLiked(id, "thuycao816"));
 		model.addAttribute("soLuongBinhLuan", soLuongBinhLuan);
 		model.addAttribute("soLike", demSoTuongTac);
 		model.addAttribute("comments", comments);

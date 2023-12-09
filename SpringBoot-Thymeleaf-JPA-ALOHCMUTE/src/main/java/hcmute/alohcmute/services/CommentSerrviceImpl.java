@@ -3,6 +3,7 @@ package hcmute.alohcmute.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.BinhLuan;
 import hcmute.alohcmute.repositories.CommentRepositories;
 
@@ -115,7 +117,6 @@ public class CommentSerrviceImpl implements ICommentService{
 	@Override
 	public long countBinhLuanByMaBaiViet(int maBaiViet) {
 		return commentRepository.countByBaiViet_MaBaiViet(maBaiViet);
-	}
-	
+	}	
 	
 }

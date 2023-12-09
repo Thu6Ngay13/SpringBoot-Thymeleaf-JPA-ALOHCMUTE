@@ -47,6 +47,6 @@ public interface ICommentService {
 	
 	List<BinhLuan> findCommentByMaBaiViet(int maBV);
 	
-	 long countBinhLuanByMaBaiViet(int maBaiViet);
+	long countBinhLuanByMaBaiViet(int maBaiViet);
      
 }
