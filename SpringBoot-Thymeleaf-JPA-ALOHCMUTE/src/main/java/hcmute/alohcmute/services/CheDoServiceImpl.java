@@ -17,4 +17,9 @@ public class CheDoServiceImpl implements ICheDoService{
 	public Optional<CheDo> findByID(int id) {
 		return cheDoRepo.findById(id);
 	}
+	
+	@Override
+	public CheDo findByCheDo(String username) {
+		return cheDoRepo.findOneBytenCheDo(username);
+	}
 }

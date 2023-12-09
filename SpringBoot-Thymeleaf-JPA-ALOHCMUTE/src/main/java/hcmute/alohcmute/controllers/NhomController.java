@@ -21,6 +21,7 @@ import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.Nhom;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.entities.TaiKhoan_Nhom;
+import hcmute.alohcmute.services.IBaiVietService;
 import hcmute.alohcmute.services.ICheDoService;
 import hcmute.alohcmute.services.INhomService;
 import hcmute.alohcmute.services.ITaiKhoanService;
@@ -36,6 +37,8 @@ public class NhomController {
 	INhomService NhomSer;
 	@Autowired
 	ICheDoService cheDoSer;
+	@Autowired
+	IBaiVietService baiVietSer;
 
 	String username = "tien888";
 	@GetMapping("")
@@ -60,7 +63,8 @@ public class NhomController {
 		Nhom nhom = NhomSer.findBymaNhom(groupid);
 		model.addAttribute("Nhom", nhom);
 		model.addAttribute("username",username);
-		List<BaiViet> listBaiViet = new ArrayList<>(nhom.getBaiViets());
+//		List<BaiViet> listBaiViet = new ArrayList<>(nhom.getBaiViets());
+		List<BaiViet> listBaiViet = baiVietSer.findBymaNhom(nhom);
 		model.addAttribute("listBaiViet", listBaiViet);
 		return "user/nhom/nhom.html";
 
@@ -178,5 +182,19 @@ public class NhomController {
 //		NhomSer.addMember(usernameConvert, grID);
 		String referer = request.getHeader("referer");
 		return "redirect:" + (referer != null ? referer : "/defaultPath");
+	}
+	
+	@GetMapping("post")
+	public String DangBai(ModelMap model,@RequestParam("groupID") String groupID) {
+		model.addAttribute("nhom",groupID);
+		TaiKhoan taikhoan=tkSer.findBytaiKhoan("lolo928");
+		model.addAttribute("taikhoan",taikhoan);
+		List<TaiKhoan> aa = tkSer.findTaiKhoanFollowersByUsername("lolo928");
+		List<String> kq = new ArrayList<>();
+		for (TaiKhoan ds : aa) {
+			kq.add(ds.getTaiKhoan());
+		}
+		model.addAttribute("listbanbe",kq);
+		return "user/dangbai/dangbai.html";
 	}
 }

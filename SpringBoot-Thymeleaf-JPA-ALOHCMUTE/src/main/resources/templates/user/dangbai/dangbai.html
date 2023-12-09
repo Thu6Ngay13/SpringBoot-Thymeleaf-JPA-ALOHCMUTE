@@ -17,65 +17,74 @@
 			padding: 0;
 			box-sizing: border-box;
 			background-color: aliceblue;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			
 		}
 	</style>
+
 
 </head>
 
 <body>
 	<section layout:fragment="content">
-		<div class="container">
+		<div class="container1">
 			<div class="wrapper">
 				<section class="post">
 					<header>Đăng bài</header>
-					<form action="#">
+					<form action="#" th:action="@{/user/dangbai/add}" method="POST" enctype="multipart/form-data">
 						<div class="content">
-							<img src="images/logo.png" alt="logo">
+							<img th:src="${taikhoan.avatarURl}" alt="logo" class="imgavatar">
 							<div class="details">
-								<b style="margin-left: 5px; margin-bottom: 5px; font-family: 'Consolas', Times, serif; font-size: 20px;">Tên người dùng</b>
+								<b th:text="${taikhoan.hoTen}"
+									style="margin-left: 5px; margin-bottom: 5px; font-family: 'Consolas', Times, serif; font-size: 20px;"></b>
 								</br>
 								<select name="privacy" id="privacy" class="combobox">
-									<option value="CongKhai">Công khai</option>
-									<option value="NguoiTheoDoi">Người theo dõi</option>
-									<option value="RiengTu">Riêng tư</option>
+									<option value="Public">Công Khai</option>
+									<option value="Follower">Người Theo Dõi</option>
+									<option value="Private">Riêng Tư</option>
 								</select>
 							</div>
 						</div>
-						<textarea placeholder="Bạn đang nghĩ gì?" spellcheck="false" required></textarea>
+						<textarea id="postContent" name="noidungchu" placeholder="Bạn đang nghĩ gì?"
+							onkeyup="suggestNames(event)"></textarea>
+						<div id="uploaded-image-container"></div>
+						<input type="hidden" name="manhom" th:value="${nhom}">
+						<div id="suggestions" class="suggestions-container"></div>
 						<div class="theme-emoji">
-							<img src="images/theme.svg" alt="theme">
-							<img src="images/smile.svg" alt="smile">
+							<img src="/images/theme.svg" alt="theme">
+							<img src="/images/smile.svg" alt="smile">
 						</div>
 						<div class="options">
 							<p>Thêm vào bài đăng</p>
 							<ul class="list">
-								<li><img src="images/gallery.svg" alt="gallery"></li>
-								<li><img src="images/tag.svg" alt="gallery"></li>
-								<li><img src="images/emoji.svg" alt="gallery"></li>
-								<li><img src="images/mic.svg" alt="gallery"></li>
-								<li><img src="images/more.svg" alt="gallery"></li>
+								<li>
+									<div class="image-upload">
+										<label for="file-input">
+											<img src="/images/gallery.svg" />
+										</label>
+
+										<input id="file-input" type="file" name="file"
+											onchange="handleFileUpload(this)" />
+									</div>
+								</li>
+								<li><img src="/images/tag.svg" alt="gallery"></li>
+								<li><img src="/images/emoji.svg" alt="gallery"></li>
+								<li><img src="/images/mic.svg" alt="gallery"></li>
+								<li><img src="/images/more.svg" alt="gallery"></li>
 							</ul>
 						</div>
-						<button>Đăng</button>
+						<button class="buttondangbai" type="submit">Đăng</button>
 					</form>
 				</section>
-				<section class="audience">
-					<header>
-						<div class="arrow-back"><i class="fas fa-arrow-left"></i></div>
-						<p>Select Audience</p>
-					</header>
-					<div class="content">
-						<p>Who can see your post?</p>
-						<span>Your post will show up in News Feed, on your profile and in search results.</span>
-					</div>
 
-
-				</section>
 			</div>
 		</div>
 
 		<script language="javascript">
-			const container = document.querySelector(".container"),
+			const container = document.querySelector(".container1"),
 				privacy = container.querySelector(".post .privacy"),
 				arrowBack = container.querySelector(".audience .arrow-back");
 			privacy.addEventListener("click", () => {
@@ -93,6 +102,73 @@
 				}
 			};
 		</script>
+
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			var listbanbe = /*[[${listbanbe}]]*/[];
+  /*]]>*/
+		</script>
+
+		<script language="javascript">
+			function suggestNames(event) {
+				var input = event.target.value;
+				var suggestions = document.getElementById("suggestions");
+
+				// Use 'listbanbe' directly in your JavaScript
+				var atIndex = input.lastIndexOf("@");
+				if (atIndex >= 0) {
+					var searchQuery = input.substring(atIndex + 1);
+					if (searchQuery.length > 0) {
+						var matchingFriends = listbanbe.filter(name => name.toLowerCase().startsWith(searchQuery.toLowerCase()));
+						suggestions.innerHTML = matchingFriends.map(name => `<div class="suggestion-item">${name}</div>`).join('');
+						suggestions.style.display = 'block';
+
+						// Add click event to suggestion items
+						document.querySelectorAll('.suggestion-item').forEach(item => {
+							item.addEventListener('click', function () {
+								var name = this.innerText;
+								var newText = input.substring(0, atIndex) + "@" + name + " ";
+								document.getElementById("postContent").value = newText;
+								suggestions.style.display = 'none';
+							});
+						});
+					} else {
+						suggestions.style.display = 'none';
+					}
+				} else {
+					suggestions.style.display = 'none';
+				}
+			}
+
+
+
+		</script>
+
+		<script>
+			function handleFileUpload(input) {
+				const file = input.files[0];
+				if (file) {
+					const fileName = file.name;
+
+					// Hiển thị tên file
+					const fileNameContainer = document.getElementById('uploaded-image-container');
+
+					const reader = new FileReader();
+					reader.onload = function (e) {
+						const imageUrl = e.target.result;
+
+						// Hiển thị hình ảnh trong một phần tử khác
+						const imageContainer = document.getElementById('uploaded-image-container');
+						imageContainer.innerHTML += `<img src="${imageUrl}" width="500" height="300" alt="Uploaded Image">`;
+					};
+
+					reader.readAsDataURL(file);
+				}
+			}
+		</script>
+
+
+
 	</section>
 </body>
 
