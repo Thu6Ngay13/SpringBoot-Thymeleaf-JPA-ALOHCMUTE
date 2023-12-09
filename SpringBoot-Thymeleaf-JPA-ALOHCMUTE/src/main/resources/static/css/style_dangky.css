@@ -45,16 +45,14 @@ html, body{
     padding: 10px 30px 20px 30px;
 }
 
-.wrapper form .field{
-    height: 50px;
+.wrapper form .field {
+    height: 60px;
     width: 100%;
     margin-top: 20px;
     position: relative;
-  	display: flex;
-    align-items: center;
 }
 
-.wrapper form .field input{
+.wrapper form .field input {
     height: 100%;
     width: 100%;
     outline: none;
@@ -65,11 +63,11 @@ html, body{
 }
 
 .wrapper form .field input:focus,
-form .field input:valid{
+form .field input:valid {
     border-color: #4158d0;
 }
 
-.wrapper form .field label{
+.wrapper form .field label {
     position: absolute;
     top: 50%;
     left: 20px;
@@ -79,20 +77,16 @@ form .field input:valid{
     pointer-events: none;
     transform: translateY(-50%);
     transition: all 0.3s ease;
-  	margin-right: 10px;
-    
 }
 
 form .field input:focus ~ label,
-form .field input:valid ~ label{
+form .field input:valid ~ label {
     border-radius: 30px;
     top: 0%;
     font-size: 16px;
     color: #4158d0;
     background: #fff;
     transform: translateY(-50%);
-  
-    
 }
 
 form .content{

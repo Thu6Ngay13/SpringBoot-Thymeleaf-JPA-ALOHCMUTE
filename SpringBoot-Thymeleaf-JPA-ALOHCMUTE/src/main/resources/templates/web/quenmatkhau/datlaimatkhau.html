@@ -77,7 +77,7 @@
             var passwordMatchError = $("#passwordMatchError");
             var resetPasswordBtn = $("#resetPasswordBtn");
 
-            confirmPasswordInput.on("blur", function () {
+            confirmPasswordInput.on("input", function () {
                 var password = passwordInput.val();
                 var confirmPassword = confirmPasswordInput.val();
 
