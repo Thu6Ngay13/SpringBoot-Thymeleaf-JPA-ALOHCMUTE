@@ -62,6 +62,7 @@
 								<button class="buttonNhom" style="margin-right: 10px;"><img
 										src="https://cdn-icons-png.flaticon.com/512/78/78948.png" width="15px"
 										height="15px" style="margin-right: 10px; margin-bottom: 3px;">Quản trị</button>
+
 							</div>
 							<div th:unless="${Nhom.taiKhoanTruongNhom.taiKhoan==username}">
 								<button class="buttonNhom" style="background-color: gainsboro; margin-right: 10px;"
@@ -70,12 +71,23 @@
 							</div>
 						</form>
 						<form action="#" th:action="@{/user/group/outgroup}" method="get">
-							<input type="hidden" name="groupID" th:value="${Nhom.maNhom}" />
-							<button class="buttonNhom" style="background-color: crimson;"><img
-									src="https://cdn-icons-png.flaticon.com/512/2457/2457271.png" width="15px"
-									height="15px" style="margin-right: 10px; margin-bottom: 3px;">Rời nhóm</button>
+							<div th:unless="${Nhom.taiKhoanTruongNhom.taiKhoan==username}">
+								<input type="hidden" name="groupID" th:value="${Nhom.maNhom}" />
+								<input type="hidden" name="ThanhVien" value="" />
+								<button class="buttonNhom" style="background-color: crimson;"><img
+										src="https://cdn-icons-png.flaticon.com/512/2457/2457271.png" width="15px"
+										height="15px" style="margin-right: 10px; margin-bottom: 3px;">Rời nhóm</button>
+							</div>
+
 						</form>
+						<div th:if="${Nhom.taiKhoanTruongNhom.taiKhoan==username}">
+							<input type="hidden" name="groupID" th:value="${Nhom.maNhom}" />
+							<button class="buttonNhom" style="background-color: crimson;" id="myBtn"><img
+									src="https://cdn-icons-png.flaticon.com/512/2457/2457271.png" width="15px"
+									height="15px" style="margin-right: 10px; margin-bottom: 3px;" type="button">Rời nhóm</button>
+						</div>
 					</div>
+
 				</div>
 				<!-- message sender starts -->
 				<div class="messageSender">
@@ -162,7 +174,7 @@
 					</div>
 
 
-					
+
 				</div>
 
 
@@ -175,7 +187,7 @@
 
 
 
-<!-- Modal Thông Báo Thành Công -->
+		<!-- Modal Thông Báo Thành Công -->
 		<div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
 			aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -195,7 +207,27 @@
 				</div>
 			</div>
 		</div>
+		<div id="myModal" class="modal2">
 
+			<!-- Modal content -->
+			<div class="modal-content">
+				<span class="close" id="closeModel">&times;</span>
+				<div class="button-container">
+					<h5>Bạn là quản trị viên của nhóm, vui lòng chọn người kế thừa nếu muốn rời nhóm:   </h5>
+					<form action="#" th:action="@{/user/group/outgroup}" method="get">
+						<input type="hidden" name="groupID" th:value="${Nhom.maNhom}" />
+						<select id="ThanhVien" name="ThanhVien" style="width: 200px; margin-top: 15px; margin-left: 10px;" >
+							<div th:each="taikhoan : ${thanhvien}">
+							<option th:value="${taikhoan.taiKhoan}" selected>[[${taikhoan.taiKhoan}]]</option>
+							</div>
+						</select>
+						<br>
+						<button style="margin-left:350px; width: 100px;">OK</button>
+					</form>
+				</div>
+			</div>
+
+		</div>
 
 
 
@@ -236,6 +268,33 @@
 		</script>
 		<script th:src="@{js/script_thongbao.js}">
 
+		</script>
+		<script>
+			// Get the modal
+			var modal = document.getElementById("myModal");
+
+			// Get the button that opens the modal
+			var btn = document.getElementById("myBtn");
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementById("closeModel");
+
+			// When the user clicks the button, open the modal 
+			btn.onclick = function () {
+				modal.style.display = "block";
+			}
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function () {
+				modal.style.display = "none";
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function (event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
 		</script>
 
 

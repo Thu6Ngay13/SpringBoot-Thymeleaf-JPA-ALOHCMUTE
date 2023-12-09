@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,7 +39,8 @@ public class NhomController {
 	@Autowired
 	IBaiVietService baiVietSer;
 
-	String username = "tien888";
+	String username = "thuycao816";
+
 	@GetMapping("")
 	public String NhomCuaBan(ModelMap model) {
 		// TaiKhoan tk = tkSer.findBytaiKhoan(username);
@@ -54,7 +54,7 @@ public class NhomController {
 		}
 		// model.addAttribute("listnhom",listnhom);
 		model.addAttribute("List_Nhom", List_Nhom);
-		return "user/nhomcuaban/nhomcuaban.html";
+		return "user/nhom/nhomcuaban.html";
 	}
 
 	@GetMapping("viewgroup")
@@ -62,9 +62,19 @@ public class NhomController {
 		int groupid = Integer.parseInt(groupID);
 		Nhom nhom = NhomSer.findBymaNhom(groupid);
 		model.addAttribute("Nhom", nhom);
-		model.addAttribute("username",username);
+		model.addAttribute("username", username);
 //		List<BaiViet> listBaiViet = new ArrayList<>(nhom.getBaiViets());
 		List<BaiViet> listBaiViet = baiVietSer.findBymaNhom(nhom);
+		List<TaiKhoan> thanhvien = new ArrayList<>();
+		TaiKhoan taikhoanTemp = new TaiKhoan();
+		List<TaiKhoan_Nhom> tkNhom = NhomSer.findTaiKhoanByNhom(groupid);
+		for (TaiKhoan_Nhom taikhoanNhom : tkNhom) {
+			taikhoanTemp = tkSer.findBytaiKhoan(taikhoanNhom.getId().getTaiKhoan());
+			if (taikhoanNhom.isAccept() && !taikhoanNhom.getId().getTaiKhoan().equals(username))
+				thanhvien.add(taikhoanTemp);
+		}
+
+		model.addAttribute("thanhvien", thanhvien);
 		model.addAttribute("listBaiViet", listBaiViet);
 		return "user/nhom/nhom.html";
 
@@ -73,9 +83,9 @@ public class NhomController {
 	@GetMapping("searchgroup")
 	public String TimKiemNhom(ModelMap model, @RequestParam("groupName") String groupName) {
 		List<Nhom> listnhomTimKiem = NhomSer.findByTenNhomContainingIgnoreCase(groupName);
-		boolean empty=false;
+		boolean empty = false;
 		if (listnhomTimKiem.isEmpty())
-			empty=true;
+			empty = true;
 		Map<Nhom, Integer> List_Nhom_TimKiem = new HashMap<>();
 		List<TaiKhoan_Nhom> tkNhom = NhomSer.findNhomTaiKhoan(username);
 		for (Nhom nhom : listnhomTimKiem) {
@@ -86,16 +96,17 @@ public class NhomController {
 			if (taiKhoan_Nhom.getId().getTaiKhoan().equals(username) && List_Nhom_TimKiem.containsKey(nhom))
 				if (taiKhoan_Nhom.isAccept())
 					List_Nhom_TimKiem.put(nhom, 2);
-				else List_Nhom_TimKiem.put(nhom, 1);			
+				else
+					List_Nhom_TimKiem.put(nhom, 1);
 		}
-		model.addAttribute("List_Nhom_TimKiem",List_Nhom_TimKiem);
+		model.addAttribute("List_Nhom_TimKiem", List_Nhom_TimKiem);
 		NhomCuaBan(model);
-		model.addAttribute("tenGroup",groupName);
-		model.addAttribute("empty",empty);
+		model.addAttribute("tenGroup", groupName);
+		model.addAttribute("empty", empty);
 		for (Nhom lisNhom : listnhomTimKiem) {
 			System.out.println(lisNhom.getTenNhom());
 		}
-		return "user/nhomcuaban/nhomcuaban.html";
+		return "user/nhom/nhomcuaban.html";
 	}
 
 	@GetMapping("joingroup")
@@ -105,24 +116,30 @@ public class NhomController {
 		Nhom nhom = NhomSer.findBymaNhom(GrID);
 		NhomSer.sendRequestToGroup(tk, nhom);
 		NhomCuaBan(model);
-		return "user/nhomcuaban/nhomcuaban.html";
+		return "user/nhom/nhomcuaban.html";
 	}
-	
+
 	@GetMapping("outgroup")
-	public String RoiNhom(ModelMap model, @RequestParam("groupID") String groupID) {
+	public String RoiNhom(ModelMap model, @RequestParam("groupID") String groupID,
+			@RequestParam("ThanhVien") String ThanhVien) {
 		int GrID = Integer.parseInt(groupID);
+		if (ThanhVien != "") {
+			Nhom nhom = NhomSer.findBymaNhom(GrID);
+			nhom.setTaiKhoanTruongNhom(tkSer.findBytaiKhoan(ThanhVien));
+			NhomSer.Save(nhom);
+		}
 		NhomSer.leaveGroup(username, GrID);
 		NhomCuaBan(model);
-		return "user/nhomcuaban/nhomcuaban.html";
+		return "user/nhom/nhomcuaban.html";
 	}
-	
+
 	@GetMapping("editgroup")
 	public String ChinhSuaNhom(ModelMap model, @RequestParam("groupID") String groupID) {
 		int GrID = Integer.parseInt(groupID);
 		Nhom nhom = NhomSer.findBymaNhom(GrID);
 		if (!username.equals(nhom.getTaiKhoanTruongNhom().getTaiKhoan()))
 			return "redirect:/user/group/errorPage";
-		model.addAttribute("nhom",nhom);
+		model.addAttribute("nhom", nhom);
 		List<TaiKhoan_Nhom> tkNhom = NhomSer.findTaiKhoanByNhom(GrID);
 		List<TaiKhoan> thanhvien = new ArrayList<>();
 		List<TaiKhoan> yeucau = new ArrayList<>();
@@ -131,50 +148,52 @@ public class NhomController {
 			taikhoanTemp = tkSer.findBytaiKhoan(taikhoanNhom.getId().getTaiKhoan());
 			if (taikhoanNhom.isAccept())
 				thanhvien.add(taikhoanTemp);
-			else yeucau.add(taikhoanTemp);
+			else
+				yeucau.add(taikhoanTemp);
 		}
-		model.addAttribute("thanhvien",thanhvien);
-		model.addAttribute("yeucau",yeucau);
+		model.addAttribute("thanhvien", thanhvien);
+		model.addAttribute("yeucau", yeucau);
 		return "user/nhom/quantrinhom.html";
 	}
-	
+
 	@GetMapping("removeMember")
-	public String XoaThanhVien(ModelMap model, @RequestParam("groupID") String groupID, 
-						@RequestParam("username") String usernameRemove, HttpServletRequest request){
-		int grID= Integer.parseInt(groupID);
-		String usernameConvert = usernameRemove.substring(1,usernameRemove.length()-1);
+	public String XoaThanhVien(ModelMap model, @RequestParam("groupID") String groupID,
+			@RequestParam("username") String usernameRemove, HttpServletRequest request) {
+		int grID = Integer.parseInt(groupID);
+		String usernameConvert = usernameRemove.substring(1, usernameRemove.length() - 1);
 		NhomSer.leaveGroup(usernameConvert, grID);
 		String referer = request.getHeader("referer");
-        return "redirect:" + (referer != null ? referer : "/defaultPath");
+		return "redirect:" + (referer != null ? referer : "/defaultPath");
 
 	}
-	
+
 	@GetMapping("/errorPage")
-    @ResponseBody
-    public String errorPage() {
-        return "<html><body><h1>Bạn không là nhóm trưởng không thể truy cập trang này</h1></body></html>";
-    }
+	@ResponseBody
+	public String errorPage() {
+		return "<html><body><h1>Bạn không là nhóm trưởng không thể truy cập trang này</h1></body></html>";
+	}
 
 	@GetMapping("addMember")
-	public String ThemThanhVien(ModelMap model, @RequestParam("groupID") String groupID, 
-						@RequestParam("username") String usernameAdd, HttpServletRequest request){
-		int grID= Integer.parseInt(groupID);
-		String usernameConvert = usernameAdd.substring(1,usernameAdd.length()-1);
+	public String ThemThanhVien(ModelMap model, @RequestParam("groupID") String groupID,
+			@RequestParam("username") String usernameAdd, HttpServletRequest request) {
+		int grID = Integer.parseInt(groupID);
+		String usernameConvert = usernameAdd.substring(1, usernameAdd.length() - 1);
 		NhomSer.addMember(usernameConvert, grID);
 		String referer = request.getHeader("referer");
-        return "redirect:" + (referer != null ? referer : "/defaultPath");
+		return "redirect:" + (referer != null ? referer : "/defaultPath");
 
 	}
-	
+
 	@PostMapping("saveEdit")
-	public String LuuThayDoi(ModelMap model, @RequestParam("groupName") String groupName, 
-			@RequestParam("CheDo") String CheDo,@RequestParam("groupID") String groupID, HttpServletRequest request){
-		int grID= Integer.parseInt(groupID);
+	public String LuuThayDoi(ModelMap model, @RequestParam("groupName") String groupName,
+			@RequestParam("CheDo") String CheDo, @RequestParam("groupID") String groupID, HttpServletRequest request) {
+		int grID = Integer.parseInt(groupID);
 		Nhom nhom = NhomSer.findBymaNhom(grID);
 		int CheDoID;
 		if (CheDo.equals("public"))
-			CheDoID=1;
-		else CheDoID=3;
+			CheDoID = 1;
+		else
+			CheDoID = 3;
 		nhom.setCheDoNhom(cheDoSer.findByID(CheDoID).get());
 		nhom.setTenNhom(groupName);
 		NhomSer.Save(nhom);
@@ -183,18 +202,18 @@ public class NhomController {
 		String referer = request.getHeader("referer");
 		return "redirect:" + (referer != null ? referer : "/defaultPath");
 	}
-	
+
 	@GetMapping("post")
-	public String DangBai(ModelMap model,@RequestParam("groupID") String groupID) {
-		model.addAttribute("nhom",groupID);
-		TaiKhoan taikhoan=tkSer.findBytaiKhoan("lolo928");
-		model.addAttribute("taikhoan",taikhoan);
+	public String DangBai(ModelMap model, @RequestParam("groupID") String groupID) {
+		model.addAttribute("nhom", groupID);
+		TaiKhoan taikhoan = tkSer.findBytaiKhoan("lolo928");
+		model.addAttribute("taikhoan", taikhoan);
 		List<TaiKhoan> aa = tkSer.findTaiKhoanFollowersByUsername("lolo928");
 		List<String> kq = new ArrayList<>();
 		for (TaiKhoan ds : aa) {
 			kq.add(ds.getTaiKhoan());
 		}
-		model.addAttribute("listbanbe",kq);
+		model.addAttribute("listbanbe", kq);
 		return "user/dangbai/dangbai.html";
 	}
 }
