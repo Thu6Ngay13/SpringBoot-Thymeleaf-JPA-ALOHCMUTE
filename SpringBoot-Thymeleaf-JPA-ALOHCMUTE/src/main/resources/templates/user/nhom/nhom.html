@@ -19,10 +19,24 @@
 			margin-top: 5%;
 			overflow-x: hidden;
 		}
-		 h2{
+
+		h2 {
 			margin-right: 85px;
-			width:800px;
-			}
+			width: 800px;
+		}
+
+		.buttonNhom {
+			border-radius: 10px;
+			background-color: #1673FD;
+			color: white;
+			border: none;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 18px;
+			height: 30px;
+			width: 150px;
+		}
 	</style>
 
 </head>
@@ -40,7 +54,29 @@
 					</div>
 					<div class="messageSender__bottom">
 						<h2 th:text="${Nhom.tenNhom}"></h2>
-
+					</div>
+					<div class="button-container" style="margin-left: 580px; margin-bottom: 15px;">
+						<form action="#" th:action="@{/user/group/editgroup}" method="get">
+							<div th:if="${Nhom.taiKhoanTruongNhom.taiKhoan==username}">
+							<input type="hidden" name="groupID" th:value="${Nhom.maNhom}" />
+							<button class="buttonNhom"
+								style="margin-right: 10px;"><img
+									src="https://cdn-icons-png.flaticon.com/512/78/78948.png" width="15px" height="15px"
+									style="margin-right: 10px; margin-bottom: 3px;">Quản trị</button>
+							</div>
+							<div th:unless="${Nhom.taiKhoanTruongNhom.taiKhoan==username}">
+							<button class="buttonNhom"
+								style="background-color: gainsboro; margin-right: 10px;" disabled><img
+									src="https://cdn-icons-png.flaticon.com/512/78/78948.png" width="15px" height="15px"
+									style="margin-right: 10px; margin-bottom: 3px;">Quản trị</button>
+							</div>
+						</form>
+						<form action="#" th:action="@{/user/group/outgroup}" method="get">
+							<input type="hidden" name="groupID" th:value="${Nhom.maNhom}" />
+							<button class="buttonNhom" style="background-color: crimson;"><img
+									src="https://cdn-icons-png.flaticon.com/512/2457/2457271.png" width="15px"
+									height="15px" style="margin-right: 10px; margin-bottom: 3px;">Rời nhóm</button>
+						</form>
 					</div>
 				</div>
 				<!-- message sender starts -->

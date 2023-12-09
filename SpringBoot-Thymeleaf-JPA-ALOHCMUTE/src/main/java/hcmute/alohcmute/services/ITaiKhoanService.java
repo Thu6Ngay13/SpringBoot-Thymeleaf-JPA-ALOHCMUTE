@@ -36,15 +36,5 @@ public interface ITaiKhoanService {
 
 	<S extends TaiKhoan> S save(S entity);
 
-	List<TaiKhoan> findTaiKhoanTheoDoisByUsername(String taiKhoanUsername);
 	
-	List<TaiKhoan> findTaiKhoanFollowersByUsername(String taiKhoanUsername);
-
-	void unfollow(TaiKhoan taiKhoan, TaiKhoan taiKhoanTheoDoi);
-	
-	TaiKhoan findBytaiKhoan (String username);
-
-	void follow(TaiKhoan taiKhoan, TaiKhoan taiKhoanTheoDoi);
-
-	Map<TaiKhoan, Integer> NguoiTheoDoiChung(String username);
 }

@@ -34,25 +34,14 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 		return tkRepo.findAll();
 	}
 	
-	@Override
-	public Optional<TaiKhoan> findById(Long id) {
-		return tkRepo.findById(id);
-	}
-	
-	@Override
-	public boolean existsById(Long id) {
-		return tkRepo.existsById(id);
-	}
+
 	
 	@Override
 	public long count() {
 		return tkRepo.count();
 	}
 	
-	@Override
-	public void deleteById(Long id) {
-		tkRepo.deleteById(id);
-	}
+
 	
 	@Override
 	public List<TaiKhoan> findTaiKhoanTheoDoisByUsername(String taiKhoanUsername) {
@@ -117,4 +106,34 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 public <S extends TaiKhoan> S save(S entity) {
 	return tkRepo.save(entity);
 }
+
+
+
+@Override
+public void deleteById(String id) {
+	tkRepo.deleteById(id);
+	
+}
+
+
+
+@Override
+public boolean existsById(String id) {
+	return tkRepo.existsById(id);
+}
+
+
+
+@Override
+public Optional<TaiKhoan> findById(String id) {
+	return tkRepo.findById(id);
+}
+
+
+
+
+
+
+
+
 }

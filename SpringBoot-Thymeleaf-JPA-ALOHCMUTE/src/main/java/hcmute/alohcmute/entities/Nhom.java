@@ -56,6 +56,7 @@ public class Nhom  implements Serializable{
 	private Set<BaiViet> baiViets;
 	
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name="taiKhoanTruongNhom")
 	private TaiKhoan taiKhoanTruongNhom;
 }

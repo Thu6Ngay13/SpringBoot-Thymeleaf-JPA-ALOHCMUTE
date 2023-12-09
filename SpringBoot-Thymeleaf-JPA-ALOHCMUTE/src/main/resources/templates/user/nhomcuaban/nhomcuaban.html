@@ -41,7 +41,7 @@
 			display: inline-block;
 			font-size: 18px;
 			height: 45px;
-			width: 425px;
+			width: 210px;
 		}
 	</style>
 
@@ -77,17 +77,19 @@
 					<div class="header__input" style="margin-top: 10px; width: 985px; margin-left: -5px;">
 						<span class="material-icons"> search </span>
 						<input type="text" placeholder="Tìm kiếm nhóm" size="50" name="groupName" />
+						
 					</div>
 				</form>
 				<div th:unless="${tenGroup==null}">
 					<br>
 					<h3 th:text="'Kết quả tìm kiếm cho &quot;'+${tenGroup}+'&quot;'" style="margin-bottom: 30px;"></h3>
 				</div>
-				<div th:if="${#lists.isEmpty(listnhomTimKiem)} and ${tenGroup!=null}">
+				<div th:if="${empty} and ${tenGroup!=null}">
 					<i>Rất tiếc, không tìm thấy nhóm phù hợp với yêu cầu của bạn</i>
 				</div>
-				<div class="row mb-2">
-					<div class=" col-md-6" th:each="nhom:${listnhomTimKiem}" style="width: 500px;">
+				<div class="row mb-2" th:unless=${List_Nhom_TimKiem==null}>
+
+					<div class=" col-md-6" th:each="key: ${List_Nhom_TimKiem.keySet()}" style="width: 500px;">
 						<div
 							class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
 							<div class="col p-4 d-flex flex-column position-static">
@@ -98,17 +100,42 @@
 
 
 								<strong class="d-inline-block mb-2 text-primary">Nhóm</strong>
-								<h3 th:text="${nhom.tenNhom}" style="margin-bottom: 10px;"></h3>
-								<div th:text="'Thành lập từ: '+ ${#temporals.format(nhom.ngayThanhLap, 'dd-MM-yyyy')}"
+								<h3 th:text="${key.tenNhom}" style="margin-bottom: 10px;"></h3>
+								<div th:text="'Thành lập từ: '+ ${#temporals.format(key.ngayThanhLap, 'dd-MM-yyyy')}"
 									class="mb-1 text-muted"></div>
-								<p th:text="${nhom.cheDoNhom.tenCheDo}" class="card-text mb-auto"></p>
-								<form action="#" th:action="@{/user/group/viewgroup}" method="get">
-									<input type="hidden" name="groupID" th:value="${nhom.maNhom}" />
-									<button type="submit" class="buttonXem"> Xem nhóm</button>
-								</form>
+								<p th:text="${'Chế độ: '+key.cheDoNhom.tenCheDo}" class="card-text mb-auto"></p>
+								<p th:text="${'Trưởng nhóm: '+key.taiKhoanTruongNhom.taiKhoan}" class="card-text mb-auto"></p>
+								<div class="button-container">
+									<form action="#" th:action="@{/user/group/viewgroup}" method="get">
+										<input type="hidden" name="groupID" th:value="${key.maNhom}" />
+										<div
+											th:if="${key.cheDoNhom.tenCheDo!='Private'} or ${List_Nhom_TimKiem.get(key)==2}">
+											<button type="submit" class="buttonXem"> Xem nhóm</button>
+										</div>
+										<div
+											th:if="${key.cheDoNhom.tenCheDo=='Private'} and ${List_Nhom_TimKiem.get(key)!=2}">
+											<button type="submit" class="buttonXem" style="background-color: darkgray;"
+												disabled> Xem nhóm</button>
+										</div>
 
-
+									</form>
+									<form action="#" th:action="@{/user/group/joingroup}" method="get">
+										<input type="hidden" name="groupID" th:value="${key.maNhom}" />
+										<div th:if="${List_Nhom_TimKiem.get(key)==2}">
+											<button type="submit" class="buttonXem"
+												style="background-color: rgb(128, 255, 147);" disabled> ✔Đã tham
+												gia</button>
+										</div>
+										<div th:if="${List_Nhom_TimKiem.get(key)}==0">
+											<button type="submit" class="buttonXem"> Tham gia nhóm</button>
+										</div>
+										<div th:if="${List_Nhom_TimKiem.get(key)}==1">
+											<button type="submit" class="buttonXem" style="background-color: khaki; "disabled> Chờ xét duyệt</button>
+										</div>
+									</form>
+								</div>
 							</div>
+
 
 						</div>
 					</div>
@@ -116,10 +143,10 @@
 			</div>
 			<div class="tabcontent" id="NhomCuaBan">
 				<br>
-				<h3 style="margin-bottom: 20px; margin-top: 20px;">Nhóm bạn đã tham gia</h3>
+				<h3 style="margin-bottom: 20px; margin-top: 20px;">Nhóm bạn đã tham gia / yêu cầu tham gia</h3>
 
 				<div class="row mb-2">
-					<div class=" col-md-6" th:each="nhom:${listnhom}" style="width: 500px;">
+					<div class=" col-md-6" th:each="key: ${List_Nhom.keySet()}" style="width: 500px;">
 						<div
 							class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
 							<div class="col p-4 d-flex flex-column position-static">
@@ -130,16 +157,35 @@
 
 
 								<strong class="d-inline-block mb-2 text-primary">Nhóm</strong>
-								<h3 th:text="${nhom.tenNhom}" style="margin-bottom: 10px;"></h3>
-								<div th:text="'Thành lập từ: '+ ${#temporals.format(nhom.ngayThanhLap, 'dd-MM-yyyy')}"
+								<h3 th:text="${key.tenNhom}" style="margin-bottom: 10px;"></h3>
+								<div th:text="'Thành lập từ: '+ ${#temporals.format(key.ngayThanhLap, 'dd-MM-yyyy')}"
 									class="mb-1 text-muted"></div>
-								<p th:text="${nhom.cheDoNhom.tenCheDo}" class="card-text mb-auto"></p>
-								<form action="#" th:action="@{/user/group/viewgroup}" method="get">
-									<input type="hidden" name="groupID" th:value="${nhom.maNhom}" />
-									<button type="submit" class="buttonXem"> Xem nhóm</button>
-								</form>
+								<p th:text="${'Chế độ: '+key.cheDoNhom.tenCheDo}" class="card-text mb-auto"></p>
+								<p th:text="${'Trưởng nhóm: '+key.taiKhoanTruongNhom.taiKhoan}" class="card-text mb-auto"></p>
+								<div class="button-container">
+									<form action="#" th:action="@{/user/group/viewgroup}" method="get">
+										<input type="hidden" name="groupID" th:value="${key.maNhom}" />
+										<div th:if="${key.cheDoNhom.tenCheDo!='Private'} or ${List_Nhom.get(key)}">
+											<button type="submit" class="buttonXem"> Xem nhóm</button>
+										</div>
+										<div th:if="${key.cheDoNhom.tenCheDo=='Private'} and ${!List_Nhom.get(key)}">
+											<button type="submit" class="buttonXem" style="background-color: darkgray;"
+												disabled> Xem nhóm</button>
+										</div>
 
-
+									</form>
+									<form action="#" th:action="@{/user/group/outgroup}" method="get">
+										<input type="hidden" name="groupID" th:value="${key.maNhom}" />
+										<div th:if="${List_Nhom.get(key)}">
+											<button type="submit" class="buttonXem" style="background-color: crimson;">
+												Rời nhóm</button>
+										</div>
+										<div th:unless="${List_Nhom.get(key)}">
+											<button type="submit" class="buttonXem" style="background-color: khaki;"
+												disabled> Chờ xét duyệt</button>
+										</div>
+									</form>
+								</div>
 							</div>
 
 						</div>
@@ -172,22 +218,19 @@
 		<script th:inline="javascript">
 			/*<![CDATA[*/
 			function handleEnterKey(event) {
-				if (event.keyCode === 13) { 
-					event.preventDefault(); 
+				if (event.keyCode === 13) {
+					event.preventDefault();
 					submitForm();
 				}
 			}
 
 			function submitForm() {
-				document.getElementById('sea').submit();
+				document.getElementById('searchgroup').submit();
 			}
         /*]]>*/
 		</script>
+
 	</section>
-</body>
-
-</html>
-
 </body>
 
 </html>

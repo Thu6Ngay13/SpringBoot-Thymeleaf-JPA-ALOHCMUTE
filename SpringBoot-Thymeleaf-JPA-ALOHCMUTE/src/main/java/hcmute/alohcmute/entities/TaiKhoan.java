@@ -104,7 +104,7 @@ public class TaiKhoan implements Serializable{
 		inverseJoinColumns = {@JoinColumn(name = "MaBaiViet")})
 	private Set<BaiViet> baiVietTuongTacs;
 	
-	@OneToMany(mappedBy = "taiKhoanTruongNhom", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "taiKhoanTruongNhom", fetch = FetchType.LAZY)
 	private Set<Nhom> nhoms;
 
 	@Override
