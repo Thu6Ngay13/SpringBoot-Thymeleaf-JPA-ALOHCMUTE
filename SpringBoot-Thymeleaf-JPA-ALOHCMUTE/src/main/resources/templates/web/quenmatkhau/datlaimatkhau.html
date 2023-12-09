@@ -45,7 +45,29 @@
 		</form>
 		
 	</div>
+    <script>
+        $(document).ready(function () {
+            var passwordInput = $("#password");
+            var confirmPasswordInput = $("#confirmPassword");
+            var passwordMatchError = $("#passwordMatchError");
+            var updatePasswordBtn = $("#updatePasswordBtn");
+
+            confirmPasswordInput.on("blur", function () {
+                var password = passwordInput.val();
+                var confirmPassword = confirmPasswordInput.val();
+
+                if (password !== confirmPassword) {
+                    passwordMatchError.show();
+                    updatePasswordBtn.prop("disabled", true);
+                } else {
+                    passwordMatchError.hide();
+                    updatePasswordBtn.prop("disabled", false);
+                }
+            });
+        });
+    </script>
 </body>
+<script th:src="@{js/script_thongbao.js}"></script>
 <script th:src="@{https://code.jquery.com/jquery-3.6.0.js}"></script>
 <script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js}"></script>
 <script th:if="${not #strings.isEmpty(mess)}">
