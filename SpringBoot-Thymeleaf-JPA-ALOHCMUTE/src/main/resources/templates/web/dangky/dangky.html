@@ -50,14 +50,20 @@
 				<input type="number" required th:field="*{phone}">
 				<label for="">SDT</label>
 			</div>
-
+			
 			<div class="field">
-				<input type="password" required th:field="*{password}">
-				<label for="">Mật khẩu</label>
-			</div>
+                <input type="password" id="password" name="password" required>
+                <label for="password">Mật khẩu</label>
+            </div>
 
+            <div class="field">
+                <input type="password" id="confirmPassword" name="confirmPassword" required th:field="*{password}">
+                <label for="confirmPassword">Xác nhận mật khẩu</label>
+            </div>
+            
+            <p id="passwordMatchError" style="color: red; display: none;">Mật khẩu không khớp.</p>
 			<div class="field">
-				<input type="submit" value="Tạo tại khoản">
+				<input type="submit" id="registerBtn" value="Tạo tại khoản" disabled>
 			</div>
 
 			<div class="signup-link">
@@ -88,4 +94,26 @@
 		toastr["[[${typenotify}]]"]("[[${mess}]]");
 	});
 </script>
+<script>
+	$(document).ready(function () {
+		var passwordInput = $("#password");
+		var confirmPasswordInput = $("#confirmPassword");
+		var passwordMatchError = $("#passwordMatchError");
+		var registerBtn = $("#registerBtn");
+
+		confirmPasswordInput.on("blur", function () {
+			var password = passwordInput.val();
+			var confirmPassword = confirmPasswordInput.val();
+
+			if (password !== confirmPassword) {
+				passwordMatchError.show();
+				registerBtn.prop("disabled", true);
+			} else {
+				passwordMatchError.hide();
+				registerBtn.prop("disabled", false);
+			}
+		});
+	});
+</script>
+
 </html>
