@@ -17,14 +17,20 @@
 			padding: 0;
 			box-sizing: border-box;
 			background-color: aliceblue;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 100vh;
+			
 		}
 	</style>
+
 
 </head>
 
 <body>
 	<section layout:fragment="content">
-		<div class="container">
+		<div class="container1">
 			<div class="wrapper">
 				<section class="post">
 					<header>Đăng bài</header>
@@ -43,8 +49,9 @@
 							</div>
 						</div>
 						<textarea id="postContent" name="noidungchu" placeholder="Bạn đang nghĩ gì?"
-							 onkeyup="suggestNames(event)"></textarea>
-							<div id="uploaded-image-container" ></div>
+							onkeyup="suggestNames(event)"></textarea>
+						<div id="uploaded-image-container"></div>
+						<input type="hidden" name="manhom" th:value="${manhom}">
 						<div id="suggestions" class="suggestions-container"></div>
 						<div class="theme-emoji">
 							<img src="/images/theme.svg" alt="theme">
@@ -72,12 +79,12 @@
 						<button class="buttondangbai" type="submit">Đăng</button>
 					</form>
 				</section>
-				
+
 			</div>
 		</div>
 
 		<script language="javascript">
-			const container = document.querySelector(".container"),
+			const container = document.querySelector(".container1"),
 				privacy = container.querySelector(".post .privacy"),
 				arrowBack = container.querySelector(".audience .arrow-back");
 			privacy.addEventListener("click", () => {
