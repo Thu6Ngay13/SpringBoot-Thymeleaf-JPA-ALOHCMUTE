@@ -133,7 +133,8 @@ public class TrangCaNhanController {
 	@GetMapping("/deletebaiviet/{taikhoan}/{mabaiviet}")
 	public ModelAndView delete(ModelMap model, @PathVariable("mabaiviet") int mabaiviet,
 			@PathVariable("taikhoan") String taikhoan) {
-
+		
+		commentService.deleteAllBinhLuanByMaBaiViet(mabaiviet);
 		baiVietService.deleteById(mabaiviet);
 		model.addAttribute("message", "Xoa thanh cong!");
 

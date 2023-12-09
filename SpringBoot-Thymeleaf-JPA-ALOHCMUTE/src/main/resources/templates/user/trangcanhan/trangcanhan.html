@@ -39,7 +39,14 @@
 									<div class="social-timeline-left">
 										<div class="card">
 											<div class="social-profile">
-												<img class="img-fluid width-100" th:src="${taikhoan.avatarURl}" alt="">
+												<img class="img-fluid width-100" alt=""
+													th:if="${taikhoan.avatarURl != null and taikhoan.avatarURl.startsWith('http')}"
+													th:src="${taikhoan.avatarURl}" />
+
+												<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+												<img class="img-fluid width-100" alt=""
+													th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
+													th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
 												<div class="profile-hvr m-t-15">
 													<i class="icofont icofont-ui-edit p-r-10"></i>
 													<i class="icofont icofont-ui-delete"></i>
@@ -48,31 +55,27 @@
 											<div class="card-block social-follower">
 												<h4 th:text="${taikhoan.hoTen}">Ho ten</h4>
 												<h5 th:text="${taikhoan.taiKhoan}">Ten nguoi dung</h5>
+
 												<div class="row follower-counter">
-													<div class="col-4">
-														<button class="btn btn-primary btn-icon" data-toggle="tooltip"
-															data-placement="top" title="" data-original-title="485">
-															<i class="fa fa-user"></i>
-														</button>
+													<div class="col-12">
+														<form id="uploadForm" method="post"
+																th:action="@{'/files/upload/' + ${taikhoan.taiKhoan}}"
+																enctype="multipart/form-data">
+																<label for="input-file"
+																	class="btn btn-outline-primary waves-effect btn-block">
+																	Cập nhật ảnh đại diện
+																</label>
+																<input id="input-file" type="file" name="file"
+																	style="display: none;" />
+
+																<button id="uploadBtn"
+																	class="btn btn-outline-primary waves-effect btn-block"
+																	type="submit" style="display: none;">
+																	Lưu thay đổi
+																</button>
+
+															</form>
 													</div>
-													<div class="col-4">
-														<button class="btn btn-danger btn-icon" data-toggle="tooltip"
-															data-placement="top" title="" data-original-title="2k">
-															<i class="fa fa-thumbs-o-up"></i>
-														</button>
-													</div>
-													<div class="col-4">
-														<button class="btn btn-success btn-icon" data-toggle="tooltip"
-															data-placement="top" title="" data-original-title="90">
-															<i class="fa fa-eye"></i>
-														</button>
-													</div>
-												</div>
-												<div class="">
-													<button type="button"
-														class="btn btn-outline-primary waves-effect btn-block"><i
-															class="icofont icofont-ui-user m-r-10"></i> Add as
-														Friend</button>
 												</div>
 											</div>
 										</div>
@@ -121,8 +124,6 @@
 														</div>
 													</div>
 												</div>
-
-
 												<div class="col-md-12 text-md-right mt-3">
 													<button type="button"
 														class="btn btn-outline-primary waves-effect btn-block"
@@ -245,8 +246,15 @@
 															<div class="row timeline-right p-t-35">
 																<div class="col-2 col-sm-2 col-xl-1">
 																	<div class="social-timelines-left">
-																		<img class="img-radius timeline-icon"
-																			th:src="${taikhoan.avatarURl}" alt="">
+																		<img class="img-radius timeline-icon" alt=""
+																			th:if="${taikhoan.avatarURl != null and taikhoan.avatarURl.startsWith('http')}"
+																			th:src="${taikhoan.avatarURl}" />
+
+																		<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+																		<img class="img-radius timeline-icon" alt=""
+																			th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
+																			th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
+
 																	</div>
 																</div>
 																<div class="col-10 col-sm-10 col-xl-11 p-l-5 p-b-35">
@@ -289,14 +297,18 @@
 																			</div>
 																		</div>
 
-																		<img th:src="@{https://www.bootdey.com/image/800x350/87CEFA/000000}"
+																		<img th:src="${bv.noiDungHinhAnh}"
 																			class="img-fluid width-100" alt="">
 																		<div class="card-block">
 																			<div class="timeline-details">
 																				<div class="p-b-30"> <span class="f-14">
-																					<a th:href="@{/user/comment/{baiVietId}(baiVietId=${bv.maBaiViet})}"><span th:text="${taikhoan.hoTen}"></span> đã đăng lên dòng trạng thái</a></span>
+																						<a
+																							th:href="@{/user/comment/{baiVietId}(baiVietId=${bv.maBaiViet})}"><span
+																								th:text="${taikhoan.hoTen}"></span>
+																							đã đăng lên dòng trạng
+																							thái</a></span>
 																				</div>
-																				
+
 																				<p class="text-muted"
 																					th:text="${bv.noiDungChu}">
 																				</p>
@@ -692,6 +704,18 @@
 		function closeModal() {
 			document.getElementById("myModal").style.display = "none";
 		}
+	</script>
+
+	<script>
+		document.getElementById('input-file').addEventListener('change', function () {
+			var uploadBtn = document.getElementById('uploadBtn');
+			if (this.files.length > 0) {
+				uploadBtn.style.display = 'block';
+			} else {
+				uploadBtn.style.display = 'none';
+			}
+		});
+
 	</script>
 	<!--<script th:src="@{js/script_trangcanhan.js}"></script>-->
 </body>

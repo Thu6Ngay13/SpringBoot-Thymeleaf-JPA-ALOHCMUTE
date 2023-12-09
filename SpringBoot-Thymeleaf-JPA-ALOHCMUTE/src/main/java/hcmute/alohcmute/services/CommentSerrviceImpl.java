@@ -12,7 +12,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.BinhLuan;
+import hcmute.alohcmute.repositories.BaiVietRepository;
 import hcmute.alohcmute.repositories.CommentRepositories;
 
 @Service
@@ -20,6 +22,9 @@ public class CommentSerrviceImpl implements ICommentService{
 
 	@Autowired
 	CommentRepositories commentRepository;
+	
+	@Autowired
+	BaiVietRepository baiVietRepository;
 
 	@Override
 	public <S extends BinhLuan> S save(S entity) {
@@ -115,6 +120,14 @@ public class CommentSerrviceImpl implements ICommentService{
 	@Override
 	public long countBinhLuanByMaBaiViet(int maBaiViet) {
 		return commentRepository.countByBaiViet_MaBaiViet(maBaiViet);
+	}
+
+	@Override
+	public void deleteAllBinhLuanByMaBaiViet(int maBaiViet) {
+		BaiViet baiViet = baiVietRepository.getById(maBaiViet);
+		for(BinhLuan binhLuan: baiViet.getBinhLuans()) {
+			commentRepository.deleteById(binhLuan.getMaBinhLuan());
+		}
 	}
 	
 	
