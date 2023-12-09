@@ -13,7 +13,7 @@ import hcmute.alohcmute.services.IUserService;
 import jakarta.mail.MessagingException;
 
 @Component
-public class SendEmailEventListener implements ApplicationListener<SendEmailEvent> {
+public class RegisterVerifySendEmailEventListener implements ApplicationListener<RegisterVerifySendEmailEvent> {
 	
 	@Autowired
 	private IUserService userService;
@@ -22,10 +22,10 @@ public class SendEmailEventListener implements ApplicationListener<SendEmailEven
 	private TaiKhoan user;
 	
 	@Override
-	public void onApplicationEvent(SendEmailEvent event) {
+	public void onApplicationEvent(RegisterVerifySendEmailEvent event) {
 		user = event.getTaiKhoan();
 		String verificationToken = UUID.randomUUID().toString();
-		userService.saveTaiKhoanVerificationToken(user, verificationToken);
+		userService.saveToken(user, verificationToken);
 		String url = event.getApplicationUrl() + "/register/verify?token=" + verificationToken;
 		try {
             sendVerificationEmail(url);
@@ -44,21 +44,6 @@ public class SendEmailEventListener implements ApplicationListener<SendEmailEven
 	                + "Vui lòng nhấp vào liên kết bên dưới để hoàn thành việc đăng ký tài khoản. "
                 + "</p>" 
                 	+ "<a href=\"" + url + "\"> Xác nhận tài khoản của bạn </a>"
-                + "<p> "
-                + "Trân trọng! <br>";
-        
-        emailSendService.sendEmail(user.getEmail(), subject, mailContent);
-    }
-	
-	public void sendForgotPasswordEmail(String url) throws MessagingException, UnsupportedEncodingException {
-        String subject = "Email Forgot Password";
-        String mailContent = 
-        		"<p> "
-        			+ "Xin chào, "+ user.getHoTen() + "! </p>" 
-        		+ "<p> " 
-	                + "Vui lòng nhấp vào liên kết bên dưới để đặt lại mật khẩu việc đăng ký tài khoản. "
-                + "</p>" 
-                	+ "<a href=\"" + url + "\"> Đặt lại mật khẩu </a>"
                 + "<p> "
                 + "Trân trọng! <br>";
         

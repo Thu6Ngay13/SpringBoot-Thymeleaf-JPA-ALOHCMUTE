@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<title> Trang Đăng Ký</title>
 	<link rel="stylesheet" th:href="@{/css/style_dangky.css}">
+	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css}">
 </head>
 
 <body>
@@ -31,11 +32,11 @@
 			<div class="field_gener">
 				<label class="field-label"> Giới tính </label>
 				<div class="radio-group">
-					<input type="radio" id="Nam" th:value="${Nam}" th:field="*{sex}">
+					<input type="radio" id="Nam" th:value="Nam" th:field="*{sex}">
 					<label for="Nam">Nam</label>
-					<input type="radio" id="Nu" th:value="${Nu}" th:field="*{sex}">
+					<input type="radio" id="Nư" th:value="Nữ" th:field="*{sex}">
 					<label for="Nu">Nữ</label>
-					<input type="radio" id="Khac" th:value="${Khac}" th:field="*{sex}">
+					<input type="radio" id="Khac" th:value="Khác" th:field="*{sex}">
 					<label for="Khac">Khác</label>
 				</div>
 			</div>
@@ -49,14 +50,20 @@
 				<input type="number" required th:field="*{phone}">
 				<label for="">SDT</label>
 			</div>
-
+			
 			<div class="field">
-				<input type="password" required th:field="*{password}">
-				<label for="">Mật khẩu</label>
-			</div>
+                <input type="password" id="password" name="password" required>
+                <label for="password">Mật khẩu</label>
+            </div>
 
+            <div class="field">
+                <input type="password" id="confirmPassword" name="confirmPassword" required th:field="*{password}">
+                <label for="confirmPassword">Xác nhận mật khẩu</label>
+            </div>
+            
+            <p id="passwordMatchError" style="color: red; display: none;">Mật khẩu không khớp.</p>
 			<div class="field">
-				<input type="submit" value="Tạo tại khoản">
+				<input type="submit" id="registerBtn" value="Tạo tại khoản" disabled>
 			</div>
 
 			<div class="signup-link">
@@ -66,8 +73,47 @@
 
 	</div>
 </body>
+<script>document.getElementById("Nam").setAttribute("checked", "checked")</script>
+<script th:src="@{https://code.jquery.com/jquery-3.6.0.js}"></script>
+<script th:src="@{https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js}"></script>
+<script th:if="${not #strings.isEmpty(mess)}">
+	$(document).ready(function () {
+		toastr.options = {
+			"closeButton": true,
+			"progressBar": true,
+			"positionClass": "toast-top-right",
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+		toastr["[[${typenotify}]]"]("[[${mess}]]");
+	});
+</script>
 <script>
-	document.getElementById("Nam").setAttribute("checked", "checked")
+	$(document).ready(function () {
+		var passwordInput = $("#password");
+		var confirmPasswordInput = $("#confirmPassword");
+		var passwordMatchError = $("#passwordMatchError");
+		var registerBtn = $("#registerBtn");
+
+		confirmPasswordInput.on("blur", function () {
+			var password = passwordInput.val();
+			var confirmPassword = confirmPasswordInput.val();
+
+			if (password !== confirmPassword) {
+				passwordMatchError.show();
+				registerBtn.prop("disabled", true);
+			} else {
+				passwordMatchError.hide();
+				registerBtn.prop("disabled", false);
+			}
+		});
+	});
 </script>
 
 </html>

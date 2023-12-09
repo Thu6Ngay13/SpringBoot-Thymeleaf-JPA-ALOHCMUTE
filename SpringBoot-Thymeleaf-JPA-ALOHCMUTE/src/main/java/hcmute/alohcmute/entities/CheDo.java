@@ -1,23 +1,20 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data 
 @NoArgsConstructor 
 @AllArgsConstructor
+@EqualsAndHashCode(exclude={"nhoms", "baiViets"})
+@ToString (exclude = {"nhoms", "baiViets"})
 
 @Entity
 @Table
@@ -33,8 +30,8 @@ public class CheDo implements Serializable{
 	private String tenCheDo;
 	
 	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.EAGER)
-	private List<Nhom> nhoms;
+	private Set<Nhom> nhoms;
 	
 	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.EAGER)
-	private List<BaiViet> baiViets;
+	private Set<BaiViet> baiViets;
 }

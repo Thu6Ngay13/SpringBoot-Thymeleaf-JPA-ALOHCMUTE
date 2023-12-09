@@ -8,13 +8,13 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SendEmailEvent extends ApplicationEvent{
+public class RegisterVerifySendEmailEvent extends ApplicationEvent{
 	private static final long serialVersionUID = -1946845590746761039L;
 
 	private TaiKhoan taiKhoan;
 	private String applicationUrl;
 	
-	public SendEmailEvent(TaiKhoan taiKhoan, String applicationUrl) {
+	public RegisterVerifySendEmailEvent(TaiKhoan taiKhoan, String applicationUrl) {
 		super(taiKhoan);
 		this.taiKhoan = taiKhoan;
 		this.applicationUrl = applicationUrl;

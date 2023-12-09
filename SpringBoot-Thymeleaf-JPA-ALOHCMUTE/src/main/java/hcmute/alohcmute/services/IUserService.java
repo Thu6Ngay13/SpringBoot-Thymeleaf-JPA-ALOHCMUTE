@@ -12,11 +12,19 @@ public interface IUserService {
 	
 	Optional<TaiKhoan> findByTaiKhoanOrEmail(String taiKhoan, String email);
 	
+	Optional<TaiKhoan> findByTokenAndEmail(String email, String token);
+	
+	Optional<TaiKhoan> findByTaiKhoan(String taiKhoan);
+	
+	Optional<TaiKhoan> findByEmail(String email);
+	
 	Optional<TaiKhoan> findByToken(String token);
 
 	TaiKhoan saveTaiKhoan(TaiKhoanDto taiKhoanDto);
 
-	void saveTaiKhoanVerificationToken(TaiKhoan user, String verificationToken);
+	void saveToken(TaiKhoan user, String verificationToken);
 
 	void saveEnable(TaiKhoan user);
+
+	void saveResetPassword(TaiKhoan user, String password);
 }

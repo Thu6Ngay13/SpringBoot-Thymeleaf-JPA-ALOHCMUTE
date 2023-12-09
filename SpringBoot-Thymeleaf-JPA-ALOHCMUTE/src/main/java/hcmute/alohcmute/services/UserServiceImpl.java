@@ -35,6 +35,21 @@ public class UserServiceImpl implements IUserService {
         return taiKhoanRepository.findByTaiKhoanOrEmail(taiKhoan, email);
     }
     
+	@Override
+	public Optional<TaiKhoan> findByTokenAndEmail(String email, String token) {
+		return taiKhoanRepository.findByTokenAndEmail(email, token);
+	}
+
+	@Override
+	public Optional<TaiKhoan> findByTaiKhoan(String taiKhoan) {
+		return taiKhoanRepository.findByTaiKhoan(taiKhoan);
+	}
+
+	@Override
+	public Optional<TaiKhoan> findByEmail(String email) {
+		return taiKhoanRepository.findByEmail(email);
+	}
+    
     @Override
     public Optional<TaiKhoan> findByToken(String token) {
         return taiKhoanRepository.findByToken(token);
@@ -67,14 +82,22 @@ public class UserServiceImpl implements IUserService {
     }
 
 	@Override
-	public void saveTaiKhoanVerificationToken(TaiKhoan user, String verificationToken) {
-		user.setToken(verificationToken);
+	public void saveToken(TaiKhoan user, String token) {
+		user.setToken(token);
 		taiKhoanRepository.save(user);
 	}
 
 	@Override
 	public void saveEnable(TaiKhoan user) {
+		user.setToken("no");
 		user.setEnable(true);
+		taiKhoanRepository.save(user);
+	}
+	
+	@Override
+	public void saveResetPassword(TaiKhoan user, String password) {
+		user.setToken("no");
+		user.setMatKhau(passwordEncoder.encode(password));
 		taiKhoanRepository.save(user);
 	}
 }

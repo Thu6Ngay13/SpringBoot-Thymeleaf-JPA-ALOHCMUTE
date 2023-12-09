@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import hcmute.alohcmute.entities.TaiKhoan;
@@ -14,7 +13,7 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, String>{
 	@Query("SELECT t "
 			+ "FROM TaiKhoan t "
 			+ "WHERE t.taiKhoan = :taiKhoan")
-	Optional<TaiKhoan> findBytaiKhoan(String taiKhoan);
+	Optional<TaiKhoan> findByTaiKhoan(String taiKhoan);
 	
 	@Query("SELECT t "
 			+ "FROM TaiKhoan t "
@@ -29,13 +28,14 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, String>{
 	
 	@Query("SELECT t "
 			+ "FROM TaiKhoan t "
-			+ "WHERE t.taiKhoan = :taiKhoan")
-	Optional<TaiKhoan> findByTaiKhoan(String taiKhoan);
+			+ "WHERE t.token = :token")
+	Optional<TaiKhoan> findByToken(String token);
 	
 	@Query("SELECT t "
 			+ "FROM TaiKhoan t "
-			+ "WHERE t.token = :token")
-	Optional<TaiKhoan> findByToken(String token);
+			+ "WHERE t.email = :email "
+			+ "and t.token = :token")
+	Optional<TaiKhoan> findByTokenAndEmail(String email, String token);
 	
 	@Query("SELECT CASE "
 			+ "WHEN COUNT(e) > 0 "

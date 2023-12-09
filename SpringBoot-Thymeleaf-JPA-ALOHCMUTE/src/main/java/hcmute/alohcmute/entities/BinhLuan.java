@@ -12,15 +12,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor 
 @AllArgsConstructor
-@EqualsAndHashCode(exclude="taiKhoan")
+@EqualsAndHashCode(exclude={"taiKhoan", "baiViet"})
 
 @Entity
 @Table
@@ -39,10 +36,10 @@ public class BinhLuan implements Serializable {
 	private String noiDungHinhAnh;
 	
 	@Column(name = "ThoiGian", columnDefinition = "Time")
-	private LocalTime ThoiGian;
+	private LocalTime thoiGian;
 	
 	@Column(name = "Ngay", columnDefinition = "Date")
-	private LocalDate Ngay;
+	private LocalDate ngay;
 	
 	@ManyToOne
 	@JoinColumn(name = "MaBaiViet")
