@@ -49,7 +49,7 @@
             var passwordMatchError = $("#passwordMatchError");
             var updatePasswordBtn = $("#updatePasswordBtn");
 
-            confirmPasswordInput.on("input", function () {
+            confirmPasswordInput.on("blur", function () {
                 var password = passwordInput.val();
                 var confirmPassword = confirmPasswordInput.val();
 
@@ -64,29 +64,6 @@
             });
         });
     </script>
-<form method="post" th:action="@{/forgotpassword/reset}" th:method="post">
-			<div class="field" style="display: none;">
-				<input type="text" required th:value="${token}" name="token">
-				<input type="email" required th:value="${email}" name="email">
-			</div>
-			
-			<div class="field">
-				<input type="password" required>
-				<label for="">Mật khẩu</label>
-			</div>
-	
-			<div class="field">
-				<input type="password" required th:value="${password}" name="password">
-				<label for="">Xác nhận mật khẩu</label>
-			</div>
-	
-			<div class="field">
-				<input type="submit" value="Cập nhật mật khẩu">
-			</div>
-			<div class="signup-link">
-				<a th:href="@{/login}"> Quay lại đăng nhập</a>
-			</div>	
-		</form>
 		
 	</div>
 </body>
