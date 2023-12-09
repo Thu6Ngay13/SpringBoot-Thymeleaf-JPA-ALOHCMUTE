@@ -127,13 +127,33 @@ form .field input:valid ~ label {
     font-weight: 700;
     margin-top: 10px;
 }
+.wrapper a{
+	padding: 10px 20px 20px 10px;
+}
+.wrapper .btn-new {
+    width: 92%;
+    height: 45px;
+    vertical-align: middle;
+    align-items: center;
+    font-size: 16px;
+    padding: 10px ;
+    margin-bottom: 10px;
+}
 
+.wrapper .btn-new {
+    background-color:#2b519a;
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 700;
+}
 .wrapper form a {
     display: block;
     color:#2b519a;
     font-size: 14px;
     text-decoration: none;
-    padding: 10px 0 20px;
+    padding: 10px 0 10px;
     border-bottom: 1px solid #dadde1;
 }
 
