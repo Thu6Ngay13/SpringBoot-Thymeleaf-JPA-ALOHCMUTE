@@ -75,7 +75,7 @@ public class NhomController {
 				thanhvien.add(taikhoanTemp);
 		}
 		TaiKhoan taikhoanuser = tkSer.findBytaiKhoan(username);
-		if (thanhvien.contains(taikhoanuser))
+		if (thanhvien.contains(taikhoanuser) || nhom.getTaiKhoanTruongNhom().getTaiKhoan().equals(username))
 			model.addAttribute("check",false);
 		else model.addAttribute("check",true);
 		model.addAttribute("thanhvien", thanhvien);
