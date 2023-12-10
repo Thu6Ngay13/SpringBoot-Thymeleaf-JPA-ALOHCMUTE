@@ -39,7 +39,7 @@ public class NhomController {
 	@Autowired
 	IBaiVietService baiVietSer;
 
-	String username = "tien888";
+	String username = "lolo928";
 
 	@GetMapping("")
 	public String NhomCuaBan(ModelMap model) {
@@ -71,10 +71,13 @@ public class NhomController {
 		List<TaiKhoan_Nhom> tkNhom = NhomSer.findTaiKhoanByNhom(groupid);
 		for (TaiKhoan_Nhom taikhoanNhom : tkNhom) {
 			taikhoanTemp = tkSer.findBytaiKhoan(taikhoanNhom.getId().getTaiKhoan());
-			if (taikhoanNhom.isAccept() && !taikhoanNhom.getId().getTaiKhoan().equals(username))
+			if (taikhoanNhom.isAccept() && !taikhoanNhom.getId().getTaiKhoan().equals(nhom.getTaiKhoanTruongNhom().getTaiKhoan()))
 				thanhvien.add(taikhoanTemp);
 		}
-
+		TaiKhoan taikhoanuser = tkSer.findBytaiKhoan(username);
+		if (thanhvien.contains(taikhoanuser))
+			model.addAttribute("check",false);
+		else model.addAttribute("check",true);
 		model.addAttribute("thanhvien", thanhvien);
 		model.addAttribute("listBaiViet", listBaiViet);
 		return "user/nhom/nhom.html";
@@ -145,9 +148,9 @@ public class NhomController {
 		TaiKhoan taikhoanTemp = new TaiKhoan();
 		for (TaiKhoan_Nhom taikhoanNhom : tkNhom) {
 			taikhoanTemp = tkSer.findBytaiKhoan(taikhoanNhom.getId().getTaiKhoan());
-			if (taikhoanNhom.isAccept())
+			if (taikhoanNhom.isAccept() && !taikhoanNhom.getId().getTaiKhoan().equals(username))
 				thanhvien.add(taikhoanTemp);
-			else
+			else if (!taikhoanNhom.isAccept() && !taikhoanNhom.getId().getTaiKhoan().equals(username))
 				yeucau.add(taikhoanTemp);
 		}
 		model.addAttribute("thanhvien", thanhvien);
