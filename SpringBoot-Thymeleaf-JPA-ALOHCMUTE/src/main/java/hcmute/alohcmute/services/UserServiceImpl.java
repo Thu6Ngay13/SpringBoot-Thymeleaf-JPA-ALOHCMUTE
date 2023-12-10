@@ -64,11 +64,13 @@ public class UserServiceImpl implements IUserService {
         
         TaiKhoan user = new TaiKhoan();
         user.setTaiKhoan(taiKhoanDto.getUsername());
-        user.setHoTen(taiKhoanDto.getFirstName() + " " + taiKhoanDto.getLastName());
-        user.setEmail(taiKhoanDto.getEmail());
+        user.setHoTen(taiKhoanDto.getFirstName().trim() + " " + taiKhoanDto.getLastName().trim());
         user.setMatKhau(passwordEncoder.encode(taiKhoanDto.getPassword()));
+        user.setNickName(taiKhoanDto.getNickName());
+        user.setEmail(taiKhoanDto.getEmail());
         user.setGioiTinh(taiKhoanDto.getSex());
         user.setSDT(taiKhoanDto.getPhone());
+        
         
         LoaiTaiKhoan role = loaiTaiKhoanRepository.getByTenLoai("user");
         if (role == null) {

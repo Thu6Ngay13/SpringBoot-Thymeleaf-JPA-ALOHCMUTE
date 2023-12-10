@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,9 +19,9 @@ import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.events.ForgotPasswordSendEmailEvent;
 import hcmute.alohcmute.events.RegisterVerifySendEmailEvent;
 import hcmute.alohcmute.security.SecurityUtil;
-import hcmute.alohcmute.security.UserDetailsImpl;
 import hcmute.alohcmute.services.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -31,7 +33,20 @@ public class WebController {
 	private ApplicationEventPublisher publisher;
 
 	@GetMapping("/login")
-	public String showLoginForm() {
+	public String showLoginForm(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession(false);
+        String errorMessage = null;
+        if (session != null) {
+            AuthenticationException ex = (AuthenticationException) session
+                    .getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+            if (ex != null) {
+                errorMessage = ex.getMessage();
+            }
+        }
+        
+        model.addAttribute("typenotify", "error");
+        model.addAttribute("mess", errorMessage);
+        
 		return "web/dangnhap/dangnhap";
 	}
 
@@ -178,7 +193,7 @@ public class WebController {
 	@GetMapping("/test")
 	public String test() {
 		TaiKhoan user = SecurityUtil.getMyUser();
-
+		
 		System.out.println(user.getTaiKhoan());
 		System.out.println(user.getMatKhau());
 		System.out.println(user.getHoTen());

@@ -19,12 +19,14 @@ public class TaiKhoanDto {
     @NotEmpty
     private String lastName;
     @NotEmpty
+	private String nickName;
+    @NotEmpty
     private String sex;
-    @NotEmpty(message = "Email should not be empty")
+    @NotEmpty
     @Email
     private String email;
     @NotEmpty
     private String phone;
-    @NotEmpty(message = "Password should not be empty")
+    @NotEmpty
     private String password;
 }

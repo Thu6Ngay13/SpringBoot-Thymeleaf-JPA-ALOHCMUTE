@@ -42,6 +42,11 @@
 			</div>
 
 			<div class="field">
+				<input type="text" required th:field="*{nickName}">
+				<label for="">Nickname</label>
+			</div>
+
+			<div class="field">
 				<input type="text" required th:field="*{email}">
 				<label for="">Email</label>
 			</div>
@@ -50,18 +55,19 @@
 				<input type="number" required th:field="*{phone}">
 				<label for="">SDT</label>
 			</div>
-			
-			<div class="field">
-                <input type="password" id="password" name="password" required>
-                <label for="password">Mật khẩu</label>
-            </div>
 
-            <div class="field">
-                <input type="password" id="confirmPassword" name="confirmPassword" required th:field="*{password}">
-                <label for="confirmPassword">Xác nhận mật khẩu</label>
-            </div>
-            
-            <p id="passwordMatchError" style="color: red; display: none;">Mật khẩu không khớp.</p>
+			<div class="field">
+				<input type="password" id="password" name="password" required>
+				<label for="password">Mật khẩu</label>
+			</div>
+
+			<div class="field">
+				<input type="password" id="confirmPassword" name="confirmPassword" required th:field="*{password}">
+				<label for="confirmPassword">Xác nhận mật khẩu</label>
+			</div>
+
+			<p id="passwordMatchError" style="color: red; display: none;">Mật khẩu không khớp.</p>
+
 			<div class="field">
 				<input type="submit" id="registerBtn" value="Tạo tại khoản" disabled>
 			</div>
@@ -93,7 +99,7 @@
 		};
 		toastr["[[${typenotify}]]"]("[[${mess}]]");
 	});
-	
+
 </script>
 <script>
 	$(document).ready(function () {
@@ -102,13 +108,74 @@
 		var passwordMatchError = $("#passwordMatchError");
 		var registerBtn = $("#registerBtn");
 
-		confirmPasswordInput.on("blur", function () {
+		$('input[name="username"').on('input', function () {
+			if ($(this).val().indexOf(' ') !== -1){
+				toastr.error('Không được nhập dấu cách.');
+	            var inputValue = $(this).val().trim();
+	            inputValue = inputValue.replace(/\s{2,}/g, ' ');
+	            $(this).val(inputValue);
+			}
+        });
+        
+        $('input[name="firstName"').on('input', function () {
+			if ($(this).val().match(/\s{2,}/)){
+				toastr.error('Không được nhập nhiều hơn 2 dấu cách.');
+	            var inputValue = $(this).val().trim();
+	            inputValue = inputValue.replace(/\s{2,}/g, '  ');	
+	            $(this).val(inputValue);
+			}
+        });
+        
+        $('input[name="lastName"').on('input', function () {
+			if ($(this).val().match(/\s{2,}/)){
+				toastr.error('Không được nhập nhiều hơn 2 dấu cách.');
+	            var inputValue = $(this).val().trim();
+	            inputValue = inputValue.replace(/\s{2,}/g, '  ');	
+	            $(this).val(inputValue);
+			}
+        });
+		
+		$('input[name="nickName"').on('input', function () {
+			if ($(this).val().indexOf(' ') !== -1){
+				toastr.error('Không được nhập dấu cách.');
+	            var inputValue = $(this).val().trim();
+	            inputValue = inputValue.replace(/\s{2,}/g, ' ');
+	            $(this).val(inputValue);
+			}
+		});
+		
+		$('input[name="email"').on('input', function () {
+			if ($(this).val().indexOf(' ') !== -1){
+				toastr.error('Không được nhập dấu cách.');
+	            var inputValue = $(this).val().trim();
+	            inputValue = inputValue.replace(/\s{2,}/g, ' ');
+	            $(this).val(inputValue);
+			}
+		});
+		
+
+		confirmPasswordInput.on("input", function () {
 			var password = passwordInput.val();
 			var confirmPassword = confirmPasswordInput.val();
 
 			if (password !== confirmPassword) {
 				passwordMatchError.show();
 				registerBtn.prop("disabled", true);
+
+			} else {
+				passwordMatchError.hide();
+				registerBtn.prop("disabled", false);
+			}
+		});
+
+		passwordInput.on("input", function () {
+			var password = passwordInput.val();
+			var confirmPassword = confirmPasswordInput.val();
+
+			if (password !== confirmPassword) {
+				passwordMatchError.show();
+				registerBtn.prop("disabled", true);
+
 			} else {
 				passwordMatchError.hide();
 				registerBtn.prop("disabled", false);
@@ -116,29 +183,5 @@
 		});
 	});
 </script>
-<script>
-	$(document).ready(function() {
-		  var inputFields = $("form input[type='text'], form input[type='password']");
-		  
-		  inputFields.on("input", function() {
-		    var inputValue = $(this).val();
-		    var hasWhitespace = /\s/.test(inputValue);
-		    
-		    if (hasWhitespace) {
-		      $(this).addClass("error");
-		    } else {
-		      $(this).removeClass("error");
-		    }
-		  });
-		  
-		  $("form").on("submit", function(event) {
-		    var hasError = inputFields.hasClass("error");
-		    
-		    if (hasError) {
-		      event.preventDefault();
-		      alert("Vui lòng không nhập dấu cách.");
-		    }
-		  });
-		});
-</script>
+
 </html>
