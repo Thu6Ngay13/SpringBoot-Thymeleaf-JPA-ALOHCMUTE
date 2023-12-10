@@ -1,6 +1,7 @@
 package hcmute.alohcmute.controllers;
 
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.BinhLuan;
+import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.services.BaiVietServiceImpl;
 import hcmute.alohcmute.services.CommentSerrviceImpl;
 import hcmute.alohcmute.services.IBaiVietService;
@@ -35,7 +38,6 @@ public class CommentController {
 	@GetMapping("/comment/{baiVietId}")
 	public String reviewComment(ModelMap model, @PathVariable(value = "baiVietId") int id) {
 		List<BinhLuan> comments = commentService.findCommentByMaBaiViet(id);
-		
 		long soLuongBinhLuan = commentService.countBinhLuanByMaBaiViet(id);
 		long demSoTuongTac = baiVietService.demSoTuongTac(id);
 		model.addAttribute("soLuongBinhLuan", soLuongBinhLuan);
@@ -44,6 +46,17 @@ public class CommentController {
 		model.addAttribute("baiVietId", id);
 		BinhLuan binhLuan = new BinhLuan(); 
 		model.addAttribute("binhLuan", binhLuan);
+		
+		BaiViet baiViet = baiVietService.getById(id);
+		model.addAttribute("baiViet", baiViet);
+		
+		List<TaiKhoan> aa = taiKhoanService.findTaiKhoanFollowersByUsername("thuycao816");
+		List<String> kq = new ArrayList<>();
+		for (TaiKhoan ds : aa) {
+			kq.add(ds.getTaiKhoan());
+		}
+		model.addAttribute("listbanbe",kq);
+		
 		return "user/comment/comment";
 	}
 	
