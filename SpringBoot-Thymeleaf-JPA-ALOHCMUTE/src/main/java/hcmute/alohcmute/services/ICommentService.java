@@ -7,7 +7,6 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 
 import hcmute.alohcmute.entities.BinhLuan;
 
@@ -36,8 +35,6 @@ public interface ICommentService {
 	List<BinhLuan> findAll();
 
 	Page<BinhLuan> findAll(Pageable pageable);
-
-	Optional<BinhLuan> findOne(Specification<BinhLuan> spec);
 
 	List<BinhLuan> findAll(Sort sort);
 
