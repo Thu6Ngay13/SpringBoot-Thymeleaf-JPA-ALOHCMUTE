@@ -9,4 +9,6 @@ public interface INewFeedService {
     List<BaiViet> findPublicOrFollowedPosts(String currentUsername);
 	boolean toggleLike(int postId, String username);
 	Boolean checkIfLiked(int maBaiViet, String currentUsername);
+	int getLikeCount(int maBaiViet);
+	int getCommentCount(int maBaiViet);
 }

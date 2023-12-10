@@ -47,12 +47,15 @@ public class NewFeedServiceImpl implements INewFeedService {
 		List<BaiViet> eligiblePosts = new ArrayList<>();
 
 		for (BaiViet baiViet : allPosts) {
-			if (baiViet.getCheDoNhom().getTenCheDo().equals("Công khai")
+			if ((baiViet.getCheDoNhom().getTenCheDo().equals("Công khai")
 					|| (baiViet.getCheDoNhom().getTenCheDo().equals("Người theo dõi")
 							&& followedUsers.contains(baiViet.getTaiKhoan()))
-					|| baiViet.getTaiKhoan().getTaiKhoan().equals(currentUsername)) {
+					|| baiViet.getTaiKhoan().getTaiKhoan().equals(currentUsername))&& baiViet.getNhom()== null) {
 				eligiblePosts.add(baiViet);
-			}
+			}else if((baiViet.getNhom() != null && baiVietRepository.isUserInGroup(currentUsername, baiViet.getNhom().getMaNhom())))
+					{
+						eligiblePosts.add(baiViet);
+					}
 		}
 
 		// Sort eligible posts by date and time in descending order
@@ -119,5 +122,14 @@ public class NewFeedServiceImpl implements INewFeedService {
 
         return false;
     }
+	@Override
+	 public int getLikeCount(int maBaiViet) {
+	        return baiVietRepository.countLikesByBaiVietId(maBaiViet);
+	    }
+
+	@Override
+	public int getCommentCount(int maBaiViet) {
+		return baiVietRepository.countCommentsByBaiVietId(maBaiViet);
+	}
 
 }

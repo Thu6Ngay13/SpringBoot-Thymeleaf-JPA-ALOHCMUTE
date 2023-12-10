@@ -425,11 +425,25 @@ body {
 	}
 
 }
+
 .like-button.active {
-    color: #1877f2; 
+	color: #1877f2;
 }
 
-.liked-class {
-    color: blue; /* Thay đổi màu của icon và text */
+.canhle {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 1.5;
+	margin-bottom: 5px;
 }
 
+.canhle1 {
+	vertical-align: middle;
+	margin-right: 5px;
+	/* Điều chỉnh giá trị của margin-right theo nhu cầu của bạn */
+}
+
+.canhle2 {
+	vertical-align: middle;
+	display: inline-block;
+}

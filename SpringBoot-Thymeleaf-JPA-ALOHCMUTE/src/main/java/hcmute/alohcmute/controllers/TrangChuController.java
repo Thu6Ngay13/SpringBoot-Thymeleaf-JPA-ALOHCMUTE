@@ -34,14 +34,22 @@ public class TrangChuController {
 		/* String currentUsername = principal.getName(); */
 		List<BaiViet> bv = iNewFeed.findPublicOrFollowedPosts("lolo928");
 		Map<Integer, Boolean> likedPosts = new HashMap<>();
+		Map<Integer, Integer> postLikesCount = new HashMap<>();
+		Map<Integer, Integer> postCommentsCount = new HashMap<>();
+		
+
 		for (BaiViet post : bv) {
 			likedPosts.put(post.getMaBaiViet(), iNewFeed.checkIfLiked(post.getMaBaiViet(), "lolo928"));
+			postLikesCount.put(post.getMaBaiViet(), iNewFeed.getLikeCount(post.getMaBaiViet()));
+			postCommentsCount.put(post.getMaBaiViet(), iNewFeed.getCommentCount(post.getMaBaiViet()));
 		}
-		boolean check = true;
-		model.addAttribute("check", check);
+
 		model.addAttribute("baiViets", bv);
 		model.addAttribute("likedPosts", likedPosts);
-		return "user/newfeed/newfeed.html";
+		model.addAttribute("postLikesCount", postLikesCount);
+		model.addAttribute("postCommentsCount", postCommentsCount);
+
+		return "user/newfeed/newfeed";
 	}
 
 	@GetMapping("/reportPost")

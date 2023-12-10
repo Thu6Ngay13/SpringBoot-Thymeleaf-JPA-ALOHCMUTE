@@ -59,8 +59,11 @@
 								<span th:text="${#temporals.format(baiViet.thoiGian, 'HH:mm')}"></span>
 
 							</p>
-
-							<span th:switch="${baiViet.cheDoNhom.tenCheDo}">
+							<span th:if="${baiViet.nhom != null}" class="canhle">
+								<span class="material-icons canhle1">groups</span>
+								<span class="canhle2" th:text="${baiViet.nhom.tenNhom}"></span>
+							</span>
+							<span th:if="${baiViet.nhom == null}" th:switch="${baiViet.cheDoNhom.tenCheDo}">
 								<span class="material-icons icon-public" th:case="'Công khai'">public</span>
 								<span class="material-icons icon-public" th:case="'Riêng tư'">lock</span>
 								<span class="material-icons icon-public" th:case="'Người theo dõi'">group</span>
@@ -99,18 +102,24 @@
 					<div class="post__options">
 						<!-- Iterate over BaiViet list -->
 						<div class="post__option like-button"
-							th:classappend="${likedPosts[baiViet.maBaiViet] ? 'like-button active' : ''}"
-							th:data-post-id="${baiViet.maBaiViet}">
+							th:classappend="${likedPosts[baiViet.maBaiViet] ? 'active' : ''}"
+							th:data-post-id="${baiViet.maBaiViet}"
+							th:data-like-count="${postLikesCount[baiViet.maBaiViet]}">
 							<span class="material-icons">thumb_up</span>
-							<p>Like</p>
+							<p>
+								<span th:text="${postLikesCount[baiViet.maBaiViet]}"></span>
+								<span>Like</span>
+							</p>
 						</div>
+
 
 
 
 						<div class="post__option">
-							<span class="material-icons"> chat_bubble_outline </span>
-							<p>Comment</p>
+							<span class="material-icons">chat_bubble_outline</span>
+							<p th:text="${postCommentsCount[baiViet.maBaiViet]} + ' Comment'">Comment</p>
 						</div>
+
 
 						<div class="post__option">
 							<span class="material-icons"> near_me </span>
@@ -205,13 +214,29 @@
 				likeButtons.forEach(function (button) {
 					button.addEventListener('click', function () {
 						var postId = button.getAttribute('data-post-id');
+
+						// Lấy số lượt thích hiện tại
+						var likeCountElement = button.querySelector('p');
+						var currentLikeCount = parseInt(likeCountElement.innerText, 10);
+
+						// Kiểm tra nếu nút đang được "thích" (có class 'active')
+						var isLiked = button.classList.contains('active');
+
+						// Tăng hoặc giảm số lượt thích tùy thuộc vào trạng thái hiện tại
+						var newLikeCount = isLiked ? currentLikeCount - 1 : currentLikeCount + 1;
+
+						// Cập nhật số lượt thích và chuyển đổi trạng thái class 'active'
+						likeCountElement.innerText = newLikeCount + ' Like';
+						button.classList.toggle('active');
+
+						// Thực hiện fetch để cập nhật dữ liệu sau
 						fetch(`/user/likePost?postId=${postId}`, {
 							method: 'POST'
 						})
 							.then(response => response.json())
 							.then(data => {
-								// Đảo ngược class 'active'
-								button.classList.toggle('active');
+								// Cập nhật dữ liệu nếu cần thiết
+								// Đây có thể là nơi để xử lý dữ liệu từ server nếu muốn cập nhật số lượt thích chính xác
 							});
 					});
 				});
