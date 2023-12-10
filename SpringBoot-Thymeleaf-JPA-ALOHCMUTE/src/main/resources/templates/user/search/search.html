@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{user/layout-user.html}">
+<html lang="vi">
+
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tiêu đề Trang Web của Bạn</title>
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- Thêm những dòng này vào phần <head> của tệp HTML của bạn -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{/css/style_search.css}">
+
+</head>
+
+<body>
+
+	<div class="container" layout:fragment="content">
+		<div class="row">
+			<div class="col-md-8" >
+				<div class="people-nearby" >
+
+					<div class="nearby-user">
+						<div class="row">
+							<div class="col-md-2 col-sm-2">
+								<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user"
+									class="profile-photo-lg">
+							</div>
+							<div class="col-md-7 col-sm-7">
+								<h5 class="nickname"><a href="#" class="profile-link">Huyền Cute</a></h5>
+								<p>Nữ</p>
+								<p class="text-muted">0987786544</p>
+							</div>
+							<div class="col-md-3 col-sm-3">
+								<button class="btn btn-primary pull-right">Follow</button>
+							</div>
+						</div>
+					</div>
+					<div class="nearby-user">
+						<div class="row">
+							<div class="col-md-2 col-sm-2">
+								<img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="user"
+									class="profile-photo-lg">
+							</div>
+							<div class="col-md-7 col-sm-7">
+								<h5 class="nickname"><a href="#" class="profile-link">Huyền Xinh Gái</a></h5>
+								<p>Nữ</p>
+								<p class="text-muted">0934254543</p>
+							</div>
+							<div class="col-md-3 col-sm-3">
+								<button class="btn btn-primary pull-right">Follow</button>
+							</div>
+						</div>
+					</div>
+					<div class="nearby-user">
+						<div class="row">
+							<div class="col-md-2 col-sm-2">
+								<img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="user"
+									class="profile-photo-lg">
+							</div>
+							<div class="col-md-7 col-sm-7">
+								<h5 class="nickname"><a href="#" class="profile-link">Huyền Đáng Iu</a></h5>
+								<p>Nữ</p>
+								<p class="text-muted">0578495899</p>
+							</div>
+							<div class="col-md-3 col-sm-3">
+								<button class="btn btn-primary pull-right">Unfollow</button>
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- jQuery và Bootstrap JS -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

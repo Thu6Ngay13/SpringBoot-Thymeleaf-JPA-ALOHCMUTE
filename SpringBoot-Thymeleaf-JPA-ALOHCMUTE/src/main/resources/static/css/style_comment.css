@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
 
 body{
-    font-family: 'Poppins', sans-serif;
+    /*font-family: 'Poppins', sans-serif;*/
+    font-family: 'Montserrat', sans-serif;
     background: #ececec;
 }
 
@@ -16,7 +17,49 @@ body{
     margin-right: 0;
 }
 /*------------ Right box ------------*/
+.tagged-user {
+        color: #007bff !important; /* Màu xanh dương */
+    }
+.suggestions-container {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: none;
+  z-index: 10;
+  max-height: 150px;
+  margin-bottom: -120px;
+  margin-left: 180px;
+  margin-top: 42px;
+}
 
+.suggestion-item {
+  padding: 5px 10px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+ 
+}
+
+.suggestion-item:last-child {
+  border-bottom: none;
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0;
+}
+.like{
+    cursor: pointer;
+}
+.liked{
+    color:royalblue;
+}
+.count-like {
+    font-size: smaller;
+}
+.count-comment {
+    font-size: smaller;
+    margin-left: 100px;
+}
 .right-box{
     padding: 0px 30px 40px 40px;
 }
