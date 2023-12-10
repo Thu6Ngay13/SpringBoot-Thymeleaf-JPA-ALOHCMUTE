@@ -93,6 +93,7 @@
 		};
 		toastr["[[${typenotify}]]"]("[[${mess}]]");
 	});
+	
 </script>
 <script>
 	$(document).ready(function () {
@@ -115,5 +116,29 @@
 		});
 	});
 </script>
-
+<script>
+	$(document).ready(function() {
+		  var inputFields = $("form input[type='text'], form input[type='password']");
+		  
+		  inputFields.on("input", function() {
+		    var inputValue = $(this).val();
+		    var hasWhitespace = /\s/.test(inputValue);
+		    
+		    if (hasWhitespace) {
+		      $(this).addClass("error");
+		    } else {
+		      $(this).removeClass("error");
+		    }
+		  });
+		  
+		  $("form").on("submit", function(event) {
+		    var hasError = inputFields.hasClass("error");
+		    
+		    if (hasError) {
+		      event.preventDefault();
+		      alert("Vui lòng không nhập dấu cách.");
+		    }
+		  });
+		});
+</script>
 </html>

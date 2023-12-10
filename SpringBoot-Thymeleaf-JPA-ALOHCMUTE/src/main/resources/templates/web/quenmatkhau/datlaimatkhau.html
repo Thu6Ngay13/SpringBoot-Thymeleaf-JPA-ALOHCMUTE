@@ -20,32 +20,50 @@
             Đặt lại mật khẩu
             <p>Nhập lại mật khẩu mới của bạn</p>
         </div>
-		
-		<form method="post" th:action="@{/forgotpassword/reset}" th:method="post">
-			<div class="field" style="display: none;">
-				<input type="text" required th:value="${token}" name="token">
-				<input type="email" required th:value="${email}" name="email">
-			</div>
-			
+        <form id="resetPasswordForm" th:action="@{/reset-password}" method="post">
             <div class="field">
                 <input type="password" id="password" name="password" required>
                 <label for="password">Mật khẩu</label>
             </div>
 
             <div class="field">
-                <input type="password" id="confirmPassword" name="confirmPassword" required th:value="${password}">
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
                 <label for="confirmPassword">Xác nhận mật khẩu</label>
             </div>
-            
             <p id="passwordMatchError" style="color: red; display: none;">Mật khẩu không khớp.</p>
             <div class="field">
-                <input type="submit" id="resetPasswordBtn" value="Cập nhật mật khẩu" disabled>
+                <input type="submit" id="updatePasswordBtn" value="Cập nhật mật khẩu" disabled>
             </div>
-            
-            <div lass="signup-link">
-				<a th:href="@{/login}"> Quay lại đăng nhập</a>
-			</div>
+            <div class="signup-link">
+                <a th:href="@{/login}"> Quay lại đăng nhập</a>
+            </div>
         </form>
+
+    </div>
+    <script th:src="@{js/script_thongbao.js}"></script>
+    <script th:src="@{https://code.jquery.com/jquery-3.6.0.js}"></script>
+    <script>
+        $(document).ready(function () {
+            var passwordInput = $("#password");
+            var confirmPasswordInput = $("#confirmPassword");
+            var passwordMatchError = $("#passwordMatchError");
+            var updatePasswordBtn = $("#updatePasswordBtn");
+
+            confirmPasswordInput.on("blur", function () {
+                var password = passwordInput.val();
+                var confirmPassword = confirmPasswordInput.val();
+
+                if (password !== confirmPassword) {
+                    passwordMatchError.show();
+                    updatePasswordBtn.prop("disabled", true);
+                  
+                } else {
+                    passwordMatchError.hide();
+                    updatePasswordBtn.prop("disabled", false);
+                }
+            });
+        });
+    </script>
 		
 	</div>
 </body>
@@ -70,25 +88,4 @@
 		toastr["[[${typenotify}]]"]("[[${mess}]]");
 	});
 </script>
-<script>
-        $(document).ready(function () {
-            var passwordInput = $("#password");
-            var confirmPasswordInput = $("#confirmPassword");
-            var passwordMatchError = $("#passwordMatchError");
-            var resetPasswordBtn = $("#resetPasswordBtn");
-
-            confirmPasswordInput.on("blur", function () {
-                var password = passwordInput.val();
-                var confirmPassword = confirmPasswordInput.val();
-
-                if (password !== confirmPassword) {
-                    passwordMatchError.show();
-                    resetPasswordBtn.prop("disabled", true);
-                } else {
-                    passwordMatchError.hide();
-                    resetPasswordBtn.prop("disabled", false);
-                }
-            });
-        });
-    </script>
 </html>
