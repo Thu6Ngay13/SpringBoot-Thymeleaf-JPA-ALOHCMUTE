@@ -15,15 +15,16 @@
 		</div>
 		<form method="post" th:action="@{/register/save}" th:object="${user}">
 			<div class="field">
-				<input type="text" required th:field="*{username}">
+				<input type="text" name="username" required th:field="*{username}">
 				<label for="">Tài khoản</label>
 			</div>
+			<p id="nospace-username" style="color: red; display: none;">Không được nhập dấu cách vào đây.</p>
 
 			<div class="field">
 				<input type="text" required th:field="*{firstName}">
 				<label for="">Họ và tên đệm</label>
 			</div>
-
+			
 			<div class="field">
 				<input type="text" required th:field="*{lastName}">
 				<label for="">Tên</label>
@@ -42,20 +43,20 @@
 			</div>
 
 			<div class="field">
-				<input type="text" required th:field="*{email}">
+				<input type="text" name="email" required th:field="*{email}">
 				<label for="">Email</label>
 			</div>
-
+			<p id="nospace-email" style="color: red; display: none;">Không được nhập dấu cách vào đây.</p>
 			<div class="field">
-				<input type="number" required th:field="*{phone}">
+				<input type="number" name="phone" required th:field="*{phone}">
 				<label for="">SDT</label>
 			</div>
-			
+			<p id="nospace-phone" style="color: red; display: none;">Không được nhập dấu cách vào đây.</p>
 			<div class="field">
                 <input type="password" id="password" name="password" required>
                 <label for="password">Mật khẩu</label>
             </div>
-
+			<p id="nospace-password" style="color: red; display: none;">Không được nhập dấu cách vào đây.</p>
             <div class="field">
                 <input type="password" id="confirmPassword" name="confirmPassword" required th:field="*{password}">
                 <label for="confirmPassword">Xác nhận mật khẩu</label>
@@ -118,26 +119,26 @@
 </script>
 <script>
 	$(document).ready(function() {
-		  var inputFields = $("form input[type='text'], form input[type='password']");
-		  
-		  inputFields.on("input", function() {
-		    var inputValue = $(this).val();
-		    var hasWhitespace = /\s/.test(inputValue);
-		    
-		    if (hasWhitespace) {
-		      $(this).addClass("error");
-		    } else {
-		      $(this).removeClass("error");
-		    }
-		  });
-		  
-		  $("form").on("submit", function(event) {
-		    var hasError = inputFields.hasClass("error");
-		    
-		    if (hasError) {
-		      event.preventDefault();
-		      alert("Vui lòng không nhập dấu cách.");
-		    }
+		  var usernameInput = document.querySelector('input[name="username"]');
+            var emailInput = document.querySelector('input[name="email"]');
+            var passwordInput = document.querySelector('input[name="password"]');
+            var phoneInput = document.querySelector('input[name="phone"]');
+
+            // Add event listeners to the input fields to prevent spaces
+            usernameInput.addEventListener('input', function () {
+                this.value = this.value.replace(/\s/g, '');
+            });
+
+            emailInput.addEventListener('input', function () {
+                this.value = this.value.replace(/\s/g, '');
+            });
+
+            passwordInput.addEventListener('input', function () {
+                this.value = this.value.replace(/\s/g, '');
+            });
+
+            phoneInput.addEventListener('input', function () {
+                this.value = this.value.replace(/\s/g, '');
 		  });
 		});
 </script>
