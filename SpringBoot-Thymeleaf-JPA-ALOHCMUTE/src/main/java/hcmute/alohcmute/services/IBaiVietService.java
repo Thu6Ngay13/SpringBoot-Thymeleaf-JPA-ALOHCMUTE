@@ -14,5 +14,10 @@ public interface IBaiVietService {
 	BaiViet getById(Integer id);
 	
 	long demSoTuongTac(int maBaiViet);
-
+	
+	long tangLike(int maBaiViet, String taiKhoan);
+	
+	long giamLike(int maBaiViet, String taiKhoan);
+	
+	boolean checkLiked(int maBaiViet, String taiKhoan);
 }

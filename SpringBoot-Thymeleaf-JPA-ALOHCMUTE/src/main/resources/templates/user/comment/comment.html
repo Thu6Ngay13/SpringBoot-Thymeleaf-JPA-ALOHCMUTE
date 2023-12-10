@@ -63,21 +63,54 @@
 					<hr>
 					<p class="text-muted" th:text="${baiViet.noiDungChu}"></p>
 					<div class="d-flex">
+			            <p class="count-like">
+			              <span id="likeText" th:text="${soLike}"></span>
+			            </p>
+			            <p class="count-comment" ><span th:text="${soLuongBinhLuan}" ></span>&nbsp;comments</p>
+			         </div>
+
+					<div class="post__options d-flex icon">
+						
+						<div class="post__option d-flex">
+							<span class="material-icons fs-5 like" th:classappend="${isLiked} ? 'liked' : ''" onclick ="toggleLike(this)"> thumb_up </span>
+							<input type="hidden" th:value="${soLike}" id="likeCount"/>
+							<input type="hidden" th:value="${baiViet.maBaiViet}" id="baiVietId"/>
+							<p class="icon">Like</p>
+						</div>
+						<script>
+						let likeCount = document.getElementById('likeCount').value;
+				              function toggleLike(element) {
+				            	  likeCount = Number(likeCount);
+				            	  let isLiked = element.classList.contains('liked');
+				            	  let action = "";
+				                  if (isLiked) {
+				                      element.classList.remove('liked');
+				                      action = "nolike";
+				                      likeCount = likeCount - 1;
+				                  } else {
+				                      element.classList.add('liked');
+				                      action = "like";
+				                      likeCount = likeCount + 1;
+				                  }
+				                  like(action);
+				                  document.getElementById('likeText').innerText = likeCount + " likes";
+				              }
+				          </script>
+
+						<div class=" post__option d-flex icon">
 						<p class="count-like" id="likeText">
 							<span th:text="${soLike}"></span>
 						</p>
 						<p class="count-comment"><span th:text="${soLuongBinhLuan}"></span>&nbsp;comments</p>
 					</div>
-
 					<div class="post__options d-flex icon">
-
 						<div class="post__option d-flex like" onclick="toggleLike(this)">
 							<span class="material-icons fs-5 "> thumb_up </span>
 							<p class="icon">Like</p>
 						</div>
 
-
 						<script>
+
 							let isLiked = false;
 							let likeCount = 0;
 
@@ -201,7 +234,7 @@
 										</div>
 									</div>
 									<form action="#"
-										th:action="@{/user/comment/{baiVietId}/update(baiVietId=${baiVietId})}"
+										th:action="@{/user/comment/{baiVietId}/update(baiVietId=${baiViet.maBaiViet})}"
 										th:object="${binhLuan}" method="post">
 										<div class="modal fade" id="updateComment" tabindex="-1" role="dialog"
 											aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -318,7 +351,66 @@
 
 				</div>
 			</div>
-o
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script>
+		function like(action) {
+			let baiVietId = document.getElementById('baiVietId').value;
+	        let url = "http://localhost:8181/user/like/" + baiVietId;
+	        if (action == 'nolike'){
+	        	url = "http://localhost:8181/user/nolike/" + baiVietId;
+	        }
+			$.ajax({
+				url : url,
+				contentType: "application/json; charset=utf-8",
+				type : "POST",
+				data : JSON.stringify({'action': action}),
+				cache: false,
+				success : function(data) {
+					console.log(action);
+				},
+				error : function(err) {
+					console.log(err);
+				}
+			});
+		}
+	</script>
+					<script language="javascript">
+						function suggestNames(event) {
+							var input = event.target;
+							var suggestions = document.getElementById("suggestions");
+
+							// Lấy vị trí của con trỏ bàn phím
+							var cursorIndex = input.selectionStart;
+
+							// Kiểm tra ký tự trước con trỏ để xem có phải là '@' không
+							var atIndex = input.value.lastIndexOf("@", cursorIndex - 1);
+
+							if (atIndex >= 0) {
+								var searchQuery = input.value.substring(atIndex + 1);
+								if (searchQuery.length > 0) {
+									var matchingFriends = listbanbe.filter(name => name.toLowerCase().startsWith(searchQuery.toLowerCase()));
+									suggestions.innerHTML = matchingFriends.map(name => `<div class="suggestion-item">${name}</div>`).join('');
+									suggestions.style.display = 'block';
+
+									document.querySelectorAll('.suggestion-item').forEach(item => {
+										item.addEventListener('click', function () {
+											var name = this.innerText;
+											var newText = input.value.substring(0, atIndex) + name + " ";
+
+											input.value = newText;
+											input.focus(); // Set focus to the input field
+											suggestions.style.display = 'none';
+										});
+									});
+								} else {
+									suggestions.style.display = 'none';
+								}
+							} else {
+								suggestions.style.display = 'none';
+							}
+						}
+					</script>
 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 			<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js}"
 				integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

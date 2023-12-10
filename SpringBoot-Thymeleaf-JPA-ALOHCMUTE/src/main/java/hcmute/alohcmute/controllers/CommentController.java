@@ -40,23 +40,20 @@ public class CommentController {
 		List<BinhLuan> comments = commentService.findCommentByMaBaiViet(id);
 		long soLuongBinhLuan = commentService.countBinhLuanByMaBaiViet(id);
 		long demSoTuongTac = baiVietService.demSoTuongTac(id);
+		BaiViet baiViet = baiVietService.getById(id);
+		model.addAttribute("isLiked", baiVietService.checkLiked(id, "thuycao816"));
 		model.addAttribute("soLuongBinhLuan", soLuongBinhLuan);
 		model.addAttribute("soLike", demSoTuongTac);
 		model.addAttribute("comments", comments);
-		model.addAttribute("baiVietId", id);
-		BinhLuan binhLuan = new BinhLuan(); 
-		model.addAttribute("binhLuan", binhLuan);
-		
-		BaiViet baiViet = baiVietService.getById(id);
 		model.addAttribute("baiViet", baiViet);
-		
+		BinhLuan binhLuan = new BinhLuan(); 
+		model.addAttribute("binhLuan", binhLuan);		
 		List<TaiKhoan> aa = taiKhoanService.findTaiKhoanFollowersByUsername("thuycao816");
 		List<String> kq = new ArrayList<>();
 		for (TaiKhoan ds : aa) {
 			kq.add(ds.getTaiKhoan());
 		}
 		model.addAttribute("listbanbe",kq);
-		
 		return "user/comment/comment";
 	}
 	
