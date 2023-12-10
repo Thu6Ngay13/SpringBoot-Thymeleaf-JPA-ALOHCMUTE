@@ -1,14 +1,13 @@
 <!doctype html>
-<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{admin/layout-admin.html}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{admin/layout-admin.html}">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bootstrap demo</title>
-	<link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css}" rel="stylesheet"
-		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-	<link rel="stylesheet" th:href="@{/css/style_userManage.css}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quản lý người dùng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style_admin.css}">
 </head>
 
 <body>
@@ -21,37 +20,20 @@
 						<table class="table">
 							<thead class="thead-dark">
 								<tr>
-									<th scope="col">Tên người dùng</th>
-									<th scope="col">Quyền</th>
+									<th scope="col">Tài khoản</th>
 									<th scope="col">Hành động</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="prod : ${listTaiKhoan}">
-									<td th:text="${prod.nickName}"></td>
-									<td th:text="${prod.loaiTaiKhoan.tenLoai}"></td>
-									<!--<td th:if="${prod.status = 1}">Người quản trị</td>-->
-									<!--<td th:if="${prod.maLoai > 1}">Người dùng</td>-->
-									<td><a th:href="@{/admin/manage/thongtintaikhoan/{taikhoan}(taikhoan=${prod.taiKhoan})}">Chi tiết</a></td> 
-								</tr>
-								<!--<tr>
-									<th scope="row">Ba con cho</th>
-									<th>Người quản trị</th>
+								<tr th:each="user : ${listTaiKhoan}">
+									<td th:text="${user.taiKhoan}"></td>
+									<!--<td><a th:href="@{/admin/manage/thongtintaikhoan/{taikhoan}(taikhoan=${user.taiKhoan})}">Chi tiết</a></td>-->
 									<td>
-										<div class="hanhdong">
-											<button type="button" class="btn btn-success">Chi tiết</button>
-										</div>
+										<a th:href="@{/admin/manage/thongtintaikhoan/{taikhoan}(taikhoan=${user.taiKhoan})}">
+    										<button type="button" class="chophep btn btn-primary">Chi tiết</button>
+										</a> 
 									</td>
 								</tr>
-								<tr>
-									<th scope="row">Hai con tắc kè</th>
-									<th>Người dùng</th>
-									<td>
-										<div class="hanhdong">
-											<button type="button" class="btn btn-success">Chi tiết</button>
-										</div>
-									</td>
-								</tr>-->
 							</tbody>
 						</table>
 					</div>
