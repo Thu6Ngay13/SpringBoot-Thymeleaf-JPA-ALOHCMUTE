@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>bs4 beta profile and timeline - Bootdey.com</title>
+	<title>ALOHCMUTE</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/style_trangcanhan.css}">
@@ -176,7 +176,6 @@
 																							th:if="${ac.avatarURl != null and ac.avatarURl.startsWith('http')}"
 																							th:src="${ac.avatarURl}" />
 
-																						<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 																						<img class="media-object"
 																							width="120"
 																							alt=""
@@ -285,7 +284,6 @@
 																			th:if="${taikhoan.avatarURl != null and taikhoan.avatarURl.startsWith('http')}"
 																			th:src="${taikhoan.avatarURl}" />
 
-																		<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 																		<img class="img-radius timeline-icon" alt=""
 																			th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
 																			th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
@@ -619,7 +617,6 @@
 			</div>
 		</div>
 	</div>
-	
 	
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/script_trangcanhan.js}"></script>

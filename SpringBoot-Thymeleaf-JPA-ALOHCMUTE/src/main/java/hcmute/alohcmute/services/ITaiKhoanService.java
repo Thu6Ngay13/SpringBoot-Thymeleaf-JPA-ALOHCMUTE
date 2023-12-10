@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 
+import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.TaiKhoan;
 
 public interface ITaiKhoanService {

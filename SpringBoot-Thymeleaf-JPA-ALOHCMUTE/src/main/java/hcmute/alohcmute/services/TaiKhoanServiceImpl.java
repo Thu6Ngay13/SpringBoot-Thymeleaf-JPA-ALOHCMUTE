@@ -13,7 +13,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import hcmute.alohcmute.entities.BaiViet;
+import hcmute.alohcmute.entities.BaoCaoBaiViet;
 import hcmute.alohcmute.entities.TaiKhoan;
+import hcmute.alohcmute.repositories.BaiVietRepository;
 import hcmute.alohcmute.repositories.TaiKhoanRepository;
 
 @Service
@@ -139,5 +142,4 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
         List<TaiKhoan> taiKhooanOnPage = listTaiKhoanTheoDoi.subList(fromIndex, toIndex);
         return new PageImpl<>(taiKhooanOnPage, PageRequest.of(page, pageSize), listTaiKhoanTheoDoi.size());
     }
-
 }

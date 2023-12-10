@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>bs4 beta profile and timeline - Bootdey.com</title>
+	<title>ALOHCMUTE</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link href="https://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/style_trangcanhan.css}">
@@ -86,7 +86,6 @@
 														data-placement="top" title=""
 														data-original-title="user image" />
 
-													<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 													<img class="media-object img-radius" alt=""
 														th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
 														th:src="@{'/files/' + ${ac.avatarURl}}" data-toggle="tooltip"
@@ -114,7 +113,6 @@
 																data-placement="top" title=""
 																data-original-title="user image" />
 
-															<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 															<img class="media-object img-radius"
 																alt="Generic placeholder image"
 																th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
@@ -167,7 +165,6 @@
 																							th:if="${ac.avatarURl != null and ac.avatarURl.startsWith('http')}"
 																							th:src="${ac.avatarURl}" />
 
-																						<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 																						<img class="media-object"
 																							width="120"
 																							alt=""
@@ -482,7 +479,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- Your existing HTML structure -->
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/script_trangcanhan.js}"></script>

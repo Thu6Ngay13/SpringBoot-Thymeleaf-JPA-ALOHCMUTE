@@ -11,8 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import hcmute.alohcmute.entities.BaiViet;
+import hcmute.alohcmute.entities.BaoCaoBaiViet;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.repositories.BaiVietRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class BaiVietServiceImpl implements IBaiVietService{
@@ -64,5 +66,11 @@ public class BaiVietServiceImpl implements IBaiVietService{
 
         List<BaiViet> baiVietOnPage = listBaiViet.subList(fromIndex, toIndex);
         return new PageImpl<>(baiVietOnPage, PageRequest.of(page, pageSize), listBaiViet.size());
+    }
+	
+	@Override
+	@Transactional
+    public void deleteByMaBaiViet(int maBaiViet) {
+        baiVietRepository.deleteByMaBaiViet(maBaiViet);
     }
 }

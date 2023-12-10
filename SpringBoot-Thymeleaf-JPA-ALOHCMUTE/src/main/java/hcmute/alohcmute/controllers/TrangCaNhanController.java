@@ -20,11 +20,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import groovyjarjarasm.asm.util.Printer;
 import hcmute.alohcmute.entities.BaiViet;
+import hcmute.alohcmute.entities.BaoCaoBaiViet;
 import hcmute.alohcmute.entities.BinhLuan;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.models.BaiVietModel;
 import hcmute.alohcmute.models.TaiKhoanModel;
 import hcmute.alohcmute.services.IBaiVietService;
+import hcmute.alohcmute.services.IBaoCaoBaiVietService;
 import hcmute.alohcmute.services.ICommentService;
 import hcmute.alohcmute.services.ITaiKhoanService;
 import jakarta.validation.Valid;
@@ -41,6 +43,9 @@ public class TrangCaNhanController {
 
 	@Autowired
 	ICommentService commentService;
+	
+	@Autowired
+	IBaoCaoBaiVietService baoCaoBaiVietService;
 
 	@GetMapping("thongtintaikhoan/{taikhoan}") 
 	public String thongTinTaiKhoan(ModelMap model, @PathVariable("taikhoan") String taikhoan,
@@ -134,20 +139,6 @@ public class TrangCaNhanController {
 		return "";
 	}
 
-	/*
-	 * @GetMapping("taiKhoanTheoDoiByPage/{taikhoan}") public String
-	 * taiKhoanTheoDoiByPage(ModelMap model, @PathVariable("taikhoan") String
-	 * taikhoan,
-	 * 
-	 * @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo) {
-	 * Page<TaiKhoan> list = taiKhoanService.getTaiKhoanTheoDoiByPage(taikhoan,
-	 * pageNo - 1, 2);
-	 * 
-	 * model.addAttribute("totalPage", list.getTotalPages());
-	 * model.addAttribute("currentPage", pageNo); model.addAttribute("list", list);
-	 * return "user/trangcanhan/trangcanhan"; }
-	 */
-
 	@PostMapping("update/{user}")
 	public ModelAndView saveOrUpdate(ModelMap model, @PathVariable("user") String taikhoan,
 			@Valid @ModelAttribute("taikhoan") TaiKhoanModel taiKhoanModel, BindingResult result) {
@@ -175,11 +166,20 @@ public class TrangCaNhanController {
 			@PathVariable("taikhoan") String taikhoan) {
 		
 		List<BinhLuan> listBinhLuan = commentService.findCommentByMaBaiViet(mabaiviet);
+		List<BaoCaoBaiViet> listBaoCaoBaiViet = baoCaoBaiVietService.findBaoCaoBaiVietByMaBaiViet(mabaiviet);
+		
 		if(!listBinhLuan.isEmpty()) {
 			commentService.deleteAllBinhLuanByMaBaiViet(mabaiviet);
 		}
 		
-		baiVietService.deleteById(mabaiviet);
+		if(!listBaoCaoBaiViet.isEmpty()) {
+			baoCaoBaiVietService.deleteAllBaoCaoBaiVietByMaBaiViet(mabaiviet);
+		}
+		
+		baiVietService.deleteByMaBaiViet(mabaiviet);
+		
+		/* baiVietService.deleteById(mabaiviet); */
+		
 		model.addAttribute("message", "Xoa thanh cong!");
 
 		String url = "forward:/trangcanhan/thongtintaikhoan/" + taikhoan;
