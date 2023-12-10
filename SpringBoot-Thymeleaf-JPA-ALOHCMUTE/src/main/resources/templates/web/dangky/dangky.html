@@ -73,6 +73,59 @@
 		</form>
 
 	</div>
+	<script th:src="@{js/script_thongbao.js}"></script>
+	<script th:src="@{https://code.jquery.com/jquery-3.6.0.js}"></script>
+	<script>
+		$(document).ready(function () {
+			var passwordInput = $("#password");
+			var confirmPasswordInput = $("#confirmPassword");
+			var passwordMatchError = $("#passwordMatchError");
+			var registerBtn = $("#registerBtn");
+	
+			confirmPasswordInput.on("blur", function () {
+				var password = passwordInput.val();
+				var confirmPassword = confirmPasswordInput.val();
+	
+				if (password !== confirmPassword) {
+					passwordMatchError.show();
+					registerBtn.prop("disabled", true);
+				} else {
+					passwordMatchError.hide();
+					registerBtn.prop("disabled", false);
+				}
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function() {
+			  var usernameInput = document.querySelector('input[name="username"]');
+	            var emailInput = document.querySelector('input[name="email"]');
+	            var passwordInput = document.querySelector('input[name="password"]');
+	            var phoneInput = document.querySelector('input[name="phone"]');
+	
+	            // Add event listeners to the input fields to prevent spaces
+	            usernameInput.addEventListener('input', function () {
+	                nospace-username.show();
+	            });
+	
+	            emailInput.addEventListener('input', function () {
+	                nospace-email.show();
+	            });
+	
+	            passwordInput.addEventListener('input', function () {
+	                nospace-password.show();
+	            });
+	
+	            phoneInput.addEventListener('input', function () {
+	                nospace-phone.show();
+			  	});
+			  $('input').on('input', function() {
+	            if ($(this).val().indexOf(' ') !== -1) {
+	                toastr.error('Không được nhập dấu cách.');
+	            }
+        		});
+			});
+	</script>
 </body>
 <script>document.getElementById("Nam").setAttribute("checked", "checked")</script>
 <script th:src="@{https://code.jquery.com/jquery-3.6.0.js}"></script>
@@ -96,50 +149,5 @@
 	});
 	
 </script>
-<script>
-	$(document).ready(function () {
-		var passwordInput = $("#password");
-		var confirmPasswordInput = $("#confirmPassword");
-		var passwordMatchError = $("#passwordMatchError");
-		var registerBtn = $("#registerBtn");
 
-		confirmPasswordInput.on("blur", function () {
-			var password = passwordInput.val();
-			var confirmPassword = confirmPasswordInput.val();
-
-			if (password !== confirmPassword) {
-				passwordMatchError.show();
-				registerBtn.prop("disabled", true);
-			} else {
-				passwordMatchError.hide();
-				registerBtn.prop("disabled", false);
-			}
-		});
-	});
-</script>
-<script>
-	$(document).ready(function() {
-		  var usernameInput = document.querySelector('input[name="username"]');
-            var emailInput = document.querySelector('input[name="email"]');
-            var passwordInput = document.querySelector('input[name="password"]');
-            var phoneInput = document.querySelector('input[name="phone"]');
-
-            // Add event listeners to the input fields to prevent spaces
-            usernameInput.addEventListener('input', function () {
-                this.value = this.value.replace(/\s/g, '');
-            });
-
-            emailInput.addEventListener('input', function () {
-                this.value = this.value.replace(/\s/g, '');
-            });
-
-            passwordInput.addEventListener('input', function () {
-                this.value = this.value.replace(/\s/g, '');
-            });
-
-            phoneInput.addEventListener('input', function () {
-                this.value = this.value.replace(/\s/g, '');
-		  });
-		});
-</script>
 </html>
