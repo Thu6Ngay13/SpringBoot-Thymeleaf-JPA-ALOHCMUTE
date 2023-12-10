@@ -25,4 +25,6 @@ public interface INhomService {
 	void addMember(String tk, int nhom);
 
 	void Save(Nhom nhom);
+
+	boolean createGroup(String username, String groupName, String CheDo);
 }

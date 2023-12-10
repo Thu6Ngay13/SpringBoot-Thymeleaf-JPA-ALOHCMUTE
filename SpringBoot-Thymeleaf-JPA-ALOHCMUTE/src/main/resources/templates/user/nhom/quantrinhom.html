@@ -32,6 +32,18 @@
 			}
 
 		}
+		.buttonXem {
+			border-radius: 10px;
+			background-color: #1673FD;
+			color: white;
+			border: none;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 18px;
+			height: 45px;
+			width: 210px;
+		}
 
 		.tab button.active {
 			background-color: rgb(255, 255, 255);
@@ -47,6 +59,8 @@
 
 	<section layout:fragment="content">
 		<main class="container">
+			<button class="buttonXem" style="position: absolute; left: 1000px;" th:onclick="location.href='/user/group/viewgroup?groupID=[[${nhom.maNhom}]]';">
+				<img src="https://static.thenounproject.com/png/12626-200.png" width="20px" height="20px" style="margin-right: 10px; margin-bottom: 5px;">Về trang nhóm</button>
 			<form action="#" th:action="@{/user/group/saveEdit}" method="post">
 				<label for="fname">Tên nhóm</label>
 				<br>

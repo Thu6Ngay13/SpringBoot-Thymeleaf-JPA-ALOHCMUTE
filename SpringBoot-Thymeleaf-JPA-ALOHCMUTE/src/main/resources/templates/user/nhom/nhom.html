@@ -80,9 +80,15 @@
 							</div>
 
 						</form>
-						<div th:if="${Nhom.taiKhoanTruongNhom.taiKhoan==username}">
+						<div th:if="${Nhom.taiKhoanTruongNhom.taiKhoan==username} and ${#lists.size(thanhvien)!=0}">
 							<input type="hidden" name="groupID" th:value="${Nhom.maNhom}" />
 							<button class="buttonNhom" style="background-color: crimson;" id="myBtn"><img
+									src="https://cdn-icons-png.flaticon.com/512/2457/2457271.png" width="15px"
+									height="15px" style="margin-right: 10px; margin-bottom: 3px;" type="button">Rời nhóm</button>
+						</div>
+						<div th:if="${Nhom.taiKhoanTruongNhom.taiKhoan==username} and ${#lists.size(thanhvien)==0}">
+							<input type="hidden" name="groupID" th:value="${Nhom.maNhom}" />
+							<button class="buttonNhom" style="background-color: crimson;" onclick="error()"><img
 									src="https://cdn-icons-png.flaticon.com/512/2457/2457271.png" width="15px"
 									height="15px" style="margin-right: 10px; margin-bottom: 3px;" type="button">Rời nhóm</button>
 						</div>
@@ -138,12 +144,7 @@
 
 							</p>
 
-							<span th:switch="${baiViet.cheDoNhom.tenCheDo}">
-								<span class="material-icons icon-public" th:case="'Công khai'">public</span>
-								<span class="material-icons icon-public" th:case="'Riêng tư'">lock</span>
-								<span class="material-icons icon-public" th:case="'Người theo dõi'">group</span>
-								<!-- Add more cases as needed -->
-							</span>
+								<img src="https://cdn0.iconfinder.com/data/icons/social-media-glyph-1/64/Facebook_Social_Media_User_Interface-39-512.png" width="28px" height="28px">
 						</div>
 
 						<div class="report-icon">
@@ -294,6 +295,11 @@
 				if (event.target == modal) {
 					modal.style.display = "none";
 				}
+			}
+		</script>
+		<script>
+			function error() {
+				alert("Không thể rời do không có thành viên để ủy quyền")
 			}
 		</script>
 

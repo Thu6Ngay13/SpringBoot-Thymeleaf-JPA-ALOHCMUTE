@@ -1,6 +1,8 @@
 package hcmute.alohcmute.services;
 
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 
 
@@ -15,12 +17,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import hcmute.alohcmute.entities.TaiKhoan;
+import hcmute.alohcmute.entities.ThongBao;
 import hcmute.alohcmute.repositories.TaiKhoanRepository;
+import hcmute.alohcmute.repositories.ThongBaoRepository;
 
 @Service
 public class TaiKhoanServiceImpl implements ITaiKhoanService{
 	@Autowired
 	TaiKhoanRepository tkRepo;
+	@Autowired
+	IThongBaoService tbSer;
 	
 	public TaiKhoanServiceImpl(TaiKhoanRepository tkRepo) {
 		super();
@@ -56,8 +62,13 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 	@Override
 	@Transactional
 	public void unfollow(TaiKhoan taiKhoanTheoDoi, TaiKhoan taiKhoanBiTheoDoi) {
-	
 	        taiKhoanTheoDoi.getTaiKhoanTheoDois().remove(taiKhoanBiTheoDoi);
+	        ThongBao tb = new ThongBao();
+		    tb.setNgay(LocalDate.now());
+		    tb.setNoiDung(taiKhoanTheoDoi.getTaiKhoan()+" vừa hủy theo dõi bạn trong ALOHCMUTE");
+		    tb.setTaiKhoan(taiKhoanBiTheoDoi);
+		    tb.setThoiGian(LocalTime.now());
+		    tbSer.save(tb);
 	   	 	tkRepo.save(taiKhoanTheoDoi);
 	    
 	}
@@ -65,6 +76,12 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 	public void follow(TaiKhoan taiKhoan, TaiKhoan taiKhoanTheoDoi) {
 	
 	    taiKhoan.getTaiKhoanTheoDois().add(taiKhoanTheoDoi);
+	    ThongBao tb = new ThongBao();
+	    tb.setNgay(LocalDate.now());
+	    tb.setNoiDung(taiKhoan.getTaiKhoan()+" vừa theo dõi bạn trong ALOHCMUTE");
+	    tb.setTaiKhoan(taiKhoanTheoDoi);
+	    tb.setThoiGian(LocalTime.now());
+	    tbSer.save(tb);
 	    tkRepo.save(taiKhoan);
 	}
 	

@@ -132,19 +132,27 @@ public class DangBaiController{
 	            tb.setThoiGian(java.time.LocalTime.now());
 	            tbSer.save(tb);
 	        }
-			CheDo chedo=chedoSer.findByCheDo(tenchedo);
-			baiviet.setCheDoNhom(chedo);
+			
 			if (!manhom.equals(""))
 			{
 				int grID = Integer.parseInt(manhom);
 				Nhom nhom = nhomSer.findBymaNhom(grID);
 				baiviet.setNhom(nhom);
+				CheDo chedo=chedoSer.findByID(4).get();
+				baiviet.setCheDoNhom(chedo);
+			}
+			else {
+				CheDo chedo=chedoSer.findByCheDo(tenchedo);
+				baiviet.setCheDoNhom(chedo);
 			}
 			baiviet.setNgay(LocalDate.now());
 			baiviet.setThoiGian(LocalTime.now());
 			baivietSer.save(baiviet);
 		}
-		return "redirect:/user/newfeed";
+		if (!manhom.equals("")) {
+			return "redirect:/user/group/viewgroup?groupID="+manhom;
+		}
+		else return "redirect:/user/newfeed";
 	}
 	
 }

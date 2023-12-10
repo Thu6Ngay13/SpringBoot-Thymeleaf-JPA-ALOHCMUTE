@@ -67,17 +67,42 @@
 
 	<section layout:fragment="content">
 		<main class="container" style="margin-left: 240px;">
+			<div th:if="${success}">
+				<script th:inline="javascript">
+					/*<![CDATA[*/
+					var success = /*[[${success}]]*/ null;
+					if (success === 'Thành công') {
+						alert('Tạo nhóm thành công');
+					} else if (success === 'Thất bại') {
+						alert('Tạo nhóm thất bại, tên nhóm đã tồn tại');
+					}
+        			/*]]>*/
+
+				</script>
+			</div>
+			<div th:if="${mes}">
+				<script th:inline="javascript">
+					/*<![CDATA[*/
+					var requestjoin = /*[[${mes}]]*/ null;
+					if (requestjoin === 'Thành công') {
+						alert('Yêu cầu của bạn đã được gửi đến trưởng nhóm');
+					}
+        			/*]]>*/
+				</script>
+			</div>
 			<div class="tab" style="margin-left: -15px; margin-top: 1px;">
 				<button class="tablinks" onclick="openTab(event, 'TimKiem')" id="tk">Tìm kiếm nhóm</button>
 				<button class="tablinks" onclick="openTab(event, 'NhomCuaBan')">Nhóm của bạn</button>
 			</div>
+			<button class="buttonXem" style="position: absolute; left: 1100px; top:100px; width: 100px; height: 35px;"
+				id="TaoNhom">Tạo nhóm</button>
 			<div class="tabcontent" id="TimKiem">
 				<br>
 				<form action="#" th:action="@{/user/group/searchgroup}" method="get" id="searchgroup">
 					<div class="header__input" style="margin-top: 10px; width: 985px; margin-left: -5px;">
 						<span class="material-icons"> search </span>
 						<input type="text" placeholder="Tìm kiếm nhóm" size="50" name="groupName" />
-						
+
 					</div>
 				</form>
 				<div th:unless="${tenGroup==null}">
@@ -104,7 +129,8 @@
 								<div th:text="'Thành lập từ: '+ ${#temporals.format(key.ngayThanhLap, 'dd-MM-yyyy')}"
 									class="mb-1 text-muted"></div>
 								<p th:text="${'Chế độ: '+key.cheDoNhom.tenCheDo}" class="card-text mb-auto"></p>
-								<p th:text="${'Trưởng nhóm: '+key.taiKhoanTruongNhom.taiKhoan}" class="card-text mb-auto"></p>
+								<p th:text="${'Trưởng nhóm: '+key.taiKhoanTruongNhom.taiKhoan}"
+									class="card-text mb-auto"></p>
 								<div class="button-container">
 									<form action="#" th:action="@{/user/group/viewgroup}" method="get">
 										<input type="hidden" name="groupID" th:value="${key.maNhom}" />
@@ -130,7 +156,8 @@
 											<button type="submit" class="buttonXem"> Tham gia nhóm</button>
 										</div>
 										<div th:if="${List_Nhom_TimKiem.get(key)}==1">
-											<button type="submit" class="buttonXem" style="background-color: khaki; "disabled> Chờ xét duyệt</button>
+											<button type="submit" class="buttonXem" style="background-color: khaki; "
+												disabled> Chờ xét duyệt</button>
 										</div>
 									</form>
 								</div>
@@ -161,7 +188,8 @@
 								<div th:text="'Thành lập từ: '+ ${#temporals.format(key.ngayThanhLap, 'dd-MM-yyyy')}"
 									class="mb-1 text-muted"></div>
 								<p th:text="${'Chế độ: '+key.cheDoNhom.tenCheDo}" class="card-text mb-auto"></p>
-								<p th:text="${'Trưởng nhóm: '+key.taiKhoanTruongNhom.taiKhoan}" class="card-text mb-auto"></p>
+								<p th:text="${'Trưởng nhóm: '+key.taiKhoanTruongNhom.taiKhoan}"
+									class="card-text mb-auto"></p>
 								<div class="button-container">
 									<form action="#" th:action="@{/user/group/viewgroup}" method="get">
 										<input type="hidden" name="groupID" th:value="${key.maNhom}" />
@@ -176,7 +204,9 @@
 									</form>
 									<form action="#" th:action="@{/user/group/outgroup}" method="get">
 										<input type="hidden" name="groupID" th:value="${key.maNhom}" />
-										<div th:if="${List_Nhom.get(key)}">
+										<input type="hidden" name="ThanhVien" value="" />
+										<div
+											th:if="${List_Nhom.get(key)} and ${key.taiKhoanTruongNhom.taiKhoan!=username}">
 											<button type="submit" class="buttonXem" style="background-color: crimson;">
 												Rời nhóm</button>
 										</div>
@@ -185,6 +215,11 @@
 												disabled> Chờ xét duyệt</button>
 										</div>
 									</form>
+									<div th:if="${List_Nhom.get(key)} and ${key.taiKhoanTruongNhom.taiKhoan==username}">
+										<button type="button" class="buttonXem" style="background-color: crimson;"
+											onclick="NhomTruong()">
+											Rời nhóm</button>
+									</div>
 								</div>
 							</div>
 
@@ -192,8 +227,64 @@
 					</div>
 				</div>
 			</div>
+			<div id="myModal" class="modal2">
+
+				<!-- Modal content -->
+				<div class="modal-content">
+					<span class="close" id="closeModel">&times;</span>
+					<div class="button-container">
+						<form action="#" th:action="@{/user/group/creategroup}" method="post">
+							<label for="fname">Tên nhóm</label>
+							<br>
+							<input type="text" name="groupName" placeholder="Tên nhóm..." class="inputtext"
+								style="width: 980px;">
+							<br>
+							<label for="CheDo">Chế độ</label>
+							<br>
+							<select id="CheDo" name="CheDo" style="width: 980px;">
+								<option value="public" selected>Công khai</option>
+								<option value="private">Riêng tư</option>
+							</select>
+							<button style="margin-left:450px; width: 100px;" class="buttonXem">Tạo nhóm</button>
+						</form>
+					</div>
+				</div>
+
+			</div>
 
 		</main>
+		<script>
+			// Get the modal
+			var modal = document.getElementById("myModal");
+
+			// Get the button that opens the modal
+			var btn = document.getElementById("TaoNhom");
+
+			// Get the <span> element that closes the modal
+			var span = document.getElementById("closeModel");
+
+			// When the user clicks the button, open the modal 
+			btn.onclick = function () {
+				modal.style.display = "block";
+			}
+
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function () {
+				modal.style.display = "none";
+			}
+
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function (event) {
+				if (event.target == modal) {
+					modal.style.display = "none";
+				}
+			}
+		</script>
+		<script>
+			function NhomTruong() {
+				alert("Bạn là trưởng nhóm của nhóm này, vui lòng vào Xem nhóm để có thể ủy quyền và rời nhóm!")
+			}
+		</script>
 		<script>
 			function openTab(evt, TenNut) {
 				var i, tabcontent, tablinks;

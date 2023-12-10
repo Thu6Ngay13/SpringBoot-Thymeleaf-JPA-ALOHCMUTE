@@ -39,7 +39,7 @@ public class NhomController {
 	@Autowired
 	IBaiVietService baiVietSer;
 
-	String username = "thuycao816";
+	String username = "tien888";
 
 	@GetMapping("")
 	public String NhomCuaBan(ModelMap model) {
@@ -54,6 +54,7 @@ public class NhomController {
 		}
 		// model.addAttribute("listnhom",listnhom);
 		model.addAttribute("List_Nhom", List_Nhom);
+		model.addAttribute("username",username);
 		return "user/nhom/nhomcuaban.html";
 	}
 
@@ -103,9 +104,7 @@ public class NhomController {
 		NhomCuaBan(model);
 		model.addAttribute("tenGroup", groupName);
 		model.addAttribute("empty", empty);
-		for (Nhom lisNhom : listnhomTimKiem) {
-			System.out.println(lisNhom.getTenNhom());
-		}
+		model.addAttribute("username",username);
 		return "user/nhom/nhomcuaban.html";
 	}
 
@@ -115,8 +114,8 @@ public class NhomController {
 		int GrID = Integer.parseInt(groupID);
 		Nhom nhom = NhomSer.findBymaNhom(GrID);
 		NhomSer.sendRequestToGroup(tk, nhom);
-		NhomCuaBan(model);
-		return "user/nhom/nhomcuaban.html";
+		model.addAttribute("mes","Thành công");
+		return NhomCuaBan(model);
 	}
 
 	@GetMapping("outgroup")
@@ -215,5 +214,14 @@ public class NhomController {
 		}
 		model.addAttribute("listbanbe", kq);
 		return "user/dangbai/dangbai.html";
+	}
+	
+	@PostMapping("creategroup")
+	public String TaoNhom(ModelMap model, @RequestParam("groupName") String groupName,@RequestParam("CheDo") String CheDo) {
+		boolean Success= NhomSer.createGroup(username, groupName, CheDo);
+		if (Success)
+			model.addAttribute("success","Thành công");
+		else model.addAttribute("success","Thất bại");
+		return NhomCuaBan(model);
 	}
 }
