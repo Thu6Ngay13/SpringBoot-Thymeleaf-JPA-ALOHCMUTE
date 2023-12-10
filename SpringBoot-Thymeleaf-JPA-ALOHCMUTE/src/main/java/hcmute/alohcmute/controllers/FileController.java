@@ -1,7 +1,5 @@
 package hcmute.alohcmute.controllers;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -34,16 +32,6 @@ public class FileController {
 	
 	@Autowired
 	ITaiKhoanService taiKhoanService;
-
-	@GetMapping("/xxx")
-	public String homepage() {
-		return "redirect:/files";
-	}
-
-	@GetMapping("/files/new")
-	public String newFile(Model model) {
-		return "upload_form";
-	}
 
 	@PostMapping("/files/upload/{taikhoan}")
 	public ModelAndView uploadFile(Model model, @RequestParam("file") MultipartFile file,

@@ -24,6 +24,6 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, String> {
 	@Query("SELECT count(t) FROM TaiKhoan t JOIN t.taiKhoanTheoDois u WHERE u.taiKhoan = :taiKhoanUsername")
 	int countTaiKhoanFollowersByUsername(String taiKhoanUsername);
 	
-	@Query("SELECT t.taiKhoanTheoDois FROM TaiKhoan t WHERE t.taiKhoan = :taiKhoanUsername ORDER BY t.id DESC LIMIT 5")
+	@Query("SELECT t.taiKhoanTheoDois FROM TaiKhoan t WHERE t.taiKhoan = :taiKhoanUsername ORDER BY t.id DESC LIMIT 4")
     List<TaiKhoan> findTop5TaiKhoanTheoDoisByUsername(String taiKhoanUsername);
 }

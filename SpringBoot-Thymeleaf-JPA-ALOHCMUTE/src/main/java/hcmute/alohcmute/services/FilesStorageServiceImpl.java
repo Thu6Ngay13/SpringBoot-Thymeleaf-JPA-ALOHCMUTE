@@ -42,7 +42,6 @@ public class FilesStorageServiceImpl implements FilesStorageService {
 
   @Override
   public Resource load(String filename) {
-	  System.out.println(root);
     try {
       Path file = root.resolve(filename);
       Resource resource = new UrlResource(file.toUri());

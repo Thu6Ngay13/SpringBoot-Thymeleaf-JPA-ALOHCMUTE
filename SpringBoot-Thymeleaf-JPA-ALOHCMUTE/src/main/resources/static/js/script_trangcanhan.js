@@ -1,33 +1,64 @@
-$(document).ready(function() {
-	// Tab click event handling
-	$('.nav-link').on('click', function(e) {
-		e.preventDefault(); // Prevent the default action of the anchor tag
+$('.dropdown-toggle').on('click', function(e) {
+	var $dropdownMenu = $(this).siblings('.dropdown-menu');
 
-		// Remove 'active' class from all tabs and 'show' class from tab content
-		$('.nav-link').removeClass('active');
-		$('.tab-pane').removeClass('show active');
+	$('.dropdown-menu').not($dropdownMenu).removeClass('show');
 
-		// Add 'active' class to the clicked tab
-		$(this).addClass('active');
+	$dropdownMenu.toggleClass('show');
+});
 
-		// Get the target tab pane and show it
-		var target = $(this).attr('href');
-		$(target).addClass('show active');
-	});
-	
-	$('.dropdown-toggle').on('click', function(e) {
-		e.stopPropagation();
+$(document).on('click', function(e) {
+	var $target = $(e.target);
+	if (!$target.closest('.dropdown').length) {
+		$('.dropdown-menu').removeClass('show');
+	}
+});
 
-		var $dropdownMenu = $(this).siblings('.dropdown-menu');
+document.addEventListener('DOMContentLoaded', function() {
+	// Lắng nghe sự kiện click vào nút có id="edit-btn"
+	document.getElementById('edit-btn').addEventListener('click', function() {
+		// Lấy phần tử chứa thông tin người dùng và biểu mẫu chỉnh sửa
+		var viewInfo = document.getElementById('view-info');
+		var editInfo = document.getElementById('edit-info');
 
-		$('.dropdown-menu').not($dropdownMenu).removeClass('show');
-
-		$dropdownMenu.toggleClass('show');
-	});
-
-	$(document).on('click', function(e) {
-		if (!$('.dropdown').is(e.target) && $('.dropdown').has(e.target).length === 0) {
-			$('.dropdown-menu').removeClass('show');
+		// Kiểm tra trạng thái hiển thị của các phần tử
+		if (viewInfo.style.display === 'block' || viewInfo.style.display === '') {
+			// Ẩn phần tử hiển thị thông tin
+			viewInfo.style.display = 'none';
+			// Hiển thị phần tử biểu mẫu chỉnh sửa
+			editInfo.style.display = 'block';
 		}
+
+		// Lấy phần tử chứa nút "Edit"
+		var editButton = document.getElementById('edit-btn');
+
+		// Ẩn nút "Edit"
+		editButton.style.display = 'none';
 	});
 });
+// Function to handle cancel button click
+function cancelEdit() {
+	document.getElementById('view-info').style.display = 'block'; // Hiển thị phần thông tin
+	document.getElementById('edit-info').style.display = 'none'; // Ẩn phần chỉnh sửa
+	// Lấy phần tử chứa nút "Edit"
+	var editButton = document.getElementById('edit-btn');
+
+	// Ẩn nút "Edit"
+	editButton.style.display = 'block';
+}
+// JavaScript để điều khiển hiển thị modal
+function openModal() {
+	document.getElementById("myModal").style.display = "block";
+}
+
+function closeModal() {
+	document.getElementById("myModal").style.display = "none";
+}
+document.getElementById('input-file').addEventListener('change', function() {
+	var uploadBtn = document.getElementById('uploadBtn');
+	if (this.files.length > 0) {
+		uploadBtn.style.display = 'block';
+	} else {
+		uploadBtn.style.display = 'none';
+	}
+});
+

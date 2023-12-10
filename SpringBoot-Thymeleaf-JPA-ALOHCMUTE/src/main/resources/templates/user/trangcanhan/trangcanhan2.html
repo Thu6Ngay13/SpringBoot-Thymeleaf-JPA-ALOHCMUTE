@@ -27,8 +27,8 @@
 										</div>
 									</div>
 									<div class="timeline-btn">
-										<a href="#" class="btn btn-primary waves-effect waves-light m-r-10">follows</a>
-										<a href="#" class="btn btn-primary waves-effect waves-light">Send Message</a>
+										<!--<a href="#" class="btn btn-primary waves-effect waves-light m-r-10">follows</a>-->
+										<a href="#" class="btn btn-primary waves-effect waves-light">Trang chủ</a>
 									</div>
 
 								</div>
@@ -39,7 +39,14 @@
 									<div class="social-timeline-left">
 										<div class="card">
 											<div class="social-profile">
-												<img class="img-fluid width-100" th:src="${taikhoan.avatarURl}" alt="">
+												<img class="img-fluid width-100" alt=""
+													th:if="${taikhoan.avatarURl != null and taikhoan.avatarURl.startsWith('http')}"
+													th:src="${taikhoan.avatarURl}" />
+
+												<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+												<img class="img-fluid width-100" alt=""
+													th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
+													th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
 												<div class="profile-hvr m-t-15">
 													<i class="icofont icofont-ui-edit p-r-10"></i>
 													<i class="icofont icofont-ui-delete"></i>
@@ -48,17 +55,16 @@
 											<div class="card-block social-follower">
 												<h4 th:text="${taikhoan.hoTen}">Ho ten</h4>
 												<h5 th:text="${taikhoan.taiKhoan}">Ten nguoi dung</h5>
-
 												<div class="">
 													<div th:if="${follows}">
 														<a th:href="@{'/trangcanhan/deleteTaiKhoanTheoDoi/' + ${taikhoan.taiKhoan} + '/user1'}"
 															class="btn btn-outline-primary waves-effect btn-block"><i
-																class="icofont icofont-ui-user m-r-10"></i>Unfollows</a>
+																class="icofont icofont-ui-user m-r-10"></i>Bỏ theo dõi</a>
 													</div>
 													<div th:unless="${follows}"> 
 														<a th:href="@{'/trangcanhan/theoDoiTaiKhoan/' + ${taikhoan.taiKhoan} + '/user1'}"
 															class="btn btn-outline-primary waves-effect btn-block"><i
-																class="icofont icofont-ui-user m-r-10"></i>Follows</a>
+																class="icofont icofont-ui-user m-r-10"></i>Theo dõi</a>
 													</div>
 
 												</div>
@@ -74,9 +80,18 @@
 											</div>
 											<div class="card-block friend-box">
 												<span th:each="ac : ${top5taikhoanduoctheodoi}">
-													<img class="media-object img-radius" th:src="${ac.avatarURl}" alt=""
-														data-toggle="tooltip" data-placement="top" title=""
-														data-original-title="user image">
+													<img class="media-object img-radius" alt=""
+														th:if="${ac.avatarURl != null and ac.avatarURl.startsWith('http')}"
+														th:src="${ac.avatarURl}" data-toggle="tooltip"
+														data-placement="top" title=""
+														data-original-title="user image" />
+
+													<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+													<img class="media-object img-radius" alt=""
+														th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
+														th:src="@{'/files/' + ${ac.avatarURl}}" data-toggle="tooltip"
+														data-placement="top" title=""
+														data-original-title="user image" />
 												</span>
 											</div>
 										</div>
@@ -91,10 +106,21 @@
 													<div class="media m-b-10">
 														<a class="media-left"
 															th:href="@{'/trangcanhan/thongtintaikhoan/' + ${ac.taiKhoan}}">
+
 															<img class="media-object img-radius"
-																th:src="${ac.avatarURl}" alt="Generic placeholder image"
+																alt="Generic placeholder image"
+																th:if="${ac.avatarURl != null and ac.avatarURl.startsWith('http')}"
+																th:src="${ac.avatarURl}" data-toggle="tooltip"
+																data-placement="top" title=""
+																data-original-title="user image" />
+
+															<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+															<img class="media-object img-radius"
+																alt="Generic placeholder image"
+																th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
+																th:src="@{'/files/' + ${ac.avatarURl}}"
 																data-toggle="tooltip" data-placement="top" title=""
-																data-original-title="user image">
+																data-original-title="user image" />
 															<div class="live-status bg-danger"></div>
 														</a>
 														<div class="media-body">
@@ -109,12 +135,68 @@
 														</div>
 													</div>
 												</div>
+												<div th:if="${sotaikhoandangtheodoi > 4}" class="col-md-12 text-md-right mt-3">
+													<button type="button"
+														class="btn btn-outline-primary waves-effect btn-block"
+														onclick="openModal()"><i
+															class="icofont icofont-ui-user m-r-10"></i>Xem thêm</button>
+												</div>
+												<!-- Modal -->
+												<div id="myModal" class="modal">
+													<div class="modal-content">
+														<!-- Phần tiêu đề cố định -->
+														<div class="modal-title">
+															<span class="close" onclick="closeModal()">&times;</span>
+															<h5>Đang theo dõi</h5>
+														</div>
+														<!-- Phần nội dung bên dưới tiêu đề -->
+														<div class="modal-body">
+															<div class="row">
+																<div class="col-lg-12 col-xl-6"
+																	th:each="ac : ${taikhoandangtheodoi}">
+																	<div class="card">
+																		<div class="card-block post-timelines">
+																			<div class="media bg-white d-flex">
+																				<div class="media-left media-middle">
+																					<a
+																						th:href="@{'/trangcanhan/thongtintaikhoan/' + ${ac.taiKhoan}}">
+																			
+																						<img class="media-object"
+																							width="120"
+																							alt=""
+																							th:if="${ac.avatarURl != null and ac.avatarURl.startsWith('http')}"
+																							th:src="${ac.avatarURl}" />
+
+																						<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+																						<img class="media-object"
+																							width="120"
+																							alt=""
+																							th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
+																							th:src="@{'/files/' + ${ac.avatarURl}}" />
+																					</a>
+																				</div>
+																				<div class="media-body friend-elipsis">
+																					<a
+																						th:href="@{'/trangcanhan/thongtintaikhoan/' + ${ac.taiKhoan}}">
+																						<div class="f-15 f-bold m-b-5"
+																							th:text="${ac.hoTen}">Ho ten
+																						</div>
+																					</a>
+																					<div class="text-muted social-designation"
+																						th:text="${ac.taiKhoan}">
+																						Tai khoan</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
 
 											</div>
 										</div>
-
-
-
 									</div>
 
 								</div>
@@ -123,30 +205,37 @@
 									<div class="card social-tabs">
 										<ul class="nav nav-tabs md-tabs tab-timeline" role="tablist">
 											<li class="nav-item">
-												<a class="nav-link active" data-toggle="tab" th:href="@{#timeline}"
-													role="tab">Bài viết</a>
+												<a class="nav-link" data-toggle="tab"
+													th:classappend="${tab=='timeline'} ? 'active'"
+													th:href="@{'?tab=timeline'}" role="tab">Bài viết</a>
+												<div class="slide"></div>
+											</li>
+
+											<li class="nav-item">
+												<a class="nav-link" data-toggle="tab"
+													th:classappend="${tab=='about'} ? 'active'"
+													th:href="@{'?tab=about'}" role="tab">Giới thiệu</a>
 												<div class="slide"></div>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" data-toggle="tab" th:href="@{#about}"
-													role="tab">Giới thiệu</a>
+												<a class="nav-link" data-toggle="tab"
+													th:classappend="${tab=='photos'} ? 'active'"
+													th:href="@{'?tab=photos'}" role="tab">Ảnh</a>
 												<div class="slide"></div>
 											</li>
 											<li class="nav-item">
-												<a class="nav-link" data-toggle="tab" href="#photos" role="tab">Ảnh</a>
-												<div class="slide"></div>
-											</li>
-											<li class="nav-item">
-												<a class="nav-link" data-toggle="tab" href="#friends" role="tab">Theo
-													dõi</a>
+												<a class="nav-link" data-toggle="tab"
+													th:classappend="${tab=='friends'} ? 'active'"
+													th:href="@{'?tab=friends'}" role="tab">Người theo dõi</a>
 												<div class="slide"></div>
 											</li>
 										</ul>
 									</div>
 
 									<div class="tab-content">
-										<div class="tab-pane active" id="timeline">
-											<div th:each="bv : ${baiviet}">
+										<div class="tab-pane" id="timeline"
+											th:classappend="${tab=='timeline'} ? 'active'">
+											<div th:each="bv : ${baivietmodel}">
 												<div class="f-30 text-muted text-center">
 													<span th:text="${bv.ThoiGian}"></span>
 													<span th:text="${bv.Ngay}"></span>
@@ -157,8 +246,15 @@
 															<div class="row timeline-right p-t-35">
 																<div class="col-2 col-sm-2 col-xl-1">
 																	<div class="social-timelines-left">
-																		<img class="img-radius timeline-icon"
-																			th:src="${taikhoan.avatarURl}" alt="">
+																		<img class="img-radius timeline-icon" alt=""
+																			th:if="${taikhoan.avatarURl != null and taikhoan.avatarURl.startsWith('http')}"
+																			th:src="${taikhoan.avatarURl}" />
+
+																		<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+																		<img class="img-radius timeline-icon" alt=""
+																			th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
+																			th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
+
 																	</div>
 																</div>
 																<div class="col-10 col-sm-10 col-xl-11 p-l-5 p-b-35">
@@ -172,19 +268,30 @@
 																						ten
 																					</div>
 																					<div class="text-muted social-designation"
-																						th:text="${taikhoan.nickName}">
-																						nick name</div>
+																						th:text="${taikhoan.taiKhoan}">
+																						Tai khoan</div>
 																				</div>
 																			</div>
 																		</div>
 
-																		<img th:src="${bv.noiDungHinhAnh}"
+																		<img th:if="${bv.noiDungHinhAnh != null and bv.noiDungHinhAnh.startsWith('http')}"
+																			th:src="${bv.noiDungHinhAnh}"
 																			class="img-fluid width-100" alt="">
+																		<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+																		<img class="img-fluid width-100" alt=""
+																			th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http')}"
+																			th:src="@{'/files/' + ${bv.noiDungHinhAnh}}" />
+
 																		<div class="card-block">
 																			<div class="timeline-details">
-																				<div class="chat-header"><span
-																						th:text="${taikhoan.hoTen}"></span>
-																					đã đăng lên dòng trạng thái </div>
+																				<div class="p-b-30"> <span class="f-14">
+																						<a
+																							th:href="@{/user/comment/{baiVietId}(baiVietId=${bv.maBaiViet})}"><span
+																								th:text="${taikhoan.hoTen}"></span>
+																							đã đăng lên dòng trạng
+																							thái</a></span>
+																				</div>
+
 																				<p class="text-muted"
 																					th:text="${bv.noiDungChu}">
 																				</p>
@@ -192,105 +299,19 @@
 																		</div>
 																		<div
 																			class="card-block b-b-theme b-t-theme social-msg">
-																			<a href="#"> <i
+																			<span> <i
 																					class="icofont icofont-heart-alt text-muted"></i><span
-																					class="b-r-muted">Like <span
+																					class="b-r-muted">Like<span
 																						th:text="${bv.soTuongTac}"></span>
-																			</a>
-																			<a href="#"> <i
+																			</span>
+																			<span> <i
 																					class="icofont icofont-comment text-muted"></i>
 																				<span class="b-r-muted">Comments
 																					<span
-																						th:text="${bv.soComment}"></span></span></a>
-																			<a href="#"> <i
-																					class="icofont icofont-share text-muted"></i>
-																				<span>Share (10)</span></a>
+																						th:text="${bv.soComment}"></span></span></span>
+
 																		</div>
-																		<div class="card-block user-box">
-																			<div class="p-b-30"> <span class="f-14"><a
-																						href="#">Comments
-																						(110)</a></span><span
-																					class="f-right">see all
-																					comments</span>
-																			</div>
-																			<div class="media m-b-20">
-																				<a class="media-left" href="#">
-																					<img class="media-object img-radius m-r-20"
-																						src="https://bootdey.com/img/Content/avatar/avatar2.png"
-																						alt="Generic placeholder image">
-																				</a>
-																				<div
-																					class="media-body b-b-muted social-client-description">
-																					<div class="chat-header">About Marta
-																						Williams<span
-																							class="text-muted">Jane 10,
-																							2015</span></div>
-																					<p class="text-muted">lorem ipsum
-																						dolor
-																						sit amet, consectetur
-																						adipisicing
-																						elit, sed do eiusmod tempor
-																						incididunt ut labore et dolore
-																						magna
-																						aliqua.Lorem ipsum dolor sit
-																						amet,
-																						consectetur adipisicing elit,
-																						sed do
-																						eiusmod tempor incididunt ut
-																						labore
-																						et dolore magna aliqua.</p>
-																				</div>
-																			</div>
-																			<div class="media m-b-20">
-																				<a class="media-left" href="#">
-																					<img class="media-object img-radius m-r-20"
-																						src="https://bootdey.com/img/Content/avatar/avatar3.png"
-																						alt="Generic placeholder image">
-																				</a>
-																				<div
-																					class="media-body b-b-muted social-client-description">
-																					<div class="chat-header">About Marta
-																						Williams<span
-																							class="text-muted">Jane 11,
-																							2015</span></div>
-																					<p class="text-muted">lorem ipsum
-																						dolor
-																						sit amet, consectetur
-																						adipisicing
-																						elit, sed do eiusmod tempor
-																						incididunt ut labore et dolore
-																						magna
-																						aliqua.Lorem ipsum dolor sit
-																						amet,
-																						consectetur adipisicing elit,
-																						sed do
-																						eiusmod tempor incididunt ut
-																						labore
-																						et dolore magna aliqua.</p>
-																				</div>
-																			</div>
-																			<div class="media">
-																				<a class="media-left" href="#">
-																					<img class="media-object img-radius m-r-20"
-																						src="https://bootdey.com/img/Content/avatar/avatar4.png"
-																						alt="Generic placeholder image">
-																				</a>
-																				<div class="media-body">
-																					<form class="">
-																						<div class="">
-																							<textarea rows="5" cols="5"
-																								class="form-control"
-																								placeholder="Write Something here..."></textarea>
-																							<div
-																								class="text-right m-t-20">
-																								<a href="#"
-																									class="btn btn-primary waves-effect waves-light">Post</a>
-																							</div>
-																						</div>
-																					</form>
-																				</div>
-																			</div>
-																		</div>
+
 																	</div>
 																</div>
 															</div>
@@ -298,10 +319,26 @@
 													</div>
 												</div>
 											</div>
+											<div class="box-footer clearfix">
+												<ul class="pagination pagination-sm no-margin pull-right">
 
+													<li th:if="${currentPageTimeline>1}"><a
+															th:href="@{'?tab=timeline'+'&pageNoTimeline='+${currentPageTimeline-1}}">
+															<<</a>
+													</li>
+													<li th:each="i:${#numbers.sequence(1,totalPageTimeline)}"
+														th:classappend="${currentPageTimeline==i? 'active' : ''}">
+														<a th:if="${i != 0}" th:href="@{'?tab=timeline'+'&pageNoTimeline='+${i}}"
+															th:text="${i}"></a>
+													</li>
+													<li th:if="${currentPageTimeline<totalPageTimeline}"><a
+															th:href="@{'?tab=timeline'+'&pageNoTimeline='+${currentPageTimeline+1}}">>></a>
+													</li>
+												</ul>
+											</div>
 										</div>
 
-										<div class="tab-pane" th:id="about">
+										<div class="tab-pane" th:id="about" th:classappend="${tab=='about'} ? 'active'">
 											<div class="row">
 												<div class="col-sm-12">
 													<div class="card">
@@ -347,76 +384,31 @@
 																	</tbody>
 																</table>
 															</div>
-															<div id="edit-info" class="row" style="display: none;">
-																<div class="col-lg-12 col-md-12">
-																	<form class="form-spacing"
-																		th:action="@{/trangcanhan/update/{user}(user=${taikhoan.taiKhoan})}"
-																		method="post">
-																		<div class="input-group">
-																			<input type="text" class="form-control"
-																				name="hoTen" placeholder="Họ tên"
-																				th:value="${taikhoan.hoTen}">
-																		</div>
-																		<div class="input-group">
-																			<div class="form-radio">
-																				<div class="form-radio">
-																					<label class="md-check p-0">Giới
-																						tính</label>
-																					<div class="radio radio-inline">
-																						<label>
-																							<input type="radio"
-																								name="gioiTinh"
-																								value="Nam"
-																								th:checked="${taikhoan.gioiTinh == 'Nam'}">
-																							<i class="helper"></i>Nam
-																						</label>
-																					</div>
-																					<div class="radio radio-inline">
-																						<label>
-																							<input type="radio"
-																								name="gioiTinh"
-																								value="Nữ"
-																								th:checked="${taikhoan.gioiTinh == 'Nữ'}">
-																							<i class="helper"></i>Nữ
-																						</label>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																		<div class="input-group">
-																			<input type="text" class="form-control"
-																				name="sDT" placeholder="Số điện thoại"
-																				th:value="${taikhoan.sDT}">
-																		</div>
-																		<div class="input-group">
-																			<input type="text" class="form-control"
-																				name="email" placeholder="Địa chỉ email"
-																				th:value="${taikhoan.email}">
-																		</div>
-
-																	</form>
-
-																</div>
-															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 
-										<div class="tab-pane" id="photos">
+										<div class="tab-pane" id="photos" th:classappend="${tab=='photos'} ? 'active'">
 											<div class="card">
 
 												<div class="card-block">
 													<div class="demo-gallery">
 														<ul id="profile-lightgallery" class="row">
 															<li class="col-md-4 col-lg-2 col-sm-6 col-xs-12"
-																th:each="bv : ${baiviet}">
+																th:each="bv : ${baivietmodel}">
 																<a href="#" data-toggle="lightbox"
 																	data-title="A random title"
 																	data-footer="A custom footer text">
-																	<img th:src="${bv.noiDungHinhAnh}" class="img-fluid"
-																		alt="">
+																	<img class="img-fluid" alt=""
+																		th:if="${bv.noiDungHinhAnh != null and bv.noiDungHinhAnh.startsWith('http')}"
+																		th:src="${bv.noiDungHinhAnh}" />
+
+																	<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+																	<img class="img-fluid" alt=""
+																		th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http')}"
+																		th:src="@{'/files/' + ${bv.noiDungHinhAnh}}" />
 																</a>
 															</li>
 														</ul>
@@ -426,7 +418,8 @@
 											</div>
 										</div>
 
-										<div class="tab-pane" id="friends">
+										<div class="tab-pane" id="friends"
+											th:classappend="${tab=='friends'} ? 'active'">
 											<div class="row">
 												<div class="col-lg-12 col-xl-6" th:each="ac : ${taikhoantheodoi}">
 													<div class="card">
@@ -436,24 +429,48 @@
 																	<a
 																		th:href="@{'/trangcanhan/thongtintaikhoan/' + ${ac.taiKhoan}}">
 																		<img class="media-object" width="120"
-																			th:src="${ac.avatarURl}" alt="">
+																			alt="Generic placeholder image"
+																			th:if="${ac.avatarURl != null and ac.avatarURl.startsWith('http')}"
+																			th:src="${ac.avatarURl}" />
+
+																		<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+																		<img class="media-object" width="120"
+																			th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
+																			th:src="@{'/files/' + ${ac.avatarURl}}" />
+
 																	</a>
 																</div>
 																<div class="media-body friend-elipsis">
-
 																	<a
 																		th:href="@{'/trangcanhan/thongtintaikhoan/' + ${ac.taiKhoan}}">
 																		<div class="f-15 f-bold m-b-5"
 																			th:text="${ac.hoTen}">Ho ten</div>
 																	</a>
 																	<div class="text-muted social-designation"
-																		th:text="${ac.nickName}">
-																		nick name</div>
+																		th:text="${ac.taiKhoan}">
+																		Tai khoan</div>
 																</div>
 															</div>
 														</div>
 													</div>
 												</div>
+											</div>
+											<div class="box-footer clearfix">
+												<ul class="pagination pagination-sm no-margin pull-right">
+
+													<li th:if="${currentPageFriends>1}"><a
+															th:href="@{'?tab=friends'+'&pageNoFriends='+${currentPageFriends-1}}">
+															<<</a>
+													</li>
+													<li th:each="i:${#numbers.sequence(1,totalPageFriends)}"
+														th:classappend="${currentPageFriends==i? 'active' : ''}">
+														<a th:if="${i != 0}" th:href="@{'?tab=friends'+'&pageNoFriends='+${i}}"
+															th:text="${i}"></a>
+													</li>
+													<li th:if="${currentPageFriends<totalPageFriends}"><a
+															th:href="@{'?tab=friends'+'&pageNoFriends='+${currentPageFriends+1}}">>></a>
+													</li>
+												</ul>
 											</div>
 										</div>
 									</div>
@@ -467,82 +484,9 @@
 	</div>
 	<!-- Your existing HTML structure -->
 
-	<!-- Đoạn mã HTML -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		// Tab click event handling
-		$('.nav-link').on('click', function (e) {
-			e.preventDefault(); // Prevent the default action of the anchor tag
-
-			// Remove 'active' class from all tabs and 'show' class from tab content
-			$('.nav-link').removeClass('active');
-			$('.tab-pane').removeClass('show active');
-
-			// Add 'active' class to the clicked tab
-			$(this).addClass('active');
-
-			// Get the target tab pane and show it
-			var target = $(this).attr('href');
-			$(target).addClass('show active');
-		});
-
-	</script>
-
-	<script>
-		$('.dropdown-toggle').on('click', function (e) {
-			var $dropdownMenu = $(this).siblings('.dropdown-menu');
-
-			$('.dropdown-menu').not($dropdownMenu).removeClass('show');
-
-			$dropdownMenu.toggleClass('show');
-		});
-
-		$(document).on('click', function (e) {
-			var $target = $(e.target);
-			if (!$target.closest('.dropdown').length) {
-				$('.dropdown-menu').removeClass('show');
-			}
-		});
-
-	</script>
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-			// Lắng nghe sự kiện click vào nút có id="edit-btn"
-			document.getElementById('edit-btn').addEventListener('click', function () {
-				// Lấy phần tử chứa thông tin người dùng và biểu mẫu chỉnh sửa
-				var viewInfo = document.getElementById('view-info');
-				var editInfo = document.getElementById('edit-info');
-
-				// Kiểm tra trạng thái hiển thị của các phần tử
-				if (viewInfo.style.display === 'block' || viewInfo.style.display === '') {
-					// Ẩn phần tử hiển thị thông tin
-					viewInfo.style.display = 'none';
-					// Hiển thị phần tử biểu mẫu chỉnh sửa
-					editInfo.style.display = 'block';
-				}
-
-				// Lấy phần tử chứa nút "Edit"
-				var editButton = document.getElementById('edit-btn');
-
-				// Ẩn nút "Edit"
-				editButton.style.display = 'none';
-			});
-		});
-	</script>
-	<script>
-		// Function to handle cancel button click
-		function cancelEdit() {
-			document.getElementById('view-info').style.display = 'block'; // Hiển thị phần thông tin
-			document.getElementById('edit-info').style.display = 'none'; // Ẩn phần chỉnh sửa
-			// Lấy phần tử chứa nút "Edit"
-			var editButton = document.getElementById('edit-btn');
-
-			// Ẩn nút "Edit"
-			editButton.style.display = 'block';
-		}
-	</script>
-
-	<!--<script th:src="@{js/script_trangcanhan.js}"></script>-->
+	<script th:src="@{/js/script_trangcanhan.js}"></script>
+	
 </body>
 
 </html>

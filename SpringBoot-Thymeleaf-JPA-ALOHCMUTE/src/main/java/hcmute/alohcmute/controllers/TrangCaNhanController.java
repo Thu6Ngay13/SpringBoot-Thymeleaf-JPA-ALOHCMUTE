@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import groovyjarjarasm.asm.util.Printer;
 import hcmute.alohcmute.entities.BaiViet;
+import hcmute.alohcmute.entities.BinhLuan;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.models.BaiVietModel;
 import hcmute.alohcmute.models.TaiKhoanModel;
@@ -39,13 +42,20 @@ public class TrangCaNhanController {
 	@Autowired
 	ICommentService commentService;
 
-	@GetMapping("thongtintaikhoan/{taikhoan}")
-	public String thongTinTaiKhoan(ModelMap model, @PathVariable("taikhoan") String taikhoan) {
+	@GetMapping("thongtintaikhoan/{taikhoan}") 
+	public String thongTinTaiKhoan(ModelMap model, @PathVariable("taikhoan") String taikhoan,
+			@RequestParam(name = "pageNoFriends", defaultValue = "1") Integer pageNoFriends,
+			@RequestParam(name = "pageNoTimeline", defaultValue = "1") Integer pageNoTimeline,
+			@RequestParam(name = "tab", defaultValue = "timeline") String tab) {
 		Optional<TaiKhoan> optTaiKhoan = taiKhoanService.findById(taikhoan);
 		TaiKhoanModel taiKhoanModel = new TaiKhoanModel();
 
 		// danh sach tai khoan theo doi
-		List<TaiKhoan> taiKhoanTheoDoi = new ArrayList<>(taiKhoanService.findTaiKhoanFollowersByUsername(taikhoan));
+		//List<TaiKhoan> taiKhoanTheoDoi = new ArrayList<>(taiKhoanService.findTaiKhoanFollowersByUsername(taikhoan));
+		//model.addAttribute("taikhoantheodoi", taiKhoanTheoDoi);
+		Page<TaiKhoan> taiKhoanTheoDoi = taiKhoanService.getTaiKhoanTheoDoiByPage(taikhoan, pageNoFriends - 1, 8);
+		model.addAttribute("totalPageFriends", taiKhoanTheoDoi.getTotalPages());
+		model.addAttribute("currentPageFriends", pageNoFriends);
 		model.addAttribute("taikhoantheodoi", taiKhoanTheoDoi);
 
 		// danh sach dang tai khoan theo doi
@@ -69,8 +79,13 @@ public class TrangCaNhanController {
 		model.addAttribute("sotaikhoandangtheodoi", taiKhoanService.findTaiKhoanTheoDoisByUsername(taikhoan).size());
 
 		// danh sach bai viet cua user
-		List<BaiViet> listBaiViet = baiVietService.findAllBaiVietByUsername(taikhoan);
+		//List<BaiViet> listBaiViet = baiVietService.findAllBaiVietByUsername(taikhoan);
 		List<BaiVietModel> listBaiVietModel = new ArrayList<BaiVietModel>();
+		//TEST
+		Page<BaiViet> listBaiViet = baiVietService.getBaiVietByPage(taikhoan, pageNoTimeline - 1, 3);
+		model.addAttribute("totalPageTimeline", listBaiViet.getTotalPages());
+		model.addAttribute("currentPageTimeline", pageNoTimeline);
+		model.addAttribute("listbaiviet", listBaiViet);
 
 		for (BaiViet baiViet : listBaiViet) {
 			long soComment = commentService.countBinhLuanByMaBaiViet(baiViet.getMaBaiViet());
@@ -82,7 +97,7 @@ public class TrangCaNhanController {
 			listBaiVietModel.add(baiVietModel);
 		}
 
-		model.addAttribute("baiviet", listBaiVietModel);
+		model.addAttribute("baivietmodel", listBaiVietModel);
 
 		// thong tin tai khoan cua 1 user
 		if (optTaiKhoan.isPresent()) {
@@ -90,6 +105,17 @@ public class TrangCaNhanController {
 			BeanUtils.copyProperties(entity, taiKhoanModel);
 
 			model.addAttribute("taikhoan", taiKhoanModel);
+			
+			if(tab.equals("timeline")) {
+				model.addAttribute("tab", "timeline");
+			}else if(tab.equals("about")) {
+				model.addAttribute("tab", "about");
+			}else if(tab.equals("photos")) {
+				model.addAttribute("tab", "photos");
+			} else if(tab.equals("friends")) {
+				model.addAttribute("tab", "friends");
+			}
+				
 
 			if (taikhoan.equals("user1")) {
 				return "user/trangcanhan/trangcanhan";
@@ -108,6 +134,20 @@ public class TrangCaNhanController {
 		return "";
 	}
 
+	/*
+	 * @GetMapping("taiKhoanTheoDoiByPage/{taikhoan}") public String
+	 * taiKhoanTheoDoiByPage(ModelMap model, @PathVariable("taikhoan") String
+	 * taikhoan,
+	 * 
+	 * @RequestParam(name = "pageNo", defaultValue = "1") Integer pageNo) {
+	 * Page<TaiKhoan> list = taiKhoanService.getTaiKhoanTheoDoiByPage(taikhoan,
+	 * pageNo - 1, 2);
+	 * 
+	 * model.addAttribute("totalPage", list.getTotalPages());
+	 * model.addAttribute("currentPage", pageNo); model.addAttribute("list", list);
+	 * return "user/trangcanhan/trangcanhan"; }
+	 */
+
 	@PostMapping("update/{user}")
 	public ModelAndView saveOrUpdate(ModelMap model, @PathVariable("user") String taikhoan,
 			@Valid @ModelAttribute("taikhoan") TaiKhoanModel taiKhoanModel, BindingResult result) {
@@ -125,7 +165,7 @@ public class TrangCaNhanController {
 
 		taiKhoanService.save(tk);
 
-		String url = "redirect:/trangcanhan/thongtintaikhoan/" + taikhoan;
+		String url = "redirect:/trangcanhan/thongtintaikhoan/" + taikhoan+"?tab=about";
 		return new ModelAndView(url);
 
 	}
@@ -134,7 +174,11 @@ public class TrangCaNhanController {
 	public ModelAndView delete(ModelMap model, @PathVariable("mabaiviet") int mabaiviet,
 			@PathVariable("taikhoan") String taikhoan) {
 		
-		commentService.deleteAllBinhLuanByMaBaiViet(mabaiviet);
+		List<BinhLuan> listBinhLuan = commentService.findCommentByMaBaiViet(mabaiviet);
+		if(!listBinhLuan.isEmpty()) {
+			commentService.deleteAllBinhLuanByMaBaiViet(mabaiviet);
+		}
+		
 		baiVietService.deleteById(mabaiviet);
 		model.addAttribute("message", "Xoa thanh cong!");
 

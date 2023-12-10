@@ -7,6 +7,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -121,5 +124,20 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 	public List<TaiKhoan> findTop5TaiKhoanTheoDoisByUsername(String taiKhoanUsername) {
 		return taiKhoanRepository.findTop5TaiKhoanTheoDoisByUsername(taiKhoanUsername);
 	}
+
+	@Override
+	public Page<TaiKhoan> getTaiKhoanTheoDoiByPage(String taikhoan, int page, int pageSize) {
+		List<TaiKhoan> listTaiKhoanTheoDoi = findTaiKhoanFollowersByUsername(taikhoan);
+		int fromIndex = page * pageSize;
+        int toIndex = Math.min((page + 1) * pageSize, listTaiKhoanTheoDoi.size());
+
+        if (fromIndex > toIndex) {
+            // Trang yêu cầu không hợp lệ
+            return new PageImpl<>(List.of()); // Trả về trang trống
+        }
+
+        List<TaiKhoan> taiKhooanOnPage = listTaiKhoanTheoDoi.subList(fromIndex, toIndex);
+        return new PageImpl<>(taiKhooanOnPage, PageRequest.of(page, pageSize), listTaiKhoanTheoDoi.size());
+    }
 
 }

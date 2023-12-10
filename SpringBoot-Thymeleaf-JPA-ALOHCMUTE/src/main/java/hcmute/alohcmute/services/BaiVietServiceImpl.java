@@ -5,6 +5,9 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import hcmute.alohcmute.entities.BaiViet;
@@ -47,4 +50,19 @@ public class BaiVietServiceImpl implements IBaiVietService{
 		Set<TaiKhoan> listTaiKhoan = baiViet.getTaiKhoans();
 		return listTaiKhoan.size();
 	}
+	
+	@Override
+	public Page<BaiViet> getBaiVietByPage(String taikhoan, int page, int pageSize) {
+		List<BaiViet> listBaiViet = findAllBaiVietByUsername(taikhoan);
+		int fromIndex = page * pageSize;
+        int toIndex = Math.min((page + 1) * pageSize, listBaiViet.size());
+
+        if (fromIndex > toIndex) {
+            // Trang yêu cầu không hợp lệ
+            return new PageImpl<>(List.of()); // Trả về trang trống
+        }
+
+        List<BaiViet> baiVietOnPage = listBaiViet.subList(fromIndex, toIndex);
+        return new PageImpl<>(baiVietOnPage, PageRequest.of(page, pageSize), listBaiViet.size());
+    }
 }
