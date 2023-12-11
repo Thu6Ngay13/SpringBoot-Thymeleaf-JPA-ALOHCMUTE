@@ -32,7 +32,7 @@
 					<h2 class="pb-2 border-bottom">Những người bạn đã theo dõi</h2>
 					<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
 						<div class="feature col" th:each="taikhoan : ${Listtaikhoan}">
-							<img src="${taikhoan.avatarURl}" alt="" width="100" height="100" />
+							<img th:src="${taikhoan.avatarURl}" alt="" width="100" height="100" />
 							<br>
 							<br>
 							<h2 th:text="${taikhoan.hoTen}" style="word-wrap: break-word;"></h2>
@@ -46,7 +46,6 @@
 								</form>
 							</div>
 						</div>
-						
 					</div>
 
 

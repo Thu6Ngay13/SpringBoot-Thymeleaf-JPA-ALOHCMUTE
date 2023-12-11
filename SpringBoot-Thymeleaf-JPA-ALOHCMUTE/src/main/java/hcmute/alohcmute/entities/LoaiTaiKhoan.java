@@ -27,6 +27,6 @@ public class LoaiTaiKhoan implements Serializable{
 	@Column(name = "TenLoai", columnDefinition = "nvarchar(2000)")
 	private String tenLoai;
 	
-	@OneToMany(mappedBy = "loaiTaiKhoan", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "loaiTaiKhoan", fetch = FetchType.LAZY)
 	private List<TaiKhoan> taiKhoans;
 }

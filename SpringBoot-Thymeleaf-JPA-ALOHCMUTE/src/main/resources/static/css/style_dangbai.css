@@ -10,7 +10,7 @@
 
 .container1 {
 	width: 765px;
-	height: 495px;
+	height: 425px;
 	overflow: hidden;
 	background: #fff;
 	border-radius: 10px;
@@ -45,7 +45,7 @@
 	margin-left: -500px;
 }
 
-.post header {
+.postdangbai header {
 	font-size: 22px;
 	font-weight: 600;
 	padding: 17px 0;
@@ -54,22 +54,22 @@
 	border-bottom: 1px solid #bfbfbf;
 }
 
-.post form {
+.postdangbai form {
 	margin: 20px 25px;
 }
 
-.post form .content,
+.postdangbai form .content,
 .audience .list li .column {
 	display: flex;
 	align-items: center;
 }
 
-.post form .content img {
+.postdangbai form .content img {
 	cursor: default;
 	max-width: 75px;
 }
 
-.post form .content .details {
+.postdangbai form .content .details {
 	margin: -3px 0 0 12px;
 }
 
@@ -419,6 +419,24 @@ form textarea:valid~button:hover {
 }
 
 .image-upload>input {
-  margin-left:-10px;
-  display: none;
+	margin-left: -10px;
+	display: none;
+}
+
+.image-container {
+	position: relative;
+	display: inline-block;
+}
+
+.remove-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: rgba(255, 255, 255, 0.7);
+	padding: 5px;
+	display: none;
+}
+
+.image-container:hover .remove-button {
+	display: block;
 }

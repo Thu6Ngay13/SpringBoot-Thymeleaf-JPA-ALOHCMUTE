@@ -1,15 +1,16 @@
 <html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{user/layout-user.html}">
+
 <head>
 	<style>
-        body {
-            margin-left: 100%;
-            padding: 0;
-            box-sizing: border-box;
-            background-color: aliceblue;
-            /*background-color: aliceblue;*/
-        }
-        </style>
+		body {
+			margin-left: 100%;
+			padding: 0;
+			box-sizing: border-box;
+			background-color: aliceblue;
+			/*background-color: aliceblue;*/
+		}
+	</style>
 </head>
 
 <body>
@@ -37,42 +38,46 @@
 				</div>
 				<span class="material-icons"> forum </span>
 				<span class="material-icons" onclick="openPopup()" id="bell"> notifications_active </span>
-			<div class="popup" id="popup">
-				</li>
-				<!-- news -->
-				<div class="d-flex justify-content-between mx-2">
-					<h5>New</h5>
-				</div>
-				<th:block th:each="thongbao : ${thongbaos}">
-					   
-				<tr>
-					<a href="#" class="
-				      	d-flex
+				<div class="popup" id="popup">
+					</li>
+					<!-- news -->
+					<div class="d-flex justify-content-between mx-2">
+						<h5>New</h5>
+					</div>
+					<th:block th:each="thongbao : ${thongbaos}">
+
+						<tr>
+							<a th:href="${thongbao.linkThongBao}" class="d-flex
 				      	align-items-center
 				      	left-content-evenly
-				      	text-decoration-none text-dark
-				    ">
-				    <div class="d-flex align-items-left justify-content-evenly">
-						<div class="p-2">
-							<img src="https://source.unsplash.com/random/1" alt="avatar" class="rounded-circle"
-								style="width: 58px; height: 58px; object-fit: cover" />
-						</div>
-					</div>
-					
-				</tr>
-				<tr>
-					<td>
-						
-						<div>
-    						<p style="margin-top: 10%;"> <span th:text="${thongbao.noiDung}" style="text-align: left;"></span></p>
-							<p style="margin-top:-7%; text-align:left;margin-right: -6%;"> <span th:text="${thongbao.thoiGian}" ></span> Trước</p>
-						</div>
-					</td>
-				</tr>
-				</a>
-				</th:block>
-				<button type="button"onclick="closePopup()" > OK</button>
-			</div>
+				      	text-decoration-none text-dark">
+								<div class="d-flex align-items-left justify-content-evenly">
+									<div class="p-2">
+										<img src="https://png.pngtree.com/png-vector/20191122/ourlarge/pngtree-megaphone-vector-illustration-isolated-on-white-background-megaphone-clip-art-png-image_2016772.jpg" alt="avatar"
+											class="rounded-circle"
+											style="width: 58px; height: 58px; object-fit: cover" />
+									</div>
+								</div>
+
+						</tr>
+						<tr>
+							<td>
+
+								<div>
+									<p style="margin-top: 10%;"> <span th:text="${thongbao.noiDung}"
+											style="text-align: left;"></span></p>
+									<p style="margin-top:-7%; text-align:left;margin-left:76px;">
+										<span th:text="${#temporals.format(thongbao.Ngay, 'dd-MM-yyyy')}"></span>
+										<span>at</span>
+										<span th:text="${#temporals.format(thongbao.thoiGian, 'HH:mm')}"></span>
+									</p>
+								</div>
+							</td>
+						</tr>
+						</a>
+					</th:block>
+					<button type="button" onclick="closePopup()"> OK</button>
+				</div>
 				<span class="material-icons">manage_accounts</span>
 
 			</div>

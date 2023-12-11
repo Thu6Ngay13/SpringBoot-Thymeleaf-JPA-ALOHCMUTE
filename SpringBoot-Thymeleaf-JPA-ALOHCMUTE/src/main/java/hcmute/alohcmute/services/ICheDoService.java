@@ -1,10 +1,13 @@
 package hcmute.alohcmute.services;
 
+import java.util.Optional;
+
 import hcmute.alohcmute.entities.CheDo;
-import hcmute.alohcmute.entities.TaiKhoan;
 
 public interface ICheDoService {
 
-	CheDo findByCheDo (String username);
+	Optional<CheDo> findByID(int id);
+
+	CheDo findByCheDo(String username);
 
 }
