@@ -11,8 +11,7 @@ public class TaiKhoanModel {
 	
 	private String taiKhoan;
 	private String matKhau;
-	private int code;
-	private boolean status;
+	private String token;
 	private String hoTen; 
 	private String nickName;
 	private String email;
@@ -22,34 +21,6 @@ public class TaiKhoanModel {
 	private boolean enable;
 	private long soLuongNguoiTheoDoi;
 	private boolean isfollowed;
-	public TaiKhoanModel(String taiKhoan, String matKhau, int code, boolean status, String hoTen, String nickName,
-			String email, String gioiTinh, String sDT, String avatarURl) {
-		super();
-		this.taiKhoan = taiKhoan;
-		this.matKhau = matKhau;
-		this.code = code;
-		this.status = status;
-		this.hoTen = hoTen;
-		this.nickName = nickName;
-		this.email = email;
-		this.gioiTinh = gioiTinh;
-		this.sDT = sDT;
-		this.avatarURl = avatarURl;
-	}
-	public TaiKhoanModel(String taiKhoan, String matKhau, int code, boolean status, String hoTen, String nickName,
-			String email, String gioiTinh, String sDT, String avatarURl, long soLuongNguoiTheoDoi) {
-		super();
-		this.taiKhoan = taiKhoan;
-		this.matKhau = matKhau;
-		this.code = code;
-		this.status = status;
-		this.hoTen = hoTen;
-		this.nickName = nickName;
-		this.email = email;
-		this.gioiTinh = gioiTinh;
-		this.sDT = sDT;
-		this.avatarURl = avatarURl;
-		this.soLuongNguoiTheoDoi = soLuongNguoiTheoDoi;
-	}
+
 	
 }

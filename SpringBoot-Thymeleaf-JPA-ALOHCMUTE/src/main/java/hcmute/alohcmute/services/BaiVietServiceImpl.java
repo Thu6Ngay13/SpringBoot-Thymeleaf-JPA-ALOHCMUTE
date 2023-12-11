@@ -12,12 +12,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import hcmute.alohcmute.entities.BaiViet;
-import hcmute.alohcmute.entities.BaoCaoBaiViet;
-import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.repositories.BaiVietRepository;
-import jakarta.transaction.Transactional;
 import hcmute.alohcmute.repositories.TaiKhoanRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class BaiVietServiceImpl implements IBaiVietService{
@@ -55,12 +53,7 @@ public class BaiVietServiceImpl implements IBaiVietService{
 		baiVietRepository.deleteById(id);
 	}
 	
-	@Override
-	public long demSoTuongTac(int maBaiViet) {
-		BaiViet baiViet = baiVietRepository.getById(maBaiViet);
-		Set<TaiKhoan> listTaiKhoan = baiViet.getTaiKhoans();
-		return listTaiKhoan.size();
-	}
+
 	
 	@Override
 	public Page<BaiViet> getBaiVietByPage(String taikhoan, int page, int pageSize) {

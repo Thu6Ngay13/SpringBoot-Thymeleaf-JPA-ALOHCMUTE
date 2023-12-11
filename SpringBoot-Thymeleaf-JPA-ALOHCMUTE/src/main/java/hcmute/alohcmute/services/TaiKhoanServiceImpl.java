@@ -150,7 +150,18 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 		List<TaiKhoan> list = taiKhoanRepository.findTaiKhoanByKeyword(keyword);
 		List<TaiKhoanModel> listModel = new ArrayList<>();
 		for (TaiKhoan tk : list) {
-			TaiKhoanModel model = new TaiKhoanModel(tk.getTaiKhoan(), tk.getMatKhau(), tk.getCode(), tk.isStatus(), tk.getHoTen(), tk.getNickName(), tk.getEmail(), tk.getGioiTinh(), tk.getSDT(), tk.getAvatarURl(), demTaiKhoanTheoDoi(tk.getTaiKhoan()), checkFollowed(username, tk.getTaiKhoan()));
+			TaiKhoanModel model = new TaiKhoanModel();
+			model.setTaiKhoan(tk.getTaiKhoan()); 
+			model.setMatKhau(tk.getMatKhau()); 
+			model.setEnable(tk.isEnable()); 
+			model.setHoTen(tk.getHoTen()); 
+			model.setNickName(tk.getNickName());
+			model.setEmail(tk.getEmail()); 
+			model.setGioiTinh(tk.getGioiTinh()); 
+			model.setSDT(tk.getSDT()); 
+			model.setAvatarURl(tk.getAvatarURl());
+			model.setSoLuongNguoiTheoDoi(demTaiKhoanTheoDoi(tk.getTaiKhoan()));
+			model.setIsfollowed(checkFollowed(username, tk.getTaiKhoan()));
 			listModel.add(model);
 		}
 		return listModel;
