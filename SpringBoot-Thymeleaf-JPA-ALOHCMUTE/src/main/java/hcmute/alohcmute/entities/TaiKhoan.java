@@ -42,7 +42,7 @@ public class TaiKhoan implements Serializable{
 	private String matKhau;
 	
 	@Column(name = "Token")
-	private String token;
+	private String token = "no";
 	
 	@Column(name = "Enable", columnDefinition = "bit")
 	private boolean enable = false;
@@ -65,15 +65,15 @@ public class TaiKhoan implements Serializable{
 	@Column(name = "AvatarURL", columnDefinition = "nvarchar(2000)")
 	private String avatarURl;
 	
+	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
+	private List<BaiViet> baiViets;
+
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
 			name = "TaiKhoan_LoaiTaiKhoan",
 			joinColumns = {@JoinColumn(name = "taiKhoan")},
 			inverseJoinColumns = {@JoinColumn(name = "maLoai")})
 	private Set<LoaiTaiKhoan> loaiTaiKhoans;
-	
-	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
-	private List<BaiViet> baiViets;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_CuocHoiThoai",
@@ -116,12 +116,13 @@ public class TaiKhoan implements Serializable{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+		if (this == obj)
+			return true;
+		
 		TaiKhoan other = (TaiKhoan) obj;
 		return this.taiKhoan==other.getTaiKhoan();
 	}
@@ -130,5 +131,4 @@ public class TaiKhoan implements Serializable{
 	public int hashCode() {
 		return Objects.hash(taiKhoan);
 	}
-	
 }
