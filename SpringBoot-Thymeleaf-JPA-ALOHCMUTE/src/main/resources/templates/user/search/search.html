@@ -27,7 +27,6 @@
 						<h3 style="margin-left: 20px;"><i>Rất tiếc, không tìm thấy kết quả :(</i></h3>
 					</div>
 					<th:block th:each="taiKhoan : ${listTaiKhoan}">
-						<input type="hidden" th:value="${taiKhoan.taiKhoan}" id="'taiKhoanTheoDoi-' + ${taiKhoan.taiKhoan}" />
 						<div class="nearby-user">
 							<div class="row">
 								<div class="col-md-2 col-sm-2">
@@ -83,7 +82,7 @@
 							if (status) {
 								element.classList.remove('followed' + taiKhoan);
 								element.classList.add('unfollow' + taiKhoan);
-								button.textContent = "&#10010; Theo dõi";
+								button.textContent = "Theo dõi";
 							}
 							else{
 								element.classList.remove('unfollow' + taiKhoan);
