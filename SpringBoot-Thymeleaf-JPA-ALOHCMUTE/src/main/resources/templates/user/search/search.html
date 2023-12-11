@@ -33,7 +33,8 @@
 										class="profile-photo-lg">
 								</div>
 								<div class="col-md-7 col-sm-7">
-									<h5 class="nickname"><a href="#" class="profile-link" th:text="${taiKhoan.taiKhoan}"></a></h5>
+									<h3 class="hoten"><a href="#" class="profile-link" th:text="${taiKhoan.hoTen}"></a></h3>
+									<h5 class="nickname" th:text="${taiKhoan.taiKhoan}"></h5>
 									<p th:text="${taiKhoan.gioiTinh} == 'nam' ? 'Nam' : 'Nữ'"></p>
 									<p class="text-muted" th:text="${taiKhoan.soLuongNguoiTheoDoi}"></p>
 								</div>

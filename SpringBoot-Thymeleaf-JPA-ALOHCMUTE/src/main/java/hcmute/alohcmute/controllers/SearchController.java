@@ -23,7 +23,7 @@ public class SearchController {
 		List<TaiKhoanModel> list = new ArrayList<>();
 		if (listTaiKhoan.size() != 0) {
 			for (TaiKhoanModel tk : listTaiKhoan) {
-				if (tk.getTaiKhoan().equals(username) == false || tk.getTaiKhoan().equals("admin") == false)
+				if (tk.getTaiKhoan().equals(username) == false && tk.getTaiKhoan().equals("admin") == false)
 					list.add(tk);
 			}
 		}
