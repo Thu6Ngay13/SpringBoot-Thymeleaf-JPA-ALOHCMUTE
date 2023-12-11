@@ -1,5 +1,6 @@
 package hcmute.alohcmute.services;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.BaoCaoBaiViet;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.repositories.BaiVietRepository;
+import hcmute.alohcmute.models.TaiKhoanModel;
 import hcmute.alohcmute.repositories.TaiKhoanRepository;
 
 @Service
@@ -142,4 +144,28 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
         List<TaiKhoan> taiKhooanOnPage = listTaiKhoanTheoDoi.subList(fromIndex, toIndex);
         return new PageImpl<>(taiKhooanOnPage, PageRequest.of(page, pageSize), listTaiKhoanTheoDoi.size());
     }
+
+	@Override
+	public List<TaiKhoanModel> findTaiKhoanByKeyword(String keyword, String username) {
+		List<TaiKhoan> list = taiKhoanRepository.findTaiKhoanByKeyword(keyword);
+		List<TaiKhoanModel> listModel = new ArrayList<>();
+		for (TaiKhoan tk : list) {
+			TaiKhoanModel model = new TaiKhoanModel(tk.getTaiKhoan(), tk.getMatKhau(), tk.getCode(), tk.isStatus(), tk.getHoTen(), tk.getNickName(), tk.getEmail(), tk.getGioiTinh(), tk.getSDT(), tk.getAvatarURl(), demTaiKhoanTheoDoi(tk.getTaiKhoan()), checkFollowed(username, tk.getTaiKhoan()));
+			listModel.add(model);
+		}
+		return listModel;
+	}
+
+	@Override
+	public long demTaiKhoanTheoDoi(String username) {
+        return taiKhoanRepository.findTaiKhoanFollowersByUsername(username).size();
+	}
+
+	@Override
+	public boolean checkFollowed(String taiKhoanTheoDoi, String taiKhoanDuocTheoDoi) {
+		TaiKhoan taiKhoan = taiKhoanRepository.getById(taiKhoanTheoDoi);
+		if (taiKhoan.getTaiKhoanTheoDois().contains(taiKhoanRepository.getById(taiKhoanDuocTheoDoi)))
+			return true;
+		return false;
+	}
 }

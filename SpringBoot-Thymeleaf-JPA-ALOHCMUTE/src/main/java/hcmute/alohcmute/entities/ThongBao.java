@@ -42,6 +42,6 @@ public class ThongBao implements Serializable{
 	private LocalDate Ngay;
 	
 	@ManyToOne
-	@JoinColumn(name="taiKhoan")
+	@JoinColumn(name="TaiKhoan")
 	private TaiKhoan taiKhoan;
 }

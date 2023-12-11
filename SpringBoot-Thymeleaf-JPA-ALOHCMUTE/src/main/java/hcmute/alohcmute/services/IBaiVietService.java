@@ -24,4 +24,7 @@ public interface IBaiVietService {
 	Page<BaiViet> getBaiVietByPage(String mabaiviet, int page, int pageSize);
 	
 	void deleteByMaBaiViet(int maBaiViet);
+	long tangLike(int maBaiViet, String taiKhoan);
+	long giamLike(int maBaiViet, String taiKhoan);
+	boolean checkLiked(int maBaiViet, String taiKhoan);
 }

@@ -68,4 +68,7 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, String>{
 	
 	@Query("SELECT t.taiKhoanTheoDois FROM TaiKhoan t WHERE t.taiKhoan = :taiKhoanUsername ORDER BY t.id DESC LIMIT 4")
     List<TaiKhoan> findTop5TaiKhoanTheoDoisByUsername(String taiKhoanUsername);
+	
+	@Query("SELECT t FROM TaiKhoan t WHERE t.taiKhoan LIKE %:keyword% or t.hoTen LIKE %:keyword%")
+	List<TaiKhoan> findTaiKhoanByKeyword(String keyword);
 }

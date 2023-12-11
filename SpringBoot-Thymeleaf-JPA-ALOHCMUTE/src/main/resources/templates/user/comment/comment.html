@@ -1,42 +1,39 @@
 <!DOCTYPE html>
-<html
-	xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{user/layout-user.html}">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trang comment</title>
-<link
-	href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet" />
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" th:href="@{/css/style_comment.css}">
-<title>Boostrap Login | Ludiflex</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Trang comment</title>
+	<!--<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css}"
+		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{/css/style_comment.css}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-TAek9IxlAz/pZj7RIqOfInjz1Y5Qp5yA+ToTSqUN9aGi4IGkN72liX6iWNepR1j5" crossorigin="anonymous">
+
+	<title>Boostrap Login | Ludiflex</title>
 </head>
 
 <body>
 
 	<!----------------------- Main Container -------------------------->
-	<div
-		class=" container d-flex justify-content-center align-items-center min-vh-100">
+	<div class=" container d-flex justify-content-center align-items-center min-vh-100">
 		<!----------------------- Login Container -------------------------->
-		<div class="row border  p-3 bg-white shadow box-area"
-			layout:fragment="content">
+		<div class="row border  p-3 bg-white shadow box-area" layout:fragment="content">
 			<!----------------------- Left Container -------------------------->
 
-			<div
-				class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box";>
+			<div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" ;>
 				<div class="featured-images mb-3">
-					<img th:src="@{/images/image_picture.png}" class="img-fluid"
-						style="width: 850px;">
+					<img th:text="${baiViet.noiDungHinhAnh}" class="img-fluid" style="width: 850px;">
 				</div>
 			</div>
 
@@ -53,27 +50,69 @@
 						</div>
 
 						<div class="name flex-grow-1">
-							<h6 class=" mb-1 fs-5 fw-bold d-flex">Thanh Huyền</h6>
-							<p class="text-muted small mb-1 fs-7 d-flex">Gia Lai - Tháng
-								1 - 2020</p>
+							<h6 class=" mb-1 fs-5 fw-bold d-flex" th:text="${baiViet.taiKhoan.hoTen}"></h6>
+							<div class="d-flex">
+								<p class="text-muted small mb-1 fs-7 d-flex" th:text="${baiViet.ThoiGian}"></p>
+								<p class="text-muted small mb-1 fs-7 d-flex ml-2" th:text="${baiViet.Ngay}"></p>
+							</div>
+
 						</div>
 
 					</div>
 
 					<hr>
-					<p class="text-muted">Hom nay ban co on khong?</p>
+					<p class="text-muted" th:text="${baiViet.noiDungChu}"></p>
+					<div class="d-flex">
+						<p class="count-like" id="likeText">
+							<span th:text="${soLike} + ' likes'"></span>
+						</p>
 
+						<p class="count-comment">
+							<span th:text="${soLuongBinhLuan}"></span>&nbsp;comments
+						</p>
+					</div>
 
-					<div class="post__options d-flex icon">
-						<div class="post__option d-flex">
-							<span class="material-icons fs-5"> thumb_up </span>
+					<div class="post__options d-flex icon ">
+
+						<div class="post__option d-flex like" th:classappend="${isLiked} ? 'liked' : ''"
+							onclick="toggleLike(this)">
+							<span class="material-icons fs-5 "> thumb_up
+							</span> <input type="hidden" th:value="${soLike}" id="likeCount" /> <input type="hidden"
+								th:value="${baiViet.maBaiViet}" id="baiVietId" />
 							<p class="icon">Like</p>
 						</div>
+						<script>
+							let likeCount = document.getElementById('likeCount').value;
+							function toggleLike(element) {
+								likeCount = Number(likeCount);
+								let isLiked = element.classList.contains('liked');
+								let action = "";
+								if (isLiked) {
+									element.classList.remove('liked');
+									action = "nolike";
+									likeCount = likeCount - 1;
+								} else {
+									element.classList.add('liked');
+									action = "like";
+									likeCount = likeCount + 1;
+								}
+								like(action);
+								document.getElementById('likeText').innerText = likeCount + " likes";
+							}
+						</script>
 
-						<div class=" post__option d-flex icon">
+						<div class=" post__option d-flex icon" onclick="moveInputComment(this)">
 							<span class="material-icons fs-5"> chat_bubble_outline </span>
 							<p class="icon">Comment</p>
 						</div>
+
+						<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+						<script>
+							function moveInputComment(element) {
+								// Focus vào input comment
+								$("#postContent").focus();
+							}
+						</script>
 
 						<div class="post__option d-flex icon">
 							<span class="material-icons fs-5"> near_me </span>
@@ -91,32 +130,87 @@
 
 									<div class="d-flex justify-content-between">
 										<div class="d-flex flex-row align-items-center">
-											<img th:src="@{/images/image_avt.png}" alt="avatar"
-												width="25" height="25" />
+											<img th:src="@{/images/image_avt.png}" alt="avatar" width="25"
+												height="25" />
 											<p class="small mb-0 ms-2" th:text="${cmt.taiKhoan.nickName}"></p>
 										</div>
 										<div class="d-flex flex-row align-items-center">
-											<button type="button" class="btn btn-light btn-sm"
-												data-toggle="modal" data-target="#updateComment" th:attr="data-comment=${cmt.maBinhLuan}">
-												Chỉnh sửa</button>
+
+											<button type="button" class="btn btn-light btn-sm" data-toggle="modal"
+												data-target="#updateComment"
+												th:attr="data-comment=${cmt.maBinhLuan}">Chỉnh sửa</button>
 
 											<i class="far fa-thumbs-up mx-2 fa-xs text-black"
 												style="margin-top: -0.16rem;"></i>
+
 											<button type="button" class="btn btn-light btn-sm">
-												<a
-													th:href="@{/user/comment/{baiVietId}/delete/{commentId}(baiVietId=${baiVietId}, commentId=${cmt.maBinhLuan})}"
-													class="text-dark">Xóa</a>
+												<a th:attr="data-content=${cmt.noiDungChu}"
+													onclick="showconfirmation(this.getAttribute('data-content'))">Xóa</a>
 											</button>
+
+
+											<script type="text/javascript">
+												function showconfirmation(content) {
+													$('#commentContent').text(content);
+													$('#confirmationId').modal('show');
+												}
+											</script>
+
+
+											<div class="modal" id="confirmationId" tabindex="-1">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="confirmationIdLabel">Xác
+																nhận xóa bình luận</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">
+															Bạn có chắc chắn muốn xóa bình luận có nội dung: <span
+																id="commentContent"></span> không?
+														</div>
+														<div class="modal-footer">
+															<a id="yesOption" class="btn btn-danger"
+																data-bs-dismiss="modal" th:data-baivietid="${baiVietId}"
+																th:data-commentid="${cmt.maBinhLuan}">Đồng ý</a>
+															<button type="button" class="btn btn-secondary"
+																data-bs-dismiss="modal">Hủy bỏ</button>
+														</div>
+													</div>
+												</div>
+											</div>
+
+
+
+											<script type="text/javascript">
+												$(document).ready(function () {
+													// Lắng nghe sự kiện click cho nút "Đồng ý"
+													$('#yesOption').on('click', function () {
+														// Lấy giá trị của baiVietId và commentId từ phần tử modal
+														var baiVietId = $(this).data('baivietid');
+														var commentId = $(this).data('commentid');
+
+														// Xây dựng đường dẫn với Thymeleaf expressions
+														var redirectUrl = '/user/comment/' + baiVietId + '/delete/' + commentId;
+
+														// Chuyển hướng đến đường dẫn mới
+														window.location.href = redirectUrl;
+													});
+												});
+											</script>
+
+
 										</div>
 									</div>
 									<form action="#"
 										th:action="@{/user/comment/{baiVietId}/update(baiVietId=${baiVietId})}"
 										th:object="${binhLuan}" method="post">
-										<div class="modal fade" id="updateComment" tabindex="-1"
-											role="dialog" aria-labelledby="exampleModalLabel"
-											aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered"
-												role="document">
+										<div class="modal fade" id="updateComment" tabindex="-1" role="dialog"
+											aria-labelledby="exampleModalLabel" aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered" role="document">
 												<div class="modal-content">
 													<div class="modal-header">
 														<h5 class="modal-title" id="exampleModalLabel">Chỉnh
@@ -127,8 +221,10 @@
 														</button>
 													</div>
 													<div class="modal-body">
-														<input type="text" class="form-control" th:field="*{noiDungChu}">
-														<input type="hidden" th:value="${cmt.maBinhLuan}" th:field="*{maBinhLuan}" id="editedComment"/>
+														<input type="text" class="form-control"
+															th:field="*{noiDungChu}"> <input type="hidden"
+															th:value="${cmt.maBinhLuan}" th:field="*{maBinhLuan}"
+															id="editedComment" />
 													</div>
 													<div class="modal-footer">
 														<button type="button" class="btn btn-secondary"
@@ -143,22 +239,21 @@
 
 									<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 									<script>
-										  $(document).ready(function() {
-											  $('#updateComment').on('show.bs.modal', function(event) {
-										            var button = $(event.relatedTarget);
-										            var comment = button.data('comment');
-										            $('#editedComment').val(comment);
-										        });
-										    $('#updateComment').modal({
-										      show: false
-										    });
-										
-										    $('form').on('submit', function() {
-										      $('#updateComment').modal('hide');
-										    });
-										  });
-										</script>
+										$(document).ready(function () {
+											$('#updateComment').on('show.bs.modal', function (event) {
+												var button = $(event.relatedTarget);
+												var comment = button.data('comment');
+												$('#editedComment').val(comment);
+											});
+											$('#updateComment').modal({
+												show: false
+											});
 
+											$('form').on('submit', function () {
+												$('#updateComment').modal('hide');
+											});
+										});
+									</script>
 
 									<div class="d-flex flex-row align-items-center mt-3">
 										<p class="small text-muted mb-0" th:text="${cmt.ThoiGian}"></p>
@@ -172,29 +267,125 @@
 						</th:block>
 					</div>
 
-					<form class="d-flex  mt-3" action="#"
-						th:action="@{{baiVietId}(baiVietId=${baiVietId})}"
+					<form class="d-flex  mt-3" action="#" th:action="@{{baiVietId}(baiVietId=${baiVietId})}"
 						th:object="${binhLuan}" method="post">
 						<div class="input-group">
-							<input type="text"
-								class="addcmt form-control form-control-lg bg-light fs-6"
-								placeholder="Add a comment..." th:field="*{noiDungChu}"><br>
+							<input type="text" class="addcmt form-control form-control-lg bg-light fs-6"
+								placeholder="Add a comment..." th:field="*{noiDungChu}" id="postContent"
+								onkeyup="suggestNames(event)"><br>
 						</div>
+						<div id="suggestions" class="suggestions-container"></div>
 						<input class="btn btn-light btn-sm" type="submit" value="Đăng">
 					</form>
+
+					<script th:inline="javascript">
+						/*<![CDATA[*/
+						var listbanbe = /*[[${listbanbe}]]*/[];
+  /*]]>*/
+					</script>
+
+					<script language="javascript">
+						function suggestNames(event) {
+							var input = event.target.value;
+							var suggestions = document.getElementById("suggestions");
+
+							var atIndex2 = input.indexOf("@");
+
+							var atIndex = input.lastIndexOf("@");
+							if (atIndex >= 0) {
+								var searchQuery = input.substring(atIndex + 1);
+								if (searchQuery.length > 0) {
+									var matchingFriends = listbanbe.filter(name => name.toLowerCase().startsWith(searchQuery.toLowerCase()));
+									suggestions.innerHTML = matchingFriends.map(name => `<div class="suggestion-item">${name}</div>`).join('');
+									suggestions.style.display = 'block';
+
+									var caretPos = atIndex2; // Sử dụng vị trí của '@' thay vì con trỏ chuột
+									var inputRect = event.target.getBoundingClientRect();
+
+									var posX = inputRect.left + caretPos * 8 + window.scrollX; // Điều chỉnh bằng caretPos * 8
+									var posY = inputRect.top + window.scrollY;
+
+									if (posX - 900 > 437) {
+										suggestions.style.left = 437 + 'px';
+									}
+									else {
+										suggestions.style.left = (posX - 900) + 'px';
+									}
+
+									suggestions.style.top = (posY - 76) + 'px';
+
+									document.querySelectorAll('.suggestion-item').forEach(item => {
+										item.addEventListener('click', function () {
+											var name = this.innerText;
+											var newText = input.substring(0, atIndex) + "@" + name + " ";
+											document.getElementById("postContent").value = newText; document.getElementById("postContent").value = newText;
+											document.getElementById("postContent").focus();
+											suggestions.style.display = 'none';
+										});
+									});
+								} else {
+									suggestions.style.display = 'none';
+								}
+							} else {
+								suggestions.style.display = 'none';
+							}
+						}
+
+						// Function to get caret position
+						function getCaretPosition(element) {
+							var caretPos = 0;
+							if (document.selection) {
+								// IE Support
+								element.focus();
+								var selection = document.selection.createRange();
+								selection.moveStart('character', -element.value.length);
+								caretPos = selection.text.length;
+							} else if (element.selectionStart || element.selectionStart == '0') {
+								// Firefox support
+								caretPos = element.selectionStart;
+							}
+							return {
+								left: caretPos * 8, // Adjust this multiplier as needed
+								top: 0 // You can adjust this value if needed
+							};
+						}
+					</script>
+
 				</div>
 			</div>
 
+			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+				integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+			<script>
+				function like(action) {
+					let baiVietId = document.getElementById('baiVietId').value;
+					let url = "http://localhost:8181/user/like/" + baiVietId;
+					if (action == 'nolike') {
+						url = "http://localhost:8181/user/nolike/" + baiVietId;
+					}
+					$.ajax({
+						url: url,
+						contentType: "application/json; charset=utf-8",
+						type: "POST",
+						data: JSON.stringify({'action': action}),
+						cache: false,
+						success: function (data) {
+							console.log(action);
+						},
+						error: function (err) {
+							console.log(err);
+						}
+					});
+				}
+			</script>
 
-			<script
-				th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js}"
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js}"
 				integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 				crossorigin="anonymous"></script>
-			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-			<script
-				src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-			<script
-				src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.jss"></script>
+			<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>

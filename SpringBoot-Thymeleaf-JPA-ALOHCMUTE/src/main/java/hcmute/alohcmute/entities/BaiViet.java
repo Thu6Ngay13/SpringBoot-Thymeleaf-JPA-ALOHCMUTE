@@ -50,15 +50,14 @@ public class BaiViet implements Serializable {
 	private LocalDate Ngay;
 	
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "MaCheDo")
 	private CheDo cheDoNhom;
 	
-	@OneToMany(mappedBy = "baiViet", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "baiViet", fetch = FetchType.LAZY)
 	private Set<BinhLuan> binhLuans;
 	
 	@ManyToOne
-	@JoinColumn(name = "taiKhoan")
+	@JoinColumn(name = "TaiKhoan")
 	private TaiKhoan taiKhoan;
 	
 	@OneToMany(mappedBy = "baiViet")
