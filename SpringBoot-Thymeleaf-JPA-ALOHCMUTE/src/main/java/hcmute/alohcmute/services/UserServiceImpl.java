@@ -72,10 +72,10 @@ public class UserServiceImpl implements IUserService {
         user.setSDT(taiKhoanDto.getPhone());
         
         
-        LoaiTaiKhoan role = loaiTaiKhoanRepository.getByTenLoai("user");
+        LoaiTaiKhoan role = loaiTaiKhoanRepository.getByTenLoai("USER");
         if (role == null) {
             role = new LoaiTaiKhoan();
-            role.setTenLoai("user");
+            role.setTenLoai("USER");
             loaiTaiKhoanRepository.save(role);
         }
         
