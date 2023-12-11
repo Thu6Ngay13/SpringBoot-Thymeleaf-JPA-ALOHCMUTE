@@ -117,5 +117,4 @@ public class CommentSerrviceImpl implements ICommentService{
 		return commentRepository.countByBaiViet_MaBaiViet(maBaiViet);
 	}	
 	
-	
 }

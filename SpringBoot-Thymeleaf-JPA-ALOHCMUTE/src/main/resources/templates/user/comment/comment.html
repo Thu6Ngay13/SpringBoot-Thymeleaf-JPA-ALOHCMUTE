@@ -63,18 +63,16 @@
 					<hr>
 					<p class="text-muted" th:text="${baiViet.noiDungChu}"></p>
 					<div class="d-flex">
-						<p class="count-like" id="likeText">
-							<span th:text="${soLike}"></span>
-						</p>
-						<p class="count-comment"><span th:text="${soLuongBinhLuan}"></span>&nbsp;comments</p>
-					</div>
+			            <p class="count-like">
+			              <span id="likeText" th:text="${soLike}"></span>
+			            </p>
+			            <p class="count-comment" ><span th:text="${soLuongBinhLuan}" ></span>&nbsp;comments</p>
+			         </div>
 
 					<div class="post__options d-flex icon">
 						
 						<div class="post__option d-flex">
-							<span class="material-icons fs-5 like" th:classappend="${isLiked} ? 'liked' : ''" onclick ="toggleLike(this)"> thumb_up </span>
-							<input type="hidden" th:value="${soLike}" id="likeCount"/>
-							<input type="hidden" th:value="${baiViet.maBaiViet}" id="baiVietId"/>
+							<span class="material-icons fs-5 like" onclick ="toggleLike(this)"> thumb_up </span>
 							<p class="icon">Like</p>
 						</div>
 						<script>
@@ -319,39 +317,17 @@
 
 				</div>
 			</div>
-			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<script>
-		function like(action) {
-			let baiVietId = document.getElementById('baiVietId').value;
-	        let url = "http://localhost:8181/user/like/" + baiVietId;
-	        if (action == 'nolike'){
-	        	url = "http://localhost:8181/user/nolike/" + baiVietId;
-	        }
-			$.ajax({
-				url : url,
-				contentType: "application/json; charset=utf-8",
-				type : "POST",
-				data : JSON.stringify({'action': action}),
-				cache: false,
-				success : function(data) {
-					console.log(action);
-				},
-				error : function(err) {
-					console.log(err);
-				}
-			});
-		}
-	</script>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-			<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js}"
+
+
+			<script
+				th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js}"
 				integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 				crossorigin="anonymous"></script>
-			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.jss"></script>
-			<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
+			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+			<script
+				src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
