@@ -34,6 +34,8 @@ public class CommentController {
     IBaiVietService baiVietService = new BaiVietServiceImpl();
 	@Autowired
     ITaiKhoanService taiKhoanService = new TaiKhoanServiceImpl();
+	
+	String username = "thuycao816";
 
 	@GetMapping("/comment/{baiVietId}")
 	public String reviewComment(ModelMap model, @PathVariable(value = "baiVietId") int id) {
@@ -41,14 +43,14 @@ public class CommentController {
 		long soLuongBinhLuan = commentService.countBinhLuanByMaBaiViet(id);
 		long demSoTuongTac = baiVietService.demSoTuongTac(id);
 		BaiViet baiViet = baiVietService.getById(id);
-		model.addAttribute("isLiked", baiVietService.checkLiked(id, "thuycao816"));
+		model.addAttribute("isLiked", baiVietService.checkLiked(id, username));
 		model.addAttribute("soLuongBinhLuan", soLuongBinhLuan);
 		model.addAttribute("soLike", demSoTuongTac);
 		model.addAttribute("comments", comments);
 		model.addAttribute("baiViet", baiViet);
 		BinhLuan binhLuan = new BinhLuan(); 
 		model.addAttribute("binhLuan", binhLuan);		
-		List<TaiKhoan> aa = taiKhoanService.findTaiKhoanFollowersByUsername("thuycao816");
+		List<TaiKhoan> aa = taiKhoanService.findTaiKhoanFollowersByUsername(username);
 		List<String> kq = new ArrayList<>();
 		for (TaiKhoan ds : aa) {
 			kq.add(ds.getTaiKhoan());
@@ -69,7 +71,7 @@ public class CommentController {
 			binhLuan.setNgay(java.time.LocalDate.now());
 			binhLuan.setThoiGian(java.time.LocalTime.now().truncatedTo(ChronoUnit.MINUTES));
 			binhLuan.setBaiViet(baiVietService.getById(id));
-			binhLuan.setTaiKhoan(taiKhoanService.findBytaiKhoan("thuycao816"));
+			binhLuan.setTaiKhoan(taiKhoanService.findBytaiKhoan(username));
 			commentService.save(binhLuan);
 		}
 		return "redirect:{baiVietId}";
