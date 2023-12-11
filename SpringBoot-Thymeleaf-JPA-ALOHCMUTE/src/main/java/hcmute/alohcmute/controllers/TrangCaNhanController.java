@@ -123,7 +123,7 @@ public class TrangCaNhanController {
 				
 
 			if (taikhoan.equals("user1")) {
-				return "user/trangcanhan/trangcanhan";
+				return "user/trangcanhan/trangcanhanchutaikhoan";
 			} else {
 				List<TaiKhoan> list = new ArrayList<>(taiKhoanService.findTaiKhoanTheoDoisByUsername("user1"));
 				if (list.contains(entity)) {
@@ -131,7 +131,7 @@ public class TrangCaNhanController {
 				} else {
 					model.addAttribute("follows", false);
 				}
-				return "user/trangcanhan/trangcanhan2";
+				return "user/trangcanhan/trangcanhanbanbe";
 			}
 
 		}
@@ -144,7 +144,7 @@ public class TrangCaNhanController {
 			@Valid @ModelAttribute("taikhoan") TaiKhoanModel taiKhoanModel, BindingResult result) {
 
 		if (result.hasErrors()) {
-			return new ModelAndView("user/trangcanhan/trangcanhan");
+			return new ModelAndView("user/trangcanhan/trangcanhanchutaikhoan");
 		}
 
 		Optional<TaiKhoan> optTaiKhoan = taiKhoanService.findById(taikhoan);
