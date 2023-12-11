@@ -31,7 +31,7 @@ public class TaiKhoan implements Serializable{
 	private static final long serialVersionUID = -8430672957164998050L;
 	
 	@Id
-	@Column(name = "TaiKhoan", columnDefinition = "nvarchar(2000)")
+	@Column(name = "TaiKhoan")
 	private String taiKhoan;
 	
 	@Column(name = "MatKhau", columnDefinition = "varchar(2000)")

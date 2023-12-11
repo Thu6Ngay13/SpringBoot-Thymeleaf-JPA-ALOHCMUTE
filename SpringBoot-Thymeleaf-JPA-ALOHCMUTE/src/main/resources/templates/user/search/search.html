@@ -7,7 +7,7 @@
 
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Tiêu đề Trang Web của Bạn</title>
+	<title>Tìm kiếm</title>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<!-- Thêm những dòng này vào phần <head> của tệp HTML của bạn -->
@@ -22,58 +22,28 @@
 		<div class="row">
 			<div class="col-md-8" >
 				<div class="people-nearby" >
-
-					<div class="nearby-user">
-						<div class="row">
-							<div class="col-md-2 col-sm-2">
-								<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user"
-									class="profile-photo-lg">
-							</div>
-							<div class="col-md-7 col-sm-7">
-								<h5 class="nickname"><a href="#" class="profile-link">Huyền Cute</a></h5>
-								<p>Nữ</p>
-								<p class="text-muted">0987786544</p>
-							</div>
-							<div class="col-md-3 col-sm-3">
-								<button class="btn btn-primary pull-right">Follow</button>
+					<div th:if="${#lists.isEmpty(listTaiKhoan)}">
+						<h3 style="margin-left: 20px;"><i>Rất tiếc, không tìm thấy kết quả :(</i></h3>
+					</div>
+					<th:block th:each="taiKhoan : ${listTaiKhoan}">
+						<div class="nearby-user">
+							<div class="row">
+								<div class="col-md-2 col-sm-2">
+									<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user"
+										class="profile-photo-lg">
+								</div>
+								<div class="col-md-7 col-sm-7">
+									<h3 class="hoten"><a href="#" class="profile-link" th:text="${taiKhoan.hoTen}"></a></h3>
+									<h5 class="nickname" th:text="${taiKhoan.taiKhoan}"></h5>
+									<p th:text="${taiKhoan.gioiTinh} == 'nam' ? 'Nam' : 'Nữ'"></p>
+									<p class="text-muted" th:text="${taiKhoan.soLuongNguoiTheoDoi}"></p>
+								</div>
+								<div class="col-md-3 col-sm-3">
+									<button id="btnTheoDoi" class="btn btn-primary pull-right" th:text="${taiKhoan.isfollowed} ? '✔Đã theo dõi' : 'Theo dõi'" th:disabled=true></button>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="nearby-user">
-						<div class="row">
-							<div class="col-md-2 col-sm-2">
-								<img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="user"
-									class="profile-photo-lg">
-							</div>
-							<div class="col-md-7 col-sm-7">
-								<h5 class="nickname"><a href="#" class="profile-link">Huyền Xinh Gái</a></h5>
-								<p>Nữ</p>
-								<p class="text-muted">0934254543</p>
-							</div>
-							<div class="col-md-3 col-sm-3">
-								<button class="btn btn-primary pull-right">Follow</button>
-							</div>
-						</div>
-					</div>
-					<div class="nearby-user">
-						<div class="row">
-							<div class="col-md-2 col-sm-2">
-								<img src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="user"
-									class="profile-photo-lg">
-							</div>
-							<div class="col-md-7 col-sm-7">
-								<h5 class="nickname"><a href="#" class="profile-link">Huyền Đáng Iu</a></h5>
-								<p>Nữ</p>
-								<p class="text-muted">0578495899</p>
-							</div>
-							<div class="col-md-3 col-sm-3">
-								<button class="btn btn-primary pull-right">Unfollow</button>
-							</div>
-						</div>
-					</div>
-
-
-
+					</th:block>
 				</div>
 			</div>
 		</div>

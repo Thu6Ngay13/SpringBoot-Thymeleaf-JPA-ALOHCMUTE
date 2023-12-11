@@ -42,29 +42,28 @@ public class CommentController {
 	
 	@Autowired
 	IThongBaoService thongBaoService = new ThongBaoServiceImpl();
+	
+	String username = "thuycao816";
 
 	@GetMapping("/comment/{baiVietId}")
 	public String reviewComment(ModelMap model, @PathVariable(value = "baiVietId") int id) {
 		List<BinhLuan> comments = commentService.findCommentByMaBaiViet(id);
 		long soLuongBinhLuan = commentService.countBinhLuanByMaBaiViet(id);
 		long demSoTuongTac = baiVietService.demSoTuongTac(id);
+		BaiViet baiViet = baiVietService.getById(id);
+		model.addAttribute("isLiked", baiVietService.checkLiked(id, username));
 		model.addAttribute("soLuongBinhLuan", soLuongBinhLuan);
 		model.addAttribute("soLike", demSoTuongTac);
 		model.addAttribute("comments", comments);
-		model.addAttribute("baiVietId", id);
-		BinhLuan binhLuan = new BinhLuan(); 
-		model.addAttribute("binhLuan", binhLuan);
-		
-		BaiViet baiViet = baiVietService.getById(id);
 		model.addAttribute("baiViet", baiViet);
-		
-		List<TaiKhoan> aa = taiKhoanService.findTaiKhoanFollowersByUsername("thuycao816");
+		BinhLuan binhLuan = new BinhLuan(); 
+		model.addAttribute("binhLuan", binhLuan);		
+		List<TaiKhoan> aa = taiKhoanService.findTaiKhoanFollowersByUsername(username);
 		List<String> kq = new ArrayList<>();
 		for (TaiKhoan ds : aa) {
 			kq.add(ds.getTaiKhoan());
 		}
 		model.addAttribute("listbanbe",kq);
-		
 		return "user/comment/comment";
 	}
 	

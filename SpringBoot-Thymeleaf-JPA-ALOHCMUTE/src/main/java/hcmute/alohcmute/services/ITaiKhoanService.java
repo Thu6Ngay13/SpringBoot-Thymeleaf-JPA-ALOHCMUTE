@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Example;
 
 import hcmute.alohcmute.entities.TaiKhoan;
+import hcmute.alohcmute.models.TaiKhoanModel;
 
 public interface ITaiKhoanService {
 
@@ -35,5 +36,11 @@ public interface ITaiKhoanService {
 	List<TaiKhoan> findAll();
 
 	<S extends TaiKhoan> S save(S entity);
+	
+	List<TaiKhoanModel> findTaiKhoanByKeyword(String keyword, String username);
+	
+	long demTaiKhoanTheoDoi(String username);
+	
+	boolean checkFollowed(String taiKhoanTheoDoi, String taiKhoanDuocTheoDoi);
 
 }

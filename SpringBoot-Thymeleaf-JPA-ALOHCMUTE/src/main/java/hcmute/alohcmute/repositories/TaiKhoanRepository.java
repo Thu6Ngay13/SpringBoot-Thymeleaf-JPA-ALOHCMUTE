@@ -17,4 +17,7 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, String> {
 	List<TaiKhoan> findTaiKhoanFollowersByUsername(String taiKhoanUsername);
 	
 	TaiKhoan findOneBytaiKhoan(String username);
+	
+	@Query("SELECT t FROM TaiKhoan t WHERE t.taiKhoan LIKE %:keyword% or t.hoTen LIKE %:keyword%")
+	List<TaiKhoan> findTaiKhoanByKeyword(String keyword);
 }
