@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{user/layout-user.html}">
+
+<head>
+	<link th:href="@{/css/style_chat.css}" rel="stylesheet">
+</head>
+
+<div id="chat-page">
+	<div class="chat-container">
+		<div class="chat-header">
+			<h2>Tên cuộc hội </h2>
+		</div>
+
+		<ul id="messageArea"></ul>
+
+		<form id="messageForm" name="messageForm">
+			<div class="form-group">
+				<div class="input-group clearfix">
+					<input type="text" id="message" placeholder="Type a message..." autocomplete="off"
+						class="form-control" />
+					<button type="submit" class="primary">Send</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script th:src="@{https://code.jquery.com/jquery-3.6.0.js}"></script>
+<script th:if="${not #strings.isEmpty(mess)}">
+	$(document).ready(function () {
+
+		var messageForm = document.querySelector('#messageForm');
+		var messageInput = document.querySelector('#message');
+		var messageArea = document.querySelector('#messageArea');
+		var connectingElement = document.querySelector('.connecting');
+
+		var stompClient = null;
+		var username = "You"
+
+		if (username) {
+			var socket = new SockJS('/ws');
+			stompClient = Stomp.over(socket);
+			stompClient.connect({}, onConnected, onError);
+			messageForm.addEventListener('submit', sendMessage, true)
+		}
+
+		function onConnected() {
+			stompClient.subscribe('/topic/public', onMessageReceived);
+		}
+
+		function onError() {
+			connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+			connectingElement.style.color = 'red';
+		}
+
+		function sendMessage(event) {
+			var messageContent = messageInput.value.trim();
+			if (messageContent && stompClient) {
+				var chatMessage = {
+					noiDungChu: messageInput.value,
+					cuocHoiThoai: {
+						tenCuocHoiThoai: "x"
+					}
+				};
+				stompClient.send("/app/chat.sendMessage", {"topic": "public"}, JSON.stringify(chatMessage));
+				messageInput.value = '';
+			}
+			event.preventDefault();
+		}
+
+		function onMessageReceived(payload) {
+			var message = JSON.parse(payload.body);
+			var messageElement = document.createElement('li');
+			messageElement.classList.add('chat-message');
+
+			//avatar
+			var avatarElement = document.createElement('i');
+			avatarElement.style['background-image'] = 'url("https://th.bing.com/th/id/R.241a60509853b7c708d95d39f947f9dc?rik=P4HIWjMs0GVVkA&pid=ImgRaw&r=0")';
+			avatarElement.style['background-size'] = 'cover';
+			avatarElement.style['width'] = '50px';
+			avatarElement.style['height'] = '50px';
+			messageElement.appendChild(avatarElement);
+
+			//sender
+			var usernameElement = document.createElement('span');
+			var usernameText = document.createTextNode(message.sender);
+			usernameElement.appendChild(usernameText);
+			messageElement.appendChild(usernameElement);
+
+			//message
+			var textElement = document.createElement('p');
+			var messageText = document.createTextNode(message.content);
+			textElement.appendChild(messageText);
+			messageElement.appendChild(textElement);
+			messageArea.appendChild(messageElement);
+			messageArea.scrollTop = messageArea.scrollHeight;
+		}
+	});
+</script>
+
+</html>
