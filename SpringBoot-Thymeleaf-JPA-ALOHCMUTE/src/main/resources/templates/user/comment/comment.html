@@ -288,10 +288,9 @@
 						th:action="@{{baiVietId}(baiVietId=${baiVietId})}"
 						th:object="${binhLuan}" method="post">
 						<div class="input-group">
-							<input type="text"
-								class="addcmt form-control form-control-lg bg-light fs-6"
-								placeholder="Add a comment..." th:field="*{noiDungChu}"
-								id="postContent" onkeyup="suggestNames(event)"><br>
+							<input type="text" class="addcmt form-control form-control-lg bg-light fs-6"
+								placeholder="Add a comment..."  th:field="*{noiDungChu}" id="postContent"
+								onkeyup="suggestNames(event)"><br>
 						</div>
 						<div id="suggestions" class="suggestions-container"></div>
 						<input class="btn btn-light btn-sm" type="submit" value="Đăng">
@@ -300,34 +299,46 @@
 					<script th:inline="javascript">
 						/*<![CDATA[*/
 						var listbanbe = /*[[${listbanbe}]]*/[];
-    /*]]>*/
+  /*]]>*/
 					</script>
 
 					<script language="javascript">
 						function suggestNames(event) {
-							var input = event.target;
+							var input = event.target.value;
 							var suggestions = document.getElementById("suggestions");
 
-							// Lấy vị trí của con trỏ bàn phím
-							var cursorIndex = input.selectionStart;
-
-							// Kiểm tra ký tự trước con trỏ để xem có phải là '@' không
-							var atIndex = input.value.lastIndexOf("@", cursorIndex - 1);
-
+							var atIndex2 = input.indexOf("@");
+							
+							var atIndex = input.lastIndexOf("@");
 							if (atIndex >= 0) {
-								var searchQuery = input.value.substring(atIndex + 1);
+								var searchQuery = input.substring(atIndex + 1);
 								if (searchQuery.length > 0) {
 									var matchingFriends = listbanbe.filter(name => name.toLowerCase().startsWith(searchQuery.toLowerCase()));
 									suggestions.innerHTML = matchingFriends.map(name => `<div class="suggestion-item">${name}</div>`).join('');
 									suggestions.style.display = 'block';
 
+									var caretPos = atIndex2; // Sử dụng vị trí của '@' thay vì con trỏ chuột
+								  	var inputRect = event.target.getBoundingClientRect();
+								
+								  	var posX = inputRect.left + caretPos * 8 + window.scrollX; // Điều chỉnh bằng caretPos * 8
+								  	var posY = inputRect.top + window.scrollY;
+									
+									if(posX -900 > 437)
+									{
+										suggestions.style.left = 437 + 'px';
+									}
+									else{
+										suggestions.style.left = (posX - 900) + 'px';
+									}
+									
+									suggestions.style.top = (posY -76) + 'px';
+
 									document.querySelectorAll('.suggestion-item').forEach(item => {
 										item.addEventListener('click', function () {
 											var name = this.innerText;
-											var newText = input.value.substring(0, atIndex) + name + " ";
-
-											input.value = newText;
-											input.focus(); // Set focus to the input field
+											var newText = input.substring(0, atIndex) + "@" + name + " ";
+											document.getElementById("postContent").value = newText;											document.getElementById("postContent").value = newText;
+											document.getElementById("postContent").focus();
 											suggestions.style.display = 'none';
 										});
 									});
@@ -338,39 +349,32 @@
 								suggestions.style.display = 'none';
 							}
 						}
+
+						// Function to get caret position
+						function getCaretPosition(element) {
+							var caretPos = 0;
+							if (document.selection) {
+								// IE Support
+								element.focus();
+								var selection = document.selection.createRange();
+								selection.moveStart('character', -element.value.length);
+								caretPos = selection.text.length;
+							} else if (element.selectionStart || element.selectionStart == '0') {
+								// Firefox support
+								caretPos = element.selectionStart;
+							}
+							return {
+								left: caretPos * 8, // Adjust this multiplier as needed
+								top: 0 // You can adjust this value if needed
+							};
+						}
 					</script>
 
 				</div>
 			</div>
-			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-				integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-				crossorigin="anonymous"></script>
-			<script>
-		function like(action) {
-			let baiVietId = document.getElementById('baiVietId').value;
-	        let url = "http://localhost:8181/user/like/" + baiVietId;
-	        if (action == 'nolike'){
-	        	url = "http://localhost:8181/user/nolike/" + baiVietId;
-	        }
-			$.ajax({
-				url : url,
-				contentType: "application/json; charset=utf-8",
-				type : "POST",
-				data : JSON.stringify({'action': action}),
-				cache: false,
-				success : function(data) {
-					console.log(action);
-				},
-				error : function(err) {
-					console.log(err);
-				}
-			});
-		}
-	</script>
-			<script
-				src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-			<script
-				th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js}"
+
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js}"
 				integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 				crossorigin="anonymous"></script>
 			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.jss"></script>
