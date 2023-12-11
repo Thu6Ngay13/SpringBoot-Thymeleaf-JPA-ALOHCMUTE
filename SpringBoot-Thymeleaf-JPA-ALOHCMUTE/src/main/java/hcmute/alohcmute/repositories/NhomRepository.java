@@ -11,5 +11,4 @@ import hcmute.alohcmute.entities.Nhom;
 public interface NhomRepository extends JpaRepository<Nhom, Integer>{
 	public Nhom findBymaNhom(int maNhom);
     List<Nhom> findByTenNhomContainingIgnoreCase(String searchString);
-
 }

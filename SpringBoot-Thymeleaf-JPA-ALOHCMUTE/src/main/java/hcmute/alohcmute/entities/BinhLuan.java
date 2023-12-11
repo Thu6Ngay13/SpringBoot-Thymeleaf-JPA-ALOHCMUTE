@@ -17,7 +17,7 @@ import lombok.*;
 @Data
 @NoArgsConstructor 
 @AllArgsConstructor
-@EqualsAndHashCode(exclude="taiKhoan")
+@EqualsAndHashCode(exclude={"taiKhoan", "baiViet"})
 
 @Entity
 @Table

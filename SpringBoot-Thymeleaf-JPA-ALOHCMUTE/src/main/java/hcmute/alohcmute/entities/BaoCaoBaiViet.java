@@ -42,4 +42,12 @@ public class BaoCaoBaiViet  implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="MaBaiViet")
 	private BaiViet baiViet;
+
+	@Override
+	public String toString() {
+		return "BaoCaoBaiViet [maBaoCao=" + maBaoCao + ", noiDungBaoCao=" + noiDungBaoCao + ", ThoiGian=" + ThoiGian
+				+ ", Ngay=" + Ngay + ", baiViet=" + baiViet + "]";
+	}
+	
+	
 }

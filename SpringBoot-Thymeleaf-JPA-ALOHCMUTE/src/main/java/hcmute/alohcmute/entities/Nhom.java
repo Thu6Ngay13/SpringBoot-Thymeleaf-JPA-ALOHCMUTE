@@ -2,7 +2,6 @@ package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -19,7 +18,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -27,8 +25,7 @@ import lombok.ToString;
 @Data 
 @NoArgsConstructor 
 @AllArgsConstructor
-@ToString (exclude = {"taiKhoans", "baiViets"})
-
+@ToString (exclude = {"taiKhoans", "baiViets", "taiKhoanTruongNhom"})
 
 
 @Entity
@@ -47,14 +44,22 @@ public class Nhom  implements Serializable{
 	@Column(name = "NgayThanhLap")
 	private LocalDateTime ngayThanhLap;
 	
+	@Column(name = "HinhAnhNhom")
+	private String nhomURL;
+	
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name="MaCheDo")
 	private CheDo cheDoNhom;
 	
 	@ManyToMany(mappedBy = "nhom")
-	private Set<TaiKhoan> taiKhoans = new HashSet<TaiKhoan>();
+	private Set<TaiKhoan> taiKhoans;
 	
 	@OneToMany(mappedBy = "nhom")
-	private Set<BaiViet> baiViets = new HashSet<BaiViet>();
+	private Set<BaiViet> baiViets;
+	
+	@ManyToOne
+	@JsonIgnore
+	@JoinColumn(name="taiKhoanTruongNhom")
+	private TaiKhoan taiKhoanTruongNhom;
 }

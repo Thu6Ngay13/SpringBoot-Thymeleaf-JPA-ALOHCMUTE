@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import hcmute.alohcmute.entities.BaiViet;
+import hcmute.alohcmute.entities.TaiKhoan;
+import hcmute.alohcmute.services.IBaiVietService;
 import hcmute.alohcmute.services.IBaoCaoBaiVietService;
 import hcmute.alohcmute.services.INewFeedService;
+import hcmute.alohcmute.services.ITaiKhoanService;
 
 @Controller
 @RequestMapping("user")
@@ -28,11 +31,17 @@ public class TrangChuController {
 
 	@Autowired
 	IBaoCaoBaiVietService baoCaoBaiVietService;
+	@Autowired
+	IBaiVietService baivietSer;
+	@Autowired
+	ITaiKhoanService tkSer;
+	
 
 	@GetMapping("/newfeed")
 	public String hienThiNewFeed(ModelMap model, Principal principal) {
 		/* String currentUsername = principal.getName(); */
 		List<BaiViet> bv = iNewFeed.findPublicOrFollowedPosts("lolo928");
+		TaiKhoan tk = tkSer.findBytaiKhoan("lolo928");
 		Map<Integer, Boolean> likedPosts = new HashMap<>();
 		Map<Integer, Integer> postLikesCount = new HashMap<>();
 		Map<Integer, Integer> postCommentsCount = new HashMap<>();
@@ -48,6 +57,7 @@ public class TrangChuController {
 		model.addAttribute("likedPosts", likedPosts);
 		model.addAttribute("postLikesCount", postLikesCount);
 		model.addAttribute("postCommentsCount", postCommentsCount);
+		model.addAttribute("taiKhoan", tk);
 
 		return "user/newfeed/newfeed";
 	}
@@ -56,12 +66,18 @@ public class TrangChuController {
 	public String reportPost(RedirectAttributes redirectAttributes, @RequestParam("postId") int postId,
 			@RequestParam("reason") String reason) {
 		baoCaoBaiVietService.reportPost(postId, reason);
-
+		BaiViet bv=baivietSer.findBymaBaiViet(postId);
 		// Thêm thông báo thành công vào redirect attributes nếu cần
 		redirectAttributes.addFlashAttribute("reportSuccess", "Báo cáo đã được gửi thành công.");
 
 		// Chuyển hướng người dùng trở lại trang newfeed
-		return "redirect:newfeed";
+		if(bv.getNhom()==null)
+		{
+			return "redirect:newfeed";
+		}
+		else
+			return "redirect:/user/group/viewgroup?groupID="+bv.getNhom().getMaNhom();
+		
 	}
 
 	@PostMapping("/likePost")
