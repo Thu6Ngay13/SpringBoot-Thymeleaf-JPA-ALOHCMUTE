@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import hcmute.alohcmute.entities.TaiKhoan;
@@ -17,13 +16,12 @@ import hcmute.alohcmute.models.TaiKhoanModel;
 import hcmute.alohcmute.services.ITaiKhoanService;
 
 @Controller
-@RequestMapping("admin/manage")
 public class AdminController {
 
 	@Autowired
 	ITaiKhoanService taiKhoanService;
 
-	@GetMapping("quanlynguoidung")
+	@GetMapping("admin/manage/quanlynguoidung")
 	public String listTaiKhoan(ModelMap model) {
 
 		List<TaiKhoan> list = taiKhoanService.findAll();
@@ -31,7 +29,7 @@ public class AdminController {
 		return "admin/manage/quanlynguoidung";
 	}
 
-	@GetMapping("/thongtintaikhoan/{taikhoan}")
+	@GetMapping("admin/manage/thongtintaikhoan/{taikhoan}")
 	public String thongTinTaiKhoan(ModelMap model, @PathVariable("taikhoan") String taikhoan) {
 		Optional<TaiKhoan> optTaiKhoan = taiKhoanService.findById(taikhoan);
 		TaiKhoanModel taiKhoanModel = new TaiKhoanModel();
@@ -48,11 +46,41 @@ public class AdminController {
 		return "admin/manage/thongtintaikhoan";
 	}
 
-	@GetMapping("delete/{taikhoan}")
+	@GetMapping("admin/manage/delete/{taikhoan}")
 	public ModelAndView delete(ModelMap model, @PathVariable("taikhoan") String taikhoan) {
 		taiKhoanService.deleteById(taikhoan);
 		model.addAttribute("message", "Xoa thanh cong!");
 		return new ModelAndView("forward:/admin/manage/quanlynguoidung", model);
+	}
+	
+	@GetMapping(value = {"/admin/chitiet/banUser/{taikhoan}/{mabaocao}", "/admin/chitiet/unbanUser/{taikhoan}/{mabaocao}"})
+	public String banUser(@PathVariable(value = "taikhoan") String taikhoan, @PathVariable(value = "mabaocao") int mabaocao) {
+		Optional<TaiKhoan> Opttaikhoan = taiKhoanService.findById(taikhoan); 
+		TaiKhoan userban = Opttaikhoan.get();
+		if (userban.isEnable()== true) {
+			userban.setEnable(false);
+		}
+		else {
+			userban.setEnable(true);
+		}
+		taiKhoanService.save(userban);
+		
+		return "redirect:/admin/chitiet/{mabaocao}";
+	}
+	
+	@GetMapping(value = {"/admin/quanlynguoidung/{taikhoan}"})
+	public String AdminbanUser(@PathVariable(value = "taikhoan") String taikhoan) {
+		Optional<TaiKhoan> Opttaikhoan = taiKhoanService.findById(taikhoan); 
+		TaiKhoan userban = Opttaikhoan.get();
+		if (userban.isEnable()== true) {
+			userban.setEnable(false);
+		}
+		else {
+			userban.setEnable(true);
+		}
+		taiKhoanService.save(userban);
+		
+		return "redirect:/admin/manage/thongtintaikhoan/{taikhoan}";
 	}
 	
 }

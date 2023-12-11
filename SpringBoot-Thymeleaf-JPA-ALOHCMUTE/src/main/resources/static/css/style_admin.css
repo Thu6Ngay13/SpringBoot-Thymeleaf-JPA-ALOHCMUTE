@@ -229,3 +229,9 @@
 	margin-left: 20px;
   	flex: 1;
 }
+
+
+/*quan ly nguoi dung*/
+.quanlynguoidung{
+	display: inline-block;
+}

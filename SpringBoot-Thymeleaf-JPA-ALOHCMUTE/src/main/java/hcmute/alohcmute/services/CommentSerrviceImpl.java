@@ -9,7 +9,6 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import hcmute.alohcmute.entities.BaiViet;
@@ -39,11 +38,6 @@ public class CommentSerrviceImpl implements ICommentService{
 	@Override
 	public List<BinhLuan> findAll(Sort sort) {
 		return commentRepository.findAll(sort);
-	}
-
-	@Override
-	public Optional<BinhLuan> findOne(Specification<BinhLuan> spec) {
-		return commentRepository.findOne(spec);
 	}
 
 	@Override

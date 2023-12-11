@@ -43,47 +43,6 @@ public class BaoCaoBaiViet  implements Serializable{
 	@JoinColumn(name="MaBaiViet")
 	private BaiViet baiViet;
 
-	public int getMaBaoCao() {
-		return maBaoCao;
-	}
-
-	public void setMaBaoCao(int maBaoCao) {
-		this.maBaoCao = maBaoCao;
-	}
-
-	public String getNoiDungBaoCao() {
-		return noiDungBaoCao;
-	}
-
-	public void setNoiDungBaoCao(String noiDungBaoCao) {
-		this.noiDungBaoCao = noiDungBaoCao;
-	}
-
-	public LocalTime getThoiGian() {
-		return ThoiGian;
-	}
-
-	public void setThoiGian(LocalTime thoiGian) {
-		ThoiGian = thoiGian;
-	}
-
-	public LocalDate getNgay() {
-		return Ngay;
-	}
-
-	public void setNgay(LocalDate ngay) {
-		Ngay = ngay;
-	}
-
-	public BaiViet getBaiViet() {
-		return baiViet;
-	}
-
-	public void setBaiViet(BaiViet baiViet) {
-		this.baiViet = baiViet;
-	}
-
-
 	@Override
 	public String toString() {
 		return "BaoCaoBaiViet [maBaoCao=" + maBaoCao + ", noiDungBaoCao=" + noiDungBaoCao + ", ThoiGian=" + ThoiGian

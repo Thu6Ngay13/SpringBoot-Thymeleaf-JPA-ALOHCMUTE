@@ -29,15 +29,15 @@
                     		<p>Nội dung báo cáo: <span th:text="${baocaobaiviet.getNoiDungBaoCao()}"/></p>
 						</div>
                     	<div class="chucnang">
-							<a th:if="${!baocaobaiviet.baiViet.getTaiKhoan().isStatus()}" th:href="@{'/admin/chitiet/unbanUser/' + ${baocaobaiviet.baiViet.getTaiKhoan().getTaiKhoan()} + '/' + ${mabaocao}}">
+							<a th:if="${!baocaobaiviet.baiViet.getTaiKhoan().isEnable()}" th:href="@{'/admin/chitiet/unbanUser/' + ${baocaobaiviet.baiViet.getTaiKhoan().getTaiKhoan()} + '/' + ${mabaocao}}">
     							<button type="button" class="chophep btn btn-primary">Cấp lại quyền</button>
 							</a>
 							
-    						<a th:if="${baocaobaiviet.baiViet.getTaiKhoan().isStatus()}" th:href="@{chophep/{mabaocao}(mabaocao=${baocaobaiviet.MaBaoCao})}">
+    						<a th:if="${baocaobaiviet.baiViet.getTaiKhoan().isEnable()}" th:href="@{chophep/{mabaocao}(mabaocao=${baocaobaiviet.MaBaoCao})}">
         						<button type="button" class="chophep btn btn-success">Cho phép</button>
     						</a>
     						
-    						<a th:if="${baocaobaiviet.baiViet.getTaiKhoan().isStatus()}" th:href="@{'/admin/chitiet/banUser/' + ${baocaobaiviet.baiViet.getTaiKhoan().getTaiKhoan()} + '/' + ${mabaocao}}">
+    						<a th:if="${baocaobaiviet.baiViet.getTaiKhoan().isEnable()}" th:href="@{'/admin/chitiet/banUser/' + ${baocaobaiviet.baiViet.getTaiKhoan().getTaiKhoan()} + '/' + ${mabaocao}}">
     							<button type="button" class="chophep btn btn-danger">Cấm quyền user</button>
 							</a>
 						</div>

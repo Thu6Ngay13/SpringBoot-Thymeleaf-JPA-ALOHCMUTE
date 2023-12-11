@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import groovyjarjarasm.asm.util.Printer;
 import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.BaoCaoBaiViet;
 import hcmute.alohcmute.entities.BinhLuan;
@@ -152,7 +151,7 @@ public class TrangCaNhanController {
 		tk.setHoTen(taiKhoanModel.getHoTen());
 		tk.setGioiTinh(taiKhoanModel.getGioiTinh());
 		tk.setEmail(taiKhoanModel.getEmail());
-		tk.setsDT(taiKhoanModel.getSDT());
+		tk.setSDT(taiKhoanModel.getSDT());
 
 		taiKhoanService.save(tk);
 
