@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class WebController {
-	@GetMapping("/user/search")
+	@GetMapping("/user")
 	public String home(ModelMap model) {
 		return "user/search/search";
 	}
