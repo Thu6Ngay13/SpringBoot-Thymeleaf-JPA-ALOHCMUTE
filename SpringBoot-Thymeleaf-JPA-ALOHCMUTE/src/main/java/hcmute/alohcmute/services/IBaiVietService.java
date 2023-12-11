@@ -22,6 +22,6 @@ public interface IBaiVietService {
 	long demSoTuongTac(int maBaiViet);
 	
 	Page<BaiViet> getBaiVietByPage(String mabaiviet, int page, int pageSize);
-	
-	void deleteByMaBaiViet(int maBaiViet);
+
+	<S extends BaiViet> S save(S entity);
 }

@@ -23,6 +23,8 @@ public class BaiVietModel {
 
 	private LocalDate Ngay;
 	
+	private boolean enable;
+	
 	private long soComment;
 	
 	private long soTuongTac;

@@ -65,7 +65,7 @@ public class TaiKhoan implements Serializable{
 	@Column(name = "AvatarURL", columnDefinition = "nvarchar(2000)")
 	private String avatarURl;
 	
-	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.LAZY)
 	private List<BaiViet> baiViets;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -99,10 +99,10 @@ public class TaiKhoan implements Serializable{
 		inverseJoinColumns = {@JoinColumn(name = "TaiKhoanBiChan")})
 	private Set<TaiKhoan> taiKhoanChans;
 	
-	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.LAZY)
 	private Set<ThongBao> thongBaos;
 	
-	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.LAZY)
 	private Set<BinhLuan> binhLuans;
 	
 	@ManyToMany
@@ -111,7 +111,7 @@ public class TaiKhoan implements Serializable{
 		inverseJoinColumns = {@JoinColumn(name = "MaBaiViet")})
 	private Set<BaiViet> baiVietTuongTacs;
 	
-	@OneToMany(mappedBy = "taiKhoanTruongNhom", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "taiKhoanTruongNhom", fetch = FetchType.LAZY)
 	private Set<Nhom> nhoms;
 
 	@Override

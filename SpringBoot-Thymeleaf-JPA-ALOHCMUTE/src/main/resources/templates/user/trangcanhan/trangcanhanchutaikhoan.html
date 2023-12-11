@@ -28,7 +28,7 @@
 									</div>
 									<div class="timeline-btn">
 										<!--<a href="#" class="btn btn-primary waves-effect waves-light m-r-10">follows</a>-->
-										<a href="#" class="btn btn-primary waves-effect waves-light">Trang chủ</a>
+										<a href="/user" class="btn btn-primary waves-effect waves-light">Trang chủ</a>
 									</div>
 
 								</div>
@@ -47,6 +47,11 @@
 												<img class="img-fluid width-100" alt=""
 													th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
 													th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
+
+												<img class="img-fluid width-100" alt=""
+													th:if="${taikhoan.avatarURl == null}"
+													th:src="@{'/files/user.png'}" />
+
 												<div class="profile-hvr m-t-15">
 													<i class="icofont icofont-ui-edit p-r-10"></i>
 													<i class="icofont icofont-ui-delete"></i>
@@ -101,6 +106,12 @@
 														th:src="@{'/files/' + ${ac.avatarURl}}" data-toggle="tooltip"
 														data-placement="top" title=""
 														data-original-title="user image" />
+													
+													<img class="media-object img-radius" alt=""
+														th:if="${ac.avatarURl == null}"
+														th:src="@{'/files/user.png'}" data-toggle="tooltip"
+														data-placement="top" title=""
+														data-original-title="user image" />
 												</span>
 											</div>
 										</div>
@@ -130,7 +141,13 @@
 																th:src="@{'/files/' + ${ac.avatarURl}}"
 																data-toggle="tooltip" data-placement="top" title=""
 																data-original-title="user image" />
-															<div class="live-status bg-danger"></div>
+															
+															<img class="media-object img-radius"
+																alt="Generic placeholder image"
+																th:if="${ac.avatarURl == null}"
+																th:src="@{'/files/user.png'}"
+																data-toggle="tooltip" data-placement="top" title=""
+																data-original-title="user image" />
 														</a>
 														<div class="media-body">
 															<a
@@ -144,7 +161,8 @@
 														</div>
 													</div>
 												</div>
-												<div th:if="${sotaikhoandangtheodoi > 4}" class="col-md-12 text-md-right mt-3">
+												<div th:if="${sotaikhoandangtheodoi > 4}"
+													class="col-md-12 text-md-right mt-3">
 													<button type="button"
 														class="btn btn-outline-primary waves-effect btn-block"
 														onclick="openModal()"><i
@@ -169,18 +187,21 @@
 																				<div class="media-left media-middle">
 																					<a
 																						th:href="@{'/trangcanhan/thongtintaikhoan/' + ${ac.taiKhoan}}">
-																			
+
 																						<img class="media-object"
-																							width="120"
-																							alt=""
+																							width="120" alt=""
 																							th:if="${ac.avatarURl != null and ac.avatarURl.startsWith('http')}"
 																							th:src="${ac.avatarURl}" />
 
 																						<img class="media-object"
-																							width="120"
-																							alt=""
+																							width="120" alt=""
 																							th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
 																							th:src="@{'/files/' + ${ac.avatarURl}}" />
+																						
+																						<img class="media-object"
+																							width="120" alt=""
+																							th:if="${ac.avatarURl == null}"
+																							th:src="@{'/files/user.png'}" />
 																					</a>
 																				</div>
 																				<div class="media-body friend-elipsis">
@@ -195,7 +216,8 @@
 																						<div class="dropdown-menu dropdown-menu-right b-none services-list"
 																							aria-labelledby="dropdownMenu">
 																							<a class="dropdown-item"
-																								th:href="@{'/trangcanhan/deleteTaiKhoanDangTheoDoi/' + ${ac.taiKhoan} + '/user1'}">Bỏ theo dõi</a>
+																								th:href="@{'/trangcanhan/deleteTaiKhoanDangTheoDoi/' + ${ac.taiKhoan} + '/' + ${chutaikhoan}}">Bỏ
+																								theo dõi</a>
 																							<!--<a class="dropdown-item"
 																								href="#">Report
 																								Photo</a>
@@ -270,45 +292,54 @@
 										<div class="tab-pane" id="timeline"
 											th:classappend="${tab=='timeline'} ? 'active'">
 											<div th:each="bv : ${baivietmodel}">
-												<div class="f-30 text-muted text-center">
-													<span th:text="${bv.ThoiGian}"></span>
-													<span th:text="${bv.Ngay}"></span>
-												</div>
-												<div class="row">
-													<div class="col-md-12 timeline-dot">
-														<div class="social-timelines p-relative">
-															<div class="row timeline-right p-t-35">
-																<div class="col-2 col-sm-2 col-xl-1">
-																	<div class="social-timelines-left">
-																		<img class="img-radius timeline-icon" alt=""
-																			th:if="${taikhoan.avatarURl != null and taikhoan.avatarURl.startsWith('http')}"
-																			th:src="${taikhoan.avatarURl}" />
+												<div th:if="${bv.enable}">
+													<div class="f-30 text-muted text-center">
+														<span th:text="${bv.ThoiGian}"></span>
+														<span th:text="${bv.Ngay}"></span>
+													</div>
+													<div class="row">
+														<div class="col-md-12 timeline-dot">
+															<div class="social-timelines p-relative">
+																<div class="row timeline-right p-t-35">
+																	<div class="col-2 col-sm-2 col-xl-1">
+																		<div class="social-timelines-left">
+																			<img class="img-radius timeline-icon" alt=""
+																				th:if="${taikhoan.avatarURl != null and taikhoan.avatarURl.startsWith('http')}"
+																				th:src="${taikhoan.avatarURl}" />
 
-																		<img class="img-radius timeline-icon" alt=""
-																			th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
-																			th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
+																			<img class="img-radius timeline-icon" alt=""
+																				th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
+																				th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
+																				
+																			<img class="img-radius timeline-icon" alt=""
+																				th:if="${taikhoan.avatarURl == null}"
+																				th:src="@{'/files/user.png'}" />
+																			
 
+																		</div>
 																	</div>
-																</div>
-																<div class="col-10 col-sm-10 col-xl-11 p-l-5 p-b-35">
-																	<div class="card">
-																		<div class="card-block post-timelines">
-																			<div class="media bg-white d-flex">
+																	<div
+																		class="col-10 col-sm-10 col-xl-11 p-l-5 p-b-35">
+																		<div class="card">
+																			<div class="card-block post-timelines">
+																				<div class="media bg-white d-flex">
 
-																				<div class="media-body friend-elipsis">
-																					<div class="dropdown">
-																						<span
-																							class="text-muted f-right service-btn dropdown-toggle"
-																							data-toggle="dropdown"
-																							aria-haspopup="true"
-																							aria-expanded="false"
-																							role="tooltip">
-																						</span>
-																						<div class="dropdown-menu dropdown-menu-right b-none services-list"
-																							aria-labelledby="dropdownMenu">
-																							<a class="dropdown-item"
-																								th:href="@{'/trangcanhan/deletebaiviet/' + ${taikhoan.taiKhoan} + '/' + ${bv.maBaiViet}}">Xóa bài viết</a>
-																							<!--<a class="dropdown-item"
+																					<div
+																						class="media-body friend-elipsis">
+																						<div class="dropdown">
+																							<span
+																								class="text-muted f-right service-btn dropdown-toggle"
+																								data-toggle="dropdown"
+																								aria-haspopup="true"
+																								aria-expanded="false"
+																								role="tooltip">
+																							</span>
+																							<div class="dropdown-menu dropdown-menu-right b-none services-list"
+																								aria-labelledby="dropdownMenu">
+																								<a class="dropdown-item"
+																									th:href="@{'/trangcanhan/deletebaiviet/' + ${taikhoan.taiKhoan} + '/' + ${bv.maBaiViet}}">Xóa
+																									bài viết</a>
+																								<!--<a class="dropdown-item"
 																								href="#">Report
 																								Photo</a>
 																							<a class="dropdown-item"
@@ -316,63 +347,72 @@
 																								Timeline</a>
 																							<a class="dropdown-item"
 																								href="#">Blog User</a>-->
+																							</div>
 																						</div>
+																						<div class="f-15 f-bold m-b-5"
+																							th:text="${taikhoan.hoTen}">
+																							Ho
+																							ten
+																						</div>
+																						<div class="text-muted social-designation"
+																							th:text="${taikhoan.taiKhoan}">
+																							Tai khoan</div>
 																					</div>
-																					<div class="f-15 f-bold m-b-5"
-																						th:text="${taikhoan.hoTen}">Ho
-																						ten
-																					</div>
-																					<div class="text-muted social-designation"
-																						th:text="${taikhoan.taiKhoan}">
-																						Tai khoan</div>
 																				</div>
 																			</div>
-																		</div>
 
-																		<img th:if="${bv.noiDungHinhAnh != null and bv.noiDungHinhAnh.startsWith('http')}"
-																			th:src="${bv.noiDungHinhAnh}"
-																			class="img-fluid width-100" alt="">
-																		<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
-																		<img class="img-fluid width-100" alt=""
-																			th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http')}"
-																			th:src="@{'/files/' + ${bv.noiDungHinhAnh}}" />
+																			<img th:if="${bv.noiDungHinhAnh != null and bv.noiDungHinhAnh.startsWith('http')}"
+																				th:src="${bv.noiDungHinhAnh}"
+																				class="img-fluid width-100" alt="">
+																			<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+																			<img class="img-fluid width-100" alt=""
+																				th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http')}"
+																				th:src="@{'/files/' + ${bv.noiDungHinhAnh}}" />
+																				
+																			<img class="img-fluid width-100" alt=""
+																				th:if="${bv.noiDungHinhAnh == null}"
+																				th:src="@{'/files/user.png'}" />
 
-																		<div class="card-block">
-																			<div class="timeline-details">
-																				<div class="p-b-30"> <span class="f-14">
-																						<a
-																							th:href="@{/user/comment/{baiVietId}(baiVietId=${bv.maBaiViet})}"><span
-																								th:text="${taikhoan.hoTen}"></span>
-																							đã đăng lên dòng trạng
-																							thái</a></span>
+																			<div class="card-block">
+																				<div class="timeline-details">
+																					<div class="p-b-30"> <span
+																							class="f-14">
+																							<a
+																								th:href="@{/user/comment/{baiVietId}(baiVietId=${bv.maBaiViet})}"><span
+																									th:text="${taikhoan.hoTen}"></span>
+																								đã đăng lên dòng trạng
+																								thái</a></span>
+																					</div>
+
+																					<p class="text-muted"
+																						th:text="${bv.noiDungChu}">
+																					</p>
 																				</div>
-
-																				<p class="text-muted"
-																					th:text="${bv.noiDungChu}">
-																				</p>
 																			</div>
-																		</div>
-																		<div
-																			class="card-block b-b-theme b-t-theme social-msg">
-																			<span> <i
-																					class="icofont icofont-heart-alt text-muted"></i><span
-																					class="b-r-muted">Like<span
-																						th:text="${bv.soTuongTac}"></span>
-																			</span>
-																			<span> <i
-																					class="icofont icofont-comment text-muted"></i>
-																				<span class="b-r-muted">Comments
-																					<span
-																						th:text="${bv.soComment}"></span></span></span>
+																			<div
+																				class="card-block b-b-theme b-t-theme social-msg">
+																				<span> <i
+																						class="icofont icofont-heart-alt text-muted"></i><span
+																						class="b-r-muted">Like<span
+																							th:text="${bv.soTuongTac}"></span>
+																					</span>
+																					<span> <i
+																							class="icofont icofont-comment text-muted"></i>
+																						<span class="b-r-muted">Comments
+																							<span
+																								th:text="${bv.soComment}"></span></span></span>
+
+																			</div>
 
 																		</div>
-
 																	</div>
 																</div>
 															</div>
 														</div>
 													</div>
+
 												</div>
+
 											</div>
 											<div class="box-footer clearfix">
 												<ul class="pagination pagination-sm no-margin pull-right">
@@ -383,7 +423,8 @@
 													</li>
 													<li th:each="i:${#numbers.sequence(1,totalPageTimeline)}"
 														th:classappend="${currentPageTimeline==i? 'active' : ''}">
-														<a th:if="${i != 0}" th:href="@{'?tab=timeline'+'&pageNoTimeline='+${i}}"
+														<a th:if="${i != 0}"
+															th:href="@{'?tab=timeline'+'&pageNoTimeline='+${i}}"
 															th:text="${i}"></a>
 													</li>
 													<li th:if="${currentPageTimeline<totalPageTimeline}"><a
@@ -514,7 +555,7 @@
 													<div class="demo-gallery">
 														<ul id="profile-lightgallery" class="row">
 															<li class="col-md-4 col-lg-2 col-sm-6 col-xs-12"
-																th:each="bv : ${baivietmodel}">
+																th:each="bv : ${listBaiViet}" th:if="${bv.enable}" >
 																<a href="#" data-toggle="lightbox"
 																	data-title="A random title"
 																	data-footer="A custom footer text">
@@ -522,10 +563,13 @@
 																		th:if="${bv.noiDungHinhAnh != null and bv.noiDungHinhAnh.startsWith('http')}"
 																		th:src="${bv.noiDungHinhAnh}" />
 
-																	<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 																	<img class="img-fluid" alt=""
 																		th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http')}"
 																		th:src="@{'/files/' + ${bv.noiDungHinhAnh}}" />
+																	
+																	<img class="img-fluid" alt=""
+																		th:if="${bv.noiDungHinhAnh == null}"
+																		th:src="@{'/files/user.png'}" />
 																</a>
 															</li>
 														</ul>
@@ -554,6 +598,11 @@
 																		<img class="media-object" width="120"
 																			th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
 																			th:src="@{'/files/' + ${ac.avatarURl}}" />
+																		
+																		<img class="media-object" width="120"
+																			th:if="${ac.avatarURl == null}"
+																			th:src="@{'/files/user.png'}" />
+																		
 
 																	</a>
 																</div>
@@ -567,7 +616,8 @@
 																		<div class="dropdown-menu dropdown-menu-right b-none services-list"
 																			aria-labelledby="dropdownMenu">
 																			<a class="dropdown-item"
-																				th:href="@{'/trangcanhan/deleteTaiKhoanTheoDoi/' + ${taikhoan.taiKhoan} + '/' + ${ac.taiKhoan}}">Chặn theo dõi</a>
+																				th:href="@{'/trangcanhan/deleteTaiKhoanTheoDoi/' + ${taikhoan.taiKhoan} + '/' + ${ac.taiKhoan}}">Chặn
+																				theo dõi</a>
 																			<!--<a class="dropdown-item" href="#">Report
 																				Photo</a>
 																			<a class="dropdown-item" href="#">Hide From
@@ -599,7 +649,8 @@
 													</li>
 													<li th:each="i:${#numbers.sequence(1,totalPageFriends)}"
 														th:classappend="${currentPageFriends==i? 'active' : ''}">
-														<a th:if="${i != 0}" th:href="@{'?tab=friends'+'&pageNoFriends='+${i}}"
+														<a th:if="${i != 0}"
+															th:href="@{'?tab=friends'+'&pageNoFriends='+${i}}"
 															th:text="${i}"></a>
 													</li>
 													<li th:if="${currentPageFriends<totalPageFriends}"><a
@@ -617,11 +668,11 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/script_trangcanhan.js}"></script>
-	
-	
+
+
 </body>
 
 </html>
