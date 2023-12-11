@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<!-- Thêm những dòng này vào phần <head> của tệp HTML của bạn -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 	<link rel="stylesheet" th:href="@{/css/style_search.css}">
 
 </head>
@@ -20,8 +21,8 @@
 
 	<div class="container" layout:fragment="content">
 		<div class="row">
-			<div class="col-md-8" >
-				<div class="people-nearby" >
+			<div class="col-md-8">
+				<div class="people-nearby">
 					<div th:if="${#lists.isEmpty(listTaiKhoan)}">
 						<h3 style="margin-left: 20px;"><i>Rất tiếc, không tìm thấy kết quả :(</i></h3>
 					</div>
@@ -33,13 +34,23 @@
 										class="profile-photo-lg">
 								</div>
 								<div class="col-md-7 col-sm-7">
-									<h3 class="hoten"><a href="#" class="profile-link" th:text="${taiKhoan.hoTen}"></a></h3>
-									<h5 class="nickname" th:text="${taiKhoan.taiKhoan}"></h5>
-									<p th:text="${taiKhoan.gioiTinh} == 'nam' ? 'Nam' : 'Nữ'"></p>
-									<p class="text-muted" th:text="${taiKhoan.soLuongNguoiTheoDoi}"></p>
+									<div class="d-flex">
+										<h3 class="hoten"><a href="#" class="profile-link" th:text="${taiKhoan.hoTen}"></a></h3>
+										<h5 class="nickname" th:text="${' ('+ taiKhoan.taiKhoan + ')'}"></h5>
+									</div>
+									
+									
+									<div class="d-flex">
+										<span class="material-icons">rss_feed</span>
+										<p class="text-muted" th:text="${taiKhoan.soLuongNguoiTheoDoi +' Người theo dõi'}">
+									</p>
+									</div>
+									
 								</div>
 								<div class="col-md-3 col-sm-3">
-									<button id="btnTheoDoi" class="btn btn-primary pull-right" th:text="${taiKhoan.isfollowed} ? '✔Đã theo dõi' : 'Theo dõi'" th:disabled=true></button>
+									<button id="btnTheoDoi" class="btn btn-primary pull-right"
+										th:text="${taiKhoan.isfollowed} ? 'Đã theo dõi' : 'Theo dõi'"
+										th:disabled=true></button>
 								</div>
 							</div>
 						</div>

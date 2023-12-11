@@ -29,9 +29,9 @@ public class CheDo implements Serializable{
 	@Column(name = "TenCheDo", columnDefinition = "nvarchar(2000)")
 	private String tenCheDo;
 	
-	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.LAZY)
 	private Set<Nhom> nhoms;
 	
-	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cheDoNhom", fetch = FetchType.LAZY)
 	private Set<BaiViet> baiViets;
 }
