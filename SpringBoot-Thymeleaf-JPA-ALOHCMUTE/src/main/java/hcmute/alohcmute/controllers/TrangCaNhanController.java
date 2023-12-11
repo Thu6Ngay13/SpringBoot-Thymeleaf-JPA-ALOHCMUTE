@@ -168,9 +168,7 @@ public class TrangCaNhanController {
 		baiViet.setEnable(false);
 		baiVietService.save(baiViet);
 		
-		model.addAttribute("message", "Xoa thanh cong!");
-
-		String url = "forward:/trangcanhan/thongtintaikhoan/" + taikhoan;
+		String url = "redirect:/trangcanhan/thongtintaikhoan/" + taikhoan;
 		return new ModelAndView(url, model);
 	}
 
@@ -181,9 +179,8 @@ public class TrangCaNhanController {
 
 		taiKhoanService.unfollow(taiKhoanService.findById(taikhoantheodoi).get(),
 				taiKhoanService.findById(taikhoanbitheodoi).get());
-		model.addAttribute("message", "Xoa thanh cong!");
 
-		String url = "forward:/trangcanhan/thongtintaikhoan/" + taikhoanbitheodoi;
+		String url = "redirect:/trangcanhan/thongtintaikhoan/" + taikhoanbitheodoi+"?tab=friends";
 		return new ModelAndView(url, model);
 	}
 
@@ -193,9 +190,8 @@ public class TrangCaNhanController {
 
 		taiKhoanService.follow(taiKhoanService.findById(taikhoantheodoi).get(),
 				taiKhoanService.findById(taikhoanbitheodoi).get());
-		model.addAttribute("message", "Them thanh cong!");
 
-		String url = "forward:/trangcanhan/thongtintaikhoan/" + taikhoanbitheodoi;
+		String url = "redirect:/trangcanhan/thongtintaikhoan/" + taikhoanbitheodoi;
 		return new ModelAndView(url, model);
 	}
 
@@ -207,9 +203,8 @@ public class TrangCaNhanController {
 
 		taiKhoanService.unfollow(taiKhoanService.findById(taikhoantheodoi).get(),
 				taiKhoanService.findById(taikhoanbitheodoi).get());
-		model.addAttribute("message", "Xoa thanh cong!");
 
-		String url = "forward:/trangcanhan/thongtintaikhoan/" + taikhoantheodoi;
+		String url = "redirect:/trangcanhan/thongtintaikhoan/" + taikhoantheodoi;
 		return new ModelAndView(url, model);
 	}
 
