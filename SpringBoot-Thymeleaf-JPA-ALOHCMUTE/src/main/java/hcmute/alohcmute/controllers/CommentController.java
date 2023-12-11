@@ -79,9 +79,9 @@ public class CommentController {
 			binhLuan.setNgay(java.time.LocalDate.now());
 			binhLuan.setThoiGian(java.time.LocalTime.now().truncatedTo(ChronoUnit.MINUTES));
 			binhLuan.setBaiViet(baiVietService.getById(id));
-			binhLuan.setTaiKhoan(taiKhoanService.findBytaiKhoan("thuycao816"));
+			binhLuan.setTaiKhoan(taiKhoanService.findBytaiKhoan(username));
 			
-			TaiKhoan taikhoan=taiKhoanService.findBytaiKhoan("thuycao816");
+			TaiKhoan taikhoan=taiKhoanService.findBytaiKhoan(username);
 			
 			
 			Pattern pattern = Pattern.compile("@\\w+");
