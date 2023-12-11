@@ -1,5 +1,6 @@
 package hcmute.alohcmute.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,7 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.BaoCaoBaiViet;
+import hcmute.alohcmute.entities.BinhLuan;
+import hcmute.alohcmute.repositories.BaiVietRepository;
 import hcmute.alohcmute.repositories.BaoCaoBaiVietRepository;
 
 @Service
@@ -17,6 +21,9 @@ public class BaoCaoBaiVietServiceImpl implements IBaoCaoBaiVietService{
 
 	@Autowired
 	BaoCaoBaiVietRepository baoCaoBaiVietRepository;
+	
+	@Autowired
+	BaiVietRepository baiVietRepository;
 
 	@Override
 	public <S extends BaoCaoBaiViet> S save(S entity) {
@@ -53,5 +60,23 @@ public class BaoCaoBaiVietServiceImpl implements IBaoCaoBaiVietService{
 		baoCaoBaiVietRepository.deleteAll();
 	}
 	
+	@Override
+	public void deleteAllBaoCaoBaiVietByMaBaiViet(int maBaiViet) {
+		BaiViet baiViet = baiVietRepository.getById(maBaiViet);
+		for(BaoCaoBaiViet baoCao: baiViet.getBaoCaoBaiViets()) {
+			baoCaoBaiVietRepository.deleteById(baoCao.getMaBaoCao());
+		}
+	}
+	
+	@Override
+	public List<BaoCaoBaiViet> findBaoCaoBaiVietByMaBaiViet(int maBV) {
+		List<BaoCaoBaiViet> listAll = findAll();
+		List<BaoCaoBaiViet> list = new ArrayList<>();
+		for (BaoCaoBaiViet baoCao : listAll) {
+			if (baoCao.getBaiViet() != null && baoCao.getBaiViet().getMaBaiViet() == maBV)
+				list.add(baoCao);
+		}
+		return list;
+	}
 	
 }

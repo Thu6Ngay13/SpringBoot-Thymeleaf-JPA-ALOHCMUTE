@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
 
+import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.TaiKhoan;
 
 public interface ITaiKhoanService {
@@ -36,4 +38,12 @@ public interface ITaiKhoanService {
 
 	<S extends TaiKhoan> S save(S entity);
 
+	List<TaiKhoan> findTop5TaiKhoanFollowersByUsername(String taiKhoanUsername);
+
+	int countTaiKhoanFollowersByUsername(String taiKhoanUsername);
+
+	List<TaiKhoan> findTop5TaiKhoanTheoDoisByUsername(String taiKhoanUsername);
+	
+	Page<TaiKhoan> getTaiKhoanTheoDoiByPage(String taikhoan, int page, int pageSize);
+	
 }

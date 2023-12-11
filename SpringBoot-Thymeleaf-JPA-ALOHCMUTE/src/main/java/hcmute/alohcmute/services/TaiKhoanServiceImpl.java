@@ -7,10 +7,16 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import hcmute.alohcmute.entities.BaiViet;
+import hcmute.alohcmute.entities.BaoCaoBaiViet;
 import hcmute.alohcmute.entities.TaiKhoan;
+import hcmute.alohcmute.repositories.BaiVietRepository;
 import hcmute.alohcmute.repositories.TaiKhoanRepository;
 
 @Service
@@ -33,8 +39,6 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 		return taiKhoanRepository.findById(id);
 	}
 	
-
-	
 	@Override
 	public boolean existsById(String id) {
 		return taiKhoanRepository.existsById(id);
@@ -44,8 +48,6 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 	public long count() {
 		return taiKhoanRepository.count();
 	}
-	
-
 	
 	@Override
 	public void deleteById(String id) {
@@ -110,4 +112,34 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 		
 		return result;
 	}
+
+	@Override
+	public List<TaiKhoan> findTop5TaiKhoanFollowersByUsername(String taiKhoanUsername) {
+		return taiKhoanRepository.findTop5TaiKhoanFollowersByUsername(taiKhoanUsername);
+	}
+
+	@Override
+	public int countTaiKhoanFollowersByUsername(String taiKhoanUsername) {
+		return taiKhoanRepository.countTaiKhoanFollowersByUsername(taiKhoanUsername);
+	}
+
+	@Override
+	public List<TaiKhoan> findTop5TaiKhoanTheoDoisByUsername(String taiKhoanUsername) {
+		return taiKhoanRepository.findTop5TaiKhoanTheoDoisByUsername(taiKhoanUsername);
+	}
+
+	@Override
+	public Page<TaiKhoan> getTaiKhoanTheoDoiByPage(String taikhoan, int page, int pageSize) {
+		List<TaiKhoan> listTaiKhoanTheoDoi = findTaiKhoanFollowersByUsername(taikhoan);
+		int fromIndex = page * pageSize;
+        int toIndex = Math.min((page + 1) * pageSize, listTaiKhoanTheoDoi.size());
+
+        if (fromIndex > toIndex) {
+            // Trang yêu cầu không hợp lệ
+            return new PageImpl<>(List.of()); // Trả về trang trống
+        }
+
+        List<TaiKhoan> taiKhooanOnPage = listTaiKhoanTheoDoi.subList(fromIndex, toIndex);
+        return new PageImpl<>(taiKhooanOnPage, PageRequest.of(page, pageSize), listTaiKhoanTheoDoi.size());
+    }
 }
