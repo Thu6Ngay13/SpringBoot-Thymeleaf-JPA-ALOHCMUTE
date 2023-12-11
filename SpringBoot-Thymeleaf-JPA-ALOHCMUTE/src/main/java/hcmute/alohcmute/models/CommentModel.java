@@ -1,4 +1,4 @@
-package hcmute.alohcmute.dtos;
+package hcmute.alohcmute.models;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
