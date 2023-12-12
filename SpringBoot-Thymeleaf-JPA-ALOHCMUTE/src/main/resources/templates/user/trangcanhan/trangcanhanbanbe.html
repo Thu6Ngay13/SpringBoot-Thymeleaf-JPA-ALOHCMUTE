@@ -27,7 +27,7 @@
 										</div>
 									</div>
 									<div class="timeline-btn">
-										<!--<a href="#" class="btn btn-primary waves-effect waves-light m-r-10">follows</a>-->
+										<a href="#" class="btn btn-primary waves-effect waves-light m-r-10">Nhắn tin</a>
 										<a href="/user" class="btn btn-primary waves-effect waves-light">Trang chủ</a>
 									</div>
 
@@ -80,8 +80,8 @@
 
 										<div class="card">
 											<div class="card-header">
-												<h5 class="card-header-text d-inline-block">Người theo dõi: <span
-														th:text="${sotaikhoantheodoi}"></span></h5>
+												<h5 class="card-header-text d-inline-block">Người theo dõi (<span
+														th:text="${sotaikhoantheodoi}"></span>)</h5>
 
 												<!--<span class="label label-primary f-right"> See 12 More </span>-->
 											</div>
@@ -111,8 +111,8 @@
 
 										<div class="card">
 											<div class="card-header">
-												<h5 class="card-header-text">Đang theo dõi: <span
-														th:text="${sotaikhoandangtheodoi}"></span></h5>
+												<h5 class="card-header-text">Đang theo dõi (<span
+														th:text="${sotaikhoandangtheodoi}"></span>)</h5>
 											</div>
 											<div class="card-block user-box">
 												<div th:each="ac : ${top5taikhoandangtheodoi}">
@@ -315,10 +315,6 @@
 																				th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http')}"
 																				th:src="@{'/files/' + ${bv.noiDungHinhAnh}}" />
 																				
-																			<img class="img-fluid width-100" alt=""
-																				th:if="${bv.noiDungHinhAnh == null}"
-																				th:src="@{'/files/user.png'}" />
-
 																			<div class="card-block">
 																				<div class="timeline-details">
 																					<div class="p-b-30"> <span
