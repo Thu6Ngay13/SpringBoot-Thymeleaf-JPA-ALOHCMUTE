@@ -21,12 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.BaoCaoBaiViet;
 import hcmute.alohcmute.entities.BinhLuan;
+import hcmute.alohcmute.entities.CheDo;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.models.BaiVietModel;
 import hcmute.alohcmute.models.TaiKhoanModel;
 import hcmute.alohcmute.security.SecurityUtil;
 import hcmute.alohcmute.services.IBaiVietService;
 import hcmute.alohcmute.services.IBaoCaoBaiVietService;
+import hcmute.alohcmute.services.ICheDoService;
 import hcmute.alohcmute.services.ICommentService;
 import hcmute.alohcmute.services.ITaiKhoanService;
 import jakarta.validation.Valid;
@@ -46,6 +48,9 @@ public class TrangCaNhanController {
 
 	@Autowired
 	IBaoCaoBaiVietService baoCaoBaiVietService;
+	
+	@Autowired
+	ICheDoService cheDoService;
 
 	@GetMapping("thongtintaikhoan/{taikhoan}")
 	public String thongTinTaiKhoan(ModelMap model, @PathVariable("taikhoan") String taikhoan,
@@ -222,4 +227,19 @@ public class TrangCaNhanController {
 
 	}
 
+	@GetMapping("/update/chedobaiviet/{machedo}/{mabaiviet}")
+	public ModelAndView updateCheDoBaiViet(ModelMap model,
+			@PathVariable("machedo") int machedo,
+			@PathVariable("mabaiviet") int mabaiviet 
+			) {
+		
+		BaiViet baiViet = baiVietService.findById(mabaiviet).get();
+		CheDo cheDo = cheDoService.findById(machedo).get();
+		baiViet.setCheDoNhom(cheDo);
+		
+		baiVietService.save(baiViet);
+		
+		String url = "redirect:/trangcanhan/thongtintaikhoan/" + SecurityUtil.getMyUser().getTaiKhoan();
+		return new ModelAndView(url, model);
+	}
 }
