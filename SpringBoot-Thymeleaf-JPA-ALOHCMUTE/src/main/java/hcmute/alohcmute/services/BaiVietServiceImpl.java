@@ -3,13 +3,21 @@ package hcmute.alohcmute.services;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import hcmute.alohcmute.entities.BaiViet;
+import hcmute.alohcmute.entities.Nhom;
 import hcmute.alohcmute.entities.TaiKhoan;
+import hcmute.alohcmute.entities.ThongBao;
 import hcmute.alohcmute.repositories.BaiVietRepository;
 import hcmute.alohcmute.repositories.TaiKhoanRepository;
 
@@ -23,6 +31,12 @@ public class BaiVietServiceImpl implements IBaiVietService{
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+	@Autowired
+	IThongBaoService iTB;
+	
+	@Autowired
+	ITaiKhoanService taikhoanSer;
 
 	@Override
 	public List<BaiViet> findAll() {
@@ -38,6 +52,39 @@ public class BaiVietServiceImpl implements IBaiVietService{
 	public BaiViet getById(Integer id) {
 		return baiVietRepository.getById(id);
 	}
+
+	@Override
+	public List<BaiViet> findAllBaiVietByUsername(String taiKhoanUsername) {
+		return baiVietRepository.findAllBaiVietByUsername(taiKhoanUsername);
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		baiVietRepository.deleteById(id);
+	}
+	
+
+	
+	@Override
+	public Page<BaiViet> getBaiVietByPage(String taikhoan, int page, int pageSize) {
+		List<BaiViet> listBaiViet = findAllBaiVietByUsername(taikhoan);
+		int fromIndex = page * pageSize;
+        int toIndex = Math.min((page + 1) * pageSize, listBaiViet.size());
+
+        if (fromIndex > toIndex) {
+            // Trang yêu cầu không hợp lệ
+            return new PageImpl<>(List.of()); // Trả về trang trống
+        }
+
+        List<BaiViet> baiVietOnPage = listBaiViet.subList(fromIndex, toIndex);
+        return new PageImpl<>(baiVietOnPage, PageRequest.of(page, pageSize), listBaiViet.size());
+    }
+	
+	@Override
+	@Transactional
+    public void deleteByMaBaiViet(int maBaiViet) {
+        baiVietRepository.deleteByMaBaiViet(maBaiViet);
+    }
 
 	@Override
 	public long demSoTuongTac(int maBaiViet) {
@@ -66,5 +113,40 @@ public class BaiVietServiceImpl implements IBaiVietService{
 		if (baiViet.getTaiKhoans().contains(taiKhoanRepository.findOneBytaiKhoan(taiKhoan)))
 			return true;
 		return false;
+	}
+	@Override
+	public <S extends BaiViet> S save(S entity) {
+		baiVietRepository.save(entity);
+		Pattern pattern = Pattern.compile("@\\w+");
+
+        // Create a matcher for the input string
+        Matcher matcher = pattern.matcher(entity.getNoiDungChu());
+
+       
+        // Find and print all occurrences
+        while (matcher.find()) {
+            String match = matcher.group();
+            ThongBao tb = new ThongBao();
+            tb.setNgay(java.time.LocalDate.now());
+            String NoiDung = entity.getTaiKhoan().getHoTen()+" đã nhắc đến bạn trong một bài viết";
+            tb.setNoiDung(NoiDung);
+            String user=match.substring(1);
+            tb.setTaiKhoan(taikhoanSer.findBytaiKhoan(user));
+            tb.setThoiGian(java.time.LocalTime.now());
+            tb.setLinkThongBao("/user/comment/" + entity.getMaBaiViet());
+            iTB.save(tb);
+        }
+        return entity;
+	}
+
+	@Override
+	public List<BaiViet> findBymaNhom(Nhom Nhom){
+		return baiVietRepository.findBynhom(Nhom);
+		
+	}
+
+	@Override
+	public BaiViet findBymaBaiViet(int mabv) {
+		return baiVietRepository.findBymaBaiViet(mabv);
 	}
 }

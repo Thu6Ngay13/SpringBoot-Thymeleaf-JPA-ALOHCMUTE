@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
 
+import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.models.TaiKhoanModel;
 
@@ -43,4 +45,12 @@ public interface ITaiKhoanService {
 	
 	boolean checkFollowed(String taiKhoanTheoDoi, String taiKhoanDuocTheoDoi);
 
+	List<TaiKhoan> findTop5TaiKhoanFollowersByUsername(String taiKhoanUsername);
+
+	int countTaiKhoanFollowersByUsername(String taiKhoanUsername);
+
+	List<TaiKhoan> findTop5TaiKhoanTheoDoisByUsername(String taiKhoanUsername);
+	
+	Page<TaiKhoan> getTaiKhoanTheoDoiByPage(String taikhoan, int page, int pageSize);
+	
 }

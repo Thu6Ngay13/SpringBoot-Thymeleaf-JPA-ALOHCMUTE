@@ -41,6 +41,9 @@ public class ThongBao implements Serializable{
 	@Column(name = "Ngay", columnDefinition = "Date")
 	private LocalDate Ngay;
 	
+	@Column(name = "LinkThongBao", columnDefinition = "nvarchar(1000)")
+	private String linkThongBao;
+	
 	@ManyToOne
 	@JoinColumn(name="TaiKhoan")
 	private TaiKhoan taiKhoan;

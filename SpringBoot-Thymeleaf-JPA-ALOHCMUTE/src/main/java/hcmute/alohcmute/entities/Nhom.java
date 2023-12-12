@@ -44,6 +44,9 @@ public class Nhom  implements Serializable{
 	@Column(name = "NgayThanhLap")
 	private LocalDateTime ngayThanhLap;
 	
+	@Column(name = "HinhAnhNhom")
+	private String nhomURL;
+	
 	@ManyToOne
 	@JsonIgnore
 	@JoinColumn(name="MaCheDo")

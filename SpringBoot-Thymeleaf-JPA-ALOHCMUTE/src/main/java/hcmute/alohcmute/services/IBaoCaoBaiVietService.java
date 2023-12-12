@@ -24,5 +24,10 @@ public interface IBaoCaoBaiVietService {
 	List<BaoCaoBaiViet> findAll();
 
 	<S extends BaoCaoBaiViet> S save(S entity);
+	
+	void deleteAllBaoCaoBaiVietByMaBaiViet(int maBaiViet);
+	
+	List<BaoCaoBaiViet> findBaoCaoBaiVietByMaBaiViet(int maBV);
 
+	BaoCaoBaiViet reportPost(int postId, String reason);
 }
