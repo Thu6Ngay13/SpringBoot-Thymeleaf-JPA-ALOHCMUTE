@@ -15,12 +15,17 @@ import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.BaoCaoBaiViet;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.repositories.BaiVietRepository;
+import hcmute.alohcmute.repositories.TaiKhoanRepository;
+import hcmute.alohcmute.security.SecurityUtil;
 import jakarta.transaction.Transactional;
 
 @Service
 public class BaiVietServiceImpl implements IBaiVietService{
 	@Autowired
 	BaiVietRepository baiVietRepository;
+	
+	@Autowired
+	TaiKhoanRepository taiKhoanRepository;
 
 	@Override
 	public List<BaiViet> findAll() {
@@ -59,12 +64,32 @@ public class BaiVietServiceImpl implements IBaiVietService{
 		List<BaiViet> listBaiVietOld = findAllBaiVietByUsername(taikhoan);
 		List<BaiViet> listBaiViet = new ArrayList<BaiViet>();
         
-        for(BaiViet bv : listBaiVietOld) {
-        	if(bv.isEnable()==true) {
-        		listBaiViet.add(bv);
-        	}
-        }
-        
+		if(taikhoan.equals(SecurityUtil.getMyUser().getTaiKhoan())) {
+			for(BaiViet bv : listBaiVietOld) {
+	        	if(bv.isEnable()==true) {
+	        		listBaiViet.add(bv);
+	        	}
+	        }
+		} else {
+			List<TaiKhoan> listTaiKhoanTheoDoi = taiKhoanRepository.findTaiKhoanFollowersByUsername(taikhoan);
+			
+			if(listTaiKhoanTheoDoi.contains(taiKhoanRepository.findByTaiKhoan(SecurityUtil.getMyUser().getTaiKhoan()).get())) {
+				for(BaiViet bv : listBaiVietOld) {
+		        	if(bv.isEnable()==true && bv.getCheDoNhom().getMaCheDo() != 3) {
+		        		listBaiViet.add(bv);
+		        	}
+		        }
+			}else {
+				for(BaiViet bv : listBaiVietOld) {
+		        	if(bv.isEnable()==true && bv.getCheDoNhom().getMaCheDo() != 3 && bv.getCheDoNhom().getMaCheDo() != 2) {
+		        		listBaiViet.add(bv);
+		        	}
+		        }
+			}
+			
+			
+		}
+		
         int fromIndex = page * pageSize;
         int toIndex = Math.min((page + 1) * pageSize, listBaiViet.size());
 

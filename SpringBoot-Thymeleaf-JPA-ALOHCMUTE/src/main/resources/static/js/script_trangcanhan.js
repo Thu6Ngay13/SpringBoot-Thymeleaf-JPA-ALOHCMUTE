@@ -62,3 +62,19 @@ document.getElementById('input-file').addEventListener('change', function() {
 	}
 });
 
+
+function autoExpand(element) {
+	element.style.height = 'auto';
+	element.style.height = (element.scrollHeight) + 'px';
+}
+
+const textAreas = document.querySelectorAll('textarea.auto-expand');
+
+textAreas.forEach(textArea => {
+	textArea.addEventListener('input', function() {
+		autoExpand(this);
+	});
+	autoExpand(textArea);
+});
+
+
