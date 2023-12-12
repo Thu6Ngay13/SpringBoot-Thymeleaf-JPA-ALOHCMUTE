@@ -68,4 +68,5 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, String>{
 	
 	@Query("SELECT t.taiKhoanTheoDois FROM TaiKhoan t WHERE t.taiKhoan = :taiKhoanUsername ORDER BY t.id DESC LIMIT 4")
     List<TaiKhoan> findTop5TaiKhoanTheoDoisByUsername(String taiKhoanUsername);
+	
 }

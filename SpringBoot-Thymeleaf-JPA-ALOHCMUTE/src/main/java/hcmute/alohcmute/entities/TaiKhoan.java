@@ -75,11 +75,11 @@ public class TaiKhoan implements Serializable{
 			inverseJoinColumns = {@JoinColumn(name = "maLoai")})
 	private Set<LoaiTaiKhoan> loaiTaiKhoans;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "TaiKhoan_CuocHoiThoai",
 		joinColumns = {@JoinColumn(name = "TaiKhoan") },
 		inverseJoinColumns = {@JoinColumn(name = "MaCuocHoiThoai")})
-	private Set<CuocHoiThoai> cuocHoiThoai;
+	private Set<CuocHoiThoai> cuocHoiThoais;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_Nhom",

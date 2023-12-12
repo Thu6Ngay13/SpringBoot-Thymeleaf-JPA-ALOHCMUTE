@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{user/layout-user.html}">
+
+<div id="chat-page" layout:fragment="content" style="width: 1210px; height: 640px; overflow-y: scroll">
+	<link rel="stylesheet" th:href="@{/css/style_chat.css}">
+
+<!--	<div class="field" style="display: none;">
+		<input type="text" required th:value="${taikhoan.taiKhoan}" name="username" id="username">
+		<input type="text" required th:value="${taikhoan.nickName}" name="nickname" id="nickname">
+	</div>-->
+
+	<div th:each="i:${danhsachbanbes}">
+		<a th:href="@{chat/{username}(username=${i.taiKhoan})}" class="list-group-item list-group-item-action border-0">
+			<div class="d-flex align-items-start">
+				<img th:src="@{https://bootdey.com/img/Content/avatar/avatar4.png}" class="rounded-circle mr-1"
+					width="40" height="40">
+				<div class="user-left flex-grow-1 ml-3">
+					<div th:text="${i.nickName}"></div>
+					<div class="small"><span class="fas fa-circle chat-offline"></span> Bạn bè
+					</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>
+
+</html>
