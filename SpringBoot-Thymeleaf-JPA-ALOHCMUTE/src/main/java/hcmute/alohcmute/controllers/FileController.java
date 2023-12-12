@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.models.FileInfo;
+import hcmute.alohcmute.security.SecurityUtil;
 import hcmute.alohcmute.services.FilesStorageService;
 import hcmute.alohcmute.services.ITaiKhoanService;
 
@@ -53,7 +54,7 @@ public class FileController {
 			model.addAttribute("message", message);
 		}
 
-		String url = "redirect:/trangcanhan/thongtintaikhoan/user1";
+		String url = "redirect:/trangcanhan/thongtintaikhoan/" + SecurityUtil.getMyUser().getTaiKhoan();
 		return new ModelAndView(url);
 	}
 
