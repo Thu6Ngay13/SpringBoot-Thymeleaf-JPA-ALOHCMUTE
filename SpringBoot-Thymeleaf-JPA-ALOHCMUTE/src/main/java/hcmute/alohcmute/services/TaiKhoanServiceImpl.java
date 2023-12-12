@@ -13,10 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import hcmute.alohcmute.entities.BaiViet;
-import hcmute.alohcmute.entities.BaoCaoBaiViet;
 import hcmute.alohcmute.entities.TaiKhoan;
-import hcmute.alohcmute.repositories.BaiVietRepository;
 import hcmute.alohcmute.repositories.TaiKhoanRepository;
 
 @Service

@@ -19,6 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
+
 @Entity
 @Table
 public class CuocHoiThoai implements Serializable {

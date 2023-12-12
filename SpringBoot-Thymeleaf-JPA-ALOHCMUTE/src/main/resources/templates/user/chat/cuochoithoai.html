@@ -5,20 +5,36 @@
 <div id="chat-page" layout:fragment="content" style="width: 1210px; height: 640px;">
 	<link rel="stylesheet" th:href="@{/css/style_chat.css}">
 
-	<div class="field" style="display: none;">
+	<div class="field">
 		<input type="text" required th:value="${taikhoan.taiKhoan}" name="username" id="username">
 		<input type="text" required th:value="${taikhoan.nickName}" name="nickname" id="nickname">
+		<input type="text" required th:value="${taikhoan.avatarURl != null 
+								? taikhoan.avatarURl
+								: 'https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png'}" 
+			name="avatarurl" id="avatarurl">
+
+		<input type="text" required th:value="${banbe.taiKhoan}" name="usernamefriend" id="usernamefriend">
+		<input type="text" required th:value="${banbe.nickName}" name="nicknamefriend" id="nicknamefriend">
+		<input type="text" required th:value="${banbe.avatarURl != null
+								? banbe.avatarURl
+								: 'https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png'} " 
+			name="avatarurlfriend" id="avatarurlfriend">
+			
+		<input type="text" required th:value="${cuochoithoai.maCuocHoiThoai}" name="macuochoithoai" id="macuochoithoai">
+		<input type="text" required th:value="${cuochoithoai.tenCuocHoiThoai}" name="tenCuocHoiThoai" id="tenCuocHoiThoai">
 	</div>
 
 	<div class="card">
 		<div class="py-2 px-4 border-bottom d-none d-lg-block">
 			<div class="d-flex align-items-center py-1">
 				<div class="position-relative">
-					<img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1"
-						alt="Sharon Lessman" width="40" height="40">
+					<img th:src="${banbe.avatarURl != null 
+								? banbe.avatarURl
+								: 'https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png'}" class="rounded-circle mr-1"
+						width="40" height="40">
 				</div>
 				<div class="user-left flex-grow-1 pl-3">
-					<strong>Sharon Lessman</strong>
+					<strong th:text="${banbe.taiKhoan}"></strong>
 
 				</div>
 				<div>
@@ -48,37 +64,36 @@
 		</div>
 
 		<div class="chat-messages p-4" id="messageArea" style="height: 520px;">
-			<div class="chat-message-right pb-4">
-				<div>
-					<img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1"
-						alt="Chris Wood" width="40" height="40">
-					<div class="text-muted small text-nowrap mt-2">2:33 am</div>
-				</div>
-				<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
-					<div class="font-weight-bold mb-1">You</div>
-					Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.
-				</div>
-			</div>
+			<div th:each="i:${tinnhans}">
+				<div th:class="${i.taiKhoan.taiKhoan == taikhoan.taiKhoan} 
+							? 'chat-message-right pb-4' 
+							: 'chat-message-left pb-4'">
+					<div>
+						<img th:src="${i.taiKhoan.avatarURl != null} 
+								? (${i.taiKhoan.taiKhoan == taikhoan.taiKhoan} ? taikhoan.avatarURl : banbe.avatarURl)
+								: 'https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png'" class="rounded-circle mr-1"
+							width="40" height="40">
+						<div class="text-muted small text-nowrap mt-2" th:text="${i.thoiGianGuiTinNhan}"></div>
+					</div>
 
-			<div class="chat-message-left pb-4">
-				<div>
-					<img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1"
-						alt="Sharon Lessman" width="40" height="40">
-					<div class="text-muted small text-nowrap mt-2">2:34 am</div>
+					<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
+						<div class="font-weight-bold mb-1" th:text="${i.taiKhoan.taiKhoan == taikhoan.taiKhoan} 
+									? 'You' 
+									: ${banbe.taiKhoan}"></div>
+						<div th:text="${i.noiDungChu}"></div>
+					</div>
 				</div>
-				<div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
-					<div class="font-weight-bold mb-1">Sharon Lessman</div>
-					Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.
-				</div>
+
 			</div>
 		</div>
+
 
 		<form id="messageForm" name="messageForm" class="flex-grow-0 py-3 px-4 border-top">
 			<div class="form-group">
 				<div class="input-group clearfix">
 					<input type="text" id="message" placeholder="Type a message..." autocomplete="off"
 						class="form-control" />
-					<button type="submit" class="btn btn-primary">Send</button>
+					<button type="submit" class="btn btn-primary">Gửi</button>
 				</div>
 			</div>
 		</form>
@@ -98,6 +113,15 @@
 			var stompClient = null;
 			var username = $("#username").val();
 			var nickname = $("#nickname").val();
+			var avatar = $("#avatarurl").val();
+
+			var usernamefriend = $("#usernamefriend").val();
+			var nicknamefriend = $("#nicknamefriend").val();
+			var avatarfriend = $("#avatarurlfriend").val();
+
+			var macuochoithoai = $("#macuochoithoai").val();
+			var tencuochoithoai = $("#tenCuocHoiThoai").val();
+
 
 			if (username) {
 				var socket = new SockJS('/ws');
@@ -107,7 +131,7 @@
 			}
 
 			function onConnected() {
-				stompClient.subscribe('/chat/1', onMessageReceived);
+				stompClient.subscribe('/chat/' + macuochoithoai, onMessageReceived);
 			}
 
 			function onError() {
@@ -131,13 +155,13 @@
 						noiDungHinhAnh: '',
 						thoiGianGuiTinNhan: formattedDate,
 
-						maCuocHoiThoai: "1",
-						tenCuocHoiThoa: "xxx",
+						maCuocHoiThoai: macuochoithoai,
+						tenCuocHoiThoai: tencuochoithoai,
 
 						username: username,
 						nickname: nickname,
 					};
-					stompClient.send("/app/chat.sendMessage", {"topic": "1"}, JSON.stringify(chatMessage));
+					stompClient.send("/app/chat.sendMessage", {"topic": macuochoithoai}, JSON.stringify(chatMessage));
 					messageInput.value = '';
 				}
 				event.preventDefault();
@@ -148,13 +172,13 @@
 				var messageArea = document.getElementById('messageArea');
 
 				var messageElement = document.createElement('div');
-				messageElement.classList.add('chat-message-' + (message.nickname === nickname ? 'right' : 'left'), 'pb-4');
+				messageElement.classList.add('chat-message-' + (message.username === username ? 'right' : 'left'), 'pb-4');
 
 				var avatarElement = document.createElement('div');
 				var avatarImageElement = document.createElement('img');
 
 				avatarImageElement.classList.add('rounded-circle', 'mr-3');
-				avatarImageElement.src = 'https://bootdey.com/img/Content/avatar/avatar1.png';
+				avatarImageElement.src = (message.username === username ? avatar : avatarfriend);
 				avatarImageElement.alt = 'Avatar';
 				avatarImageElement.width = 40;
 				avatarImageElement.height = 40;
@@ -167,11 +191,11 @@
 				avatarElement.appendChild(timestampElement);
 
 				var messageContentElement = document.createElement('div');
-				messageContentElement.classList.add('flex-shrink-1', 'bg-light', 'rounded', 'py-2', 'px-3', message.nickname === nickname ? 'mr-3' : 'ml-3');
+				messageContentElement.classList.add('flex-shrink-1', 'bg-light', 'rounded', 'py-2', 'px-3', message.username === username ? 'mr-3' : 'ml-3');
 
 				var usernameElement = document.createElement('div');
 				usernameElement.classList.add('font-weight-bold', 'mb-1');
-				usernameElement.innerText = (message.nickname === nickname ? 'You' : message.nickname);
+				usernameElement.innerText = (message.username === username ? 'You' : message.username);
 
 				var textElement = document.createElement('div');
 				textElement.innerText = message.noiDungChu;

@@ -21,4 +21,5 @@ public class TinNhanDto {
 	
 	private String username;
 	private String nickname;
+	
 }

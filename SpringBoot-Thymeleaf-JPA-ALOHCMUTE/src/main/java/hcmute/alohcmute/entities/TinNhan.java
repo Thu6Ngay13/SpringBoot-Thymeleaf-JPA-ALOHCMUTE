@@ -41,6 +41,10 @@ public class TinNhan implements Serializable{
 	private LocalDateTime thoiGianGuiTinNhan;
 	
 	@ManyToOne
+	@JoinColumn(name="TaiKhoan")
+	private TaiKhoan taiKhoan;
+	
+	@ManyToOne
 	@JoinColumn(name="MaCuocHoiThoai")
 	private CuocHoiThoai cuocHoiThoai;
 
