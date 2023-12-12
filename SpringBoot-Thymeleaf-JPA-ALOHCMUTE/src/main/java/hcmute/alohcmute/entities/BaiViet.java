@@ -49,6 +49,9 @@ public class BaiViet implements Serializable {
 	@Column(name = "Ngay", columnDefinition = "Date")
 	private LocalDate Ngay;
 	
+	@Column(name = "Enable", columnDefinition = "bit")
+	private boolean enable = false;
+	
 	@ManyToOne
 	@JoinColumn(name = "MaCheDo")
 	private CheDo cheDoNhom;

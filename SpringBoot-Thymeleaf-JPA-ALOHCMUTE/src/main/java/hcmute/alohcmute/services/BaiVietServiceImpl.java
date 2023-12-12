@@ -1,5 +1,6 @@
 package hcmute.alohcmute.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -67,23 +68,26 @@ public class BaiVietServiceImpl implements IBaiVietService{
 	
 	@Override
 	public Page<BaiViet> getBaiVietByPage(String taikhoan, int page, int pageSize) {
-		List<BaiViet> listBaiViet = findAllBaiVietByUsername(taikhoan);
-		int fromIndex = page * pageSize;
+		List<BaiViet> listBaiVietOld = findAllBaiVietByUsername(taikhoan);
+		List<BaiViet> listBaiViet = new ArrayList<BaiViet>();
+        
+        for(BaiViet bv : listBaiVietOld) {
+        	if(bv.isEnable()==true) {
+        		listBaiViet.add(bv);
+        	}
+        }
+        
+        int fromIndex = page * pageSize;
         int toIndex = Math.min((page + 1) * pageSize, listBaiViet.size());
 
         if (fromIndex > toIndex) {
             // Trang yêu cầu không hợp lệ
             return new PageImpl<>(List.of()); // Trả về trang trống
         }
-
+        
         List<BaiViet> baiVietOnPage = listBaiViet.subList(fromIndex, toIndex);
+        
         return new PageImpl<>(baiVietOnPage, PageRequest.of(page, pageSize), listBaiViet.size());
-    }
-	
-	@Override
-	@Transactional
-    public void deleteByMaBaiViet(int maBaiViet) {
-        baiVietRepository.deleteByMaBaiViet(maBaiViet);
     }
 
 	@Override
@@ -149,4 +153,5 @@ public class BaiVietServiceImpl implements IBaiVietService{
 	public BaiViet findBymaBaiViet(int mabv) {
 		return baiVietRepository.findBymaBaiViet(mabv);
 	}
+
 }
