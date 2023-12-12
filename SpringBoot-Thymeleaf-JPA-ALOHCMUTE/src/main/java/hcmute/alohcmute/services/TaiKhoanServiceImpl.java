@@ -1,5 +1,8 @@
 package hcmute.alohcmute.services;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,16 +16,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import hcmute.alohcmute.entities.BaiViet;
-import hcmute.alohcmute.entities.BaoCaoBaiViet;
 import hcmute.alohcmute.entities.TaiKhoan;
-import hcmute.alohcmute.repositories.BaiVietRepository;
+import hcmute.alohcmute.entities.ThongBao;
+import hcmute.alohcmute.models.TaiKhoanModel;
 import hcmute.alohcmute.repositories.TaiKhoanRepository;
 
 @Service
 public class TaiKhoanServiceImpl implements ITaiKhoanService{
 	@Autowired
 	TaiKhoanRepository taiKhoanRepository;
+	
+	@Autowired
+	IThongBaoService tbSer;
 
 	@Override
 	public <S extends TaiKhoan> S save(S entity) {
@@ -67,16 +72,27 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
 	@Override
 	@Transactional
 	public void unfollow(TaiKhoan taiKhoanTheoDoi, TaiKhoan taiKhoanBiTheoDoi) {
-	
-	        taiKhoanTheoDoi.getTaiKhoanTheoDois().remove(taiKhoanBiTheoDoi);
-	   	 	taiKhoanRepository.save(taiKhoanTheoDoi);
-	    
+		taiKhoanTheoDoi.getTaiKhoanTheoDois().remove(taiKhoanBiTheoDoi);
+		ThongBao tb = new ThongBao();
+		tb.setNgay(LocalDate.now());
+		tb.setNoiDung(taiKhoanTheoDoi.getTaiKhoan() + " vừa hủy theo dõi bạn trong ALOHCMUTE");
+		tb.setTaiKhoan(taiKhoanBiTheoDoi);
+		tb.setThoiGian(LocalTime.now());
+		tb.setLinkThongBao("/user/follow");
+		tbSer.save(tb);
+		taiKhoanRepository.save(taiKhoanTheoDoi);
 	}
 	@Override
 	public void follow(TaiKhoan taiKhoan, TaiKhoan taiKhoanTheoDoi) {
-	
-	    taiKhoan.getTaiKhoanTheoDois().add(taiKhoanTheoDoi);
-	    taiKhoanRepository.save(taiKhoan);
+		taiKhoan.getTaiKhoanTheoDois().add(taiKhoanTheoDoi);
+		ThongBao tb = new ThongBao();
+		tb.setNgay(LocalDate.now());
+		tb.setNoiDung(taiKhoan.getTaiKhoan() + " vừa theo dõi bạn trong ALOHCMUTE");
+		tb.setTaiKhoan(taiKhoanTheoDoi);
+		tb.setThoiGian(LocalTime.now());
+		tb.setLinkThongBao("/user/follow");
+		tbSer.save(tb);
+		taiKhoanRepository.save(taiKhoan);
 	}
 	
 	@Override
@@ -142,4 +158,39 @@ public class TaiKhoanServiceImpl implements ITaiKhoanService{
         List<TaiKhoan> taiKhooanOnPage = listTaiKhoanTheoDoi.subList(fromIndex, toIndex);
         return new PageImpl<>(taiKhooanOnPage, PageRequest.of(page, pageSize), listTaiKhoanTheoDoi.size());
     }
+
+	@Override
+	public List<TaiKhoanModel> findTaiKhoanByKeyword(String keyword, String username) {
+		List<TaiKhoan> list = taiKhoanRepository.findTaiKhoanByKeyword(keyword);
+		List<TaiKhoanModel> listModel = new ArrayList<>();
+		for (TaiKhoan tk : list) {
+			TaiKhoanModel model = new TaiKhoanModel();
+			model.setTaiKhoan(tk.getTaiKhoan()); 
+			model.setMatKhau(tk.getMatKhau()); 
+			model.setEnable(tk.isEnable()); 
+			model.setHoTen(tk.getHoTen()); 
+			model.setNickName(tk.getNickName());
+			model.setEmail(tk.getEmail()); 
+			model.setGioiTinh(tk.getGioiTinh()); 
+			model.setSDT(tk.getSDT()); 
+			model.setAvatarURl(tk.getAvatarURl());
+			model.setSoLuongNguoiTheoDoi(demTaiKhoanTheoDoi(tk.getTaiKhoan()));
+			model.setIsfollowed(checkFollowed(username, tk.getTaiKhoan()));
+			listModel.add(model);
+		}
+		return listModel;
+	}
+
+	@Override
+	public long demTaiKhoanTheoDoi(String username) {
+        return taiKhoanRepository.findTaiKhoanFollowersByUsername(username).size();
+	}
+
+	@Override
+	public boolean checkFollowed(String taiKhoanTheoDoi, String taiKhoanDuocTheoDoi) {
+		TaiKhoan taiKhoan = taiKhoanRepository.getById(taiKhoanTheoDoi);
+		if (taiKhoan.getTaiKhoanTheoDois().contains(taiKhoanRepository.getById(taiKhoanDuocTheoDoi)))
+			return true;
+		return false;
+	}
 }

@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 
 import hcmute.alohcmute.entities.BaiViet;
+import hcmute.alohcmute.entities.Nhom;
 
 public interface IBaiVietService {
 
@@ -23,5 +24,13 @@ public interface IBaiVietService {
 	
 	Page<BaiViet> getBaiVietByPage(String mabaiviet, int page, int pageSize);
 	
-	void deleteByMaBaiViet(int maBaiViet);
+	long tangLike(int maBaiViet, String taiKhoan);
+	long giamLike(int maBaiViet, String taiKhoan);
+	boolean checkLiked(int maBaiViet, String taiKhoan);
+
+	BaiViet findBymaBaiViet(int mabv);
+
+	List<BaiViet> findBymaNhom(Nhom Nhom);
+
+	<S extends BaiViet> S save(S entity);
 }

@@ -43,8 +43,9 @@ public interface ICommentService {
 	<S extends BinhLuan> S save(S entity);
 
 	List<BinhLuan> findCommentByMaBaiViet(int maBV);
-
-	long countBinhLuanByMaBaiViet(int maBaiViet);
 	
 	void deleteAllBinhLuanByMaBaiViet(int maBaiViet);
+	
+	long countBinhLuanByMaBaiViet(int maBaiViet);
+     
 }

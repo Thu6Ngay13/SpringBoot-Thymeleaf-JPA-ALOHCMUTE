@@ -28,4 +28,6 @@ public interface IBaoCaoBaiVietService {
 	void deleteAllBaoCaoBaiVietByMaBaiViet(int maBaiViet);
 	
 	List<BaoCaoBaiViet> findBaoCaoBaiVietByMaBaiViet(int maBV);
+
+	BaoCaoBaiViet reportPost(int postId, String reason);
 }

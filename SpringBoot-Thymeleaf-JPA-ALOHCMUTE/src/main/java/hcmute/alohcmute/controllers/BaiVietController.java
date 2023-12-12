@@ -15,4 +15,5 @@ import hcmute.alohcmute.services.IBaoCaoBaiVietService;
 
 @Controller
 public class BaiVietController {
+	
 }

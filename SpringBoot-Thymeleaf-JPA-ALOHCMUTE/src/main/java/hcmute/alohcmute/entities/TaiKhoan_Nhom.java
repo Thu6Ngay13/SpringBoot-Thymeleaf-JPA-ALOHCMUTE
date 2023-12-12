@@ -1,5 +1,7 @@
 package hcmute.alohcmute.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
