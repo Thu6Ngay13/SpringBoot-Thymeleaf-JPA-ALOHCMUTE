@@ -59,7 +59,7 @@ public class TaiKhoan implements Serializable{
 	private String sDT;
 	
 	@Column(name = "AvatarURL", columnDefinition = "nvarchar(2000)")
-	private String avatarURl;
+	private String avatarURl = "account.png";
 	
 	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.LAZY)
 	private List<BaiViet> baiViets;

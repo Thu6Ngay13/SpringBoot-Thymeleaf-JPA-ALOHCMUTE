@@ -55,6 +55,11 @@ public class TinNhanController {
 	public String getCuocHoiThoai(@PathVariable(value = "username") String username, Model model) {
 		TaiKhoan taiKhoan = SecurityUtil.getMyUser();
 		TaiKhoan banbe = taiKhoanService.findBytaiKhoan(username);
+		
+		if(banbe == null) {
+			return "user/chat/danhsachchat";
+		}
+		
 		List<CuocHoiThoai> cuocHoiThoaiHienTai = new ArrayList<>();
 		List<TinNhan> tinnhans = null;
 		
@@ -71,7 +76,7 @@ public class TinNhanController {
 		if (cuocHoiThoaiHienTai.size() == 0) {
 			CuocHoiThoai cuocHoiThoai = new CuocHoiThoai();
 			cuocHoiThoai
-					.setTenCuocHoiThoai("Cuộc trò chuyện giữa: " + taiKhoan.getNickName() + ", " + banbe.getNickName());
+					.setTenCuocHoiThoai("Cuộc trò chuyện giữa: " + taiKhoan.getTaiKhoan() + ", " + banbe.getTaiKhoan());
 
 			Set<TinNhan> tinNhans = new HashSet<>();
 			Set<TaiKhoan> taiKhoans = new HashSet<>();
