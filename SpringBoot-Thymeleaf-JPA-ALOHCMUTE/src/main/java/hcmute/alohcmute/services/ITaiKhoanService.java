@@ -1,6 +1,7 @@
 package hcmute.alohcmute.services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import hcmute.alohcmute.entities.TaiKhoan;
@@ -26,4 +27,8 @@ public interface ITaiKhoanService{
 	void unfollow(TaiKhoan taiKhoan, TaiKhoan taiKhoanTheoDoi);
 	
 	TaiKhoan findBytaiKhoan (String username);
+
+	void follow(TaiKhoan taiKhoan, TaiKhoan taiKhoanTheoDoi);
+
+	Map<TaiKhoan, Integer> NguoiTheoDoiChung(String username);
 }

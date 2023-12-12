@@ -14,9 +14,11 @@ public interface TaiKhoanRepository extends JpaRepository<TaiKhoan, Long>{
     List<TaiKhoan> findTaiKhoanTheoDoisByUsername(String taiKhoanUsername);
 	
 	@Query("SELECT t FROM TaiKhoan t JOIN t.taiKhoanTheoDois u WHERE u.taiKhoan = :taiKhoanUsername")
-    List<TaiKhoan> findTaiKhoanFollowersByUsername(String taiKhoanUsername);
+	List<TaiKhoan> findTaiKhoanFollowersByUsername(String taiKhoanUsername);
 	
 	TaiKhoan findOneBytaiKhoan(String username);
 	
-	
+
+
+
 }

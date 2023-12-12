@@ -1,8 +1,8 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -17,14 +17,13 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString (exclude = {"binhLuans", "thongBaos", "baiViets"})
+@ToString (exclude = {"binhLuans", "thongBaos", "baiViets", "nhoms"})
 @Entity
 @Table
 
@@ -66,37 +65,63 @@ public class TaiKhoan implements Serializable{
 	@JoinColumn(name = "MaLoai")
 	private LoaiTaiKhoan loaiTaiKhoan;
 	
-	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.LAZY)
 	private List<BaiViet> baiViets;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_CuocHoiThoai",
 		joinColumns = {@JoinColumn(name = "TaiKhoan") },
 		inverseJoinColumns = {@JoinColumn(name = "MaCuocHoiThoai")})
-	private Set<CuocHoiThoai> cuocHoiThoai = new HashSet<CuocHoiThoai>();
+	private Set<CuocHoiThoai> cuocHoiThoai;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_Nhom",
 		joinColumns = {@JoinColumn(name = "TaiKhoan") },
 		inverseJoinColumns = {@JoinColumn(name = "MaNhom")})
-	private Set<Nhom> nhom = new HashSet<Nhom>();
+	private Set<Nhom> nhom;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_TheoDoi_TaiKhoan",
 		joinColumns = {@JoinColumn(name = "TaiKhoanTheoDoi") },
 		inverseJoinColumns = {@JoinColumn(name = "TaiKhoanBiTheoDoi")})
-	private Set<TaiKhoan> taiKhoanTheoDois = new HashSet<TaiKhoan>();
+	private Set<TaiKhoan> taiKhoanTheoDois;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_Chan_TaiKhoan",
 		joinColumns = {@JoinColumn(name = "TaiKhoanChan") },
 		inverseJoinColumns = {@JoinColumn(name = "TaiKhoanBiChan")})
-	private Set<TaiKhoan> taiKhoanChans = new HashSet<TaiKhoan>();
+	private Set<TaiKhoan> taiKhoanChans;
 	
-	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.LAZY)
 	private Set<ThongBao> thongBaos;
 	
-	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.LAZY)
 	private Set<BinhLuan> binhLuans;
+	
+	@ManyToMany
+	@JoinTable(name = "TuongTac",
+		joinColumns = {@JoinColumn(name = "TaiKhoan") },
+		inverseJoinColumns = {@JoinColumn(name = "MaBaiViet")})
+	private Set<BaiViet> baiVietTuongTacs;
+	
+	@OneToMany(mappedBy = "taiKhoanTruongNhom", fetch = FetchType.LAZY)
+	private Set<Nhom> nhoms;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TaiKhoan other = (TaiKhoan) obj;
+		return this.taiKhoan==other.getTaiKhoan();
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(taiKhoan);
+	}
 	
 }

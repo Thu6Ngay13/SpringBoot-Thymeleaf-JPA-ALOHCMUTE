@@ -5,7 +5,6 @@ package hcmute.alohcmute.controllers;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.lang.ProcessBuilder.Redirect;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -24,10 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.CheDo;
+import hcmute.alohcmute.entities.Nhom;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.entities.ThongBao;
 import hcmute.alohcmute.services.IBaiVietService;
 import hcmute.alohcmute.services.ICheDoService;
+import hcmute.alohcmute.services.INhomService;
 import hcmute.alohcmute.services.ITaiKhoanService;
 import hcmute.alohcmute.services.IThongBaoService;
 import jakarta.servlet.ServletContext;
@@ -45,6 +46,8 @@ public class DangBaiController{
 	@Autowired
 	IThongBaoService tbSer;
 	@Autowired
+	INhomService nhomSer;
+	@Autowired
 	ServletContext app;
 	@RequestMapping("")
 	public String list(ModelMap model)
@@ -60,8 +63,10 @@ public class DangBaiController{
 		return "user/dangbai/dangbai.html";
 	}
 	@PostMapping("add")
-	public String add(ModelMap model,@RequestParam("noidungchu") String noidungchu,@RequestParam("privacy") String cdo,@RequestParam("file") MultipartFile noidunghinhanh)
+	public String add(ModelMap model,@RequestParam("noidungchu") String noidungchu,@RequestParam("manhom") String manhom,@RequestParam("privacy") String cdo,@RequestParam("file") MultipartFile noidunghinhanh,@RequestParam("color") String color)
 	{
+		if(color.equals(""))
+			color="#000000";
 		
 		BaiViet baiviet=new BaiViet();
 		if (noidungchu.equals("")&&noidunghinhanh.isEmpty()) {
@@ -93,7 +98,7 @@ public class DangBaiController{
 			
 			String tenchedo="";
 			TaiKhoan taikhoan=taikhoanSer.findBytaiKhoan("lolo928");
-			baiviet.setNoiDungChu(noidungchu);
+			baiviet.setNoiDungChu(noidungchu+color);
 			String linkanh= "/upload/"+filename;
 			baiviet.setNoiDungHinhAnh(linkanh);
 			baiviet.setTaiKhoan(taikhoan);
@@ -111,31 +116,26 @@ public class DangBaiController{
 			{
 				tenchedo="Riêng Tư";
 			}
-			Pattern pattern = Pattern.compile("@\\w+");
-
-	        // Create a matcher for the input string
-	        Matcher matcher = pattern.matcher(noidungchu);
-
-	        // Find and print all occurrences
-	        while (matcher.find()) {
-	            String match = matcher.group();
-	            ThongBao tb = new ThongBao();
-	            tb.setNgay(java.time.LocalDate.now());
-	            String NoiDung = taikhoan.getHoTen()+" đã nhắc đến bạn trong một bài viết";
-	            tb.setNoiDung(NoiDung);
-	            String user=match.substring(1);
-	            tb.setTaiKhoan(taikhoanSer.findBytaiKhoan(user));
-	            tb.setThoiGian(java.time.LocalTime.now());
-	            tbSer.save(tb);
-	        }
-			System.out.println(tenchedo);
-			CheDo chedo=chedoSer.findByCheDo(tenchedo);
-			baiviet.setCheDoNhom(chedo);
+			if (!manhom.equals(""))
+			{
+				int grID = Integer.parseInt(manhom);
+				Nhom nhom = nhomSer.findBymaNhom(grID);
+				baiviet.setNhom(nhom);
+				CheDo chedo=chedoSer.findByID(4).get();
+				baiviet.setCheDoNhom(chedo);
+			}
+			else {
+				CheDo chedo=chedoSer.findByCheDo(tenchedo);
+				baiviet.setCheDoNhom(chedo);
+			}
 			baiviet.setNgay(LocalDate.now());
 			baiviet.setThoiGian(LocalTime.now());
 			baivietSer.save(baiviet);
 		}
-		return "redirect:/user/newfeed";
+		if (!manhom.equals("")) {
+			return "redirect:/user/group/viewgroup?groupID="+manhom;
+		}
+		else return "redirect:/user/newfeed";
 	}
 	
 }

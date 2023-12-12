@@ -3,7 +3,7 @@ package hcmute.alohcmute.entities;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,20 +14,17 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data 
 @NoArgsConstructor 
 @AllArgsConstructor
 @EqualsAndHashCode(exclude="taiKhoan")
-@ToString (exclude = {"binhLuans", "baoCaoBaiViets"})
+@ToString (exclude = {"binhLuans", "baoCaoBaiViets", "taiKhoans"})
 
 
 @Entity
@@ -57,13 +54,20 @@ public class BaiViet implements Serializable {
 	@JoinColumn(name = "MaCheDo")
 	private CheDo cheDoNhom;
 	
-	@OneToMany(mappedBy = "baiViet", fetch = FetchType.EAGER)
-	private List<BinhLuan> binhLuans;
+	@OneToMany(mappedBy = "baiViet", fetch = FetchType.LAZY)
+	private Set<BinhLuan> binhLuans;
 	
 	@ManyToOne
 	@JoinColumn(name = "taiKhoan")
 	private TaiKhoan taiKhoan;
 	
 	@OneToMany(mappedBy = "baiViet")
-	private List<BaoCaoBaiViet> baoCaoBaiViets;
+	private Set<BaoCaoBaiViet> baoCaoBaiViets;
+
+	@ManyToMany(mappedBy = "baiVietTuongTacs")
+	private Set<TaiKhoan> taiKhoans;
+	
+	@ManyToOne
+	@JoinColumn(name = "MaNhom")
+	private Nhom nhom;
 }

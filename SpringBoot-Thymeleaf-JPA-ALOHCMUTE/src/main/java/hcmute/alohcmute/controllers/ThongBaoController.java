@@ -54,7 +54,7 @@ public class ThongBaoController {
 	 */
 	@ModelAttribute("thongbaos")
     public List<ThongBao> getThongBaos() {
-        TaiKhoan taiKhoan = taiKhoanService.findBytaiKhoan("lolo928");
+        TaiKhoan taiKhoan = taiKhoanService.findBytaiKhoan("tien888");
         return thongbaoService.findByTaiKhoan(taiKhoan);
     }
 }
