@@ -15,34 +15,5 @@ import hcmute.alohcmute.services.IBaoCaoBaiVietService;
 
 @Controller
 public class BaiVietController {
-    	@Autowired
-	IBaoCaoBaiVietService baoCaoBaiVietService;
-
-	@GetMapping("/admin/dsbaocaobaiviet")
-	public String listBaoCaoBaiViet(ModelMap model) {
-		List<BaoCaoBaiViet> list = baoCaoBaiVietService.findAll();
-
-		model.addAttribute("baocaobaiviet", list);
-		return "admin/manage/quanlybaiviet";
-	}
-
-	@GetMapping(value = {"/admin/chophep/{mabaocao}", "/admin/chitiet/chophep/{mabaocao}"})
-	public String chophepBaiViet(@PathVariable(value = "mabaocao") int mabaocao, Model model) {
-		baoCaoBaiVietService.deleteById(mabaocao);
-		
-		List<BaoCaoBaiViet> list = baoCaoBaiVietService.findAll();
-		model.addAttribute("baocaobaiviet", list);
-		
-		return "redirect:/admin/dsbaocaobaiviet";
-	}
 	
-	
-	@GetMapping("/admin/chitiet/{mabaocao}")
-	public String chitietbaiviet(@PathVariable(value = "mabaocao") int mabaocao, Model model) {
-		Optional<BaoCaoBaiViet> optBaocaobaiviet = baoCaoBaiVietService.findById(mabaocao);
-		BaoCaoBaiViet baocaobaiviet = optBaocaobaiviet.get();
-
-		model.addAttribute("baocaobaiviet", baocaobaiviet);
-		return "admin/manage/chitietbaiviet";
-	}
 }
