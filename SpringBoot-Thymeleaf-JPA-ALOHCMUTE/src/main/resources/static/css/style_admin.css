@@ -238,3 +238,11 @@
 .quanlynguoidung{
 	display: inline-block;
 }
+
+.nav-link {
+    font-size: 0.85em; /* Adjust the font size */
+}
+
+.nav-link i {
+    font-size: 1.2em; /* Adjust the icon size */
+}

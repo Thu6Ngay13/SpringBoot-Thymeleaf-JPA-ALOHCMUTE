@@ -1,9 +1,11 @@
 package hcmute.alohcmute.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -37,18 +39,14 @@ public class CommentSerrviceImpl implements ICommentService{
 	}
 
 	@Override
-	public List<BinhLuan> findAll(Sort sort) {
-		return commentRepository.findAll(sort);
+	public List<BinhLuan> findAll() {
+		Sort sort = Sort.by(Sort.Direction.ASC, "ngay");
+        return commentRepository.findAll(sort);
 	}
 
 	@Override
 	public Page<BinhLuan> findAll(Pageable pageable) {
 		return commentRepository.findAll(pageable);
-	}
-
-	@Override
-	public List<BinhLuan> findAll() {
-		return commentRepository.findAll();
 	}
 
 	@Override
@@ -104,7 +102,15 @@ public class CommentSerrviceImpl implements ICommentService{
 	@Override
 	public List<BinhLuan> findCommentByMaBaiViet(int maBV) {
 		BaiViet baiViet = baiVietRepository.getById(maBV);
-		return new ArrayList<>(baiViet.getBinhLuans());
+		List<BinhLuan> list = new ArrayList<>(baiViet.getBinhLuans());
+        List<BinhLuan> listBinhLuan = list.stream().sorted((bl1, bl2) -> {
+			int dateCompare = bl2.getNgay().compareTo(bl1.getNgay());
+			if (dateCompare == 0) {
+				return bl2.getThoiGian().compareTo(bl1.getThoiGian());
+			}
+			return dateCompare;
+		}).collect(Collectors.toList());
+        return listBinhLuan;
 	}
 
 	@Override
