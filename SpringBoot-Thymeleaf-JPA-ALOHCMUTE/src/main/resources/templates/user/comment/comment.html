@@ -70,10 +70,10 @@
 
 					<div class="d-flex skfjkk flex-wrap">
 						<div class="lkt40">
-							<img th:src="@{/images/image_avt.png}" alt="">
+							<img th:src="${baiViet.taiKhoan.avatarURl}" alt="">
 						</div>
 
-						<div class="name flex-grow-1">
+						<div class="name flex-grow-1"> 
 							<h6 class=" mb-1 fs-5 fw-bold d-flex"
 								th:text="${baiViet.taiKhoan.hoTen}"></h6>
 							<div class="d-flex">
@@ -169,7 +169,7 @@
 										th:src="${cmt.noiDungHinhAnh}" alt="" />
 									<div class="d-flex justify-content-between">
 										<div class="d-flex flex-row align-items-center">
-											<img th:src="@{/images/image_avt.png}" alt="avatar"
+											<img th:src="${cmt.taiKhoan.avatarURl}" alt="avatar"
 												width="25" height="25" />
 											<p class="small mb-0 ms-2" th:text="${cmt.taiKhoan.nickName}"></p>
 										</div>

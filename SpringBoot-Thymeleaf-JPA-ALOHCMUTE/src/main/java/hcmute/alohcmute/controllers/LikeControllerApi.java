@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import hcmute.alohcmute.security.SecurityUtil;
 import hcmute.alohcmute.services.BaiVietServiceImpl;
 import hcmute.alohcmute.services.IBaiVietService;
 
@@ -22,16 +23,20 @@ public class LikeControllerApi {
 
 	@Autowired
 	IBaiVietService baiVietService = new BaiVietServiceImpl();
+	
+	String username;
 
 	@PostMapping("like/{baiVietId}")
 	public ResponseEntity<Void> add(@PathVariable(value = "baiVietId") int baiVietId) {
-		baiVietService.tangLike(baiVietId, "thuycao816");
+		this.username = SecurityUtil.getMyUser().getTaiKhoan();
+		baiVietService.tangLike(baiVietId, username);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 	@PostMapping("nolike/{baiVietId}")
 	public ResponseEntity<Void> delete(@PathVariable(value = "baiVietId") int baiVietId) {
-		baiVietService.giamLike(baiVietId, "thuycao816");
+		this.username = SecurityUtil.getMyUser().getTaiKhoan();
+		baiVietService.giamLike(baiVietId, username);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

@@ -23,6 +23,7 @@ import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.Nhom;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.entities.TaiKhoan_Nhom;
+import hcmute.alohcmute.security.SecurityUtil;
 import hcmute.alohcmute.services.IBaiVietService;
 import hcmute.alohcmute.services.ICheDoService;
 import hcmute.alohcmute.services.INewFeedService;
@@ -47,10 +48,11 @@ public class NhomController {
 	INewFeedService iNewFeed;
 	@Autowired
 	ServletContext app;
-	String username = "thuycao816";
-
+	
+	String username;
 	@GetMapping("")
 	public String NhomCuaBan(ModelMap model) {
+		String username = SecurityUtil.getMyUser().getTaiKhoan();
 		// TaiKhoan tk = tkSer.findBytaiKhoan(username);
 		// Set<Nhom> setnhom =tk.getNhom();
 		// List<Nhom> listnhom = new ArrayList<>(setnhom);
@@ -68,6 +70,7 @@ public class NhomController {
 
 	@GetMapping("viewgroup")
 	public String TheoDoi(ModelMap model, @RequestParam("groupID") String groupID) {
+		String username = SecurityUtil.getMyUser().getTaiKhoan();
 		
 		
 		int groupid = Integer.parseInt(groupID);
@@ -89,7 +92,7 @@ public class NhomController {
 				thanhvien.add(taikhoanTemp);
 		}
 		for (BaiViet post : listBaiViet) {
-			likedPosts.put(post.getMaBaiViet(), iNewFeed.checkIfLiked(post.getMaBaiViet(), "lolo928"));
+			likedPosts.put(post.getMaBaiViet(), iNewFeed.checkIfLiked(post.getMaBaiViet(), username));
 			postLikesCount.put(post.getMaBaiViet(), iNewFeed.getLikeCount(post.getMaBaiViet()));
 			postCommentsCount.put(post.getMaBaiViet(), iNewFeed.getCommentCount(post.getMaBaiViet()));
 		}
@@ -116,6 +119,7 @@ public class NhomController {
 
 	@GetMapping("searchgroup")
 	public String TimKiemNhom(ModelMap model, @RequestParam("groupName") String groupName) {
+		String username = SecurityUtil.getMyUser().getTaiKhoan();
 		List<Nhom> listnhomTimKiem = NhomSer.findByTenNhomContainingIgnoreCase(groupName);
 		boolean empty = false;
 		if (listnhomTimKiem.isEmpty())
@@ -143,6 +147,7 @@ public class NhomController {
 
 	@GetMapping("joingroup")
 	public String VaoNhom(ModelMap model, @RequestParam("groupID") String groupID) {
+		String username = SecurityUtil.getMyUser().getTaiKhoan();
 		TaiKhoan tk = tkSer.findBytaiKhoan(username);
 		int GrID = Integer.parseInt(groupID);
 		Nhom nhom = NhomSer.findBymaNhom(GrID);
@@ -154,6 +159,7 @@ public class NhomController {
 	@GetMapping("outgroup")
 	public String RoiNhom(ModelMap model, @RequestParam("groupID") String groupID,
 			@RequestParam("ThanhVien") String ThanhVien) {
+		String username = SecurityUtil.getMyUser().getTaiKhoan();
 		int GrID = Integer.parseInt(groupID);
 		if (ThanhVien != "") {
 			Nhom nhom = NhomSer.findBymaNhom(GrID);
@@ -167,6 +173,7 @@ public class NhomController {
 
 	@GetMapping("editgroup")
 	public String ChinhSuaNhom(ModelMap model, @RequestParam("groupID") String groupID) {
+		String username = SecurityUtil.getMyUser().getTaiKhoan();
 		int GrID = Integer.parseInt(groupID);
 		Nhom nhom = NhomSer.findBymaNhom(GrID);
 		if (!username.equals(nhom.getTaiKhoanTruongNhom().getTaiKhoan()))
@@ -192,6 +199,7 @@ public class NhomController {
 	@GetMapping("removeMember")
 	public String XoaThanhVien(ModelMap model, @RequestParam("groupID") String groupID,
 			@RequestParam("username") String usernameRemove, HttpServletRequest request) {
+		String username = SecurityUtil.getMyUser().getTaiKhoan();
 		int grID = Integer.parseInt(groupID);
 		String usernameConvert = usernameRemove.substring(1, usernameRemove.length() - 1);
 		NhomSer.leaveGroup(usernameConvert, grID);
@@ -215,6 +223,7 @@ public class NhomController {
 	@GetMapping("addMember")
 	public String ThemThanhVien(ModelMap model, @RequestParam("groupID") String groupID,
 			@RequestParam("username") String usernameAdd, HttpServletRequest request) {
+		String username = SecurityUtil.getMyUser().getTaiKhoan();
 		int grID = Integer.parseInt(groupID);
 		String usernameConvert = usernameAdd.substring(1, usernameAdd.length() - 1);
 		NhomSer.addMember(usernameConvert, grID);
@@ -227,6 +236,7 @@ public class NhomController {
 	public String LuuThayDoi(ModelMap model, @RequestParam("groupName") String groupName,
 			@RequestParam("CheDo") String CheDo, @RequestParam("groupID") String groupID, HttpServletRequest request,
 			@RequestParam("file") MultipartFile noidunghinhanh) {
+		String username = SecurityUtil.getMyUser().getTaiKhoan();
 		int grID = Integer.parseInt(groupID);
 		Nhom nhom = NhomSer.findBymaNhom(grID);
 		int CheDoID;
@@ -277,10 +287,11 @@ public class NhomController {
 
 	@GetMapping("post")
 	public String DangBai(ModelMap model, @RequestParam("groupID") String groupID) {
+		String username = SecurityUtil.getMyUser().getTaiKhoan();
 		model.addAttribute("nhom", groupID);
-		TaiKhoan taikhoan = tkSer.findBytaiKhoan("lolo928");
+		TaiKhoan taikhoan = tkSer.findBytaiKhoan(username);
 		model.addAttribute("taikhoan", taikhoan);
-		List<TaiKhoan> aa = tkSer.findTaiKhoanFollowersByUsername("lolo928");
+		List<TaiKhoan> aa = tkSer.findTaiKhoanFollowersByUsername(username);
 		List<String> kq = new ArrayList<>();
 		for (TaiKhoan ds : aa) {
 			kq.add(ds.getTaiKhoan());
@@ -292,6 +303,7 @@ public class NhomController {
 	@PostMapping("creategroup")
 	public String TaoNhom(ModelMap model, @RequestParam("groupName") String groupName,
 			@RequestParam("CheDo") String CheDo) {
+		String username = SecurityUtil.getMyUser().getTaiKhoan();
 		boolean Success = NhomSer.createGroup(username, groupName, CheDo);
 		if (Success)
 			model.addAttribute("success", "Thành công");

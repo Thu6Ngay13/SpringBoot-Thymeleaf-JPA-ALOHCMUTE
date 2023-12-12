@@ -35,7 +35,7 @@
 							<img th:src="${taikhoan.avatarURl}" alt="" width="100" height="100" />
 							<br>
 							<br>
-							<h2 th:text="${taikhoan.hoTen}" style="word-wrap: break-word;"></h2>
+							<a th:href="${'/trangcanhan/thongtintaikhoan/'+taikhoan.taiKhoan}" style="word-wrap: break-word; color: black; font-size: 24px; font-weight: bold; text-decoration: none;">[[${taikhoan.hoTen}]]</a>
 							<p th:text="'Nickname: ' + ${taikhoan.nickName}"></p>
 							<div class="button-container">
 								<button type="button" class="buttonTheoDoi" disabled> ✔Đã theo dõi</button>
@@ -68,7 +68,7 @@
 							<img th:src="${taikhoan.avatarURl}" alt="" width="100" height="100" />
 							<br>
 							<br>
-							<h2 th:text="${taikhoan.hoTen}" style="word-wrap: break-word;"></h2>
+							<a th:href="${'/trangcanhan/thongtintaikhoan/'+taikhoan.taiKhoan}" style="word-wrap: break-word; color: black; font-size: 24px; font-weight: bold; text-decoration: none;">[[${taikhoan.hoTen}]]</a>
 							<p th:text="'Nickname: ' + ${taikhoan.nickName}"></p>
 
 							<div th:if="${#lists.contains(Listtaikhoan, taikhoan)}">
@@ -111,7 +111,7 @@
 							<img th:src="${key.avatarURl}" alt="" width="100" height="100" />
 							<br>
 							<br>
-							<h2 th:text="${key.hoTen}" style="word-wrap: break-word;"></h2>
+							<a th:href="${'/trangcanhan/thongtintaikhoan/'+key.taiKhoan}" style="word-wrap: break-word; color: black; font-size: 24px; font-weight: bold; text-decoration: none;">[[${key.hoTen}]]</a>
 							<p th:text="'Nickname: ' + ${key.nickName}"></p>
 							<p th:text="${BanChung.get(key)} + ' người theo dõi chung'"></p>
 

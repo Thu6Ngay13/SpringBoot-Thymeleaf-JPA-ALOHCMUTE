@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import hcmute.alohcmute.entities.TaiKhoan;
+import hcmute.alohcmute.security.SecurityUtil;
 import hcmute.alohcmute.services.ITaiKhoanService;
 
 @RestController
@@ -20,10 +21,11 @@ public class FollowControllerApi {
 	@Autowired
 	ITaiKhoanService taiKhoanService;
 	
-	String username = "lolo928";
+	String username;
 	
 	@PostMapping("follow/{taiKhoan}")
 	public ResponseEntity<Void> follow(@PathVariable(value = "taiKhoan") String usernameTheoDoi) {
+		this.username = SecurityUtil.getMyUser().getTaiKhoan();
 		TaiKhoan taiKhoan = taiKhoanService.findBytaiKhoan(username);
 		TaiKhoan taiKhoanTheoDoi = taiKhoanService.findBytaiKhoan(usernameTheoDoi);
 		taiKhoanService.follow(taiKhoan, taiKhoanTheoDoi);
@@ -32,6 +34,7 @@ public class FollowControllerApi {
 	
 	@PostMapping("unfollow/{taiKhoan}")
 	public ResponseEntity<Void> unfollow(@PathVariable(value = "taiKhoan") String usernameTheoDoi) {
+		this.username = SecurityUtil.getMyUser().getTaiKhoan();
 		TaiKhoan taiKhoan = taiKhoanService.findBytaiKhoan(username);
 		TaiKhoan taiKhoanTheoDoi = taiKhoanService.findBytaiKhoan(usernameTheoDoi);
 		taiKhoanService.unfollow(taiKhoan, taiKhoanTheoDoi);

@@ -413,7 +413,6 @@ body {
 	}
 }
 
-@media (min-width: 769px) and (max-width: 1440px) {
 	/* CSS To Target 767 px width of screen */
 
 	.feed {
@@ -436,7 +435,7 @@ body {
 		/* Optional: adds a white border around the avatar */
 	}
 
-}
+
 
 .like-button.active {
 	color: #1877f2;

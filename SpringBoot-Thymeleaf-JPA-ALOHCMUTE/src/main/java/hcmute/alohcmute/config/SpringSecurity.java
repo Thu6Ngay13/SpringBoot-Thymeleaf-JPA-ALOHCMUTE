@@ -88,7 +88,7 @@ public class SpringSecurity {
     	                form -> form
     	                        .loginPage("/login").loginProcessingUrl("/login")
     	                        .usernameParameter("username").passwordParameter("password")
-    	                        .defaultSuccessUrl("/user", true)
+    	                        .defaultSuccessUrl("/user/newfeed", true)
     	                        .permitAll()
     	        )
     	        .logout(

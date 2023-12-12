@@ -19,9 +19,11 @@ body {
 		<!-- header starts -->
 		<div class="header">
 			<div class="header__left">
+								<a href="/user/newfeed" style="word-wrap: break-word; color: black; font-size: 24px; font-weight: bold; text-decoration: none;">
 				<img
 					src="https://drive.google.com/uc?export=download&id=1bSB1yh1Fhx2ydklR6wQRG5EyB-iPLoI0"
 					alt="" />
+								</a>
 				<div class="header__input">
 					<span class="material-icons"> search </span> <input
 						id="searchInput" type="text" placeholder="Search ALOHCMUTE"
@@ -49,20 +51,22 @@ body {
 								});
 			</script>
 
-			<div class="header__middle">
+			<div class="header__middle" >
 				<img
 					src="https://drive.google.com/uc?export=download&id=12Sx1OCgE9CoVjN7GbwAur3mUPWsXImAW"
 					alt="" width="200" />
 			</div>
 
 			<div class="header__right">
-				<div class="header__info">
-					<img class="user__avatar"
-						src="https://drive.google.com/uc?export=download&id=1iron5MdYdBe9ND8RTdzYN906Nubt7UOD"
+				<a th:href="${'/trangcanhan/thongtintaikhoan/'+taiKhoan.taiKhoan}" style="word-wrap: break-word; color: black; font-size: 24px; font-weight: bold; text-decoration: none;">
+				<div class="header__info" th:onclick="${location.href='/trangcanhan/thongtintaikhoan/'+taiKhoan.taiKhoan};">
+					<img class="user__avatar post__avatar "
+						th:src="${taiKhoan.avatarURl}" 
 						alt="" />
-					<h4>Trần Văn Hưng</h4>
+					<h4>[[${taiKhoan.hoTen}]]</h4>
 				</div>
-				<span class="material-icons"> forum </span> <span
+				</a>
+				<span class="material-icons" onclick="location.href='/user/chat'"> forum </span> <span
 					class="material-icons" onclick="openPopup()" id="bell">
 					notifications_active </span>
 				<div class="popup" id="popup">

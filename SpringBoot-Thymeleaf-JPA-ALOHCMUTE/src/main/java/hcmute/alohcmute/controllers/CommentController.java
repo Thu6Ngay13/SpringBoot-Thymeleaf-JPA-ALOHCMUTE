@@ -26,6 +26,7 @@ import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.BinhLuan;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.entities.ThongBao;
+import hcmute.alohcmute.security.SecurityUtil;
 import hcmute.alohcmute.services.BaiVietServiceImpl;
 import hcmute.alohcmute.services.CommentSerrviceImpl;
 import hcmute.alohcmute.services.IBaiVietService;
@@ -53,10 +54,11 @@ public class CommentController {
 	@Autowired
 	ServletContext app;
 	
-	String username = "thuycao816";
+	String username;
 
 	@GetMapping("/comment/{baiVietId}")
 	public String reviewComment(ModelMap model, @PathVariable(value = "baiVietId") int id) {
+		this.username = SecurityUtil.getMyUser().getTaiKhoan();
 		List<BinhLuan> comments = commentService.findCommentByMaBaiViet(id);
 		long soLuongBinhLuan = commentService.countBinhLuanByMaBaiViet(id);
 		long demSoTuongTac = baiVietService.demSoTuongTac(id);
@@ -79,6 +81,7 @@ public class CommentController {
 	
 	@PostMapping("/comment/{baiVietId}")
 	public String addComment(@Valid BinhLuan binhLuan, BindingResult result, ModelMap model, @PathVariable(value = "baiVietId") int id,@RequestParam("file") MultipartFile noidunghinhanh) {
+		this.username = SecurityUtil.getMyUser().getTaiKhoan();
 		if (result.hasErrors()) {
 			return "user/comment/comment";
 		}
@@ -147,12 +150,14 @@ public class CommentController {
 	
 	@GetMapping("/comment/{baiVietId}/delete/{commentId}")
 	public String deleteComment(@PathVariable("commentId") int commentId, @PathVariable("baiVietId") int baiVietId, Model model) {
+		this.username = SecurityUtil.getMyUser().getTaiKhoan();
 		commentService.deleteById(commentId);
         return "redirect:/user/comment/{baiVietId}";
     }
 	
 	@PostMapping("/comment/{baiVietId}/update")
 	public String updateComment(@Valid BinhLuan binhLuan, BindingResult result, ModelMap model,  @PathVariable("baiVietId") int baiVietId) {
+		this.username = SecurityUtil.getMyUser().getTaiKhoan();
 		BinhLuan binhLuanOld = commentService.getById(binhLuan.getMaBinhLuan());
 		if (binhLuan.getNoiDungChu() != binhLuanOld.getNoiDungChu()) {
 			binhLuanOld.setNoiDungChu(binhLuan.getNoiDungChu());

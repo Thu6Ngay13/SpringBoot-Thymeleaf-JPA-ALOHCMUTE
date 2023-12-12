@@ -180,16 +180,14 @@
 
 
 
-						<div class="post__option">
+						<div class="post__option" th:onclick="location.href='/user/comment/[[${baiViet.maBaiViet}]]';">
 							<span class="material-icons">chat_bubble_outline</span>
 							<p th:text="${postCommentsCount[baiViet.maBaiViet]} + ' Comment'">Comment</p>
+							
 						</div>
 
 
-						<div class="post__option">
-							<span class="material-icons"> near_me </span>
-							<p>Share</p>
-						</div>
+
 					</div>
 
 

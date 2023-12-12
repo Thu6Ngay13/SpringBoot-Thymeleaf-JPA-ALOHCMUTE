@@ -26,6 +26,7 @@ import hcmute.alohcmute.entities.CheDo;
 import hcmute.alohcmute.entities.Nhom;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.entities.ThongBao;
+import hcmute.alohcmute.security.SecurityUtil;
 import hcmute.alohcmute.services.IBaiVietService;
 import hcmute.alohcmute.services.ICheDoService;
 import hcmute.alohcmute.services.INhomService;
@@ -49,12 +50,14 @@ public class DangBaiController{
 	INhomService nhomSer;
 	@Autowired
 	ServletContext app;
+	String username ;
 	@RequestMapping("")
 	public String list(ModelMap model)
 	{
-		TaiKhoan taikhoan=taikhoanSer.findBytaiKhoan("lolo928");
+		this.username = SecurityUtil.getMyUser().getTaiKhoan();
+		TaiKhoan taikhoan=taikhoanSer.findBytaiKhoan(username);
 		model.addAttribute("taikhoan",taikhoan);
-		List<TaiKhoan> aa = taikhoanSer.findTaiKhoanFollowersByUsername("lolo928");
+		List<TaiKhoan> aa = taikhoanSer.findTaiKhoanFollowersByUsername(username);
 		List<String> kq = new ArrayList<>();
 		for (TaiKhoan ds : aa) {
 			kq.add(ds.getTaiKhoan());
@@ -65,6 +68,7 @@ public class DangBaiController{
 	@PostMapping("add")
 	public String add(ModelMap model,@RequestParam("noidungchu") String noidungchu,@RequestParam("manhom") String manhom,@RequestParam("privacy") String cdo,@RequestParam("file") MultipartFile noidunghinhanh,@RequestParam("color") String color)
 	{
+		this.username = SecurityUtil.getMyUser().getTaiKhoan();
 		if(color.equals(""))
 			color="#000000";
 		
@@ -97,7 +101,7 @@ public class DangBaiController{
 			}
 			
 			String tenchedo="";
-			TaiKhoan taikhoan=taikhoanSer.findBytaiKhoan("lolo928");
+			TaiKhoan taikhoan=taikhoanSer.findBytaiKhoan(username);
 			baiviet.setNoiDungChu(noidungchu+color);
 			String linkanh= "/upload/"+filename;
 			baiviet.setNoiDungHinhAnh(linkanh);
@@ -129,6 +133,7 @@ public class DangBaiController{
 				baiviet.setCheDoNhom(chedo);
 			}
 			baiviet.setNgay(LocalDate.now());
+			baiviet.setEnable(true);
 			baiviet.setThoiGian(LocalTime.now());
 			baivietSer.save(baiviet);
 		}

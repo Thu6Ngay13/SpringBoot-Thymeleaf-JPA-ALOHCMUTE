@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.TaiKhoan;
+import hcmute.alohcmute.security.SecurityUtil;
 import hcmute.alohcmute.services.IBaiVietService;
 import hcmute.alohcmute.services.IBaoCaoBaiVietService;
 import hcmute.alohcmute.services.INewFeedService;
@@ -35,20 +36,20 @@ public class TrangChuController {
 	IBaiVietService baivietSer;
 	@Autowired
 	ITaiKhoanService tkSer;
-	
-
+	String username;
 	@GetMapping("/newfeed")
 	public String hienThiNewFeed(ModelMap model, Principal principal) {
+		this.username = SecurityUtil.getMyUser().getTaiKhoan();
 		/* String currentUsername = principal.getName(); */
-		List<BaiViet> bv = iNewFeed.findPublicOrFollowedPosts("lolo928");
-		TaiKhoan tk = tkSer.findBytaiKhoan("lolo928");
+		List<BaiViet> bv = iNewFeed.findPublicOrFollowedPosts(username);
+		TaiKhoan tk = tkSer.findBytaiKhoan(username);
 		Map<Integer, Boolean> likedPosts = new HashMap<>();
 		Map<Integer, Integer> postLikesCount = new HashMap<>();
 		Map<Integer, Integer> postCommentsCount = new HashMap<>();
 		
 
 		for (BaiViet post : bv) {
-			likedPosts.put(post.getMaBaiViet(), iNewFeed.checkIfLiked(post.getMaBaiViet(), "lolo928"));
+			likedPosts.put(post.getMaBaiViet(), iNewFeed.checkIfLiked(post.getMaBaiViet(), username));
 			postLikesCount.put(post.getMaBaiViet(), iNewFeed.getLikeCount(post.getMaBaiViet()));
 			postCommentsCount.put(post.getMaBaiViet(), iNewFeed.getCommentCount(post.getMaBaiViet()));
 		}
@@ -65,6 +66,7 @@ public class TrangChuController {
 	@GetMapping("/reportPost")
 	public String reportPost(RedirectAttributes redirectAttributes, @RequestParam("postId") int postId,
 			@RequestParam("reason") String reason) {
+		
 		baoCaoBaiVietService.reportPost(postId, reason);
 		BaiViet bv=baivietSer.findBymaBaiViet(postId);
 		// Thêm thông báo thành công vào redirect attributes nếu cần
@@ -83,11 +85,12 @@ public class TrangChuController {
 	@PostMapping("/likePost")
 	@ResponseBody
 	public String likePost(@RequestParam("postId") int postId, Principal principal) {
+		
 		// Lấy username từ principal
 		/* String username = principal.getName(); */
 		System.out.println(postId);
 		// Gọi service để cập nhật trạng thái like
-		boolean isLiked = iNewFeed.toggleLike(postId, "lolo928");
+		boolean isLiked = iNewFeed.toggleLike(postId, username);
 
 		// Trả về kết quả dưới dạng String hoặc JSON
 		return "{\"isLiked\": " + isLiked + "}";
