@@ -1,10 +1,15 @@
 package hcmute.alohcmute.controllers;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.BinhLuan;
@@ -28,6 +34,7 @@ import hcmute.alohcmute.services.ITaiKhoanService;
 import hcmute.alohcmute.services.IThongBaoService;
 import hcmute.alohcmute.services.TaiKhoanServiceImpl;
 import hcmute.alohcmute.services.ThongBaoServiceImpl;
+import jakarta.servlet.ServletContext;
 import jakarta.validation.Valid;
 
 @Controller
@@ -42,6 +49,9 @@ public class CommentController {
 	
 	@Autowired
 	IThongBaoService thongBaoService = new ThongBaoServiceImpl();
+	
+	@Autowired
+	ServletContext app;
 	
 	String username = "thuycao816";
 
@@ -68,7 +78,7 @@ public class CommentController {
 	}
 	
 	@PostMapping("/comment/{baiVietId}")
-	public String addComment(@Valid BinhLuan binhLuan, BindingResult result, ModelMap model, @PathVariable(value = "baiVietId") int id) {
+	public String addComment(@Valid BinhLuan binhLuan, BindingResult result, ModelMap model, @PathVariable(value = "baiVietId") int id,@RequestParam("file") MultipartFile noidunghinhanh) {
 		if (result.hasErrors()) {
 			return "user/comment/comment";
 		}
@@ -101,8 +111,35 @@ public class CommentController {
 	            tb.setThoiGian(java.time.LocalTime.now());
 	            thongBaoService.save(tb);
 	        }
+	        
+	        
+	        String filename="";
+			String uploadRootPath=app.getRealPath("upload");
+			File uploadRootDir=new File(uploadRootPath);
+			if(!uploadRootDir.exists())
+			{
+				uploadRootDir.mkdirs();
+			}
+			try {
+				int extensionSTT=noidunghinhanh.getOriginalFilename().indexOf(".");
+				String extension=noidunghinhanh.getOriginalFilename().substring(extensionSTT);
+		        // Generate random integers in range 0 to 999
+		        String stt = Integer.toString(LocalDateTime.now().getYear()) +Integer.toString(LocalDateTime.now().getDayOfYear())+Integer.toString(LocalDateTime.now().getHour())+Integer.toString(LocalDateTime.now().getMinute())+Integer.toString(LocalDateTime.now().getSecond());
+				filename = stt+extension;
+				
+				File serverFile = new File(uploadRootDir.getAbsoluteFile() + File.separator + filename);
+				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+				stream.write(noidunghinhanh.getBytes());
+				stream.close();
 
+			} catch (Exception e) {	
+			}
 			
+			
+			
+			String linkanh= "/upload/"+filename;
+			binhLuan.setNoiDungHinhAnh(linkanh);
+
 			commentService.save(binhLuan);
 		}
 		return "redirect:{baiVietId}";

@@ -4,30 +4,28 @@
 	layout:decorate="~{user/layout-user.html}">
 
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Trang comment</title>
-<!--<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />-->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,700&display=swap"
-	rel="stylesheet">
-<link rel="stylesheet"
-	th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css}"
-	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-	crossorigin="anonymous">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<link rel="stylesheet" th:href="@{/css/style_comment.css}">
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-	integrity="sha384-TAek9IxlAz/pZj7RIqOfInjz1Y5Qp5yA+ToTSqUN9aGi4IGkN72liX6iWNepR1j5"
-	crossorigin="anonymous">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Trang comment</title>
+	<!--<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,700&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css}"
+		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" th:href="@{/css/style_comment.css}">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-TAek9IxlAz/pZj7RIqOfInjz1Y5Qp5yA+ToTSqUN9aGi4IGkN72liX6iWNepR1j5" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+		integrity="sha384-cMKww1w5i1M/rmiiG3JOH4tAJRyRY9H5cC4v+EbGq1blJqyOhfM1EjUmOnhNuAh/b" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-<title>Boostrap Login | Ludiflex</title>
+
+	<title>Boostrap Login | Ludiflex</title>
 </head>
 
 <body>
@@ -36,14 +34,19 @@
 	<div
 		class=" container d-flex justify-content-center align-items-center min-vh-100">
 		<!----------------------- Login Container -------------------------->
-		<div class="row border  p-3 bg-white shadow box-area"
-			layout:fragment="content">
+		<div class="row border  p-3 bg-white shadow box-area" layout:fragment="content"
+			th:style="${baiViet != null && baiViet.noiDungHinhAnh == '/upload/' ? 'margin-left: -910px;' : 'margin-left: 300px;'}">
 			<!----------------------- Left Container -------------------------->
 
 			<div
 				class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box";>
 				<div class="featured-images mb-3">
-					<img th:src="${baiViet.noiDungHinhAnh}" alt="" />
+					<!-- Kiểm tra giá trị của baiViet.noiDungHinhAnh -->
+					<div th:if="${baiViet.noiDungHinhAnh ne '/ulpoad/'}">
+						<!-- Chỉ hiển thị khi giá trị khác '/ulpoad/' -->
+						<img th:src="${baiViet.noiDungHinhAnh}" alt="" />
+					</div>
+
 				</div>
 			</div>
 
@@ -150,7 +153,9 @@
 							<div class="card mb-2">
 								<div class="card-body">
 									<p th:text="${cmt.noiDungChu}"></p>
-
+									<img class="image-uploaded"
+										th:if="${not #strings.equals(cmt.noiDungHinhAnh, '/upload/')}"
+										th:src="${cmt.noiDungHinhAnh}" alt="" />
 									<div class="d-flex justify-content-between">
 										<div class="d-flex flex-row align-items-center">
 											<img th:src="@{/images/image_avt.png}" alt="avatar"
@@ -158,13 +163,11 @@
 											<p class="small mb-0 ms-2" th:text="${cmt.taiKhoan.nickName}"></p>
 										</div>
 										<div class="d-flex flex-row align-items-center">
-
-											<button type="button" class="btn btn-light btn-sm"
-												data-toggle="modal" data-target="#updateComment"
+											<button type="button" class="btn btn-light btn-sm" data-toggle="modal"
+												data-target="#updateComment"
 												th:attr="data-comment=${cmt.maBinhLuan}">Chỉnh sửa</button>
 
-											<i class="far fa-thumbs-up mx-2 fa-xs text-black"
-												style="margin-top: -0.16rem;"></i>
+											<i class=" mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
 
 											<button type="button" class="btn btn-light btn-sm">
 												<a th:attr="data-content=${cmt.noiDungChu}"
@@ -282,8 +285,7 @@
 
 									<div class="d-flex flex-row align-items-center mt-3">
 										<p class="small text-muted mb-0" th:text="${cmt.ThoiGian}"></p>
-										<i class="far fa-thumbs-up mx-2 fa-xs text-black"
-											style="margin-top: -0.16rem;"></i>
+										<i class=" mx-2 fa-xs text-black" style="margin-top: -0.16rem;"></i>
 										<p class="small text-muted mb-0" th:text="${cmt.Ngay}"></p>
 									</div>
 
@@ -292,18 +294,100 @@
 						</th:block>
 					</div>
 
-					<form class="d-flex  mt-3" action="#"
-						th:action="@{{baiVietId}(baiVietId=${baiVietId})}"
+					<form action="#" th:action="@{{baiVietId}(baiVietId=${baiVietId})}" enctype="multipart/form-data"
 						th:object="${binhLuan}" method="post">
-						<div class="input-group">
-							<input type="text"
-								class="addcmt form-control form-control-lg bg-light fs-6"
-								placeholder="Add a comment..." th:field="*{noiDungChu}"
-								id="postContent" onkeyup="suggestNames(event)"><br>
+						<div class="d-flex mt-3">
+							<div class="input-group">
+								<!-- Thêm input cho nội dung chú -->
+								<input type="text" class="addcmt form-control form-control-lg bg-light fs-6"
+									placeholder="Add a comment..." th:field="*{noiDungChu}" id="postContent"
+									onkeyup="suggestNames(event)">
+								<br>
+
+
+
+								<!-- Trong phần tử form của bạn -->
+								<div class="icon-container">
+									<li><img src="/images/emoji.svg" alt="gallery" onclick="openPopp()"
+											class="selected-icon"></li>
+								</div>
+
+
+								<!-- Smiley icon to trigger emoji picker -->
+								<div class="popp" id="popp"
+									th:style="${baiViet != null && baiViet.noiDungHinhAnh == '/upload/' ? 'top: 200px; left: 790px;' : 'top: 200px; left: 190px;'}">
+									<table id="emoji-table"></table>
+
+									<button type="button" onclick="closePopp()"> OK</button>
+								</div>
+
+
+								<!-- Thêm đoạn mã về hình ảnh ngay trước nút "Đăng" -->
+								<li class="upload">
+									<div class="image-icon">
+										<label for="file-input">
+											<img src="/images/gallery.svg" />
+										</label>
+
+										<input id="file-input" type="file" name="file"
+											onchange="handleFileUpload(this)" />
+									</div>
+								</li>
+							</div>
+
+							<div id="suggestions" class="suggestions-container"></div>
+							<input class="btn btn-light btn-sm" type="submit" value="Đăng">
 						</div>
-						<div id="suggestions" class="suggestions-container"></div>
-						<input class="btn btn-light btn-sm" type="submit" value="Đăng">
+						<div id="uploaded-image-container" class="image-upload"></div>
 					</form>
+
+					<script>
+						function insertEmoji(emoji) {
+							var emojiInput = document.getElementsByClassName('addcmt')[0];
+							var currentCursorPosition = emojiInput.selectionStart;
+							var textBeforeCursor = emojiInput.value.substring(0, currentCursorPosition);
+							var textAfterCursor = emojiInput.value.substring(currentCursorPosition);
+							emojiInput.value = textBeforeCursor + emoji + textAfterCursor;
+							emojiInput.focus();
+							emojiInput.setSelectionRange(currentCursorPosition + emoji.length, currentCursorPosition + emoji.length);
+						}
+
+						function generateEmojiList() {
+							var emojiTable = document.getElementById('emoji-table');
+							var emojis = ['😊', '😂', '❤️', '👍', '🎉', '🌟', '🚀', '💡', '🔥', '⚡', '🌈', '🍕', '😢', '🌺', '🎶', '🍎', '🌍', '🚗', '📚', '🎨', '🍀', '🍔', '🏆', '🏖️', '🎸', '🚲', '🌄', '🍦'];
+							if (emojiTable.rows.length == 0) {
+								for (var i = 0; i < 12; i++) {
+									if (i % 5 === 0) {
+										var newRow = emojiTable.insertRow();
+									}
+
+									var emojiCell = newRow.insertCell();
+									emojiCell.textContent = emojis[i % emojis.length];
+									emojiCell.addEventListener('click', function () {
+										insertEmoji(this.textContent);
+										closePopup();
+									});
+
+								}
+							}
+						}
+
+						function toggleEmojiTable() {
+							var emojiTable = document.getElementById('emoji-table');
+							emojiTable.style.display = emojiTable.style.display === 'none' ? 'table' : 'none';
+						}
+
+						function openPopp() {
+							generateEmojiList();
+							var popup = document.getElementById('popp');
+							popup.classList.add('open-popp');
+						}
+
+						function closePopp() {
+							var popup = document.getElementById('popp');
+							popup.classList.remove('open-popp');
+						}
+					</script>
 
 					<script th:inline="javascript">
 						/*<![CDATA[*/
@@ -311,72 +395,107 @@
   /*]]>*/
 					</script>
 
-					<script language="javascript">
-						function suggestNames(event) {
-							var input = event.target.value;
-							var suggestions = document.getElementById("suggestions");
 
-							var atIndex2 = input.indexOf("@");
+					<th:block th:if="${baiViet.noiDungHinhAnh} == '/upload/'">
+						<script language="javascript">
+							function suggestNames(event) {
+								var input = event.target.value;
+								var suggestions = document.getElementById("suggestions");
 
-							var atIndex = input.lastIndexOf("@");
-							if (atIndex >= 0) {
-								var searchQuery = input.substring(atIndex + 1);
-								if (searchQuery.length > 0) {
-									var matchingFriends = listbanbe.filter(name => name.toLowerCase().startsWith(searchQuery.toLowerCase()));
-									suggestions.innerHTML = matchingFriends.map(name => `<div class="suggestion-item">${name}</div>`).join('');
-									suggestions.style.display = 'block';
+								var atIndex = input.lastIndexOf("@");
+								if (atIndex >= 0) {
+									var searchQuery = input.substring(atIndex + 1);
+									if (searchQuery.length > 0) {
+										var matchingFriends = listbanbe.filter(name => name.toLowerCase().startsWith(searchQuery.toLowerCase()));
+										suggestions.innerHTML = matchingFriends.map(name => `<div class="suggestion-item">${name}</div>`).join('');
+										suggestions.style.display = 'block';
 
-									var caretPos = atIndex2; // Sử dụng vị trí của '@' thay vì con trỏ chuột
-									var inputRect = event.target.getBoundingClientRect();
+										var caretPos = atIndex; // Sử dụng vị trí của '@' thay vì con trỏ chuột
+										var inputRect = event.target.getBoundingClientRect();
 
-									var posX = inputRect.left + caretPos * 8 + window.scrollX; // Điều chỉnh bằng caretPos * 8
-									var posY = inputRect.top + window.scrollY;
+										var posX = inputRect.left + caretPos * 8 + window.scrollX; // Điều chỉnh bằng caretPos * 8
+										var posY = inputRect.top + window.scrollY;
 
-									if (posX - 900 > 437) {
-										suggestions.style.left = 437 + 'px';
-									}
-									else {
-										suggestions.style.left = (posX - 900) + 'px';
-									}
 
-									suggestions.style.top = (posY - 76) + 'px';
+										if (posX - 270 > 960) {
+											suggestions.style.left = 960 + 'px';
+										}
+										else {
+											suggestions.style.left = (posX - 270) + 'px';
+										}
+										suggestions.style.top = (posY - 76) + 'px';
 
-									document.querySelectorAll('.suggestion-item').forEach(item => {
-										item.addEventListener('click', function () {
-											var name = this.innerText;
-											var newText = input.substring(0, atIndex) + "@" + name + " ";
-											document.getElementById("postContent").value = newText; document.getElementById("postContent").value = newText;
-											document.getElementById("postContent").focus();
-											suggestions.style.display = 'none';
+										document.querySelectorAll('.suggestion-item').forEach(item => {
+											item.addEventListener('click', function () {
+												var name = this.innerText;
+												var newText = input.substring(0, atIndex) + "@" + name + " ";
+												document.getElementById("postContent").value = newText; document.getElementById("postContent").value = newText;
+												document.getElementById("postContent").focus();
+												suggestions.style.display = 'none';
+											});
 										});
-									});
+									} else {
+										suggestions.style.display = 'none';
+									}
 								} else {
 									suggestions.style.display = 'none';
 								}
-							} else {
-								suggestions.style.display = 'none';
 							}
-						}
 
-						// Function to get caret position
-						function getCaretPosition(element) {
-							var caretPos = 0;
-							if (document.selection) {
-								// IE Support
-								element.focus();
-								var selection = document.selection.createRange();
-								selection.moveStart('character', -element.value.length);
-								caretPos = selection.text.length;
-							} else if (element.selectionStart || element.selectionStart == '0') {
-								// Firefox support
-								caretPos = element.selectionStart;
+						</script>
+					</th:block>
+					<th:block th:if="${baiViet.noiDungHinhAnh} != '/upload/'">
+						<script language="javascript">
+							function suggestNames(event) {
+								var input = event.target.value;
+								var suggestions = document.getElementById("suggestions");
+
+
+
+								var atIndex = input.lastIndexOf("@");
+								if (atIndex >= 0) {
+									var searchQuery = input.substring(atIndex + 1);
+									if (searchQuery.length > 0) {
+										var matchingFriends = listbanbe.filter(name => name.toLowerCase().startsWith(searchQuery.toLowerCase()));
+										suggestions.innerHTML = matchingFriends.map(name => `<div class="suggestion-item">${name}</div>`).join('');
+										suggestions.style.display = 'block';
+
+										var caretPos = atIndex; // Sử dụng vị trí của '@' thay vì con trỏ chuột
+										var inputRect = event.target.getBoundingClientRect();
+
+										var posX = inputRect.left + caretPos * 8 + window.scrollX; // Điều chỉnh bằng caretPos * 8
+										var posY = inputRect.top + window.scrollY;
+
+
+										if (posX - 900 > 437) {
+											suggestions.style.left = 437 + 'px';
+										}
+										else {
+											suggestions.style.left = (posX - 900) + 'px';
+										}
+										suggestions.style.top = (posY - 76) + 'px';
+
+
+										document.querySelectorAll('.suggestion-item').forEach(item => {
+											item.addEventListener('click', function () {
+												var name = this.innerText;
+												var newText = input.substring(0, atIndex) + "@" + name + " ";
+												document.getElementById("postContent").value = newText; document.getElementById("postContent").value = newText;
+												document.getElementById("postContent").focus();
+												suggestions.style.display = 'none';
+											});
+										});
+									} else {
+										suggestions.style.display = 'none';
+									}
+								} else {
+									suggestions.style.display = 'none';
+								}
 							}
-							return {
-								left: caretPos * 8, // Adjust this multiplier as needed
-								top: 0 // You can adjust this value if needed
-							};
-						}
-					</script>
+
+						</script>
+					</th:block>
+
 
 				</div>
 			</div>
@@ -407,10 +526,32 @@
 				}
 			</script>
 
-			<script
-				src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-			<script
-				th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js}"
+
+			<script>
+				function handleFileUpload(input) {
+					const file = input.files[0];
+					if (file) {
+						const fileName = file.name;
+
+						// Hiển thị tên file
+						const fileNameContainer = document.getElementById('uploaded-image-container');
+
+						const reader = new FileReader();
+						reader.onload = function (e) {
+							const imageUrl = e.target.result;
+
+							// Hiển thị hình ảnh trong một phần tử khác
+							const imageContainer = document.getElementById('uploaded-image-container');
+							imageContainer.innerHTML += `<img src="${imageUrl}" width="200" height="100" alt="Uploaded Image">`;
+						};
+
+						reader.readAsDataURL(file);
+					}
+				}
+			</script>
+
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js}"
 				integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 				crossorigin="anonymous"></script>
 			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.jss"></script>
