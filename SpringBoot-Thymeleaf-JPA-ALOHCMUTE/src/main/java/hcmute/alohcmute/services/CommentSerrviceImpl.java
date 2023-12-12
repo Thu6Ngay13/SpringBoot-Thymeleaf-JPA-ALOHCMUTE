@@ -3,6 +3,7 @@ package hcmute.alohcmute.services;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -102,13 +103,8 @@ public class CommentSerrviceImpl implements ICommentService{
 
 	@Override
 	public List<BinhLuan> findCommentByMaBaiViet(int maBV) {
-		List<BinhLuan> listAll = findAll();
-		List<BinhLuan> list = new ArrayList<>();
-		for (BinhLuan binhLuan : listAll) {
-			if (binhLuan.getBaiViet() != null && binhLuan.getBaiViet().getMaBaiViet() == maBV)
-				list.add(binhLuan);
-		}
-		return list;
+		BaiViet baiViet = baiVietRepository.getById(maBV);
+		return new ArrayList<>(baiViet.getBinhLuans());
 	}
 
 	@Override

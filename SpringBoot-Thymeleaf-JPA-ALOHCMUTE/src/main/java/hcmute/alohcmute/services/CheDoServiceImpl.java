@@ -10,14 +10,20 @@ import hcmute.alohcmute.repositories.CheDoRepository;
 
 @Service
 public class CheDoServiceImpl implements ICheDoService{
-	
 	@Autowired
-	CheDoRepository cheDoRepository;
-
+	CheDoRepository cheDoRepo;
+	
 	@Override
-	public Optional<CheDo> findById(Integer id) {
-		return cheDoRepository.findById(id);
+	public Optional<CheDo> findByID(int id) {
+		return cheDoRepo.findById(id);
 	}
 	
-	
+	@Override
+	public CheDo findByCheDo(String username) {
+		return cheDoRepo.findOneBytenCheDo(username);
+	}
+	@Override
+	public Optional<CheDo> findById(Integer id) {
+		return cheDoRepo.findById(id);
+	}
 }

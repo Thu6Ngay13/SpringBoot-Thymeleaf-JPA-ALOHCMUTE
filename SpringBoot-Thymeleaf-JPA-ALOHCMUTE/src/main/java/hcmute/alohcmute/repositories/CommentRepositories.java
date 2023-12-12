@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import hcmute.alohcmute.entities.BinhLuan;
 
+
 @Repository
 public interface CommentRepositories extends JpaRepository<BinhLuan, Integer>{
 	long countByBaiViet_MaBaiViet(int maBaiViet);

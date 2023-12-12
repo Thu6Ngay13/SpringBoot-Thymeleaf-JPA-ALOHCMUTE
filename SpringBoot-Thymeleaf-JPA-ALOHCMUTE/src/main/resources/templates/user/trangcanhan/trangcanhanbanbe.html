@@ -325,10 +325,14 @@
 																								đã đăng lên dòng trạng
 																								thái</a></span>
 																					</div>
-
-																					<p class="text-muted"
-																						th:text="${bv.noiDungChu}">
-																					</p>
+																					<div th:with="colorCode=${#strings.substring(bv.noiDungChu, #strings.length(bv.noiDungChu) - 7)}">
+																						<p
+																							class="text-muted"
+																							name="noiDungChu"
+																							th:style="'color:' + ${colorCode} + ';text-align: justify; overflow-wrap: break-word; white-space: pre-wrap; width: 100%; min-height: 100px; overflow-y: hidden;'"
+																							th:text="${#strings.substring(bv.noiDungChu,0, #strings.length(bv.noiDungChu) - 7)}"
+																							></p>
+																						</div>
 																				</div>
 																			</div>
 																			<div

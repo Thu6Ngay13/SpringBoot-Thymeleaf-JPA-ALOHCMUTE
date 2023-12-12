@@ -26,7 +26,7 @@ import hcmute.alohcmute.security.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SpringSecurity {
+public class WebSpringSecurity {
     
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
@@ -88,7 +88,7 @@ public class SpringSecurity {
     	                form -> form
     	                        .loginPage("/login").loginProcessingUrl("/login")
     	                        .usernameParameter("username").passwordParameter("password")
-    	                        .defaultSuccessUrl("/user", true)
+    	                        .defaultSuccessUrl("/user/newfeed", true)
     	                        .permitAll()
     	        )
     	        .logout(

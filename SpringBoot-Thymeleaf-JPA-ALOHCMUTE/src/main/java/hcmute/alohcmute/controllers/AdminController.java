@@ -6,13 +6,16 @@ import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
+import hcmute.alohcmute.entities.BaoCaoBaiViet;
 import hcmute.alohcmute.entities.TaiKhoan;
 import hcmute.alohcmute.models.TaiKhoanModel;
+import hcmute.alohcmute.services.IBaoCaoBaiVietService;
 import hcmute.alohcmute.services.ITaiKhoanService;
 
 @Controller
@@ -20,6 +23,9 @@ public class AdminController {
 
 	@Autowired
 	ITaiKhoanService taiKhoanService;
+	
+	@Autowired
+	IBaoCaoBaiVietService baoCaoBaiVietService;
 
 	@GetMapping("admin/manage/quanlynguoidung")
 	public String listTaiKhoan(ModelMap model) {
@@ -33,7 +39,6 @@ public class AdminController {
 	public String thongTinTaiKhoan(ModelMap model, @PathVariable("taikhoan") String taikhoan) {
 		Optional<TaiKhoan> optTaiKhoan = taiKhoanService.findById(taikhoan);
 		TaiKhoanModel taiKhoanModel = new TaiKhoanModel();
-		// Kiem tra su ton tai
 		if (optTaiKhoan.isPresent()) {
 			TaiKhoan entity = optTaiKhoan.get();
 			BeanUtils.copyProperties(entity, taiKhoanModel);
@@ -83,4 +88,40 @@ public class AdminController {
 		return "redirect:/admin/manage/thongtintaikhoan/{taikhoan}";
 	}
 	
+	@GetMapping("/admin/dsbaocaobaiviet")
+	public String listBaoCaoBaiViet(ModelMap model) {
+		List<BaoCaoBaiViet> list = baoCaoBaiVietService.findAll();
+
+		model.addAttribute("baocaobaiviet", list);
+		return "admin/manage/quanlybaiviet";
+	}
+
+	@GetMapping(value = {"/admin/chophep/{mabaocao}", "/admin/chitiet/chophep/{mabaocao}"})
+	public String chophepBaiViet(@PathVariable(value = "mabaocao") int mabaocao, Model model) {
+		baoCaoBaiVietService.deleteById(mabaocao);
+		
+		List<BaoCaoBaiViet> list = baoCaoBaiVietService.findAll();
+		model.addAttribute("baocaobaiviet", list);
+		
+		return "redirect:/admin/dsbaocaobaiviet";
+	}
+	
+	@GetMapping("/admin/chitiet/{mabaocao}")
+	public String chitietbaiviet(@PathVariable(value = "mabaocao") int mabaocao, Model model) {
+		Optional<BaoCaoBaiViet> optBaocaobaiviet = baoCaoBaiVietService.findById(mabaocao);
+		BaoCaoBaiViet baocaobaiviet = optBaocaobaiviet.get();
+
+		model.addAttribute("baocaobaiviet", baocaobaiviet);
+		return "admin/manage/chitietbaiviet";
+	}
+	
+	/*
+	 * @GetMapping("/admin/*") public String inforadmin(ModelMap model) {
+	 * Optional<TaiKhoan> Opttaikhoan = taiKhoanService.findById("admin"); TaiKhoan
+	 * tk = Opttaikhoan.get();
+	 * 
+	 * model.addAttribute("taikhoan", tk);
+	 * 
+	 * return "/admin/fragments/leftbar"; }
+	 */
 }

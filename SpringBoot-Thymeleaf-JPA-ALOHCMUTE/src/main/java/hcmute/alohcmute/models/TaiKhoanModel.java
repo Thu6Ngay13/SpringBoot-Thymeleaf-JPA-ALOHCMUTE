@@ -10,10 +10,8 @@ import lombok.NoArgsConstructor;
 public class TaiKhoanModel {
 	
 	private String taiKhoan;
-	
 	private String matKhau;
-	private int code;
-	private boolean status;
+	private String token;
 	private String hoTen; 
 	private String nickName;
 	private String email;
@@ -21,4 +19,8 @@ public class TaiKhoanModel {
 	private String sDT;
 	private String avatarURl;
 	private boolean enable;
+	private long soLuongNguoiTheoDoi;
+	private boolean isfollowed;
+
+	
 }

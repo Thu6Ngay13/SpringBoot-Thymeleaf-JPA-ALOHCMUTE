@@ -26,7 +26,6 @@ import lombok.*;
 @EqualsAndHashCode(exclude="taiKhoan")
 @ToString (exclude = {"binhLuans", "baoCaoBaiViets", "taiKhoans"})
 
-
 @Entity
 @Table
 public class BaiViet implements Serializable {
@@ -53,7 +52,6 @@ public class BaiViet implements Serializable {
 	private boolean enable = false;
 	
 	@ManyToOne
-	@JsonIgnore
 	@JoinColumn(name = "MaCheDo")
 	private CheDo cheDoNhom;
 	
@@ -61,7 +59,7 @@ public class BaiViet implements Serializable {
 	private Set<BinhLuan> binhLuans;
 	
 	@ManyToOne
-	@JoinColumn(name = "taiKhoan")
+	@JoinColumn(name = "TaiKhoan")
 	private TaiKhoan taiKhoan;
 	
 	@OneToMany(mappedBy = "baiViet")

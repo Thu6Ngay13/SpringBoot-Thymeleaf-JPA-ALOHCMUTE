@@ -1,5 +1,7 @@
 package hcmute.alohcmute.services;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import hcmute.alohcmute.entities.BaiViet;
 import hcmute.alohcmute.entities.BaoCaoBaiViet;
-import hcmute.alohcmute.entities.BinhLuan;
 import hcmute.alohcmute.repositories.BaiVietRepository;
 import hcmute.alohcmute.repositories.BaoCaoBaiVietRepository;
 
@@ -78,5 +79,21 @@ public class BaoCaoBaiVietServiceImpl implements IBaoCaoBaiVietService{
 		}
 		return list;
 	}
+	
+	@Override
+    public BaoCaoBaiViet reportPost(int postId, String reason) {
+        BaiViet baiViet = baiVietRepository.findById(postId).orElse(null);
+        if (baiViet == null) {
+            // Handle the case where the post doesn't exist, maybe throw an exception
+            return null;
+        }
+
+        BaoCaoBaiViet report = new BaoCaoBaiViet();
+        report.setBaiViet(baiViet);
+        report.setNoiDungBaoCao(reason);
+        report.setNgay(LocalDate.now());
+        report.setThoiGian(LocalTime.now());
+        return baoCaoBaiVietRepository.save(report);
+    }
 	
 }

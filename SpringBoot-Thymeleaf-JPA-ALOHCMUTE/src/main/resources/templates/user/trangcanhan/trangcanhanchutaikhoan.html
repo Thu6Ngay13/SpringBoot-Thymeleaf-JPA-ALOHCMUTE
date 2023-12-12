@@ -408,11 +408,14 @@
 																					</div>
 																					<form th:action="@{/trangcanhan/update/baiviet/{mabaiviet}(mabaiviet=${bv.maBaiViet})}"
 																						method="post">
+																						<div th:with="colorCode=${#strings.substring(bv.noiDungChu, #strings.length(bv.noiDungChu) - 7)}">
 																						<textarea
 																							class="text-muted auto-expand"
 																							name="noiDungChu"
-																							style="width: 100%; min-height: 100px; overflow-y: hidden;"
-																							th:text="${bv.noiDungChu}"></textarea>
+																							th:style="'color:' + ${colorCode} + ';text-align: justify; overflow-wrap: break-word; white-space: pre-wrap; width: 100%; min-height: 100px; overflow-y: hidden;'"
+																							th:text="${#strings.substring(bv.noiDungChu,0, #strings.length(bv.noiDungChu) - 7)}"
+																							></textarea>
+																						</div>
 																						<button type="submit" class="custom-button">Cập nhật</button>
 																					</form>
 																					
