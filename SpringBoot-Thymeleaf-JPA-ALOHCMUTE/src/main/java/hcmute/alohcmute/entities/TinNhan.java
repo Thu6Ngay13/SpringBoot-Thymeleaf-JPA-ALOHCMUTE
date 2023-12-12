@@ -31,7 +31,7 @@ public class TinNhan implements Serializable{
 	@Column(name = "MaTinNhan")
 	private int maTinNhan;
 	
-	@Column(name = "NoiDungChu")
+	@Column(name = "NoiDungChu", columnDefinition = "nvarchar(MAX)")
 	private String noiDungChu;
 	
 	@Column(name = "NoiDungHinhAnh")

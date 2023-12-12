@@ -70,8 +70,7 @@ public class TinNhanController {
 		
 		if (cuocHoiThoaiHienTai.size() == 0) {
 			CuocHoiThoai cuocHoiThoai = new CuocHoiThoai();
-			cuocHoiThoai
-					.setTenCuocHoiThoai("Cuộc trò chuyện giữa: " + taiKhoan.getNickName() + ", " + banbe.getNickName());
+			cuocHoiThoai.setTenCuocHoiThoai("Cuộc trò chuyện giữa: " + taiKhoan.getNickName() + ", " + banbe.getNickName());
 
 			Set<TinNhan> tinNhans = new HashSet<>();
 			Set<TaiKhoan> taiKhoans = new HashSet<>();
