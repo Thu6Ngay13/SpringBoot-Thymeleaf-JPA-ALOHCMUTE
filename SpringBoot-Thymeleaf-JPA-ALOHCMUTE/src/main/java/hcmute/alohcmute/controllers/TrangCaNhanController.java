@@ -218,7 +218,7 @@ public class TrangCaNhanController {
 	public ModelAndView updateBaiViet(@RequestParam("noiDungChu") String noiDungChu, @PathVariable("mabaiviet") int mabaiviet) {
 
 		BaiViet baiViet = baiVietService.findById(mabaiviet).get();
-		baiViet.setNoiDungChu(noiDungChu);
+		baiViet.setNoiDungChu(noiDungChu + "#000000");
 
 		baiVietService.save(baiViet);
 
