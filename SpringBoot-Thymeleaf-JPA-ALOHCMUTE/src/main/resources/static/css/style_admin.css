@@ -158,11 +158,9 @@
 .dropdown_item_leftbar{
 	margin-left: -10px;
 	border-radius: 4px;
-	margin-bottom: 5px;
 }
 .dropdown_item_leftbar *{
 	margin-left: 10px;
-	margin-bottom: 5px;
 }
 .dropdown_item_leftbar:hover {
 	background-color: rgb(0, 0, 0);
@@ -228,10 +226,6 @@
 .box {
 	margin-left: 20px;
   	flex: 1;
-}
-
-#dropdownUser1 {
-    font-size: 24px; /* Điều chỉnh kích thước của nút */
 }
 
 /*quan ly nguoi dung*/
