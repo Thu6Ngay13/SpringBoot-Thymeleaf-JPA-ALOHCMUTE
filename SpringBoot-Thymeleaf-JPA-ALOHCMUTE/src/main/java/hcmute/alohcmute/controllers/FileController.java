@@ -42,10 +42,11 @@ public class FileController {
 		try {
 			Optional<TaiKhoan> optTaiKhoan = taiKhoanService.findById(taikhoan);
 			TaiKhoan tk = optTaiKhoan.get();
-			tk.setAvatarURl(file.getOriginalFilename());
+			String newFileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+			tk.setAvatarURl(newFileName);
 			taiKhoanService.save(tk);
 			
-			storageService.save(file);
+			storageService.save(file, newFileName);
 			
 			message = "Uploaded the file successfully: " + file.getOriginalFilename();
 			model.addAttribute("message", message);
