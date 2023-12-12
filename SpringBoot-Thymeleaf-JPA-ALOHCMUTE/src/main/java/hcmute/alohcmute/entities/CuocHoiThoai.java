@@ -1,12 +1,10 @@
 package hcmute.alohcmute.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,6 +19,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
+
 @Entity
 @Table
 public class CuocHoiThoai implements Serializable {
@@ -34,10 +33,10 @@ public class CuocHoiThoai implements Serializable {
 	@Column(name = "TenCuocHoiThoai", columnDefinition = "nvarchar(2000)")
 	private String tenCuocHoiThoai;
 
-	@OneToMany(mappedBy = "cuocHoiThoai", fetch = FetchType.LAZY)
-	private List<TinNhan> tinNhans;
+	@OneToMany(mappedBy = "cuocHoiThoai")
+	private Set<TinNhan> tinNhans;
 
-	@ManyToMany(mappedBy = "cuocHoiThoai")
+	@ManyToMany(mappedBy = "cuocHoiThoais")
 	private Set<TaiKhoan> taiKhoans;
-
+	
 }

@@ -17,20 +17,16 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString (exclude = {"binhLuans", "thongBaos", "baiViets", "nhoms"})
+
 @Entity
 @Table
-@Getter
-@Setter
-
 public class TaiKhoan implements Serializable{
 	private static final long serialVersionUID = -8430672957164998050L;
 	
@@ -67,6 +63,9 @@ public class TaiKhoan implements Serializable{
 	
 	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.LAZY)
 	private List<BaiViet> baiViets;
+	
+	@OneToMany(mappedBy = "taiKhoan")
+	private Set<TinNhan> tinNhans;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(
@@ -75,11 +74,11 @@ public class TaiKhoan implements Serializable{
 			inverseJoinColumns = {@JoinColumn(name = "maLoai")})
 	private Set<LoaiTaiKhoan> loaiTaiKhoans;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "TaiKhoan_CuocHoiThoai",
 		joinColumns = {@JoinColumn(name = "TaiKhoan") },
 		inverseJoinColumns = {@JoinColumn(name = "MaCuocHoiThoai")})
-	private Set<CuocHoiThoai> cuocHoiThoai;
+	private Set<CuocHoiThoai> cuocHoiThoais;
 	
 	@ManyToMany
 	@JoinTable(name = "TaiKhoan_Nhom",

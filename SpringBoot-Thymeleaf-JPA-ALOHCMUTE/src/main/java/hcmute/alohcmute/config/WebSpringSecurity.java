@@ -26,7 +26,7 @@ import hcmute.alohcmute.security.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SpringSecurity {
+public class WebSpringSecurity {
     
 	@Autowired
 	private UserDetailsServiceImpl userDetailsService;

@@ -26,7 +26,6 @@ import lombok.*;
 @EqualsAndHashCode(exclude="taiKhoan")
 @ToString (exclude = {"binhLuans", "baoCaoBaiViets", "taiKhoans"})
 
-
 @Entity
 @Table
 public class BaiViet implements Serializable {
