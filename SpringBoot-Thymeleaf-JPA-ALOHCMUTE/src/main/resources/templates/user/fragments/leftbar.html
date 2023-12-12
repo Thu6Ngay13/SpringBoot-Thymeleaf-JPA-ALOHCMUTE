@@ -1,6 +1,7 @@
 <html
 	xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{user/layout-user.html}">
+	layout:decorate="~{user/layout-user.html}"
+	xmlns:sec="https://wwww.thymeleaf.org/thymeleaf-extras-springsecurity6">
 
 <body>
 	<div th:fragment="leftbar">
@@ -37,12 +38,15 @@
 					<span class="material-icons">groups</span>
 					<h4 style="font-size: 20px;">Nhóm</h4>
 				</div>
-			</a> <a href="" style="text-decoration: none; color: inherit;">
-				<div class="sidebarRow">
-					<span class="material-icons">admin_panel_settings</span>
-					<h4 style="font-size: 20px;">Admin</h4>
-				</div>
-			</a>
+			</a> 
+			<div sec:authorize="hasAuthority('ADMIN')">
+				<a href="/admin/manage/quanlynguoidung" style="text-decoration: none; color: inherit;">
+					<div class="sidebarRow">
+						<span class="material-icons">admin_panel_settings</span>
+						<h4 style="font-size: 20px;">Admin</h4>
+					</div>
+				</a>
+			</div>
 
 			</a> <a href="/logout" style="text-decoration: none; color: inherit;">
 				<div class="sidebarRow">
