@@ -45,11 +45,11 @@
 
 												<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 												<img class="img-fluid width-100" alt=""
-													th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
+													th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http') and taikhoan.avatarURl != ''}"
 													th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
 
 												<img class="img-fluid width-100" alt=""
-													th:if="${taikhoan.avatarURl == null}"
+													th:if="${taikhoan.avatarURl == null or taikhoan.avatarURl == ''}"
 													th:src="@{'/files/user.png'}" />
 
 												<div class="profile-hvr m-t-15">
@@ -95,13 +95,13 @@
 
 													<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 													<img class="media-object img-radius" alt=""
-														th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
+														th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http') and ac.avatarURl != ''}"
 														th:src="@{'/files/' + ${ac.avatarURl}}" data-toggle="tooltip"
 														data-placement="top" title=""
 														data-original-title="user image" />
 													
 													<img class="media-object img-radius" alt=""
-														th:if="${ac.avatarURl == null}"
+														th:if="${ac.avatarURl == null or ac.avatarURl == ''}"
 														th:src="@{'/files/user.png'}" data-toggle="tooltip"
 														data-placement="top" title=""
 														data-original-title="user image" />
@@ -130,14 +130,14 @@
 															<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 															<img class="media-object img-radius"
 																alt="Generic placeholder image"
-																th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
+																th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http') and ac.avatarURl != ''}"
 																th:src="@{'/files/' + ${ac.avatarURl}}"
 																data-toggle="tooltip" data-placement="top" title=""
 																data-original-title="user image" />
 															
 															<img class="media-object img-radius"
 																alt="Generic placeholder image"
-																th:if="${ac.avatarURl == null}"
+																th:if="${ac.avatarURl == null or ac.avatarURl == ''}"
 																th:src="@{'/files/user.png'}"
 																data-toggle="tooltip" data-placement="top" title=""
 																data-original-title="user image" />
@@ -188,12 +188,12 @@
 
 																						<img class="media-object"
 																							width="120" alt=""
-																							th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
+																							th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http') and ac.avatarURl != ''}"
 																							th:src="@{'/files/' + ${ac.avatarURl}}" />
 																						
 																						<img class="media-object"
 																							width="120" alt=""
-																							th:if="${ac.avatarURl == null}"
+																							th:if="${ac.avatarURl == null or ac.avatarURl == ''}"
 																							th:src="@{'/files/user.png'}" />
 																					</a>
 																				</div>
@@ -277,11 +277,11 @@
 																				th:src="${taikhoan.avatarURl}" />
 
 																			<img class="img-radius timeline-icon" alt=""
-																				th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
+																				th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http') and taikhoan.avatarURl != ''}"
 																				th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
 																				
 																			<img class="img-radius timeline-icon" alt=""
-																				th:if="${taikhoan.avatarURl == null}"
+																			th:if="${taikhoan.avatarURl == null or taikhoan.avatarURl == ''}"
 																				th:src="@{'/files/user.png'}" />
 																			
 
@@ -312,7 +312,7 @@
 																				class="img-fluid width-100" alt="">
 																			<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 																			<img class="img-fluid width-100" alt=""
-																				th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http')}"
+																				th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http') and bv.noiDungHinhAnh != ''}"
 																				th:src="@{'/files/' + ${bv.noiDungHinhAnh}}" />
 																				
 																			<div class="card-block">
@@ -443,12 +443,9 @@
 																		th:src="${bv.noiDungHinhAnh}" />
 
 																	<img class="img-fluid" alt=""
-																		th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http')}"
+																		th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http') and bv.noiDungHinhAnh != ''}"
 																		th:src="@{'/files/' + ${bv.noiDungHinhAnh}}" />
-																	
-																	<img class="img-fluid" alt=""
-																		th:if="${bv.noiDungHinhAnh == null}"
-																		th:src="@{'/files/user.png'}" />
+						
 																</a>
 															</li>
 														</ul>
@@ -475,11 +472,11 @@
 
 																		<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 																		<img class="media-object" width="120"
-																			th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
+																			th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http') and ac.avatarURl != ''}"
 																			th:src="@{'/files/' + ${ac.avatarURl}}" />
 																		
 																		<img class="media-object" width="120"
-																			th:if="${ac.avatarURl == null}"
+																		th:if="${ac.avatarURl == null or ac.avatarURl == ''}"
 																			th:src="@{'/files/user.png'}" />
 																		
 

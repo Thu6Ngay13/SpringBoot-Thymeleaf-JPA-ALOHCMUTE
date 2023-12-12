@@ -45,11 +45,11 @@
 
 												<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 												<img class="img-fluid width-100" alt=""
-													th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
+													th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http') and taikhoan.avatarURl != ''}"
 													th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
 
 												<img class="img-fluid width-100" alt=""
-													th:if="${taikhoan.avatarURl == null}"
+													th:if="${taikhoan.avatarURl == null or taikhoan.avatarURl == ''}"
 													th:src="@{'/files/user.png'}" />
 
 												<div class="profile-hvr m-t-15">
@@ -102,13 +102,13 @@
 
 													<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 													<img class="media-object img-radius" alt=""
-														th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
+														th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http') and ac.avatarURl != ''}"
 														th:src="@{'/files/' + ${ac.avatarURl}}" data-toggle="tooltip"
 														data-placement="top" title=""
 														data-original-title="user image" />
 
 													<img class="media-object img-radius" alt=""
-														th:if="${ac.avatarURl == null}" th:src="@{'/files/user.png'}"
+														th:if="${ac.avatarURl == null or ac.avatarURl == ''}" th:src="@{'/files/user.png'}"
 														data-toggle="tooltip" data-placement="top" title=""
 														data-original-title="user image" />
 												</span>
@@ -136,14 +136,14 @@
 															<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 															<img class="media-object img-radius"
 																alt="Generic placeholder image"
-																th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
+																th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http') and ac.avatarURl != ''}"
 																th:src="@{'/files/' + ${ac.avatarURl}}"
 																data-toggle="tooltip" data-placement="top" title=""
 																data-original-title="user image" />
 
 															<img class="media-object img-radius"
 																alt="Generic placeholder image"
-																th:if="${ac.avatarURl == null}"
+																th:if="${ac.avatarURl == null or ac.avatarURl == ''}"
 																th:src="@{'/files/user.png'}" data-toggle="tooltip"
 																data-placement="top" title=""
 																data-original-title="user image" />
@@ -194,12 +194,12 @@
 
 																						<img class="media-object"
 																							width="120" alt=""
-																							th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
+																							th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http') and ac.avatarURl != ''}"
 																							th:src="@{'/files/' + ${ac.avatarURl}}" />
 
 																						<img class="media-object"
 																							width="120" alt=""
-																							th:if="${ac.avatarURl == null}"
+																							th:if="${ac.avatarURl == null or ac.avatarURl == ''}"
 																							th:src="@{'/files/user.png'}" />
 																					</a>
 																				</div>
@@ -307,11 +307,11 @@
 																				th:src="${taikhoan.avatarURl}" />
 
 																			<img class="img-radius timeline-icon" alt=""
-																				th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
+																				th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http') and taikhoan.avatarURl != ''}"
 																				th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
 
 																			<img class="img-radius timeline-icon" alt=""
-																				th:if="${taikhoan.avatarURl == null}"
+																				th:if="${taikhoan.avatarURl == null or taikhoan.avatarURl == ''}"
 																				th:src="@{'/files/user.png'}" />
 
 
@@ -338,6 +338,34 @@
 																								<a class="dropdown-item"
 																									th:href="@{'/trangcanhan/deletebaiviet/' + ${taikhoan.taiKhoan} + '/' + ${bv.maBaiViet}}">Xóa
 																									bài viết</a>
+																									
+																							<div th:if="${bv.cheDoNhom.maCheDo == 1}">
+																								<a class="dropdown-item"
+																								th:href="@{'/trangcanhan/update/chedobaiviet/2/' + ${bv.maBaiViet}}">
+																								Chế độ theo dõi</a>
+																								<a class="dropdown-item"
+																								th:href="@{'/trangcanhan/update/chedobaiviet/3/' + ${bv.maBaiViet}}">
+																								Chế độ riêng tư</a>
+																							</div>
+																							
+																							<div th:if="${bv.cheDoNhom.maCheDo == 2}">
+																								<a class="dropdown-item"
+																								th:href="@{'/trangcanhan/update/chedobaiviet/1/' + ${bv.maBaiViet}}">
+																								Chế độ công khai</a>
+																								<a class="dropdown-item"
+																								th:href="@{'/trangcanhan/update/chedobaiviet/3/' + ${bv.maBaiViet}}">
+																								Chế độ riêng tư</a>
+																							</div>
+																							
+																							<div th:if="${bv.cheDoNhom.maCheDo == 3}">
+																								<a class="dropdown-item"
+																								th:href="@{'/trangcanhan/update/chedobaiviet/1/' + ${bv.maBaiViet}}">
+																								Chế độ công khai</a>
+																								<a class="dropdown-item"
+																								th:href="@{'/trangcanhan/update/chedobaiviet/2/' + ${bv.maBaiViet}}">
+																								Chế độ theo dõi</a>
+																							</div>
+																							
 																								<!--<a class="dropdown-item"
 																								href="#">Report
 																								Photo</a>
@@ -365,7 +393,7 @@
 																				class="img-fluid width-100" alt="">
 																			<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 																			<img class="img-fluid width-100" alt=""
-																				th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http')}"
+																				th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http') and bv.noiDungHinhAnh != ''}"
 																				th:src="@{'/files/' + ${bv.noiDungHinhAnh}}" />
 
 																			<div class="card-block">
@@ -376,9 +404,8 @@
 																								th:href="@{/user/comment/{baiVietId}(baiVietId=${bv.maBaiViet})}"><span
 																									th:text="${taikhoan.hoTen}"></span>
 																								đã đăng lên dòng trạng
-																								thái</a></span>
+																								thái</a></span> (<span th:text="${bv.cheDoNhom.tenCheDo}"></span>)
 																					</div>
-
 																					<form th:action="@{/trangcanhan/update/baiviet/{mabaiviet}(mabaiviet=${bv.maBaiViet})}"
 																						method="post">
 																						<textarea
@@ -421,7 +448,7 @@
 
 													<li th:if="${currentPageTimeline>1}"><a
 															th:href="@{'?tab=timeline'+'&pageNoTimeline='+${currentPageTimeline-1}}">
-															<<< /a>
+															<<</a>
 													</li>
 													<li th:each="i:${#numbers.sequence(1,totalPageTimeline)}"
 														th:classappend="${currentPageTimeline==i? 'active' : ''}">
@@ -568,12 +595,9 @@
 																		th:src="${bv.noiDungHinhAnh}" />
 
 																	<img class="img-fluid" alt=""
-																		th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http')}"
+																		th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http') and bv.noiDungHinhAnh!=''}"
 																		th:src="@{'/files/' + ${bv.noiDungHinhAnh}}" />
 
-																	<img class="img-fluid" alt=""
-																		th:if="${bv.noiDungHinhAnh == null}"
-																		th:src="@{'/files/user.png'}" />
 																</a>
 															</li>
 														</ul>
@@ -600,11 +624,11 @@
 
 																		<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 																		<img class="media-object" width="120"
-																			th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
+																			th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http') and ac.avatarURl != ''}"
 																			th:src="@{'/files/' + ${ac.avatarURl}}" />
 
 																		<img class="media-object" width="120"
-																			th:if="${ac.avatarURl == null}"
+																			th:if="${ac.avatarURl == null or ac.avatarURl == ''}"
 																			th:src="@{'/files/user.png'}" />
 
 
@@ -649,7 +673,7 @@
 
 													<li th:if="${currentPageFriends>1}"><a
 															th:href="@{'?tab=friends'+'&pageNoFriends='+${currentPageFriends-1}}">
-															<<< /a>
+															<<</a>
 													</li>
 													<li th:each="i:${#numbers.sequence(1,totalPageFriends)}"
 														th:classappend="${currentPageFriends==i? 'active' : ''}">
@@ -675,21 +699,7 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/script_trangcanhan.js}"></script>
-	<script>
-		function autoExpand(element) {
-			element.style.height = 'auto';
-			element.style.height = (element.scrollHeight) + 'px';
-		}
-
-		const textAreas = document.querySelectorAll('textarea.auto-expand');
-
-		textAreas.forEach(textArea => {
-			textArea.addEventListener('input', function () {
-				autoExpand(this);
-			});
-			autoExpand(textArea);
-		});
-	</script>
+	
 
 
 </body>

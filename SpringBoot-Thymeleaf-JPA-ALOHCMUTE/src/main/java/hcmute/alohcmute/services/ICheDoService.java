@@ -10,4 +10,5 @@ public interface ICheDoService {
 
 	CheDo findByCheDo(String username);
 
+	Optional<CheDo> findById(Integer id);
 }
