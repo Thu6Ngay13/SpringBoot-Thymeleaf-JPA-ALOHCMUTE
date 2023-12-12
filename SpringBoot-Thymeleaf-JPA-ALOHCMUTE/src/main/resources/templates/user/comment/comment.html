@@ -38,7 +38,12 @@
 
 			<div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" ;>
 				<div class="featured-images mb-3">
-					<img th:text="${baiViet.noiDungHinhAnh}" class="img-fluid" style="width: 850px;">
+					<!-- Kiểm tra giá trị của baiViet.noiDungHinhAnh -->
+					<div th:if="${baiViet.noiDungHinhAnh ne '/ulpoad/'}">
+						<!-- Chỉ hiển thị khi giá trị khác '/ulpoad/' -->
+						<img th:src="${baiViet.noiDungHinhAnh}" alt="" />
+					</div>
+
 				</div>
 			</div>
 
@@ -292,7 +297,7 @@
 
 								<!-- Smiley icon to trigger emoji picker -->
 								<div class="popp" id="popp"
-									th:style="${baiViet != null && baiViet.noiDungHinhAnh == null ? 'top: 200px; left: 790px;' : 'top: 200px; left: 190px;'}">
+									th:style="${baiViet != null && baiViet.noiDungHinhAnh == '/upload/' ? 'top: 200px; left: 790px;' : 'top: 200px; left: 190px;'}">
 									<table id="emoji-table"></table>
 
 									<button type="button" onclick="closePopp()"> OK</button>
@@ -373,7 +378,7 @@
 					</script>
 
 
-					<th:block th:if="${baiViet.noiDungHinhAnh} == null">
+					<th:block th:if="${baiViet.noiDungHinhAnh} == '/upload/'">
 						<script language="javascript">
 							function suggestNames(event) {
 								var input = event.target.value;
@@ -421,7 +426,7 @@
 
 						</script>
 					</th:block>
-					<th:block th:if="${baiViet.noiDungHinhAnh} != null">
+					<th:block th:if="${baiViet.noiDungHinhAnh} != '/upload/'">
 						<script language="javascript">
 							function suggestNames(event) {
 								var input = event.target.value;
