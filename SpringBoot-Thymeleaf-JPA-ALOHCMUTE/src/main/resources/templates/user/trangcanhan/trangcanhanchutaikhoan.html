@@ -106,11 +106,10 @@
 														th:src="@{'/files/' + ${ac.avatarURl}}" data-toggle="tooltip"
 														data-placement="top" title=""
 														data-original-title="user image" />
-													
+
 													<img class="media-object img-radius" alt=""
-														th:if="${ac.avatarURl == null}"
-														th:src="@{'/files/user.png'}" data-toggle="tooltip"
-														data-placement="top" title=""
+														th:if="${ac.avatarURl == null}" th:src="@{'/files/user.png'}"
+														data-toggle="tooltip" data-placement="top" title=""
 														data-original-title="user image" />
 												</span>
 											</div>
@@ -141,12 +140,12 @@
 																th:src="@{'/files/' + ${ac.avatarURl}}"
 																data-toggle="tooltip" data-placement="top" title=""
 																data-original-title="user image" />
-															
+
 															<img class="media-object img-radius"
 																alt="Generic placeholder image"
 																th:if="${ac.avatarURl == null}"
-																th:src="@{'/files/user.png'}"
-																data-toggle="tooltip" data-placement="top" title=""
+																th:src="@{'/files/user.png'}" data-toggle="tooltip"
+																data-placement="top" title=""
 																data-original-title="user image" />
 														</a>
 														<div class="media-body">
@@ -197,7 +196,7 @@
 																							width="120" alt=""
 																							th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
 																							th:src="@{'/files/' + ${ac.avatarURl}}" />
-																						
+
 																						<img class="media-object"
 																							width="120" alt=""
 																							th:if="${ac.avatarURl == null}"
@@ -310,11 +309,11 @@
 																			<img class="img-radius timeline-icon" alt=""
 																				th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
 																				th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
-																				
+
 																			<img class="img-radius timeline-icon" alt=""
 																				th:if="${taikhoan.avatarURl == null}"
 																				th:src="@{'/files/user.png'}" />
-																			
+
 
 																		</div>
 																	</div>
@@ -360,7 +359,7 @@
 																					</div>
 																				</div>
 																			</div>
-																			
+
 																			<img th:if="${bv.noiDungHinhAnh != null and bv.noiDungHinhAnh.startsWith('http')}"
 																				th:src="${bv.noiDungHinhAnh}"
 																				class="img-fluid width-100" alt="">
@@ -380,9 +379,16 @@
 																								thái</a></span>
 																					</div>
 
-																					<p class="text-muted"
-																						th:text="${bv.noiDungChu}">
-																					</p>
+																					<form th:action="@{/trangcanhan/update/baiviet/{mabaiviet}(mabaiviet=${bv.maBaiViet})}"
+																						method="post">
+																						<textarea
+																							class="text-muted auto-expand"
+																							name="noiDungChu"
+																							style="width: 100%; min-height: 100px; overflow-y: hidden;"
+																							th:text="${bv.noiDungChu}"></textarea>
+																						<button type="submit" class="custom-button">Cập nhật</button>
+																					</form>
+																					
 																				</div>
 																			</div>
 																			<div
@@ -415,7 +421,7 @@
 
 													<li th:if="${currentPageTimeline>1}"><a
 															th:href="@{'?tab=timeline'+'&pageNoTimeline='+${currentPageTimeline-1}}">
-															<<</a>
+															<<< /a>
 													</li>
 													<li th:each="i:${#numbers.sequence(1,totalPageTimeline)}"
 														th:classappend="${currentPageTimeline==i? 'active' : ''}">
@@ -529,9 +535,11 @@
 																		</div>
 																		<div class="text-center m-t-20">
 																			<button type="submit" id="edit-save"
-																				class="btn btn-primary waves-effect waves-light m-r-20">Lưu thay đổi</button>
+																				class="btn btn-primary waves-effect waves-light m-r-20">Lưu
+																				thay đổi</button>
 																			<a href="#" onclick="cancelEdit()"
-																				class="btn btn-default waves-effect waves-light">Hủy bỏ</a>
+																				class="btn btn-default waves-effect waves-light">Hủy
+																				bỏ</a>
 
 																		</div>
 																	</form>
@@ -551,7 +559,7 @@
 													<div class="demo-gallery">
 														<ul id="profile-lightgallery" class="row">
 															<li class="col-md-4 col-lg-2 col-sm-6 col-xs-12"
-																th:each="bv : ${listBaiViet}" th:if="${bv.enable}" >
+																th:each="bv : ${listBaiViet}" th:if="${bv.enable}">
 																<a href="#" data-toggle="lightbox"
 																	data-title="A random title"
 																	data-footer="A custom footer text">
@@ -562,7 +570,7 @@
 																	<img class="img-fluid" alt=""
 																		th:if="${bv.noiDungHinhAnh != null and !bv.noiDungHinhAnh.startsWith('http')}"
 																		th:src="@{'/files/' + ${bv.noiDungHinhAnh}}" />
-																	
+
 																	<img class="img-fluid" alt=""
 																		th:if="${bv.noiDungHinhAnh == null}"
 																		th:src="@{'/files/user.png'}" />
@@ -594,11 +602,11 @@
 																		<img class="media-object" width="120"
 																			th:if="${ac.avatarURl != null and !ac.avatarURl.startsWith('http')}"
 																			th:src="@{'/files/' + ${ac.avatarURl}}" />
-																		
+
 																		<img class="media-object" width="120"
 																			th:if="${ac.avatarURl == null}"
 																			th:src="@{'/files/user.png'}" />
-																		
+
 
 																	</a>
 																</div>
@@ -641,7 +649,7 @@
 
 													<li th:if="${currentPageFriends>1}"><a
 															th:href="@{'?tab=friends'+'&pageNoFriends='+${currentPageFriends-1}}">
-															<<</a>
+															<<< /a>
 													</li>
 													<li th:each="i:${#numbers.sequence(1,totalPageFriends)}"
 														th:classappend="${currentPageFriends==i? 'active' : ''}">
@@ -667,6 +675,21 @@
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script th:src="@{/js/script_trangcanhan.js}"></script>
+	<script>
+		function autoExpand(element) {
+			element.style.height = 'auto';
+			element.style.height = (element.scrollHeight) + 'px';
+		}
+
+		const textAreas = document.querySelectorAll('textarea.auto-expand');
+
+		textAreas.forEach(textArea => {
+			textArea.addEventListener('input', function () {
+				autoExpand(this);
+			});
+			autoExpand(textArea);
+		});
+	</script>
 
 
 </body>

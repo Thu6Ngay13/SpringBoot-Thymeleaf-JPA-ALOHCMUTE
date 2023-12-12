@@ -43,20 +43,20 @@ public class TrangCaNhanController {
 
 	@Autowired
 	ICommentService commentService;
-	
+
 	@Autowired
 	IBaoCaoBaiVietService baoCaoBaiVietService;
 
-	@GetMapping("thongtintaikhoan/{taikhoan}") 
+	@GetMapping("thongtintaikhoan/{taikhoan}")
 	public String thongTinTaiKhoan(ModelMap model, @PathVariable("taikhoan") String taikhoan,
 			@RequestParam(name = "pageNoFriends", defaultValue = "1") Integer pageNoFriends,
 			@RequestParam(name = "pageNoTimeline", defaultValue = "1") Integer pageNoTimeline,
 			@RequestParam(name = "tab", defaultValue = "timeline") String tab) {
 		Optional<TaiKhoan> optTaiKhoan = taiKhoanService.findById(taikhoan);
 		TaiKhoanModel taiKhoanModel = new TaiKhoanModel();
-		
+
 		model.addAttribute("chutaikhoan", SecurityUtil.getMyUser().getTaiKhoan());
-		
+
 		// Danh sach tai khoan theo doi theo trang
 		Page<TaiKhoan> taiKhoanTheoDoi = taiKhoanService.getTaiKhoanTheoDoiByPage(taikhoan, pageNoFriends - 1, 8);
 		model.addAttribute("totalPageFriends", taiKhoanTheoDoi.getTotalPages());
@@ -110,21 +110,22 @@ public class TrangCaNhanController {
 			BeanUtils.copyProperties(entity, taiKhoanModel);
 
 			model.addAttribute("taikhoan", taiKhoanModel);
-			
-			if(tab.equals("timeline")) {
+
+			if (tab.equals("timeline")) {
 				model.addAttribute("tab", "timeline");
-			}else if(tab.equals("about")) {
+			} else if (tab.equals("about")) {
 				model.addAttribute("tab", "about");
-			}else if(tab.equals("photos")) {
+			} else if (tab.equals("photos")) {
 				model.addAttribute("tab", "photos");
-			} else if(tab.equals("friends")) {
+			} else if (tab.equals("friends")) {
 				model.addAttribute("tab", "friends");
 			}
 
 			if (taikhoan.equals(SecurityUtil.getMyUser().getTaiKhoan())) {
 				return "user/trangcanhan/trangcanhanchutaikhoan";
 			} else {
-				List<TaiKhoan> list = new ArrayList<>(taiKhoanService.findTaiKhoanTheoDoisByUsername(SecurityUtil.getMyUser().getTaiKhoan()));
+				List<TaiKhoan> list = new ArrayList<>(
+						taiKhoanService.findTaiKhoanTheoDoisByUsername(SecurityUtil.getMyUser().getTaiKhoan()));
 				if (list.contains(entity)) {
 					model.addAttribute("follows", true);
 				} else {
@@ -155,7 +156,7 @@ public class TrangCaNhanController {
 
 		taiKhoanService.save(tk);
 
-		String url = "redirect:/trangcanhan/thongtintaikhoan/" + taikhoan+"?tab=about";
+		String url = "redirect:/trangcanhan/thongtintaikhoan/" + taikhoan + "?tab=about";
 		return new ModelAndView(url);
 
 	}
@@ -163,11 +164,11 @@ public class TrangCaNhanController {
 	@GetMapping("/deletebaiviet/{taikhoan}/{mabaiviet}")
 	public ModelAndView delete(ModelMap model, @PathVariable("mabaiviet") int mabaiviet,
 			@PathVariable("taikhoan") String taikhoan) {
-		
+
 		BaiViet baiViet = baiVietService.findById(mabaiviet).get();
 		baiViet.setEnable(false);
 		baiVietService.save(baiViet);
-		
+
 		String url = "redirect:/trangcanhan/thongtintaikhoan/" + taikhoan;
 		return new ModelAndView(url, model);
 	}
@@ -180,7 +181,7 @@ public class TrangCaNhanController {
 		taiKhoanService.unfollow(taiKhoanService.findById(taikhoantheodoi).get(),
 				taiKhoanService.findById(taikhoanbitheodoi).get());
 
-		String url = "redirect:/trangcanhan/thongtintaikhoan/" + taikhoanbitheodoi+"?tab=friends";
+		String url = "redirect:/trangcanhan/thongtintaikhoan/" + taikhoanbitheodoi + "?tab=friends";
 		return new ModelAndView(url, model);
 	}
 
@@ -206,6 +207,19 @@ public class TrangCaNhanController {
 
 		String url = "redirect:/trangcanhan/thongtintaikhoan/" + taikhoantheodoi;
 		return new ModelAndView(url, model);
+	}
+
+	@PostMapping("update/baiviet/{mabaiviet}")
+	public ModelAndView updateBaiViet(@RequestParam("noiDungChu") String noiDungChu, @PathVariable("mabaiviet") int mabaiviet) {
+
+		BaiViet baiViet = baiVietService.findById(mabaiviet).get();
+		baiViet.setNoiDungChu(noiDungChu);
+
+		baiVietService.save(baiViet);
+
+		String url = "redirect:/trangcanhan/thongtintaikhoan/" + SecurityUtil.getMyUser().getTaiKhoan();
+		return new ModelAndView(url);
+
 	}
 
 }
