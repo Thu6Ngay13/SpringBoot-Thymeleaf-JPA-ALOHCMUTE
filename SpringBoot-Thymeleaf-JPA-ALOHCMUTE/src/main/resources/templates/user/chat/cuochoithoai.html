@@ -8,16 +8,12 @@
 	<div class="field" style="display: none;">
 		<input type="text" required th:value="${taikhoan.taiKhoan}" name="username" id="username">
 		<input type="text" required th:value="${taikhoan.nickName}" name="nickname" id="nickname">
-		<input type="text" required th:value="${taikhoan.avatarURl != null 
-								? taikhoan.avatarURl
-								: 'https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png'}" 
+		<input type="text" required th:value="${'/files/' + taikhoan.avatarURl}" 
 			name="avatarurl" id="avatarurl">
 
 		<input type="text" required th:value="${banbe.taiKhoan}" name="usernamefriend" id="usernamefriend">
 		<input type="text" required th:value="${banbe.nickName}" name="nicknamefriend" id="nicknamefriend">
-		<input type="text" required th:value="${banbe.avatarURl != null
-								? banbe.avatarURl
-								: 'https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png'} " 
+		<input type="text" required th:value="${'/files/' + banbe.avatarURl}" 
 			name="avatarurlfriend" id="avatarurlfriend">
 			
 		<input type="text" required th:value="${cuochoithoai.maCuocHoiThoai}" name="macuochoithoai" id="macuochoithoai">
@@ -28,9 +24,7 @@
 		<div class="py-2 px-4 border-bottom d-none d-lg-block">
 			<div class="d-flex align-items-center py-1">
 				<div class="position-relative">
-					<img th:src="${banbe.avatarURl != null 
-								? banbe.avatarURl
-								: 'https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png'}" class="rounded-circle mr-1"
+					<img th:src="${'/files/' + banbe.avatarURl}" class="rounded-circle mr-1"
 						width="40" height="40">
 				</div>
 				<div class="user-left flex-grow-1 pl-3">
@@ -73,9 +67,9 @@
 							? 'chat-message-right pb-4' 
 							: 'chat-message-left pb-4'">
 					<div>
-						<img th:src="${i.taiKhoan.avatarURl != null} 
-								? (${i.taiKhoan.taiKhoan == taikhoan.taiKhoan} ? taikhoan.avatarURl : banbe.avatarURl)
-								: 'https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png'" class="rounded-circle mr-1"
+						<img th:src="${i.taiKhoan.taiKhoan == taikhoan.taiKhoan} 
+									? ${'/files/' + taikhoan.avatarURl} 
+									: ${'/files/' + banbe.avatarURl}"
 							width="40" height="40">
 						<div class="text-muted small text-nowrap mt-2" th:text="${#temporals.format(i.thoiGianGuiTinNhan, 'yyyy-MM-dd HH:mm:ss')}"></div>
 					</div>

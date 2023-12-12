@@ -52,14 +52,14 @@ public class TaiKhoan implements Serializable{
 	@Column(name = "Email")
 	private String email;
 	
-	@Column(name = "GioiTinh")
+	@Column(name = "GioiTinh", columnDefinition = "nvarchar(3)")
 	private String gioiTinh;
 	
 	@Column(name = "SDT")
 	private String sDT;
 	
 	@Column(name = "AvatarURL", columnDefinition = "nvarchar(2000)")
-	private String avatarURl;
+	private String avatarURl = "account.png";
 	
 	@OneToMany(mappedBy = "taiKhoan", fetch = FetchType.LAZY)
 	private List<BaiViet> baiViets;

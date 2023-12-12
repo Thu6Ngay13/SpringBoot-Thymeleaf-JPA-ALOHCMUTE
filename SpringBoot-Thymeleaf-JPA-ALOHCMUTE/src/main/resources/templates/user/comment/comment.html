@@ -42,7 +42,12 @@
 					<div
 						th:if="${baiViet.noiDungHinhAnh != null || baiViet.noiDungHinhAnh != '' || baiViet.noiDungHinhAnh ne '/ulpoad/'}">
 						<!-- Chỉ hiển thị khi giá trị không phải là null, không phải là chuỗi rỗng, và không phải là '/ulpoad/' -->
-						<img th:src="${baiViet.noiDungHinhAnh}" alt="" style="height: 700px; width: 490px;" />
+						<img style="height: 700px; width: 490px;" alt="" th:if="${baiViet.noiDungHinhAnh != null and baiViet.noiDungHinhAnh.startsWith('http')}"
+										th:src="${baiViet.noiDungHinhAnh}" />
+									
+									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+						<img style="height: 700px; width: 490px;" alt="" th:if="${baiViet.noiDungHinhAnh != null and !baiViet.noiDungHinhAnh.startsWith('http')}"
+							th:src="@{'/files/' + ${baiViet.noiDungHinhAnh}}" />
 					</div>
 
 				</div>
@@ -57,7 +62,12 @@
 
 					<div class="d-flex skfjkk flex-wrap">
 						<div class="lkt40">
-							<img th:src="${baiViet.taiKhoan.avatarURl}" alt="">
+							<img class="user__avatar post__avatar " width="100%" height="400px" alt="" th:if="${baiViet.taiKhoan.avatarURl != null and baiViet.taiKhoan.avatarURl.startsWith('http')}"
+										th:src="${baiViet.taiKhoan.avatarURl}" />
+									
+									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+							<img class="user__avatar post__avatar " width="100%" height="400px" alt="" th:if="${baiViet.taiKhoan.avatarURl != null and !baiViet.taiKhoan.avatarURl.startsWith('http')}"
+								th:src="@{'/files/' + ${baiViet.taiKhoan.avatarURl}}" />
 						</div>
 
 						<div class="name flex-grow-1">
@@ -145,13 +155,22 @@
 							<div class="card mb-2">
 								<div class="card-body">
 									<p th:text="${cmt.noiDungChu}"></p>
-									<img class="image-uploaded"
-										th:unless="${cmt.noiDungHinhAnh == '/upload/' or cmt.noiDungHinhAnh == '' or cmt.noiDungHinhAnh == null}"
-										th:src="${cmt.noiDungHinhAnh}" alt="" />
+									<img class="image-uploaded" width="100%" height="400px" alt="" th:if="${cmt.noiDungHinhAnh != null and cmt.noiDungHinhAnh.startsWith('http')}"
+										th:unless="${cmt.noiDungHinhAnh == '' or cmt.noiDungHinhAnh == null}"
+										th:src="${cmt.noiDungHinhAnh}" />
+									
+									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+									<img class="image-uploaded" width="100%" height="400px" alt="" th:if="${cmt.noiDungHinhAnh != null and !cmt.noiDungHinhAnh.startsWith('http')}"
+										th:unless="${cmt.noiDungHinhAnh == '' or cmt.noiDungHinhAnh == null}"
+										th:src="@{'/files/' + ${cmt.noiDungHinhAnh}}" />
 									<div class="d-flex justify-content-between">
 										<div class="d-flex flex-row align-items-center">
-											<img th:src="${cmt.taiKhoan.avatarURl}" alt="avatar"
-												width="25" height="25" />
+											<img width="25" height="25" alt="" th:if="${cmt.taiKhoan.avatarURl != null and cmt.taiKhoan.avatarURl.startsWith('http')}"
+										th:src="${cmt.taiKhoan.avatarURl}" />
+									
+									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+											<img width="25" height="25" alt="" th:if="${cmt.taiKhoan.avatarURl != null and !cmt.taiKhoan.avatarURl.startsWith('http')}"
+												th:src="@{'/files/' + ${cmt.taiKhoan.avatarURl}}" />
 											<p class="small mb-0 ms-2" th:text="${cmt.taiKhoan.nickName}"></p>
 										</div>
 										<div class="d-flex flex-row align-items-center">

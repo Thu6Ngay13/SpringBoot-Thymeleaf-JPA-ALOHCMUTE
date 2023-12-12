@@ -49,8 +49,12 @@
 			<div class="feed">
 				<div class="messageSender">
 					<div class="messageSender__top">
-						<img th:src="${Nhom.nhomURL}" alt=""
-							width="100%" height="400px"></img>
+						<img width="100%" height="400px" alt="" th:if="${Nhom.nhomURL != null and Nhom.nhomURL.startsWith('http')}"
+										th:src="${Nhom.nhomURL}" />
+									
+									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+						<img width="100%" height="400px" alt="" th:if="${Nhom.nhomURL != null and !Nhom.nhomURL.startsWith('http')}"
+							th:src="@{'/files/' + ${Nhom.nhomURL}}" />
 					</div>
 					<div class="messageSender__bottom">
 						<h2 th:text="${Nhom.tenNhom}"></h2>
@@ -119,7 +123,12 @@
 				<!-- post starts -->
 				<div th:each="baiViet : ${listBaiViet}" class="post">
 					<div class="post__top">
-						<img class="user__avatar post__avatar" th:src="${baiViet.taiKhoan.avatarURl}" alt="" />
+						<img class="user__avatar post__avatar" alt="" th:if="${baiViet.taiKhoan.avatarURl != null and baiViet.taiKhoan.avatarURl.startsWith('http')}"
+										th:src="${baiViet.taiKhoan.avatarURl}" />
+									
+									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+						<img class="user__avatar post__avatar" alt="" th:if="${baiViet.taiKhoan.avatarURl != null and !baiViet.taiKhoan.avatarURl.startsWith('http')}"
+							th:src="@{'/files/' + ${baiViet.taiKhoan.avatarURl}}" />
 						<div class="post__topInfo">
 							<h3 style="margin: 0;" th:text="${baiViet.taiKhoan.hoTen}"></h3>
 							<p style="margin: 0; display: inline-block; vertical-align: middle;">
@@ -161,7 +170,12 @@
 					</div>
 
 					<div class="post__image">
-						<img th:src="${baiViet.noiDungHinhAnh}" alt="" />
+						<img class="img-fluid width-100" alt="" th:if="${baiViet.noiDungHinhAnh != null and baiViet.noiDungHinhAnh.startsWith('http')}"
+										th:src="${baiViet.noiDungHinhAnh}" />
+									
+									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+						<img class="img-fluid width-100" alt="" th:if="${baiViet.noiDungHinhAnh != null and !baiViet.noiDungHinhAnh.startsWith('http')}"
+							th:src="@{'/files/' + ${baiViet.noiDungHinhAnh}}" />
 					</div>
 
 					<div class="post__options">

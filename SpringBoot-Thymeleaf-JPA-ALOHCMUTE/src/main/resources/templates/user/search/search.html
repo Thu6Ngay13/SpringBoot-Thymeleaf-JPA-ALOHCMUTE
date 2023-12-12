@@ -30,8 +30,12 @@
 						<div class="nearby-user">
 							<div class="row">
 								<div class="col-md-2 col-sm-2">
-									<img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="user"
-										class="profile-photo-lg">
+									<img class="profile-photo-lg" width="100%" height="400px" alt="" th:if="${taiKhoan.avatarURl != null and taiKhoan.avatarURl.startsWith('http')}"
+										th:src="${taiKhoan.avatarURl}" />
+									
+									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+									<img class="profile-photo-lg" width="100%" height="400px" alt="" th:if="${taiKhoan.avatarURl != null and !taiKhoan.avatarURl.startsWith('http')}"
+										th:src="@{'/files/' + ${taiKhoan.avatarURl}}" />
 								</div>
 								<div class="col-md-7 col-sm-7">
 									<div class="d-flex">

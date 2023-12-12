@@ -253,11 +253,19 @@ public class NhomController {
 		String filename = "";
 
 		if (!noidunghinhanh.isEmpty()) {
-			filename = "";
-			String uploadRootPath = app.getRealPath("upload");
-			File uploadRootDir = new File(uploadRootPath);
+			filename="";
+			String projectRoot = System.getProperty("user.dir");
+
+			// Specify the name of the folder you want to create inside the project root
+			String folderName = "uploads";
+
+			// Combine the project root and folder name to get the full path
+			String fullPath = projectRoot + File.separator + folderName;
+
+			// Create the folder if it doesn't exist
+			File uploadRootDir = new File(fullPath);
 			if (!uploadRootDir.exists()) {
-				uploadRootDir.mkdirs();
+			    uploadRootDir.mkdirs();
 			}
 			try {
 				int extensionSTT = noidunghinhanh.getOriginalFilename().indexOf(".");
@@ -277,7 +285,7 @@ public class NhomController {
 
 			} catch (Exception e) {
 			}
-			String linkanh = "/upload/" + filename;
+			String linkanh = filename;
 			nhom.setNhomURL(linkanh);
 		}
 		
