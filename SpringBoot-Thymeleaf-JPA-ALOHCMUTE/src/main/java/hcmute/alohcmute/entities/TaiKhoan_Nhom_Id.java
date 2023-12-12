@@ -15,6 +15,5 @@ public class TaiKhoan_Nhom_Id implements Serializable{
 
 	private static final long serialVersionUID = 812322399864657479L;
 	private int maNhom;
-	@Column(name = "TaiKhoan", columnDefinition = "nvarchar(2000)")
 	private String taiKhoan;
 }

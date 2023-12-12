@@ -1,39 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
+<html
+	xmlns:th "http://www.thymeleaf.org" xmlns:layout="http://ww.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{user/layout-user.html}">
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Trang comment</title>
-	<!--<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />-->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link
-		href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,700&display=swap"
-		rel="stylesheet">
-	<link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css}"
-		integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" th:href="@{/css/style_comment.css}">
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-		integrity="sha384-TAek9IxlAz/pZj7RIqOfInjz1Y5Qp5yA+ToTSqUN9aGi4IGkN72liX6iWNepR1j5" crossorigin="anonymous">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trang comment</title>
+<!--<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+	href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,700&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css}"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" th:href="@{/css/style_comment.css}">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-TAek9IxlAz/pZj7RIqOfInjz1Y5Qp5yA+ToTSqUN9aGi4IGkN72liX6iWNepR1j5"
+	crossorigin="anonymous">
 
-	<title>Boostrap Login | Ludiflex</title>
+<title>Boostrap Login | Ludiflex</title>
 </head>
 
 <body>
 
 	<!----------------------- Main Container -------------------------->
-	<div class=" container d-flex justify-content-center align-items-center min-vh-100">
+	<div
+		class=" container d-flex justify-content-center align-items-center min-vh-100">
 		<!----------------------- Login Container -------------------------->
-		<div class="row border  p-3 bg-white shadow box-area" layout:fragment="content">
+		<div class="row border  p-3 bg-white shadow box-area"
+			layout:fragment="content">
 			<!----------------------- Left Container -------------------------->
 
-			<div class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box" ;>
+			<div
+				class="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box";>
 				<div class="featured-images mb-3">
-					<img th:text="${baiViet.noiDungHinhAnh}" class="img-fluid" style="width: 850px;">
+					<img th:src="${baiViet.noiDungHinhAnh}" alt="" />
 				</div>
 			</div>
 
@@ -50,10 +60,13 @@
 						</div>
 
 						<div class="name flex-grow-1">
-							<h6 class=" mb-1 fs-5 fw-bold d-flex" th:text="${baiViet.taiKhoan.hoTen}"></h6>
+							<h6 class=" mb-1 fs-5 fw-bold d-flex"
+								th:text="${baiViet.taiKhoan.hoTen}"></h6>
 							<div class="d-flex">
-								<p class="text-muted small mb-1 fs-7 d-flex" th:text="${baiViet.ThoiGian}"></p>
-								<p class="text-muted small mb-1 fs-7 d-flex ml-2" th:text="${baiViet.Ngay}"></p>
+								<p class="text-muted small mb-1 fs-7 d-flex"
+									th:text="${baiViet.ThoiGian}"></p>
+								<p class="text-muted small mb-1 fs-7 d-flex ml-2"
+									th:text="${baiViet.Ngay}"></p>
 							</div>
 
 						</div>
@@ -61,7 +74,15 @@
 					</div>
 
 					<hr>
-					<p class="text-muted" th:text="${baiViet.noiDungChu}"></p>
+
+					<div class=""
+						th:with="colorCode=${#strings.substring(baiViet.noiDungChu, #strings.length(baiViet.noiDungChu) - 7)}">
+						<p
+							th:style="'color:' + ${colorCode} + ';text-align: justify; overflow-wrap: break-word; width: 800px; white-space: pre-wrap;'"
+							th:text="${#strings.substring(baiViet.noiDungChu,0, #strings.length(baiViet.noiDungChu) - 7)}">
+							Post Content</p>
+					</div>
+
 					<div class="d-flex">
 						<p class="count-like" id="likeText">
 							<span th:text="${soLike} + ' likes'"></span>
@@ -74,11 +95,12 @@
 
 					<div class="post__options d-flex icon ">
 
-						<div class="post__option d-flex like" th:classappend="${isLiked} ? 'liked' : ''"
+						<div class="post__option d-flex like"
+							th:classappend="${isLiked} ? 'liked' : ''"
 							onclick="toggleLike(this)">
-							<span class="material-icons fs-5 "> thumb_up
-							</span> <input type="hidden" th:value="${soLike}" id="likeCount" /> <input type="hidden"
-								th:value="${baiViet.maBaiViet}" id="baiVietId" />
+							<span class="material-icons fs-5 "> thumb_up </span> <input
+								type="hidden" th:value="${soLike}" id="likeCount" /> <input
+								type="hidden" th:value="${baiViet.maBaiViet}" id="baiVietId" />
 							<p class="icon">Like</p>
 						</div>
 						<script>
@@ -101,7 +123,8 @@
 							}
 						</script>
 
-						<div class=" post__option d-flex icon" onclick="moveInputComment(this)">
+						<div class=" post__option d-flex icon"
+							onclick="moveInputComment(this)">
 							<span class="material-icons fs-5"> chat_bubble_outline </span>
 							<p class="icon">Comment</p>
 						</div>
@@ -130,14 +153,14 @@
 
 									<div class="d-flex justify-content-between">
 										<div class="d-flex flex-row align-items-center">
-											<img th:src="@{/images/image_avt.png}" alt="avatar" width="25"
-												height="25" />
+											<img th:src="@{/images/image_avt.png}" alt="avatar"
+												width="25" height="25" />
 											<p class="small mb-0 ms-2" th:text="${cmt.taiKhoan.nickName}"></p>
 										</div>
 										<div class="d-flex flex-row align-items-center">
 
-											<button type="button" class="btn btn-light btn-sm" data-toggle="modal"
-												data-target="#updateComment"
+											<button type="button" class="btn btn-light btn-sm"
+												data-toggle="modal" data-target="#updateComment"
 												th:attr="data-comment=${cmt.maBinhLuan}">Chỉnh sửa</button>
 
 											<i class="far fa-thumbs-up mx-2 fa-xs text-black"
@@ -208,9 +231,11 @@
 									<form action="#"
 										th:action="@{/user/comment/{baiVietId}/update(baiVietId=${baiVietId})}"
 										th:object="${binhLuan}" method="post">
-										<div class="modal fade" id="updateComment" tabindex="-1" role="dialog"
-											aria-labelledby="exampleModalLabel" aria-hidden="true">
-											<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal fade" id="updateComment" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalLabel"
+											aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered"
+												role="document">
 												<div class="modal-content">
 													<div class="modal-header">
 														<h5 class="modal-title" id="exampleModalLabel">Chỉnh
@@ -267,12 +292,14 @@
 						</th:block>
 					</div>
 
-					<form class="d-flex  mt-3" action="#" th:action="@{{baiVietId}(baiVietId=${baiVietId})}"
+					<form class="d-flex  mt-3" action="#"
+						th:action="@{{baiVietId}(baiVietId=${baiVietId})}"
 						th:object="${binhLuan}" method="post">
 						<div class="input-group">
-							<input type="text" class="addcmt form-control form-control-lg bg-light fs-6"
-								placeholder="Add a comment..." th:field="*{noiDungChu}" id="postContent"
-								onkeyup="suggestNames(event)"><br>
+							<input type="text"
+								class="addcmt form-control form-control-lg bg-light fs-6"
+								placeholder="Add a comment..." th:field="*{noiDungChu}"
+								id="postContent" onkeyup="suggestNames(event)"><br>
 						</div>
 						<div id="suggestions" class="suggestions-container"></div>
 						<input class="btn btn-light btn-sm" type="submit" value="Đăng">
@@ -355,7 +382,8 @@
 			</div>
 
 			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-				integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+				integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+				crossorigin="anonymous"></script>
 			<script>
 				function like(action) {
 					let baiVietId = document.getElementById('baiVietId').value;
@@ -379,13 +407,17 @@
 				}
 			</script>
 
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-			<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js}"
+			<script
+				src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script
+				th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js}"
 				integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 				crossorigin="anonymous"></script>
 			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.jss"></script>
-			<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+			<script
+				src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+			<script
+				src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
