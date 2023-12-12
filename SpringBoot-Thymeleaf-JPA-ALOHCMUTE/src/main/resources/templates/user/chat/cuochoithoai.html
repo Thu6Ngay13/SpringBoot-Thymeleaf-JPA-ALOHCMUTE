@@ -5,7 +5,7 @@
 <div id="chat-page" layout:fragment="content" style="width: 1210px; height: 640px;">
 	<link rel="stylesheet" th:href="@{/css/style_chat.css}">
 
-	<div class="field">
+	<div class="field" style="display: none;">
 		<input type="text" required th:value="${taikhoan.taiKhoan}" name="username" id="username">
 		<input type="text" required th:value="${taikhoan.nickName}" name="nickname" id="nickname">
 		<input type="text" required th:value="${taikhoan.avatarURl != null 
@@ -52,13 +52,17 @@
 							<polygon points="23 7 16 12 23 17 23 7"></polygon>
 							<rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
 						</svg></button>
-					<button class="btn btn-light border btn-lg px-3"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+					<button class="btn btn-light border btn-lg px-3">
+						<a th:href="@{/user/chat}">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24"
 							height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
 							stroke-linecap="round" stroke-linejoin="round"
 							class="feather feather-more-horizontal feather-lg">
 							<line x1="19" y1="12" x2="5" y2="12"></line>
 							<polyline points="12 19 5 12 12 5"></polyline>
-						</svg></button>
+						</svg>
+						</a>
+					</button>
 				</div>
 			</div>
 		</div>
@@ -73,7 +77,7 @@
 								? (${i.taiKhoan.taiKhoan == taikhoan.taiKhoan} ? taikhoan.avatarURl : banbe.avatarURl)
 								: 'https://vivureviews.com/wp-content/uploads/2022/08/avatar-vo-danh-9.png'" class="rounded-circle mr-1"
 							width="40" height="40">
-						<div class="text-muted small text-nowrap mt-2" th:text="${i.thoiGianGuiTinNhan}"></div>
+						<div class="text-muted small text-nowrap mt-2" th:text="${#temporals.format(i.thoiGianGuiTinNhan, 'yyyy-MM-dd HH:mm:ss')}"></div>
 					</div>
 
 					<div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
@@ -148,7 +152,6 @@
 				const formattedDate = utcPlus7Time.toISOString().slice(0, 19).replace('T', ' ');
 
 				var messageContent = messageInput.value.trim();
-
 				if (messageContent && stompClient) {
 					var chatMessage = {
 						noiDungChu: messageInput.value,
@@ -185,7 +188,9 @@
 
 				var timestampElement = document.createElement('div');
 				timestampElement.classList.add('text-muted', 'small', 'text-nowrap', 'mt-2');
-				timestampElement.innerText = new Date().toLocaleTimeString();
+				
+				//timestampElement.innerText = new Date().toLocaleTimeString();
+				timestampElement.innerText = message.thoiGianGuiTinNhan
 
 				avatarElement.appendChild(avatarImageElement);
 				avatarElement.appendChild(timestampElement);

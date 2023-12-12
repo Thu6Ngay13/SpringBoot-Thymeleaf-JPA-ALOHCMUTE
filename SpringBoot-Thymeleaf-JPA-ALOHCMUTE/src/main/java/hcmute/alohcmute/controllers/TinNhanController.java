@@ -119,12 +119,21 @@ public class TinNhanController {
 		String thoiGianGui = tinNhanDto.getThoiGianGuiTinNhan().replace(" ", "T");
 		LocalDateTime thoiGianGuiTinNhan = LocalDateTime.parse(thoiGianGui);
 		
-		int maCuocHoiThoai = tinNhanDto.getMaCuocHoiThoai();
 		String tenCuocHoiThoaiString = tinNhanDto.getTenCuocHoiThoai();
+		int maCuocHoiThoai = tinNhanDto.getMaCuocHoiThoai();
+		CuocHoiThoai cuocHoiThoai = cuocHoiThoaiService.findById(maCuocHoiThoai).get();
 		
-		String username = tinNhanDto.getUsername();
 		String nickname = tinNhanDto.getNickname();
+		String username = tinNhanDto.getUsername();
+		TaiKhoan taiKhoan = taiKhoanService.findBytaiKhoan(username);
 		
+		TinNhan tinNhan = new TinNhan();
+		tinNhan.setNoiDungChu(noiDungChu);
+		tinNhan.setNoiDungHinhAnh(noiDungHinhAnh);
+		tinNhan.setThoiGianGuiTinNhan(thoiGianGuiTinNhan);
+		tinNhan.setTaiKhoan(taiKhoan);
+		tinNhan.setCuocHoiThoai(cuocHoiThoai);
+		tinNhanService.save(tinNhan);
 	}
 
 }

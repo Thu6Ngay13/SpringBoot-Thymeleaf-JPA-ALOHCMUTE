@@ -14,6 +14,11 @@ public class TinNhanServiceImpl implements ITinNhanService {
 
 	@Autowired
 	private TinNhanRepository tinNhanRepository;
+	
+	@Override
+	public <S extends TinNhan> S save(S entity) {
+		return tinNhanRepository.save(entity);
+	}
 
 	@Override
 	public List<TinNhan> findAll() {
