@@ -36,8 +36,6 @@ public interface ICommentService {
 
 	Page<BinhLuan> findAll(Pageable pageable);
 
-	List<BinhLuan> findAll(Sort sort);
-
 	<S extends BinhLuan> List<S> saveAll(Iterable<S> entities);
 
 	<S extends BinhLuan> S save(S entity);

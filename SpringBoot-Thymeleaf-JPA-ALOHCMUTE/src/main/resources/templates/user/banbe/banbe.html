@@ -32,7 +32,12 @@
 					<h2 class="pb-2 border-bottom">Những người bạn đã theo dõi</h2>
 					<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
 						<div class="feature col" th:each="taikhoan : ${Listtaikhoan}">
-							<img th:src="${taikhoan.avatarURl}" alt="" width="100" height="100" />
+							<img width="100" height="100" alt="" th:if="${taikhoan.avatarURl != null and taikhoan.avatarURl.startsWith('http')}"
+										th:src="${taikhoan.avatarURl}" />
+									
+									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+							<img width="100" height="100" alt="" th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
+								th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
 							<br>
 							<br>
 							<a th:href="${'/trangcanhan/thongtintaikhoan/'+taikhoan.taiKhoan}" style="word-wrap: break-word; color: black; font-size: 24px; font-weight: bold; text-decoration: none;">[[${taikhoan.hoTen}]]</a>
@@ -65,7 +70,12 @@
 					<h2 class="pb-2 border-bottom">Những người đã theo dõi bạn</h2>
 					<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
 						<div class="feature col" th:each="taikhoan : ${ListTKDuocTheoDoi}">
-							<img th:src="${taikhoan.avatarURl}" alt="" width="100" height="100" />
+							<img width="100" height="100" alt="" th:if="${taikhoan.avatarURl != null and taikhoan.avatarURl.startsWith('http')}"
+										th:src="${taikhoan.avatarURl}" />
+									
+									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+							<img width="100" height="100" alt="" th:if="${taikhoan.avatarURl != null and !taikhoan.avatarURl.startsWith('http')}"
+								th:src="@{'/files/' + ${taikhoan.avatarURl}}" />
 							<br>
 							<br>
 							<a th:href="${'/trangcanhan/thongtintaikhoan/'+taikhoan.taiKhoan}" style="word-wrap: break-word; color: black; font-size: 24px; font-weight: bold; text-decoration: none;">[[${taikhoan.hoTen}]]</a>
@@ -108,7 +118,12 @@
 					<h2 class="pb-2 border-bottom">Những người bạn có thể biết</h2>
 					<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
 						<div class="feature col" th:each="key: ${BanChung.keySet()}">
-							<img th:src="${key.avatarURl}" alt="" width="100" height="100" />
+							<img width="100" height="100" alt="" th:if="${key.avatarURl != null and key.avatarURl.startsWith('http')}"
+										th:src="${key.avatarURl}" />
+									
+									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+							<img width="100" height="100" alt="" th:if="${key.avatarURl != null and !key.avatarURl.startsWith('http')}"
+								th:src="@{'/files/' + ${key.avatarURl}}" />
 							<br>
 							<br>
 							<a th:href="${'/trangcanhan/thongtintaikhoan/'+key.taiKhoan}" style="word-wrap: break-word; color: black; font-size: 24px; font-weight: bold; text-decoration: none;">[[${key.hoTen}]]</a>

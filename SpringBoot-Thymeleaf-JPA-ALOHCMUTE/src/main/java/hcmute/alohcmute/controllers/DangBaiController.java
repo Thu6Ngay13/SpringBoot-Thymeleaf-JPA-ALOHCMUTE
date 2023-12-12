@@ -79,11 +79,18 @@ public class DangBaiController{
 		else
 		{
 			String filename="";
-			String uploadRootPath=app.getRealPath("upload");
-			File uploadRootDir=new File(uploadRootPath);
-			if(!uploadRootDir.exists())
-			{
-				uploadRootDir.mkdirs();
+			String projectRoot = System.getProperty("user.dir");
+
+			// Specify the name of the folder you want to create inside the project root
+			String folderName = "uploads";
+
+			// Combine the project root and folder name to get the full path
+			String fullPath = projectRoot + File.separator + folderName;
+
+			// Create the folder if it doesn't exist
+			File uploadRootDir = new File(fullPath);
+			if (!uploadRootDir.exists()) {
+			    uploadRootDir.mkdirs();
 			}
 			try {
 				int extensionSTT=noidunghinhanh.getOriginalFilename().indexOf(".");
@@ -103,7 +110,7 @@ public class DangBaiController{
 			String tenchedo="";
 			TaiKhoan taikhoan=taikhoanSer.findBytaiKhoan(username);
 			baiviet.setNoiDungChu(noidungchu+color);
-			String linkanh= "/upload/"+filename;
+			String linkanh= filename;
 			baiviet.setNoiDungHinhAnh(linkanh);
 			baiviet.setTaiKhoan(taikhoan);
 			System.out.println(taikhoan.getHoTen());

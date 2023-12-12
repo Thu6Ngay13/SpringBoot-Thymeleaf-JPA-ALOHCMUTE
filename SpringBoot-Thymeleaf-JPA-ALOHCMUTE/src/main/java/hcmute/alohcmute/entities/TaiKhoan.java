@@ -52,7 +52,7 @@ public class TaiKhoan implements Serializable{
 	@Column(name = "Email")
 	private String email;
 	
-	@Column(name = "GioiTinh")
+	@Column(name = "GioiTinh", columnDefinition = "nvarchar(3)")
 	private String gioiTinh;
 	
 	@Column(name = "SDT")
