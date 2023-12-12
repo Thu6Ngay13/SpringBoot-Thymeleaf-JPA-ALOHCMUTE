@@ -17,12 +17,12 @@
 				<span class="fs-5 d-none d-sm-inline"><img id="logo" th:src="@{/images/image_logo.png}" alt=""></span>
 			</a>
 			<ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-				<li>
+				<!--<li>
 					<a th:href="@{#}" class="nav-link align-middle px-0">
 						<i class="fs-4 bi-house"></i> <i class="fa-solid fa-house"></i> <span
 							class="ms-1 d-none d-sm-inline">Home</i></span>
 					</a>
-				</li>
+				</li>-->
 				<li>
 					<a th:href="@{/admin/dsbaocaobaiviet}" class="nav-link px-0 align-middle">
 						<i class="fs-4 bi-table"></i> <i class="fas fa-flag"></i> <span
@@ -30,38 +30,34 @@
 				</li>
 				<li>
 					<a th:href="@{/admin/manage/quanlynguoidung}" class="nav-link px-0 align-middle">
-						<i class="fs-4 bi-people"></i> <i class="fas fa-user-tag"></i> <span
+						<i class="fs-4 bi-people"></i><i class="fa-solid fa-ban"></i><span
 							class="ms-1 d-none d-sm-inline">Role </span>
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/user}" class="nav-link px-0 align-middle">
+						<i class="fs-4 bi-people"></i> <i class="fas fa-user-tag"></i><span
+							class="ms-1 d-none d-sm-inline">Trang user </span>
 					</a>
 				</li>
 			</ul>
 			<hr>
 			<div class="dropdown_leftbar">
 				<ul class="dropdown_menu_leftbar">
-					<a th:href="@{#}" class="dropdown_item_leftbar nav-link align-middle px-0">
-						<i class="fs-4 bi-house"></i> <i class="fa-solid fa-house"></i> <span
-							class="ms-1 d-none d-sm-inline">Home</i></span>
-					</a>
-					<a th:href="@{#}" class="dropdown_item_leftbar nav-link align-middle px-0">
-						<i class="fs-4 bi-house"></i> <i class="fa-solid fa-sliders"></i> <span
-							class="ms-1 d-none d-sm-inline">Settings</i></span>
-					</a>
-					<a th:href="@{#}" class="dropdown_item_leftbar nav-link align-middle px-0">
+					<a th:href="@{/user}" class="dropdown_item_leftbar nav-link align-middle px-0">
 						<i class="fs-4 bi-house"></i><i class="fa-solid fa-user"></i> <span
-							class="ms-1 d-none d-sm-inline">Profile</i></span>
+							class="ms-1 d-none d-sm-inline">Trang user</i></span>
 					</a>
-					<a th:href="@{#}" class="dropdown_item_leftbar nav-link align-middle px-0">
-						<i class="fs-4 bi-house"></i><i class="fa-solid fa-right-from-bracket"></i><span
-							class="ms-1 d-none d-sm-inline">Sign out</i></span>
-					</a>
+					
 				</ul>
-				<a th:href="@{#}" class="avt d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+				<!--<a th:href="@{#}"
 					id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-					<img th:src="@{/images/image_2.jfif}" alt="hugenerd" width="40" height="40" class="rounded-circle">
-					<span class="d-none d-sm-inline mx-1">Hai con mèo</span>
+					<i class="fa-solid fa-bars"></i>
+					<span class="d-none d-sm-inline mx-1"></span>
+				</a>-->
+				<a th:href="@{/logout}">
+    				<button type="button" class="chophep btn btn-danger"><i class="fa-solid fa-right-from-bracket"></i> Log out</button>
 				</a>
-				
-				
 			</div>
 		</div>
 
