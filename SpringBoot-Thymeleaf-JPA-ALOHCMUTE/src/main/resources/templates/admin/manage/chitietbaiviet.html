@@ -25,7 +25,13 @@
                     		</div>
                     		<p th:text="${baocaobaiviet.baiViet.getNoiDungChu()}"/>
                     		<p>Thời gian: <span th:text="${baocaobaiviet.baiViet.getThoiGian()}"/> Ngày: <span th:text="${baocaobaiviet.baiViet.getNgay()}"/></p>
-                    		<img th:src="${baocaobaiviet.baiViet.getNoiDungHinhAnh()}">
+                    		<!--<img th:src="${baocaobaiviet.baiViet.getNoiDungHinhAnh()}">-->
+                    		
+                    		
+                    		<img class="img-fluid width-100" alt="" th:if="${baocaobaiviet.baiViet.getNoiDungHinhAnh() != null and baocaobaiviet.baiViet.getNoiDungHinhAnh().startsWith('http')}"
+										th:src="${baocaobaiviet.baiViet.getNoiDungHinhAnh()}" />
+							<img class="img-fluid width-100" alt="" th:if="${baocaobaiviet.baiViet.getNoiDungHinhAnh() != null and !baocaobaiviet.baiViet.getNoiDungHinhAnh().startsWith('http')}"
+								th:src="@{'/files/' + ${baocaobaiviet.baiViet.getNoiDungHinhAnh()}}" />
                     		<p>Nội dung báo cáo: <span th:text="${baocaobaiviet.getNoiDungBaoCao()}"/></p>
 						</div>
                     	<div class="chucnang">
