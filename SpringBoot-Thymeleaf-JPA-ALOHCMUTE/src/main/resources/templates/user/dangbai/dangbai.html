@@ -23,7 +23,6 @@
 			min-height: 100vh;
 
 		}
-
 	</style>
 
 
@@ -231,7 +230,7 @@
 
 			function generateEmojiList() {
 				var emojiTable = document.getElementById('emoji-table');
-				var emojis = ['😊', '😂', '❤️', '👍', '🎉', '🌟', '🚀', '💡', '🔥', '⚡', '🌈', '🍕', '😢', '👌','🙌','😎','😉','😒','😘','😴','💕','👋','🥰','🤔','😑','😮','😏','😪','🙃','😭'];
+				var emojis = ['😊', '😂', '❤️', '👍', '🎉', '🌟', '🚀', '💡', '🔥', '⚡', '🌈', '🍕', '😢', '👌', '🙌', '😎', '😉', '😒', '😘', '😴', '💕', '👋', '🥰', '🤔', '😑', '😮', '😏', '😪', '🙃', '😭'];
 				if (emojiTable.rows.length == 0) {
 					for (var i = 0; i < emojis.length; i++) {
 						if (i % 5 === 0) {
@@ -277,26 +276,27 @@
 			function generateColorList() {
 				var colorTable = document.getElementById('color-table');
 				if (colorTable.rows.length == 0) {
-				for (var i = 0; i < 10; i++) {
-					if (i % 5 === 0) {
-						var newRow = colorTable.insertRow();
+					for (var i = 0; i < 10; i++) {
+						if (i % 5 === 0) {
+							var newRow = colorTable.insertRow();
+						}
+						let defaultColors = ['#00FF00', '#FF0001', '#FF99CC', '#FF9900', '#00FFFF', '#000000', '#9900FF', '#FFFF00', '#008000', '#C0C0C0'];
+
+
+						(function () {
+							var colorCell = newRow.insertCell();
+							var svg = createColoredSVG(i);
+							colorCell.textContent = defaultColors[i % defaultColors.length];
+							colorCell.addEventListener('click', function () {
+								// Handle click event as needed
+								insertColor(colorCell.textContent);
+								closePop();
+							});
+							colorCell.appendChild(svg);
+						})();
+
 					}
-					let defaultColors = ['#00FF00', '#FF0001', '#FF99CC', '#FF9900', '#00FFFF', '#000000', '#9900FF','#FFFF00','#008000','#C0C0C0'];
-
-
-					(function () {
-						var colorCell = newRow.insertCell();
-						var svg = createColoredSVG(i);
-						colorCell.textContent = defaultColors[i % defaultColors.length];
-						colorCell.addEventListener('click', function () {
-							// Handle click event as needed
-							insertColor(colorCell.textContent);
-							closePop();
-						});
-						colorCell.appendChild(svg);
-					})();
-
-				}}
+				}
 			}
 
 
@@ -318,7 +318,7 @@
 			function createColoredSVG(i) {
 				var svgNS = "http://www.w3.org/2000/svg";
 				var rect = document.createElementNS(svgNS, 'rect');
-				let defaultColors = ['#00FF00', '#FF0001', '#FF99CC', '#FF9900', '#00FFFF', '#000000', '#9900FF','#FFFF00','#008000','#C0C0C0'];
+				let defaultColors = ['#00FF00', '#FF0001', '#FF99CC', '#FF9900', '#00FFFF', '#000000', '#9900FF', '#FFFF00', '#008000', '#C0C0C0'];
 
 				rect.setAttribute('x', '0');
 				rect.setAttribute('y', '0');

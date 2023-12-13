@@ -107,8 +107,9 @@ public class CommentController {
 	            String match = matcher.group();
 	            ThongBao tb = new ThongBao();
 	            tb.setNgay(java.time.LocalDate.now());
-	            String NoiDung = taikhoan.getHoTen()+" đã nhắc đến bạn trong một bình";
+	            String NoiDung = taikhoan.getHoTen()+" đã nhắc đến bạn trong một bình luận";
 	            tb.setNoiDung(NoiDung);
+	            tb.setLinkThongBao("/user/comment/"+ binhLuan.getBaiViet().getMaBaiViet());
 	            String user=match.substring(1);
 	            tb.setTaiKhoan(taiKhoanService.findBytaiKhoan(user));
 	            tb.setThoiGian(java.time.LocalTime.now());

@@ -79,7 +79,7 @@
 							</span>
 						</div>
 
-						<div class="report-icon">
+						<div class="report-icon" th:if="${taiKhoan!=baiViet.taiKhoan}">
 							<button class="report-button" th:data-post-id="${baiViet.maBaiViet}"
 								th:id="'reportButton-' + ${baiViet.maBaiViet}">
 								<span class="material-icons">report</span>Report
