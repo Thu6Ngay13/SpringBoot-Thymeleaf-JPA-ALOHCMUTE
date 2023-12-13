@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,6 +80,7 @@ public class NhomController {
 		model.addAttribute("username", username);
 //		List<BaiViet> listBaiViet = new ArrayList<>(nhom.getBaiViets());
 		List<BaiViet> listBaiViet = baiVietSer.findBymaNhom(nhom);
+		Collections.reverse(listBaiViet);
 		List<TaiKhoan> thanhvien = new ArrayList<>();
 		TaiKhoan taikhoanTemp = new TaiKhoan();
 		List<TaiKhoan_Nhom> tkNhom = NhomSer.findTaiKhoanByNhom(groupid);

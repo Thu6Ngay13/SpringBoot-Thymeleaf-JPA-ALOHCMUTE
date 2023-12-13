@@ -10,7 +10,7 @@
 
 	<link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css}" rel="stylesheet"
 		integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
-	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icons}" rel="stylesheet" />
+	<link th:href="@{https://fonts.googleapis.com/icon?family=Material+Icsons}" rel="stylesheet" />
 	<style>
 		body {
 			margin-left: 20%;
@@ -53,14 +53,16 @@
 
 				<div th:each="baiViet : ${baiViets}" class="post">
 					<div class="post__top">
+						<a th:href="${'/trangcanhan/thongtintaikhoan/'+baiViet.taiKhoan.taiKhoan}"
+				style="text-decoration: none; color: inherit;">
 						<img class="user__avatar post__avatar " width="100%" height="400px" alt="" th:if="${baiViet.taiKhoan.avatarURl != null and baiViet.taiKhoan.avatarURl.startsWith('http')}"
 										th:src="${baiViet.taiKhoan.avatarURl}" />
 									
 									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 						<img class="user__avatar post__avatar " width="100%" height="400px" alt="" th:if="${baiViet.taiKhoan.avatarURl != null and !baiViet.taiKhoan.avatarURl.startsWith('http')}"
-							th:src="@{'/files/' + ${baiViet.taiKhoan.avatarURl}}" />
+							th:src="@{'/files/' + ${baiViet.taiKhoan.avatarURl}}"  /> </a>
 						<div class="post__topInfo">
-							<h3 style="margin: 0;" th:text="${baiViet.taiKhoan.hoTen}"></h3>
+							<h3 style="margin: 0;" th:text="${baiViet.taiKhoan.hoTen}"></h3> 
 							<p style="margin: 0; display: inline-block; vertical-align: middle;">
 								<span th:text="${#temporals.format(baiViet.Ngay, 'dd-MM-yyyy')}"></span>
 								<span>at</span>

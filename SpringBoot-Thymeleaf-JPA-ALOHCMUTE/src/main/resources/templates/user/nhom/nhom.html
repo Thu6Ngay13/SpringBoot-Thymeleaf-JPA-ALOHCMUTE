@@ -49,11 +49,13 @@
 			<div class="feed">
 				<div class="messageSender">
 					<div class="messageSender__top">
-						<img width="100%" height="400px" alt="" th:if="${Nhom.nhomURL != null and Nhom.nhomURL.startsWith('http')}"
-										th:src="${Nhom.nhomURL}" />
-									
-									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
-						<img width="100%" height="400px" alt="" th:if="${Nhom.nhomURL != null and !Nhom.nhomURL.startsWith('http')}"
+						<img width="100%" height="400px" alt=""
+							th:if="${Nhom.nhomURL != null and Nhom.nhomURL.startsWith('http')}"
+							th:src="${Nhom.nhomURL}" />
+
+						<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+						<img width="100%" height="400px" alt=""
+							th:if="${Nhom.nhomURL != null and !Nhom.nhomURL.startsWith('http')}"
 							th:src="@{'/files/' + ${Nhom.nhomURL}}" />
 					</div>
 					<div class="messageSender__bottom">
@@ -123,12 +125,16 @@
 				<!-- post starts -->
 				<div th:each="baiViet : ${listBaiViet}" class="post">
 					<div class="post__top">
-						<img class="user__avatar post__avatar" alt="" th:if="${baiViet.taiKhoan.avatarURl != null and baiViet.taiKhoan.avatarURl.startsWith('http')}"
-										th:src="${baiViet.taiKhoan.avatarURl}" />
-									
-									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
-						<img class="user__avatar post__avatar" alt="" th:if="${baiViet.taiKhoan.avatarURl != null and !baiViet.taiKhoan.avatarURl.startsWith('http')}"
-							th:src="@{'/files/' + ${baiViet.taiKhoan.avatarURl}}" />
+						<a th:href="${'/trangcanhan/thongtintaikhoan/'+baiViet.taiKhoan.taiKhoan}"
+							style="text-decoration: none; color: inherit;">
+							<img class="user__avatar post__avatar " width="100%" height="400px" alt=""
+								th:if="${baiViet.taiKhoan.avatarURl != null and baiViet.taiKhoan.avatarURl.startsWith('http')}"
+								th:src="${baiViet.taiKhoan.avatarURl}" />
+
+							<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+							<img class="user__avatar post__avatar " width="100%" height="400px" alt=""
+								th:if="${baiViet.taiKhoan.avatarURl != null and !baiViet.taiKhoan.avatarURl.startsWith('http')}"
+								th:src="@{'/files/' + ${baiViet.taiKhoan.avatarURl}}" /> </a>
 						<div class="post__topInfo">
 							<h3 style="margin: 0;" th:text="${baiViet.taiKhoan.hoTen}"></h3>
 							<p style="margin: 0; display: inline-block; vertical-align: middle;">
@@ -170,11 +176,13 @@
 					</div>
 
 					<div class="post__image">
-						<img class="img-fluid width-100" alt="" th:if="${baiViet.noiDungHinhAnh != null and baiViet.noiDungHinhAnh.startsWith('http')}"
-										th:src="${baiViet.noiDungHinhAnh}" />
-									
-									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
-						<img class="img-fluid width-100" alt="" th:if="${baiViet.noiDungHinhAnh != null and !baiViet.noiDungHinhAnh.startsWith('http')}"
+						<img class="img-fluid width-100" alt=""
+							th:if="${baiViet.noiDungHinhAnh != null and baiViet.noiDungHinhAnh.startsWith('http')}"
+							th:src="${baiViet.noiDungHinhAnh}" />
+
+						<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
+						<img class="img-fluid width-100" alt=""
+							th:if="${baiViet.noiDungHinhAnh != null and !baiViet.noiDungHinhAnh.startsWith('http')}"
 							th:src="@{'/files/' + ${baiViet.noiDungHinhAnh}}" />
 					</div>
 
@@ -197,7 +205,7 @@
 						<div class="post__option" th:onclick="location.href='/user/comment/[[${baiViet.maBaiViet}]]';">
 							<span class="material-icons">chat_bubble_outline</span>
 							<p th:text="${postCommentsCount[baiViet.maBaiViet]} + ' Comment'">Comment</p>
-							
+
 						</div>
 
 

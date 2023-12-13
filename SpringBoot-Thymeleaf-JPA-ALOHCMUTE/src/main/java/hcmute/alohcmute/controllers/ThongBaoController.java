@@ -1,6 +1,7 @@
 package hcmute.alohcmute.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,9 @@ public class ThongBaoController {
 		try {
 			
 			TaiKhoan taiKhoan = taiKhoanService.findBytaiKhoan(SecurityUtil.getMyUser().getTaiKhoan());
-			 return thongbaoService.findByTaiKhoan(taiKhoan);
+			List<ThongBao> listtb = thongbaoService.findByTaiKhoan(taiKhoan);
+			 Collections.reverse(listtb);
+			 return listtb;
 		} catch (Exception e) {
 			return newlist; 
 		}

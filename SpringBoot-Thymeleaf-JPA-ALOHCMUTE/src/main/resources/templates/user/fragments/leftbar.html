@@ -19,7 +19,7 @@
 									<!-- Nếu không phải đường dẫn HTTP, có thể hiển thị một hình ảnh mặc định hoặc thông báo khác -->
 					<img class="user__avatar post__avatar " width="100%" height="400px" alt="" th:if="${taiKhoan.avatarURl != null and !taiKhoan.avatarURl.startsWith('http')}"
 						th:src="@{'/files/' + ${taiKhoan.avatarURl}}" />
-					<h5>[[${taiKhoan.hoTen}]]</h5>
+					<p style="word-wrap: break-word; color: black; font-size: 20px; font-weight: bold;">[[${taiKhoan.hoTen}]]</p>
 
 				</div>
 			</a> 
