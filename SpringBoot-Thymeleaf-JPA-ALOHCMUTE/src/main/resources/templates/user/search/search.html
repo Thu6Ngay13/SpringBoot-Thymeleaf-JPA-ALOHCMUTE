@@ -39,7 +39,7 @@
 								</div>
 								<div class="col-md-7 col-sm-7">
 									<div class="d-flex">
-										<h3 class="hoten"><a href="#" class="profile-link" th:text="${taiKhoan.hoTen}"></a></h3>
+										<h3 class="hoten"><a th:href="@{/trangcanhan/thongtintaikhoan/{username}(username=${taiKhoan.taiKhoan})}" class="profile-link" th:text="${taiKhoan.hoTen}"></a></h3>
 										<h5 class="nickname" th:text="${' ('+ taiKhoan.taiKhoan + ')'}"></h5>
 									</div>
 									
